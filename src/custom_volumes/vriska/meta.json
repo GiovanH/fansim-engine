@@ -1,0 +1,11 @@
+{
+    "id": "vriska",
+    "volumes": [
+        {
+            "tileid": "vriska",
+            "title": "Vriska",
+            "subtitle": "you know what it be",
+            "entrypoint": "volume_vriska_custom"
+        }
+    ]
+}
