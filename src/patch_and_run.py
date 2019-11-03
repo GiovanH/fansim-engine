@@ -2,7 +2,6 @@
 
 import subprocess
 import os
-import shutil
 import glob
 from distutils.dir_util import copy_tree
 import json
@@ -17,18 +16,6 @@ gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
 
 with open("subtable.json", "r") as fp:
     rpy_sub_table = json.load(fp)
-
-
-def _doFileOp(op, source, destination, quiet=False):
-    try:
-        result = op(source, destination)
-        if not quiet:
-            print("{} --> {}".format(source, destination))
-        return result
-    except Exception:
-        if not quiet:
-            print("{} -x> {}".format(source, destination))
-        raise
 
 
 def mergeDirIntoDir(src, dst):
@@ -152,7 +139,7 @@ def runGame():
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
-def main():
+if __name__ == "__main__":
     print("\nClearing old scripts")
     for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
         print(f"{rpy} --> [X]")
@@ -171,5 +158,3 @@ def main():
 
     print(f"Starting {executable}")
     runGame()
-
-main()
