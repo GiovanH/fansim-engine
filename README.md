@@ -34,6 +34,8 @@ It's basically the same as extending ren'py using the base game, with a few exce
 Please see the implementation in `patch_and_run.py` and the demo route for more details.
 Updates and contributions to this guide, as well as suggestions for logic rework are all very much appreciated. 
 
+## Example
+
 To demonstrate the simplicity of this system, here is the vriska mod, in its entirety:
 
 `$ tree custom_volumes/vriska/`
@@ -104,3 +106,7 @@ label {{package_entrypoint}}_vriska:
 ```
 
 That's all you need to do for setup! Now, just start writing!
+
+l33t hacker notes:
+- The system data is loaded first, so any custom volume content can replace it. You can use this to reskin the menu and other system assets. 
+- patch_and_run.py is a preprocess that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
