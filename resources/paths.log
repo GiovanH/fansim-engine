@@ -1,4 +1,4 @@
-../pesterquest
+./pesterquest
 ├── AlternateGothicNo1 Regular.ttf
 ├── archive.rpa
 ├── Berlin Sans FB Demi Bold.ttf
@@ -8,8 +8,6 @@
 ├── courbi.ttf
 ├── couri.ttf
 ├── flarp.rpy
-├── game
-│   └── unrpyc.log.txt
 ├── gui
 │   ├── attribution_sconce_bg.png
 │   ├── bar
@@ -643,23 +641,19 @@
 │   ├── victory_jingle.mp3
 │   └── WORST_END.wav
 ├── options.rpy
-├── OVERRIDE_custom.rpy
-├── patch_and_run.sh
+├── paths.log
 ├── Roboto-Medium.ttf
 ├── Roboto-Regular.ttf
 ├── screens.rpy
 ├── script.rpy
-├── script_custom.rpy
 ├── verdana.ttf
 ├── verdanab.ttf
 ├── verdanai.ttf
 ├── verdanaz.ttf
-├── vol_select_custom.rpy
 ├── vol2script.rpy
 ├── vol3script.rpy
 ├── vol4script.rpy
 ├── vol5script.rpy
-├── vol6script.rpy
-└── volume_vriska_custom.rpy
+└── vol6script.rpy
 
-16 directories, 646 files
+16 directories, 642 files
