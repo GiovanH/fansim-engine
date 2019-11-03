@@ -2,6 +2,13 @@
 Tools for modifying and extending pesterquest, and adding your own routes
 WIP tools for adding your own routes to pesterquest without breaking the base game or needing a standalone engine!
 
+Design goals:
+
+- Cross-platform (Win/Mac/Linux)
+- Easy to write and distribute fan volumes
+- Hyper-simple for users to play fan volumes
+- Mix-and-match: Put all the fan volumes you want and play routes without conflicts
+
 ![Example menu](./doc/pq_c.gif)
 
 ![Example route](./doc/8itch.png)
