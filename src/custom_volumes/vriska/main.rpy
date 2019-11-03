@@ -33,6 +33,15 @@ label {{package_entrypoint}}_vriska:
     vr neutral3 "Hey. Hey. Over here."
     vr ngreen "8itch."
 
+    hide vriska  # goodbye
+
+    # You can also use assets that have already been definied in other pesterquest routes directly!
+    show bg gamzeehive
+    show gamzee pie1
+    gam pie1 "cAn I oFfEr YoU a PiE iN tHeSe TrYiNg TiMeS"
+    # Be careful about naming your resources so they don't conflict with other ones. 
+    # I help where I can by offering the substitutions like {{package_id}}.
+
     # Show end card
     call ending pass ("vriska end", True, True)
     return
