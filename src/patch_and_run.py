@@ -176,6 +176,9 @@ if __name__ == "__main__":
     ap.add_argument(
         "--quiet", action="store_true",
         help="Print less output about successful operations")
+    ap.add_argument(
+        "--pause", action="store_true",
+        help="Pause before launching the game OR pause when script is complete.")
     args = ap.parse_args()
 
     from snip.stream import std_redirected
@@ -196,8 +199,10 @@ if __name__ == "__main__":
             processVolumes(all_volumes, quiet=args.quiet)
 
             if warn:
-                print("\n!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print("Errors occured. Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+                print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured!")
+
+            if warn or args.pause:
+                print("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
                 input()
 
             print(f"Starting {executable}")
