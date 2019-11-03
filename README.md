@@ -6,17 +6,17 @@ WIP tools for adding your own routes to pesterquest without breaking the base ga
 
 ![Example route](./doc/8itch.png)
 
-Technical notes:
+## Technical notes:
 
 This does not overwrite any game files and should be compatable with all future updates!
 The only content this overrides is the main menu to add a menu option. (Here, just a plain `> ` for now.)
 You cannot use any of this to pirate pesterquest. 
 
-Guide for users:
+## Guide for users:
 
 Download this repository, put the fan volumes you want in the `src/custom_volumes` folder, and run `patch_and_run.py` with a recent version of Python.
 
-Guide for developers:
+## Guide for developers:
 
 Incomplete, please see the demo route in `src/custom_volumes/vriska`.
 
