@@ -2,7 +2,7 @@
 define vr = Character("[vriskatitle]", color='#FFFFFF', who_xpos=-78, who_ypos=16, who_size=17, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png",)
 
 image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
-image vriska ngreen = Image("custom_assets_vriska/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
+image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
 
 
 image bg johnroom = im.Scale("images/john_s room.png", 1300,730)
@@ -14,7 +14,7 @@ image vriska control:
     pause 0.05
     repeat
 
-label volume_vriska_custom:
+label {{package_entrypoint}}_vriska:
     $ renpy.block_rollback()
     $ main_menu = False
 

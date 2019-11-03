@@ -1,11 +1,10 @@
 {
-    "id": "vriska",
+    "package_id": "vriska",
     "volumes": [
         {
-            "tileid": "vriska",
+            "volume_id": "vriska",
             "title": "Vriska",
-            "subtitle": "you know what it be",
-            "entrypoint": "volume_vriska_custom"
+            "subtitle": "you know what it be"
         }
     ]
 }

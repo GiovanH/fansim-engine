@@ -6,6 +6,7 @@ import shutil
 import glob
 from distutils.dir_util import copy_tree
 import json
+from pprint import pprint
 
 gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
 executable = "pesterquest.exe"
@@ -13,6 +14,9 @@ outdir = "./pesterquest"
 rpatool = "./rpatool/rpatool"
 
 gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
+
+with open("subtable.json", "r") as fp:
+    rpy_sub_table = json.load(fp)
 
 
 def _doFileOp(op, source, destination, quiet=False):
@@ -31,104 +35,141 @@ def mergeDirIntoDir(src, dst):
     copy_tree(src, dst, update=True)
 
 
-def copyFileToFile(src, dst):
+def subtableReplace(subtable, textdata, fstrings):
+    for pattern, repl in subtable:
+        try:
+            if pattern in textdata:
+                textdata = textdata.replace(pattern, repl.format(**fstrings))
+        except KeyError:
+            print("Availible keys:", fstrings.keys())
+            raise
+    return textdata
+
+
+def copyAndSubRpy(src, dst, metadata, quiet=False):
     assert os.path.isfile(src)
     assert not os.path.isfile(dst)
-    return _doFileOp(shutil.copy2, src, dst)
 
+    with open(src, "r") as fp:
+        rpy_data = fp.read()
 
-def copyFileToDir(src, dst, asfile=None):
-    if asfile:
-        src_dir, src_filename = os.path.split(src)
-        dst_path = os.path.join(dst, asfile)
-        return copyFileToFile(src, dst_path)
-    else:
-        assert os.path.isdir(dst)
-        assert os.path.isfile(src)
-        return _doFileOp(shutil.copy2, src, dst)
-
-
-warn = False
-
-print("\nClearing old scripts")
-for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
-    print(f"{rpy} --> [X]")
-    os.unlink(rpy)
-
-all_volumes = []
-
-print("\nCopying user scripts")
-sysdir = os.path.join(".", "sys/")
-
-for subdir in [sysdir] + glob.glob(os.path.join("custom_volumes", "*/")):
-    print()
     try:
-        meta_filepath = os.path.join(subdir, "meta.json")
-        with open(meta_filepath, "r") as fp:
-            meta = json.load(fp)
+        rpy_data = subtableReplace(rpy_sub_table, rpy_data, metadata)
+        with open(dst, 'w') as fp:
+            fp.write(rpy_data)
+        if not quiet:
+            print("{} --> {}".format(src, dst))
+    except Exception:
+        if not quiet:
+            print("{} -x> {}".format(src, dst))
+        raise
 
-        meta_id = meta["id"]
-        all_volumes += meta["volumes"]
-    except FileNotFoundError:
-        print(f"[ERROR] Missing configuration file {meta_filepath}, required!")
-        warn = True
-        continue
-    except KeyError as e:
-        print(f"[ERROR] {meta_filepath} missing required key '{e.args[0]}'!")
-        warn = True
-        continue
 
-    prefix = ("" if (subdir == sysdir) else "_vol")
-    print(f"Detected package {meta_id} at {subdir}")
+def processPackages():
+    all_volumes = []
+    warn = False
+    sysdir = os.path.join(".", "sys/")
+    for subdir in [sysdir] + glob.glob(os.path.join("custom_volumes", "*/")):
+        print()
+        # Load metadata from json file
+        try:
+            # Load raw json from file
+            meta_filepath = os.path.join(subdir, "meta.json")
+            with open(meta_filepath, "r") as fp:
+                meta = json.load(fp)
 
-    for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
-        __, filename = os.path.split(rpy)
-        destfile = os.path.join(gamedir, f"custom{prefix}_{meta_id}_{filename}")
-        copyFileToFile(rpy, destfile)
+            # Grab metadata id
+            package_id = meta["package_id"]
 
-    assets_dir = os.path.join(subdir, "assets")
-    if os.path.isdir(assets_dir):
-        destdir = os.path.join(gamedir, f"custom_assets_{meta_id}")
-        mergeDirIntoDir(assets_dir, destdir)
+            dirname = os.path.split(os.path.dirname(subdir))[-1]
+            if not package_id == dirname:
+                print(f"[WARNING]\tPackage {package_id} is in incorrectly named folder {dirname}")
 
-    assets_common_dir = os.path.join(subdir, "assets_common")
-    if os.path.isdir(assets_common_dir):
-        destdir = os.path.join(gamedir, f"custom_assets")
-        mergeDirIntoDir(assets_common_dir, destdir)
+            # Backreference containing package and add to volume list
+            for volume in meta["volumes"]:
+                volume["package_id"] = meta["package_id"]
+                all_volumes.append(volume)
 
-print("\nCompiling volumes")
+        except FileNotFoundError:
+            print(f"[ERROR]\tMissing configuration file {meta_filepath}, required!")
+            warn = True
+            continue
+        except KeyError as e:
+            print(f"[ERROR]\t{meta_filepath} missing required key '{e.args[0]}'!")
+            warn = True
+            continue
 
-with open("vol_select_custom_template.rpy", "r") as fp:
-    template_data = fp.read() 
+        # Identify system vs volume packages.
+        prefix = ("" if (subdir == sysdir) else "_vol")
 
-for volume in all_volumes:
-    print("Volume:", volume["title"], volume["subtitle"], volume["entrypoint"])
-    tileid = volume["tileid"]
-    assert os.path.isfile(os.path.join(gamedir, "custom_assets", f"volumeselect_{tileid}_idle.png"))
-    assert os.path.isfile(os.path.join(gamedir, "custom_assets", f"volumeselect_{tileid}_small_idle.png"))
+        print(f"Detected package {package_id} at {subdir}")
 
-    new_entry = f"""
-                imagebutton idle "custom_assets/volumeselect_{tileid}_small.png" action Jump("{volume['entrypoint']}") hovered[
-                    SetScreenVariable("icon", "custom_assets/volumeselect_{tileid}.png"), 
-                    SetScreenVariable("title", "{volume['title']}"), 
-                    SetScreenVariable("subtitle", "{volume['subtitle']}")
-                ] unhovered[
-                    SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
-                    SetScreenVariable("title", "Volume Select"), 
-                    SetScreenVariable("subtitle", "Hover over an icon!")
-                ] alt "you know what it be"
-    """
+        # Parse and copy rpy files
+        for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
+            __, filename = os.path.split(rpy)
+            destfile = os.path.join(gamedir, f"custom{prefix}_{package_id}_{filename}")
+            copyAndSubRpy(rpy, destfile, meta)
 
-    template_data = template_data.replace("{{}}", new_entry + "{{}}")
+        # Copy namespaced assets
+        assets_dir = os.path.join(subdir, "assets")
+        if os.path.isdir(assets_dir):
+            destdir = os.path.join(gamedir, f"custom_assets_{package_id}")
+            mergeDirIntoDir(assets_dir, destdir)
 
-template_data = template_data.replace("{{}}", "")        
-with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w') as fp:
-    fp.write(template_data)
+        # Copy common assets
+        assets_common_dir = os.path.join(subdir, "assets_common")
+        if os.path.isdir(assets_common_dir):
+            destdir = os.path.join(gamedir, f"custom_assets")
+            mergeDirIntoDir(assets_common_dir, destdir)
 
-if warn:
-    print("\n!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print("Errors occured. Please review this window and then press enter to quit.")
-    input()
+    return (all_volumes, warn,)
 
-print(f"Starting {executable}")
-subprocess.run(os.path.join(gamedir_root, executable))
+
+def processVolumes(all_volumes):
+    with open("vol_select_custom_template.rpy", "r") as fp:
+        template_data = fp.read()
+
+    for volume in all_volumes:
+        pprint(volume)
+        volume_id = volume["volume_id"]
+        volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
+        assert os.path.isfile(os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_idle.png"))
+        assert os.path.isfile(os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_small_idle.png"))
+
+        print("Inserting at", volume["entrypoint"])
+
+        with open("vol_select_entry_template.rpy", "r") as fp:
+            new_entry = fp.read().format(**volume)
+
+        template_data = template_data.replace("{{}}", new_entry + "{{}}")
+
+    template_data = template_data.replace("{{}}", "")
+    with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w') as fp:
+        fp.write(template_data)
+
+
+def runGame():
+    subprocess.run(os.path.join(gamedir_root, executable))
+
+
+def main():
+    print("\nClearing old scripts")
+    for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
+        print(f"{rpy} --> [X]")
+        os.unlink(rpy)
+
+    print("\nCopying user scripts")
+    (all_volumes, warn,) = processPackages()
+
+    print("\nCompiling volumes")
+    processVolumes(all_volumes)
+
+    if warn:
+        print("\n!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("Errors occured. Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+        input()
+
+    print(f"Starting {executable}")
+    runGame()
+
+main()
