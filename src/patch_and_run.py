@@ -6,6 +6,7 @@ import glob
 from distutils.dir_util import copy_tree
 import json
 from pprint import pprint
+import traceback
 
 gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
 executable = "pesterquest.exe"
@@ -18,8 +19,27 @@ with open("subtable.json", "r") as fp:
     rpy_sub_table = json.load(fp)
 
 
-def mergeDirIntoDir(src, dst):
-    copy_tree(src, dst, update=True)
+def print_tree(startpath):
+    for root, dirs, files in os.walk(startpath):
+        level = root.replace(startpath, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        print('{}{}/'.format(indent, os.path.basename(root)))
+        subindent = ' ' * 4 * (level + 1)
+        for f in files:
+            print('{}{}'.format(subindent, f))
+
+
+def mergeDirIntoDir(src, dst, quiet=False):
+    if not quiet:
+        print_tree(src)
+    try:
+        copy_tree(src, dst, update=True)
+        if not quiet:
+            print("{} --> {}".format(src, dst))
+    except Exception:
+        if not quiet:
+            print("{} -x> {}".format(src, dst))
+        raise
 
 
 def subtableReplace(subtable, textdata, fstrings):
@@ -120,8 +140,14 @@ def processVolumes(all_volumes):
         pprint(volume)
         volume_id = volume["volume_id"]
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
-        assert os.path.isfile(os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_idle.png"))
-        assert os.path.isfile(os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_small_idle.png"))
+
+        expected_files = [
+            os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}.png"),
+            os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_small.png")
+        ]
+        for expected_file in expected_files:
+            if not os.path.isfile(expected_file):
+                raise FileNotFoundError(expected_file)
 
         print("Inserting at", volume["entrypoint"])
 
@@ -140,21 +166,32 @@ def runGame():
 
 
 if __name__ == "__main__":
-    print("\nClearing old scripts")
-    for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
-        print(f"{rpy} --> [X]")
-        os.unlink(rpy)
 
-    print("\nCopying user scripts")
-    (all_volumes, warn,) = processPackages()
+    # import argparse
 
-    print("\nCompiling volumes")
-    processVolumes(all_volumes)
+    from snip.stream import std_redirected
+    with std_redirected("latest.log", tee=True):
+        try:
 
-    if warn:
-        print("\n!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print("Errors occured. Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
-        input()
+            print("\nClearing old scripts")
 
-    print(f"Starting {executable}")
-    runGame()
+            for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
+                print(f"{rpy} --> [X]")
+                os.unlink(rpy)
+
+            print("\nCopying user scripts")
+            (all_volumes, warn,) = processPackages()
+
+            print("\nCompiling volumes")
+            processVolumes(all_volumes)
+
+            if warn:
+                print("\n!!!!!!!!!!!!!!!!!!!!!!!!!")
+                print("Errors occured. Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+                input()
+
+            print(f"Starting {executable}")
+            runGame()
+        except Exception:
+            traceback.print_exc()
+            raise
