@@ -72,7 +72,7 @@ def copyAndSubRpy(src, dst, metadata, quiet=False):
         raise
 
 
-def processPackages():
+def processPackages(quiet=False):
     all_volumes = []
     warn = False
     sysdir = os.path.join(".", "sys/")
@@ -115,24 +115,24 @@ def processPackages():
         for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
             __, filename = os.path.split(rpy)
             destfile = os.path.join(gamedir, f"custom{prefix}_{package_id}_{filename}")
-            copyAndSubRpy(rpy, destfile, meta)
+            copyAndSubRpy(rpy, destfile, meta, quiet=quiet)
 
         # Copy namespaced assets
         assets_dir = os.path.join(subdir, "assets")
         if os.path.isdir(assets_dir):
             destdir = os.path.join(gamedir, f"custom_assets_{package_id}")
-            mergeDirIntoDir(assets_dir, destdir)
+            mergeDirIntoDir(assets_dir, destdir, quiet=quiet)
 
         # Copy common assets
         assets_common_dir = os.path.join(subdir, "assets_common")
         if os.path.isdir(assets_common_dir):
             destdir = os.path.join(gamedir, f"custom_assets")
-            mergeDirIntoDir(assets_common_dir, destdir)
+            mergeDirIntoDir(assets_common_dir, destdir, quiet=quiet)
 
     return (all_volumes, warn,)
 
 
-def processVolumes(all_volumes):
+def processVolumes(all_volumes, quiet=False):
     with open("vol_select_custom_template.rpy", "r") as fp:
         template_data = fp.read()
 
@@ -141,11 +141,11 @@ def processVolumes(all_volumes):
         volume_id = volume["volume_id"]
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
 
-        expected_files = [
+        required_files = [
             os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}.png"),
             os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_small.png")
         ]
-        for expected_file in expected_files:
+        for expected_file in required_files:
             if not os.path.isfile(expected_file):
                 raise FileNotFoundError(expected_file)
 
@@ -167,7 +167,16 @@ def runGame():
 
 if __name__ == "__main__":
 
-    # import argparse
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        "--nolaunch", action="store_true",
+        help="Don't launch the game.")
+    ap.add_argument(
+        "--quiet", action="store_true",
+        help="Print less output about successful operations")
+    args = ap.parse_args()
 
     from snip.stream import std_redirected
     with std_redirected("latest.log", tee=True):
@@ -176,14 +185,15 @@ if __name__ == "__main__":
             print("\nClearing old scripts")
 
             for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
-                print(f"{rpy} --> [X]")
+                if not args.quiet:
+                    print(f"{rpy} --> [X]")
                 os.unlink(rpy)
 
             print("\nCopying user scripts")
-            (all_volumes, warn,) = processPackages()
+            (all_volumes, warn,) = processPackages(quiet=args.quiet)
 
             print("\nCompiling volumes")
-            processVolumes(all_volumes)
+            processVolumes(all_volumes, quiet=args.quiet)
 
             if warn:
                 print("\n!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -191,7 +201,9 @@ if __name__ == "__main__":
                 input()
 
             print(f"Starting {executable}")
-            runGame()
+
+            if not args.nolaunch:
+                runGame()
         except Exception:
             traceback.print_exc()
             raise

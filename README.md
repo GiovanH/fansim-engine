@@ -1,4 +1,4 @@
-# pesterquest-modsuite v0.0.3
+# pesterquest-modsuite v0.1.0
 Tools for modifying and extending pesterquest, and adding your own routes
 WIP tools for adding your own routes to pesterquest without breaking the base game or needing a standalone engine!
 
