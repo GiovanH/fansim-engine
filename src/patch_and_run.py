@@ -166,7 +166,7 @@ def processVolumes(all_volumes, quiet=False):
         with open("vol_select_entry_template.rpy", "r") as fp:
             new_entry = fp.read().format(**volume)
 
-        template_data = template_data.replace("{{}}", new_entry + "{{}}")
+        template_data = template_data.replace("{{}}", new_entry + "\n{{}}")
 
     template_data = template_data.replace("{{}}", "")
     with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w') as fp:
