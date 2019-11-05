@@ -9,7 +9,7 @@ Design goals:
 - Hyper-simple for users to play fan volumes
 - Mix-and-match: Put all the fan volumes you want and play routes without conflicts
 
-![Example menu](./doc/2019-11-04\ 22_02_41-Pesterquest.png)
+![Example menu](./doc/2019-11-04_22_02_41-Pesterquest.png)
 
 ![Example animation](./doc/pq-ms-2.gif)
 
