@@ -25,7 +25,7 @@ Download this repository, put the fan volumes you want in the `src/custom_volume
 
 ## Guide for developers:
 
-Incomplete, please see the demo route in `src/custom_volumes/vriska`.
+Incomplete, please see the demo packages in `src/custom_volumes/`.
 
 It's basically the same as extending ren'py using the base game, with a few exceptions for the package manager:
 - Each subfolder in the `custom_volumes` folder is a **package**.

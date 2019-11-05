@@ -41,7 +41,7 @@
 # transform clownanim3
 
 # Define other graphics, end cards
-image endcard_gio_ultgamv = "{{assets}}/gamzee_endcard_goodend.png"
+image {{package_id}}_endcard = "{{assets}}/gamzee_endcard_goodend.png"
 
 # Start of route
 label {{package_entrypoint}}_gio_ultgamv:
@@ -116,5 +116,5 @@ label {{package_entrypoint}}_gio_ultgamv:
     gam "YoU GoT To sEe a rAiNbOw aNd nOw iT'S TiMe tO BaKe pIeS"
 
     # Show end card
-    call ending pass ("endcard_gio_ultgamv", True, True)
+    call ending pass ("{{package_id}}_endcard", True, True)
     return
