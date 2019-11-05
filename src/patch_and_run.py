@@ -144,6 +144,15 @@ def processPackages(quiet=False):
     return (all_volumes, warn,)
 
 
+def jsonReEscape(table1):
+    table2 = {
+        k: v.replace('"', '\\"')
+        for k, v in
+        table1.items()
+    }
+    return table2
+
+
 def processVolumes(all_volumes, quiet=False):
     with open("vol_select_custom_template.rpy", "r") as fp:
         template_data = fp.read()
@@ -164,7 +173,7 @@ def processVolumes(all_volumes, quiet=False):
         print("Inserting at", volume["entrypoint"])
 
         with open("vol_select_entry_template.rpy", "r") as fp:
-            new_entry = fp.read().format(**volume)
+            new_entry = fp.read().format(**jsonReEscape(volume))
 
         template_data = template_data.replace("{{}}", new_entry + "\n{{}}")
 

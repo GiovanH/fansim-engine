@@ -6,6 +6,7 @@ screen vol_select_custom():
         default title = "Volume Select"
 
         default subtitle = "Hover over an icon for info!"
+        default author = "Pesterquest Modsuite"
 
         vbox:
             xpos 10
@@ -22,6 +23,7 @@ screen vol_select_custom():
                 image icon xpos 50 ypos 15
                 text title xpos 526 ypos 32 font "verdana.ttf" size 48 xalign 0.5 color "#b4b4b5"
                 text subtitle xpos 526 ypos 90 font "verdana.ttf" size 38 xalign 0.5 color "#00baff"
+                text author xpos 860 ypos 160 font "verdana.ttf" size 12 xalign 1.0 text_align 1.0 color "#b4b4b5"
 
             # null space where fixed area is
             null height 155
