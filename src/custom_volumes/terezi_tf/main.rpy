@@ -1,9 +1,11 @@
 # Define characters
-define vr = Character("[vriskatitle]", color='#FFFFFF', who_xpos=-78, who_ypos=16, who_size=17, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png",)
+
+define {{p}}_tz = Character("trolling: gallowsCalibrator", color='#FFFFFF', who_xpos=-80, who_text_align=1.0, who_ypos=16, who_size=17, what_color='#008282', image="{{p}}_terezi", window_background="gui/textbox_trollian_teal.png",)
 
 # Give characters poses
-image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
-image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
+image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
+
+image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 
 # Start of route
 label {{package_entrypoint}}_terezi:
@@ -19,22 +21,29 @@ label {{package_entrypoint}}_terezi:
 
     # Set the scene, fade in from black
     scene bg johnroom
-    show vriska neutral4
-    play music "music/WORST_END.wav" loop
+    show {{p}}_terezi neutral
+    play music "music/fs_BOLDIR.wav" loop
     hide blackcover with dissolve
 
     # Write dialogue!
-    vr neutral3 "Hey. Hey. Over here."
-    vr ngreen "8itch."
+    {{p}}_tz neutral "Hey. Hey. Over here."
 
-    hide vriska  # goodbye
+    "Oh shit. You’re just standing out here with all his mail, he’s going to think you’re trying to rob the place."
+    menu:
+        "Oh shit. You’re just standing out here with all his mail, he’s going to think you’re trying to rob the place.{fast}"
 
-    # You can also use assets that have already been definied in other pesterquest routes directly!
-    show bg gamzeehive
-    show gamzee pie1
-    gam pie1 "cAn I oFfEr YoU a PiE iN tHeSe TrYiNg TiMeS"
-    # Be careful about naming your resources so they don't conflict with other ones. 
-    # I help where I can by offering the substitutions like {{package_id}}.
+        "[pick] Play it cool":
+            pass
+        "[pick] Hide the evidence":
+            pass
+
+
+    show {{p}}_fakemenu
+    {{p}}_tz "UHHHHHHHH"
+    show {{p}}_terezi at right1280 with ease
+    {{p}}_tz "*SNIFFFFFFFF*"
+    show {{p}}_terezi at left1280 with move
+    {{p}}_tz "TF 1S TH1S TH1NG :?"
 
     # Show end card
     call ending pass ("vriska end", True, True)

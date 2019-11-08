@@ -19,6 +19,7 @@ from distutils.dir_util import copy_tree
 import json
 from pprint import pprint
 import traceback
+import shutil
 
 gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
 executable = "pesterquest.exe"
@@ -200,11 +201,21 @@ if __name__ == "__main__":
     ap.add_argument(
         "--pause", action="store_true",
         help="Pause before launching the game OR pause when script is complete.")
+    ap.add_argument(
+        "--clean", action="store_true",
+        help="Delete old custom assets")
     args = ap.parse_args()
 
     from snip.stream import std_redirected
     with std_redirected("latest.log", tee=True):
         try:
+
+            if args.clean:
+                print("\nCleaning out old assets")
+                for rpy in glob.glob(os.path.join(gamedir, "custom_*/")):
+                    if not args.quiet:
+                        print(f"{rpy} --> [X]")
+                    shutil.rmtree(rpy)
 
             print("\nClearing old scripts")
 
