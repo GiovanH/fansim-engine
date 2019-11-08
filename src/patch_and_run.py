@@ -163,8 +163,8 @@ def processVolumes(all_volumes, quiet=False):
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
 
         required_files = [
-            os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}.png"),
-            os.path.join(gamedir, "custom_assets", f"volumeselect_{volume_id}_small.png")
+            os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png"),
+            os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png")
         ]
         for expected_file in required_files:
             if not os.path.isfile(expected_file):
