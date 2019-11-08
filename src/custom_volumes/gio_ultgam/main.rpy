@@ -73,7 +73,7 @@ label {{package_entrypoint}}_gio_ultgamv:
     show gamzee neutral1
     "Hey, you barely know what you are either! You laugh, trying to ease some possible misogy{nw}"
     $ _history_list.pop()
-    "Hey, you barely know what you are either! You laugh, trying to ease some possibally{fast} insnsitive overtones, but this dude doesn't notice. Wow, he is out of it."
+    "Hey, you barely know what you are either! You laugh, trying to ease some possibally{fast} insensitive overtones, but this dude doesn't notice. Wow, he is out of it."
 
     show gamzee think
     gam "wHaT If sOmE MiRaClEs aRe mEaNt fOr yOu"
