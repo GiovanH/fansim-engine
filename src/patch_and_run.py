@@ -67,8 +67,10 @@ def subtableReplace(subtable, textdata, fstrings):
 
 
 def copyAndSubRpy(src, dst, metadata, quiet=False):
-    assert os.path.isfile(src)
-    assert not os.path.isfile(dst)
+    if not os.path.isfile(src):
+        raise FileNotFoundError(src)
+    if os.path.isfile(dst):
+        raise FileExistsError(dst)
 
     with open(src, "r") as fp:
         rpy_data = fp.read()
@@ -120,14 +122,13 @@ def processPackages(quiet=False):
             continue
 
         # Identify system vs volume packages.
-        prefix = ("" if (subdir == sysdir) else "_vol")
 
         print(f"Detected package {package_id} at {subdir}")
 
         # Parse and copy rpy files
         for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
             __, filename = os.path.split(rpy)
-            destfile = os.path.join(gamedir, f"custom{prefix}_{package_id}_{filename}")
+            destfile = os.path.join(gamedir, (f"{filename}_custom_.rpy" if (subdir == sysdir) else f"custom_{package_id}_{filename}"))
             copyAndSubRpy(rpy, destfile, meta, quiet=quiet)
 
         # Copy namespaced assets
@@ -219,7 +220,7 @@ if __name__ == "__main__":
 
             print("\nClearing old scripts")
 
-            for rpy in glob.glob(os.path.join(gamedir, "custom*.rpy*")):
+            for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
                 if not args.quiet:
                     print(f"{rpy} --> [X]")
                 os.unlink(rpy)
@@ -237,9 +238,8 @@ if __name__ == "__main__":
                 print("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
                 input()
 
-            print(f"Starting {executable}")
-
             if not args.nolaunch:
+                print(f"Starting {executable}")
                 runGame()
         except Exception:
             traceback.print_exc()
