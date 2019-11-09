@@ -1,0 +1,11 @@
+{
+    "package_id": "sandbox",
+    "volumes": [
+        {
+            "volume_id": "sandbox",
+            "title": "Sandbox",
+            "subtitle": "\"its free real estate\"",
+            "author": "Gio"
+        }
+    ]
+}
