@@ -2,10 +2,10 @@
     "package_id": "openbound",
     "volumes": [
         {
-            "volume_id": "damara",
-            "title": "Damara",
-            "subtitle": "fuck you",
-            "author": "Gio"
+            "volume_id": "route",
+            "title": "Openbound Demo",
+            "subtitle": "Openbound sprites",
+            "author": "Gio, Openbound"
         }
     ]
 }

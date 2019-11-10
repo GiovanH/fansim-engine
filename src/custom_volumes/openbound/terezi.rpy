@@ -1,0 +1,5 @@
+define ob_terezi = Character("terezi", kind=trollean, what_color="#000000", image="ob_terezi", window_background="gui/textbox_trollian_rust.png")
+image ob_terezi idle = Image("{{assets}}/dialogs/terezi/terezi_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
+image ob_terezi sad = Image("{{assets}}/dialogs/terezi/terezi_sad.png", yoffset=-197, xanchor=240, yalign=1.0)
+image ob_terezi idle = Image("{{assets}}/dialogs/terezi/terezi_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
+image ob_terezi sad = Image("{{assets}}/dialogs/terezi/terezi_sad.png", yoffset=-197, xanchor=240, yalign=1.0)

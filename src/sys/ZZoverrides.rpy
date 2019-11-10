@@ -27,8 +27,10 @@ screen main_menu():
 
 define config.developer = True
 
+# Fix name alignment
 define gui.name_xalign = 0.0
 
+# Legacy support for old name styling
 style say_label:
     properties gui.text_properties("name", accent=True)
     xalign 0.5

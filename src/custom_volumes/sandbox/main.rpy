@@ -3,7 +3,7 @@
 define {{p}}_jostart = Character(name="ectoBiologist", kind=pesterchumstart, what_color='#0715cd', image="john")
 define {{p}}_jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
 define {{p}}_vr = Character(name="arachnidsGrip", kind=trollean, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
-define {{p}}_bo = Character("BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
+define {{p}}_bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
 
 define {{p}}_tz = Character("[tztitle]", kind=trollean, what_color='#008282', image="{{p}}_terezi", window_background="gui/textbox_trollian_teal.png",)

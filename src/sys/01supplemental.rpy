@@ -2,7 +2,7 @@ style trollean_namebox:
     properties gui.text_properties("name", accent=True)
     yalign 0.5
     xalign 0.0
-    xpos -370
+    xpos -365
     ypos 16
     size 17
 
@@ -53,6 +53,13 @@ define hiveswap = Character(
     # Characters will need to set these attributes manually:
     name="NAME", image="", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")]
 )
+
+# Examples using these templates instead of the vanilla method:
+# define jostart = Character(name="ectoBiologist", kind=pesterchumstart, what_color='#0715cd', image="john")
+# define jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
+# define vr = Character(name="arachnidsGrip", kind=trollean, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
+# define bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
+
 
 label start_custom:
 
