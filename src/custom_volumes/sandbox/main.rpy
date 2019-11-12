@@ -34,10 +34,12 @@ label {{package_entrypoint}}_sandbox:
     flarp "Flarp instructions."
     narrator_prattle "Generic prattle"
     narrator_dirk "Some ultimate dirk narration."
-    narrator_cal "Narrator calliope"
+    narrator_calliope "Narrator calliope"
 
     show john neutral
     {{p}}_jostart "hi! i'm john"
+    $ quirkSay({{p}}_jo, "john", "Quirk formatting")
+    $ quirkSay({{p}}_jo, "gamZee", "Gamzee Quirk formatting")
     {{p}}_jo "i'm still john"
     hide john
 
