@@ -31,6 +31,11 @@ label {{package_entrypoint}}_sandbox:
 
     "rollback"
 
+    flarp "Flarp instructions."
+    narrator_prattle "Generic prattle"
+    narrator_dirk "Some ultimate dirk narration."
+    narrator_cal "Narrator calliope"
+
     show john neutral
     {{p}}_jostart "hi! i'm john"
     {{p}}_jo "i'm still john"

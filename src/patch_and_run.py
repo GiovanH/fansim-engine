@@ -43,12 +43,12 @@ def print_tree(startpath):
 
 
 def mergeDirIntoDir(src, dst, quiet=False):
-    if not quiet:
-        print_tree(src)
     try:
         copy_tree(src, dst, update=True)
         if not quiet:
             print("{} --> {}".format(src, dst))
+        if not quiet:
+            print_tree(src)
     except Exception:
         if not quiet:
             print("{} -x> {}".format(src, dst))
@@ -128,7 +128,7 @@ def processPackages(quiet=False):
         # Parse and copy rpy files
         for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
             __, filename = os.path.split(rpy)
-            destfile = os.path.join(gamedir, (f"{filename}_custom_.rpy" if (subdir == sysdir) else f"custom_{package_id}_{filename}"))
+            destfile = os.path.join(gamedir, (f"{filename}_custom_.rpy" if (subdir == sysdir) else f"zcustom_{package_id}_{filename}"))
             copyAndSubRpy(rpy, destfile, meta, quiet=quiet)
 
         # Copy namespaced assets

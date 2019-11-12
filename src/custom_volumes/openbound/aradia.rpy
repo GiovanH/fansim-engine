@@ -1,4 +1,4 @@
-define ob_aradia = Character("aradia", kind=trollean, what_color="#000000", image="ob_aradia", window_background="gui/textbox_trollian_rust.png")
+define ob_aradia = Character("apocalypseArisen", kind=trollean, what_color="#a10000", image="ob_aradia", window_background="gui/textbox_trollian_rust.png")
 image ob_aradia happy = Image("{{assets}}/dialogs/aradia_happy.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aradia happytalk = Image("{{assets}}/dialogs/aradia_happytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aradia idle = Image("{{assets}}/dialogs/aradia_idle.png", yoffset=-197, xanchor=240, yalign=1.0)

@@ -1,4 +1,4 @@
-define ob_porrim = Character("porrim", kind=trollean, what_color="#000000", image="ob_porrim", window_background="gui/textbox_trollian_rust.png")
+define ob_porrim = Character("Porrim Maryam", kind=trollean, what_color="#008141", image="ob_porrim", window_background="gui/textbox_trollian_jade.png")
 image ob_porrim angry2 = Image("{{assets}}/dialogs/porrim/porrim_angry2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_porrim angry = Image("{{assets}}/dialogs/porrim/porrim_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_porrim angrytalk = Image("{{assets}}/dialogs/porrim/porrim_angrytalk.png", yoffset=-197, xanchor=240, yalign=1.0)

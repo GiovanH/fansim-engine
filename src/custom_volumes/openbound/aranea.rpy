@@ -1,4 +1,4 @@
-define ob_aranea = Character("aranea", kind=trollean, what_color="#000000", image="ob_aranea", window_background="gui/textbox_trollian_rust.png")
+define ob_aranea = Character("Aranea Serket", kind=trollean, what_color="#005682", image="ob_aranea", window_background="gui/textbox_trollian_blue.png")
 image ob_aranea angry = Image("{{assets}}/dialogs/aranea/aranea_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aranea angrytalk = Image("{{assets}}/dialogs/aranea/aranea_angrytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aranea annoyed = Image("{{assets}}/dialogs/aranea/aranea_annoyed.png", yoffset=-197, xanchor=240, yalign=1.0)

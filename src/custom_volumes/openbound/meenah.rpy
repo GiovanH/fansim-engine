@@ -1,4 +1,4 @@
-define ob_meenah = Character("meenah", kind=trollean, what_color="#000000", image="ob_meenah", window_background="gui/textbox_trollian_rust.png")
+define ob_meenah = Character("Meenah Peixes", kind=trollean, what_color="#77003c", image="ob_meenah", window_background="gui/textbox_trollian_fuschia.png")
 image ob_meenah idle = Image("{{assets}}/dialogs/meenah/meenah_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meenah talk = Image("{{assets}}/dialogs/meenah/meenah_talk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meenah angry = Image("{{assets}}/dialogs/meenah/meenah_angry.png", yoffset=-197, xanchor=240, yalign=1.0)

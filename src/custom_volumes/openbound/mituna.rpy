@@ -1,4 +1,4 @@
-define ob_mituna = Character("mituna", kind=trollean, what_color="#000000", image="ob_mituna", window_background="gui/textbox_trollian_rust.png")
+define ob_mituna = Character("Mituna Captor", kind=trollean, what_color="#a1a100", image="ob_mituna", window_background="gui/textbox_trollian_gold.png")
 image ob_mituna agitated = Image("{{assets}}/dialogs/mituna/mituna_agitated.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_mituna angry2 = Image("{{assets}}/dialogs/mituna/mituna_angry2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_mituna angry = Image("{{assets}}/dialogs/mituna/mituna_angry.png", yoffset=-197, xanchor=240, yalign=1.0)

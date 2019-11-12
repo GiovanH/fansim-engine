@@ -1,4 +1,4 @@
-define ob_karkat = Character("karkat", kind=trollean, what_color="#000000", image="ob_karkat", window_background="gui/textbox_trollian_rust.png")
+define ob_karkat = Character("carcinoGeneticist", kind=trollean, what_color="#626262", image="ob_karkat", window_background="gui/textbox_trollian_grey.png")
 image ob_karkat eyeroll1 = Image("{{assets}}/dialogs/karkat/karkat_eyeroll1.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_karkat eyeroll2 = Image("{{assets}}/dialogs/karkat/karkat_eyeroll2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_karkat facepalm = Image("{{assets}}/dialogs/karkat/karkat_facepalm.png", yoffset=-197, xanchor=240, yalign=1.0)
