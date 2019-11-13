@@ -14,6 +14,16 @@ image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=64
 # Other images
 image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 
+# Give characters poses
+# image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
+image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
+
+# Define backgrounds
+# image bg johnroom = im.Scale("images/john_s room.png", 1300,730)
+
+# Define other graphics, end cards
+# image vriska end = "images/vriska_endcard_badend1.png"
+
 # Start of route
 label {{package_entrypoint}}_sandbox:
 
@@ -84,6 +94,29 @@ label {{package_entrypoint}}_sandbox:
 
     show {{p}}_terezi at left1280 with move
     {{p}}_tz "TF 1S TH1S TH1NG :?"
+
+    hide {{p}}_terezi
+
+    show vriska neutral4
+
+    # Write dialogue!
+    vr neutral3 "Hey. Hey. Over here."
+    vr ngreen "8itch."
+
+    hide vriska  # goodbye
+
+    # You can also use assets that have already been definied in other pesterquest routes directly!
+    show bg gamzeehive
+    show gamzee pie1
+    gam pie1 "cAn I oFfEr YoU a PiE iN tHeSe TrYiNg TiMeS"
+    # Be careful about naming your resources so they don't conflict with other ones. 
+    # I help where I can by offering the substitutions like {{package_id}}.
+
+    # Show end card
+    call ending pass ("vriska end", True, True)
+    return
+
+
 
     # Show end card
     call ending pass ("vriska end", True, True)
