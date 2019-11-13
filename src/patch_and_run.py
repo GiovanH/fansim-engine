@@ -21,6 +21,7 @@ from pprint import pprint
 import traceback
 import shutil
 
+
 gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
 executable = "pesterquest.exe"
 outdir = "./pesterquest"
@@ -40,6 +41,17 @@ def print_tree(startpath):
         subindent = ' ' * 4 * (level + 1)
         for f in files:
             print('{}{}'.format(subindent, f))
+
+
+def copy2(src, dst, quiet=False):
+    try:
+        shutil.copy2(src, dst)
+        if not quiet:
+            print("{} --> {}".format(src, dst))
+    except Exception:
+        if not quiet:
+            print("{} -x> {}".format(src, dst))
+        raise
 
 
 def mergeDirIntoDir(src, dst, quiet=False):
@@ -69,8 +81,8 @@ def subtableReplace(subtable, textdata, fstrings):
 def copyAndSubRpy(src, dst, metadata, quiet=False):
     if not os.path.isfile(src):
         raise FileNotFoundError(src)
-    if os.path.isfile(dst):
-        raise FileExistsError(dst)
+    # if os.path.isfile(dst):
+    #     raise FileExistsError(dst)
 
     with open(src, "r") as fp:
         rpy_data = fp.read()
@@ -125,6 +137,11 @@ def processPackages(quiet=False):
 
         print(f"Detected package {package_id} at {subdir}")
 
+        for rpa in glob.glob(os.path.join(subdir, "*.rpa")):
+            __, filename = os.path.split(rpa)
+            destfile = os.path.join(gamedir, (f"{os.path.splitext(filename)[0]}_custom_.rpa" if (subdir == sysdir) else f"ycustom_{package_id}_{filename}"))
+            copy2(rpa, destfile, quiet=quiet)
+
         # Parse and copy rpy files
         for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
             __, filename = os.path.split(rpy)
@@ -164,13 +181,13 @@ def processVolumes(all_volumes, quiet=False):
         volume_id = volume["volume_id"]
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
 
-        required_files = [
-            os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png"),
-            os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png")
-        ]
-        for expected_file in required_files:
-            if not os.path.isfile(expected_file):
-                raise FileNotFoundError(expected_file)
+        # required_files = [
+        #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png"),
+        #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png")
+        # ]
+        # for expected_file in required_files:
+        #     if not os.path.isfile(expected_file):
+        #         raise FileNotFoundError(expected_file)
 
         print("Inserting at", volume["entrypoint"])
 
