@@ -22,7 +22,7 @@ image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640
 # image bg johnroom = im.Scale("images/john_s room.png", 1300,730)
 
 # Define other graphics, end cards
-# image vriska end = "images/vriska_endcard_badend1.png"
+image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
 
 # Start of route
 label {{package_entrypoint}}_sandbox:
@@ -96,6 +96,7 @@ label {{package_entrypoint}}_sandbox:
     {{p}}_tz "TF 1S TH1S TH1NG :?"
 
     hide {{p}}_terezi
+    hide {{p}}_fakemenu
 
     show vriska neutral4
 
@@ -113,11 +114,5 @@ label {{package_entrypoint}}_sandbox:
     # I help where I can by offering the substitutions like {{package_id}}.
 
     # Show end card
-    call ending pass ("vriska end", True, True)
-    return
-
-
-
-    # Show end card
-    call ending pass ("vriska end", True, True)
+    call ending pass ("{{p}}_vriskaend", True, True)
     return
