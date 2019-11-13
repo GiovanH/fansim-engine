@@ -1,0 +1,11 @@
+{
+    "package_id": "intro",
+    "volumes": [
+        {
+            "volume_id": "route",
+            "title": "Intro demo",
+            "subtitle": "\"introducing\"",
+            "author": "Gio"
+        }
+    ]
+}

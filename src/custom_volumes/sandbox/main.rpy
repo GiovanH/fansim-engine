@@ -22,6 +22,7 @@ image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640
 # image bg johnroom = im.Scale("images/john_s room.png", 1300,730)
 
 # Define other graphics, end cards
+image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
 
 # Start of route
