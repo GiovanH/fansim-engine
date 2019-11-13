@@ -218,12 +218,12 @@ if __name__ == "__main__":
                         print(f"{rpy} --> [X]")
                     shutil.rmtree(rpy)
 
-            print("\nClearing old scripts")
+                print("\nClearing old scripts")
 
-            for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
-                if not args.quiet:
-                    print(f"{rpy} --> [X]")
-                os.unlink(rpy)
+                for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
+                    if not args.quiet:
+                        print(f"{rpy} --> [X]")
+                    os.unlink(rpy)
 
             print("\nCopying user scripts")
             (all_volumes, warn,) = processPackages(quiet=args.quiet)
