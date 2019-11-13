@@ -1,0 +1,11 @@
+{
+    "package_id": "openbound",
+    "volumes": [
+        {
+            "volume_id": "route",
+            "title": "Openbound Demo",
+            "subtitle": "Openbound sprites",
+            "author": "Gio, Openbound"
+        }
+    ]
+}
