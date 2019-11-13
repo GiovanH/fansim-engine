@@ -128,7 +128,7 @@ def processPackages(quiet=False):
         # Parse and copy rpy files
         for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
             __, filename = os.path.split(rpy)
-            destfile = os.path.join(gamedir, (f"{filename}_custom_.rpy" if (subdir == sysdir) else f"zcustom_{package_id}_{filename}"))
+            destfile = os.path.join(gamedir, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == sysdir) else f"zcustom_{package_id}_{filename}"))
             copyAndSubRpy(rpy, destfile, meta, quiet=quiet)
 
         # Copy namespaced assets
@@ -177,10 +177,10 @@ def processVolumes(all_volumes, quiet=False):
         with open("vol_select_entry_template.rpy", "r") as fp:
             new_entry = fp.read().format(**jsonReEscape(volume))
 
-        template_data = template_data.replace("{{}}", new_entry + "\n{{}}")
+        template_data = template_data.replace("{{volumes}}", new_entry + "\n{{volumes}}")
 
-    template_data = template_data.replace("{{}}", "")
-    with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w') as fp:
+    template_data = template_data.replace("{{volumes}}", "")
+    with open(os.path.join(gamedir, "xcustom_volumeselect.rpy"), 'w') as fp:
         fp.write(template_data)
 
 

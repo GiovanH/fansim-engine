@@ -1,3 +1,11 @@
+init python:
+    def ResetVolSelectCustom():
+        SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
+        SetScreenVariable("title", "Volume Select"), 
+        SetScreenVariable("subtitle", "Hover over an icon!"),
+        SetScreenVariable("author", "Pesterquest Modsuite")
+
+
 screen vol_select_custom():
 
     use game_menu_volumes(_("Friend Select"), scroll="viewport"):
@@ -31,7 +39,7 @@ screen vol_select_custom():
                 xpos 0
                 spacing 10
 
-{{}}
+{{volumes}}
 
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 

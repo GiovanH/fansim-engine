@@ -101,8 +101,4 @@ label start_custom:
     $ main_menu = True
 
     call screen vol_select_custom() with Dissolve(0.5)
-
     return
-
-    
-    # text_align 1.0
