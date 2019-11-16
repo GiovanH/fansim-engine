@@ -21,7 +21,7 @@ You cannot use any of this to pirate pesterquest.
 
 ## Guide for users:
 
-Download this repository, put the fan volumes you want in the `src/custom_volumes` folder, and run `patch_and_run.py` with a recent version of Python.
+Download this repository, put the fan volumes you want in the `src/custom_volumes` folder, and run `launcher.py` with a recent version of Python.
 
 ## Guide for developers:
 
@@ -38,7 +38,7 @@ It's basically the same as extending ren'py using the base game, with a few exce
 - Assets in `{package}/assets_common` are copied to `{pesterquest}/game/custom_assets/`
 - For each route/volume, you should have a `volumeselect_{tileid}_idle.png` and `volumeselect_{tileid}_small.png` image for the character select screen in its assets folder.
 
-Please see the implementation in `patch_and_run.py` and the demo route for more details.
+Please see the implementation in `launcher.py` and the demo route for more details.
 Updates and contributions to this guide, as well as suggestions for logic rework are all very much appreciated. 
 
 ## Example
@@ -49,4 +49,4 @@ That's all you need to do for setup! Now, just start writing!
 
 l33t hacker notes:
 - The system data is loaded first, so any custom volume content can replace it. You can use this to reskin the menu and other system assets. 
-- patch_and_run.py is a preprocess that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
+- launcher.py is a preprocess that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
