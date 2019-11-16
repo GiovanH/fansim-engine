@@ -205,6 +205,41 @@ def runGame():
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
+@contextmanager
+def std_redirected(outfile, errfile=None, tee=False):
+    """Summary
+
+    Args:
+        outfile (TYPE): Description
+        errfile (None, optional): Description
+
+    Yields:
+        TYPE: Description
+    """
+    import sys  # Must import basename for naming to bind globally
+    if errfile is None:
+        errfile = outfile
+
+    # Save file handle
+    _stdout = sys.stdout
+    _stderr = sys.stderr
+
+    sys.stdout = open(outfile, 'w')
+    sys.stderr = open(errfile, 'w') if outfile != errfile else sys.stdout
+
+    if tee:
+        sys.stdout = stream_tee(sys.stdout, _stdout)
+        sys.stderr = stream_tee(sys.stderr, _stderr)
+
+    try:
+        yield None
+    finally:
+        sys.stdout.close()
+        sys.stderr.close()  # Safe to use even if stdout == stderr
+        sys.stdout = _stdout
+        sys.stderr = _stderr
+
+
 if __name__ == "__main__":
 
     import argparse
@@ -224,7 +259,6 @@ if __name__ == "__main__":
         help="Delete old custom assets")
     args = ap.parse_args()
 
-    from snip.stream import std_redirected
     with std_redirected("latest.log", tee=True):
         try:
 
