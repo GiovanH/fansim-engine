@@ -1,6 +1,38 @@
 # Streams
 
+import sys  # Must import basename for naming to bind globally
 from contextlib import contextmanager
+
+
+class Tee(object):
+    def __init__(self, stream_a, stream_b):
+        self.stream_a = stream_a
+        self.stream_b = stream_b
+
+    def __del__(self):
+        self.close()
+
+    def close(self):
+        pass
+        # self.stream_a.close()
+        # self.stream_b.close()
+
+    def write(self, data):
+        self.stream_a.write(data)
+        self.stream_b.write(data)
+
+    def flush(self):
+        self.stream_a.flush()
+        self.stream_b.flush()
+
+    def __enter__(self):
+        pass
+
+    def __exit__(self, _type, _value, _traceback):
+        pass
+
+
+stream_tee = Tee
 
 
 @contextmanager
@@ -14,7 +46,6 @@ def std_redirected(outfile, errfile=None, tee=False):
     Yields:
         TYPE: Description
     """
-    import sys  # Must import basename for naming to bind globally
     if errfile is None:
         errfile = outfile
 
@@ -26,8 +57,8 @@ def std_redirected(outfile, errfile=None, tee=False):
     sys.stderr = open(errfile, 'w') if outfile != errfile else sys.stdout
 
     if tee:
-        sys.stdout = stream_tee(sys.stdout, _stdout)
-        sys.stderr = stream_tee(sys.stderr, _stderr)
+        sys.stdout = Tee(sys.stdout, _stdout)
+        sys.stderr = Tee(sys.stderr, _stderr)
 
     try:
         yield None
@@ -36,27 +67,3 @@ def std_redirected(outfile, errfile=None, tee=False):
         sys.stderr.close()  # Safe to use even if stdout == stderr
         sys.stdout = _stdout
         sys.stderr = _stderr
-
-
-class stream_tee(object):
-    # Based on https://gist.github.com/327585 by Anand Kunal
-    def __init__(self, stream1, stream2):
-        self.stream1 = stream1
-        self.stream2 = stream2
-        self.__missing_method_name = None  # Hack!
-
-    def __getattribute__(self, name):
-        return object.__getattribute__(self, name)
-
-    def __getattr__(self, name):
-        self.__missing_method_name = name  # Could also be a property
-        return getattr(self, '__methodmissing__')
-
-    def __methodmissing__(self, *args, **kwargs):
-        # Emit method call to the log copy
-        callable2 = getattr(self.stream2, self.__missing_method_name)
-        callable2(*args, **kwargs)
-
-        # Emit method call to stdout (stream 1)
-        callable1 = getattr(self.stream1, self.__missing_method_name)
-        return callable1(*args, **kwargs)
