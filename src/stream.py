@@ -32,9 +32,6 @@ class Tee(object):
         pass
 
 
-stream_tee = Tee
-
-
 @contextmanager
 def std_redirected(outfile, errfile=None, tee=False):
     """Summary
