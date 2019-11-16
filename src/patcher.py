@@ -9,9 +9,18 @@ from pprint import pprint
 import traceback
 import shutil
 
+platform = os.name
 
-gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
-executable = "pesterquest.exe"
+if platform == "nt":
+    gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
+    executable = "pesterquest.exe"
+elif platform == "posix":
+    # If you're on linux, change this path to your steam install directory.
+    gamedir_root = os.environ["HOME"] + "/Library/Application Support" + "/Steam/steamapps/common/Homestuck Pesterquest"
+    executable = "pesterquest"
+else:
+    raise Exception("Unknown platform " + platform)
+
 outdir = "./pesterquest"
 rpatool = "./rpatool/rpatool"
 
@@ -168,6 +177,8 @@ def processVolumes(all_volumes, quiet=False):
         pprint(volume)
         volume_id = volume["volume_id"]
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
+
+        # Doesn't work with rpa archives.
 
         # required_files = [
         #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png"),
