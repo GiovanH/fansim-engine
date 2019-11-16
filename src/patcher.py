@@ -1,18 +1,5 @@
 #!/bin/python3
 
-from sys import version_info
-
-try:
-    assert version_info.major >= 3
-    assert version_info.minor >= 6
-except (AssertionError, AttributeError):
-    print("Running python version", version_info)
-    print("This script requires Python 3.6 or newer.")
-    print("Press enter to exit.")
-    input()
-    exit()
-
-
 import subprocess
 import os
 import glob
@@ -206,8 +193,7 @@ def runGame():
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
-if __name__ == "__main__":
-
+def main():
     import argparse
 
     ap = argparse.ArgumentParser()
@@ -225,40 +211,41 @@ if __name__ == "__main__":
         help="Delete old custom assets")
     args = ap.parse_args()
 
-    from stream import std_redirected
-    with std_redirected("latest.log", tee=True):
-        try:
+    try:
+        if args.clean:
+            print("\nCleaning out old assets")
+            for rpy in glob.glob(os.path.join(gamedir, "custom_*/")):
+                if not args.quiet:
+                    print(f"{rpy} --> [X]")
+                shutil.rmtree(rpy)
 
-            if args.clean:
-                print("\nCleaning out old assets")
-                for rpy in glob.glob(os.path.join(gamedir, "custom_*/")):
-                    if not args.quiet:
-                        print(f"{rpy} --> [X]")
-                    shutil.rmtree(rpy)
+            print("\nClearing old scripts")
 
-                print("\nClearing old scripts")
+            for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
+                if not args.quiet:
+                    print(f"{rpy} --> [X]")
+                os.unlink(rpy)
 
-                for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
-                    if not args.quiet:
-                        print(f"{rpy} --> [X]")
-                    os.unlink(rpy)
+        print("\nCopying user scripts")
+        (all_volumes, warn,) = processPackages(quiet=args.quiet)
 
-            print("\nCopying user scripts")
-            (all_volumes, warn,) = processPackages(quiet=args.quiet)
+        print("\nCompiling volumes")
+        processVolumes(all_volumes, quiet=args.quiet)
 
-            print("\nCompiling volumes")
-            processVolumes(all_volumes, quiet=args.quiet)
+        if warn:
+            print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured!")
 
-            if warn:
-                print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured!")
+        if warn or args.pause:
+            print("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+            input()
 
-            if warn or args.pause:
-                print("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
-                input()
+        if not args.nolaunch:
+            print(f"Starting {executable}")
+            runGame()
+    except Exception:
+        traceback.print_exc()
+        raise
 
-            if not args.nolaunch:
-                print(f"Starting {executable}")
-                runGame()
-        except Exception:
-            traceback.print_exc()
-            raise
+
+if __name__ == "__main__":
+    main()
