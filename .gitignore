@@ -2,3 +2,5 @@
 
 src/__pycache__/*
 src/latest.log
+dist/
+patch/
