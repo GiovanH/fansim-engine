@@ -15,4 +15,3 @@ init python:
     quirks["zebruh_diamonds"] = ("(.+)", "{image=char diamond} \g<1> {image=char diamond}")
     quirks["zebruh_clubs"] = ("(.+)", "{image=char club} \g<1> {image=char club}")
     quirks["zebruh_spades"] = ("(.+)", "{image=char spade} \g<1> {image=char spade}")
-    

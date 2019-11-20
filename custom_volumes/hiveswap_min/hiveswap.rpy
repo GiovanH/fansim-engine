@@ -16,7 +16,8 @@ image amisia smug = Image("{{assets}}/sprite/amisia_smug.png", ypos=730)
 
 init python:
     quirks["amisia"] = ("u", "uu")
-    define ardata = Character(name="ARDATA", kind=hiveswap, image="ardata", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
+
+define ardata = Character(name="ARDATA", kind=hiveswap, image="ardata", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
 
 image ardata bored = Image("{{assets}}/sprite/ardata_bored.png", ypos=730)
 image ardata cry = Image("{{assets}}/sprite/ardata_cry.png", ypos=730)
@@ -44,7 +45,8 @@ image azdaja surprise = Image("{{assets}}/sprite/Azdaja_surprise.png", ypos=730)
 
 init python:
     quirks["azdaja"] = ("(.+)", "||| \g<1> |||")
-    image bg alley = Image("{{assets}}/bg/alley.png")
+
+image bg alley = Image("{{assets}}/bg/alley.png")
 image bg alley2 = Image("{{assets}}/bg/alley2.png")
 image bg alternia = Image("{{assets}}/bg/alternia.png")
 image bg amisia_studio = Image("{{assets}}/bg/amisia_studio.png")
@@ -334,7 +336,8 @@ image diemen thinking_dogless_resized = Image("{{assets}}/sprite/diemen_thinking
 
 init python:
     quirks["diemen"] = ("(.+)", "(| \g<1> |)")
-    image fx bgbison = Image("{{assets}}/object/bgbison.png")
+
+image fx bgbison = Image("{{assets}}/object/bgbison.png")
 image fx bisonlusus = Image("{{assets}}/object/bisonlusus.png")
 image fx bush = Image("{{assets}}/object/bush.png")
 image fx bush_orig = Image("{{assets}}/object/bush_orig.png")
@@ -632,7 +635,8 @@ image polypa shooshpap = Image("{{assets}}/sprite/polypa_shooshpap.png", ypos=73
 
 init python:
     quirks["polypa"] = ("(.+)", "<1> *|")
-    define remele = Character(name="REMELE", kind=hiveswap, image="remele", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
+
+define remele = Character(name="REMELE", kind=hiveswap, image="remele", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
 
 image remele attack = Image("{{assets}}/sprite/Remele_attack.png", ypos=730)
 image remele bag = Image("{{assets}}/sprite/Remele_bag.png", ypos=730)
@@ -645,7 +649,7 @@ image remele pokerface = Image("{{assets}}/sprite/Remele_pokerface.png", ypos=73
 image remele stagger = Image("{{assets}}/sprite/Remele_stagger.png", ypos=730)
 image remele wink = Image("{{assets}}/sprite/Remele_wink.png", ypos=730)
 
-    label {{package_entrypoint}}_route:
+label {{package_entrypoint}}_route:
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()
     $ main_menu = False
@@ -1380,7 +1384,9 @@ image tagora neutral2 = Image("{{assets}}/sprite/Tagora_neutral2.png", ypos=730)
 
 init python:
     quirks["tagora"] = ("(.+)", "<1>\n\n*__________")
-    define tegiri = Character(name="TEGIRI", kind=hiveswap, image="tegiri", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
+
+
+define tegiri = Character(name="TEGIRI", kind=hiveswap, image="tegiri", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image tegiri angry = Image("{{assets}}/sprite/tegiri_angry.png", ypos=730)
 image tegiri brood = Image("{{assets}}/sprite/tegiri_brood.png", ypos=730)

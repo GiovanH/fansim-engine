@@ -82,7 +82,7 @@ init python:
     quirks["zebruh_diamonds"] = ("(.+)", "{image=char diamond} \g<1> {image=char diamond}")
     quirks["zebruh_clubs"] = ("(.+)", "{image=char club} \g<1> {image=char club}")
     quirks["zebruh_spades"] = ("(.+)", "{image=char spade} \g<1> {image=char spade}")
-    """,
+""",
 }
 
 char_extests = {
@@ -91,7 +91,7 @@ char_extests = {
     $ quirkSay(zebruh, "zebruh_spades", "Spades")
     $ quirkSay(zebruh, "zebruh_diamonds", "Diamonds")
     $ quirkSay(zebruh, "zebruh_clubs", "Clubs")
-    """
+"""
 }
 
 talksprites = glob.glob("assets/sprite/*.*")
@@ -103,7 +103,7 @@ characters = set(
 
 routefp = open("route.rpy", "w")
 routefp.write("""
-    label {{package_entrypoint}}_route:
+label {{package_entrypoint}}_route:
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()
     $ main_menu = False
