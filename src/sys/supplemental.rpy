@@ -1,3 +1,5 @@
+init offset = 0
+
 style trollean_namebox:
     properties gui.text_properties("name", accent=True)
     yalign 0.5

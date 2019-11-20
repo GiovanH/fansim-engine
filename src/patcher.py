@@ -133,7 +133,8 @@ def processPackages(quiet=False):
 
         for rpa in glob.glob(os.path.join(subdir, "*.rpa")):
             __, filename = os.path.split(rpa)
-            destfile = os.path.join(gamedir, (f"{os.path.splitext(filename)[0]}_custom_.rpa" if (subdir == sysdir) else f"ycustom_{package_id}_{filename}"))
+            destfile = os.path.join(gamedir, (f"ycustom_{package_id}_{filename}"))
+            # destfile = os.path.join(gamedir, (f"{os.path.splitext(filename)[0]}_custom_.rpa" if (subdir == sysdir) else f"ycustom_{package_id}_{filename}"))
             copy2(rpa, destfile, quiet=quiet)
 
         # Parse and copy rpy files

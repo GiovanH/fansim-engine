@@ -1,3 +1,5 @@
+init offset = 0
+
 screen main_menu():
 
 
