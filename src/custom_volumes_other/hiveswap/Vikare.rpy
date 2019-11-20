@@ -1,0 +1,10 @@
+define vikare = Character(name="VIKARE", kind=hiveswap, image="vikare", window_background="gui/textbox_bronze.png", who_outlines=[(4, "#bb6405")])
+
+image vikare angry = Image("{{assets}}/sprite/Vikare_angry.png", ypos=730)
+image vikare conspiracy = Image("{{assets}}/sprite/Vikare_conspiracy.png", ypos=730)
+image vikare curious = Image("{{assets}}/sprite/Vikare_curious.png", ypos=730)
+image vikare Fractured = Image("{{assets}}/sprite/Vikare_Fractured.png", ypos=730)
+image vikare inspired = Image("{{assets}}/sprite/Vikare_inspired.png", ypos=730)
+image vikare neutral = Image("{{assets}}/sprite/Vikare_neutral.png", ypos=730)
+image vikare sad = Image("{{assets}}/sprite/Vikare_sad.png", ypos=730)
+image vikare worried = Image("{{assets}}/sprite/Vikare_worried.png", ypos=730)

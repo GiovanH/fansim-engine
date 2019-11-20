@@ -49,7 +49,11 @@ label {{package_entrypoint}}_sandbox:
 
     show john neutral
     {{p}}_jostart "hi! i'm john"
-    $ quirkSay({{p}}_jo, "john", "Quirk formatting")
+    $ quirkSay({{p}}_jo, "john", "Quirk formatting 1")
+
+    $ gamjohn = quirkSayer({{p}}_jo, "gamzee")
+    gamjohn "Quirk formatting 2"
+
     $ quirkSay({{p}}_jo, "gamZee", "Gamzee Quirk formatting")
     {{p}}_jo "i'm still john"
     hide john

@@ -76,9 +76,14 @@ init python:
         "gamzee": ("([a-zA-Z])([a-zA-Z]?)", lambda m: m.group(1).lower() + m.group(2).upper())
     }
 
-    def quirkSay(who, quirk, what, *args, **kwargs):
-        pattern, repl = quirks.get(quirk.lower(), ("(.+)", f"[ERR: NO QUIRK {quirk}] \g<1>"))
-        return who(re.sub(pattern, repl, what), *args, **kwargs)
+    def quirkSayer(who, quirk):
+        def _sayer(what, amt=0, stmt=None, **kwargs):
+            return quirkSay(who, quirk, what)
+        return _sayer
+
+    def quirkSay(who, quirk, what, **kwargs):
+        pattern, repl = quirks.get(quirk.lower(), ("(.+)", "[ERR: NO QUIRK {}] \g<1>".format(quirk)))
+        return who(re.sub(pattern, repl, what), **kwargs)
 
 
 label start_custom:

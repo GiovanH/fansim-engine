@@ -1,0 +1,11 @@
+define cirava = Character(name="CIRAVA", kind=hiveswap, image="cirava", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
+
+image cirava angst = Image("{{assets}}/sprite/cirava_angst.png", ypos=730)
+image cirava cross = Image("{{assets}}/sprite/cirava_cross.png", ypos=730)
+image cirava feelingit = Image("{{assets}}/sprite/cirava_feelingit.png", ypos=730)
+image cirava peace = Image("{{assets}}/sprite/cirava_peace.png", ypos=730)
+image cirava point = Image("{{assets}}/sprite/cirava_point.png", ypos=730)
+image cirava shrug = Image("{{assets}}/sprite/cirava_shrug.png", ypos=730)
+image cirava standing = Image("{{assets}}/sprite/cirava_standing.png", ypos=730)
+image cirava talk = Image("{{assets}}/sprite/cirava_talk.png", ypos=730)
+image cirava vape = Image("{{assets}}/sprite/cirava_vape.png", ypos=730)

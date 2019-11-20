@@ -1,0 +1,12 @@
+define konyyl = Character(name="KONYYL", kind=hiveswap, image="konyyl", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
+
+image konyyl ask = Image("{{assets}}/sprite/Konyyl_ask.png", ypos=730)
+image konyyl attack = Image("{{assets}}/sprite/Konyyl_attack.png", ypos=730)
+image konyyl defeated = Image("{{assets}}/sprite/Konyyl_defeated.png", ypos=730)
+image konyyl laugh = Image("{{assets}}/sprite/Konyyl_laugh.png", ypos=730)
+image konyyl menacing = Image("{{assets}}/sprite/Konyyl_menacing.png", ypos=730)
+image konyyl neutral = Image("{{assets}}/sprite/Konyyl_neutral.png", ypos=730)
+image konyyl sad = Image("{{assets}}/sprite/Konyyl_sad.png", ypos=730)
+image konyyl surprised = Image("{{assets}}/sprite/Konyyl_surprised.png", ypos=730)
+image konyyl thinking = Image("{{assets}}/sprite/Konyyl_thinking.png", ypos=730)
+image konyyl why = Image("{{assets}}/sprite/Konyyl_why.png", ypos=730)

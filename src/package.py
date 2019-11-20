@@ -21,7 +21,7 @@ import glob
 import shutil
 
 for package_id in sys.argv[1:]:
-    pysubdir = f"custom_volumes/{package_id}/"
+    pysubdir = f"custom_volumes_other/{package_id}/"
 
     pysubdir_new = f"custom_volumes/{package_id}_min/"
 
@@ -42,4 +42,5 @@ for package_id in sys.argv[1:]:
     if os.path.isdir(os.path.join(pysubdir, "assets_common")):
         cmdstr += f" custom_assets={pysubdir}assets_common"
     print(cmdstr)
+    os.unlink(f"custom_volumes/{package_id}_min/assets.rpa")
     retcode = subprocess.call(cmdstr.split(" "))

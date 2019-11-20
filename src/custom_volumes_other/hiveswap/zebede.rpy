@@ -1,0 +1,11 @@
+define zebede = Character(name="ZEBEDE", kind=hiveswap, image="zebede", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
+
+image zebede crying = Image("{{assets}}/sprite/zebede_crying.png", ypos=730)
+image zebede distressed = Image("{{assets}}/sprite/zebede_distressed.png", ypos=730)
+image zebede happy = Image("{{assets}}/sprite/zebede_happy.png", ypos=730)
+image zebede hi = Image("{{assets}}/sprite/zebede_hi.png", ypos=730)
+image zebede neutral = Image("{{assets}}/sprite/zebede_neutral.png", ypos=730)
+image zebede questioning = Image("{{assets}}/sprite/zebede_questioning.png", ypos=730)
+image zebede radiant = Image("{{assets}}/sprite/zebede_radiant.png", ypos=730)
+image zebede shiftyeyed = Image("{{assets}}/sprite/zebede_shiftyeyed.png", ypos=730)
+image zebede shockedembarassed = Image("{{assets}}/sprite/zebede_shockedembarassed.png", ypos=730)

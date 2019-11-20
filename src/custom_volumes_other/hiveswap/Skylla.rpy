@@ -1,0 +1,13 @@
+define skylla = Character(name="SKYLLA", kind=hiveswap, image="skylla", window_background="gui/textbox_bronze.png", who_outlines=[(4, "#bb6405")])
+
+image skylla anger = Image("{{assets}}/sprite/Skylla_anger.png", ypos=730)
+image skylla concern = Image("{{assets}}/sprite/Skylla_concern.png", ypos=730)
+image skylla depressed = Image("{{assets}}/sprite/Skylla_depressed.png", ypos=730)
+image skylla distress = Image("{{assets}}/sprite/Skylla_distress.png", ypos=730)
+image skylla happy = Image("{{assets}}/sprite/Skylla_happy.png", ypos=730)
+image skylla kickass = Image("{{assets}}/sprite/Skylla_kickass.png", ypos=730)
+image skylla numb = Image("{{assets}}/sprite/Skylla_numb.png", ypos=730)
+image skylla numb2 = Image("{{assets}}/sprite/Skylla_numb2.png", ypos=730)
+image skylla stand = Image("{{assets}}/sprite/Skylla_stand.png", ypos=730)
+image skylla talk = Image("{{assets}}/sprite/Skylla_talk.png", ypos=730)
+image skylla upset = Image("{{assets}}/sprite/Skylla_upset.png", ypos=730)

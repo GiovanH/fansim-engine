@@ -1,0 +1,12 @@
+define remele = Character(name="REMELE", kind=hiveswap, image="remele", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
+
+image remele attack = Image("{{assets}}/sprite/Remele_attack.png", ypos=730)
+image remele bag = Image("{{assets}}/sprite/Remele_bag.png", ypos=730)
+image remele discomfort = Image("{{assets}}/sprite/Remele_discomfort.png", ypos=730)
+image remele discomfort_painting = Image("{{assets}}/sprite/Remele_discomfort_painting.png", ypos=730)
+image remele grin = Image("{{assets}}/sprite/Remele_grin.png", ypos=730)
+image remele Neutral = Image("{{assets}}/sprite/Remele_Neutral.png", ypos=730)
+image remele Neutral_after = Image("{{assets}}/sprite/Remele_Neutral_after.png", ypos=730)
+image remele pokerface = Image("{{assets}}/sprite/Remele_pokerface.png", ypos=730)
+image remele stagger = Image("{{assets}}/sprite/Remele_stagger.png", ypos=730)
+image remele wink = Image("{{assets}}/sprite/Remele_wink.png", ypos=730)

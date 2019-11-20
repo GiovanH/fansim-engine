@@ -1,0 +1,10 @@
+define bronya = Character(name="BRONYA", kind=hiveswap, image="bronya", window_background="gui/textbox_jade.png", who_outlines=[(4, "#0aa85b")])
+
+image bronya angry = Image("{{assets}}/sprite/bronya_angry.png", ypos=730)
+image bronya duty = Image("{{assets}}/sprite/bronya_duty.png", ypos=730)
+image bronya happy = Image("{{assets}}/sprite/bronya_happy.png", ypos=730)
+image bronya motherly = Image("{{assets}}/sprite/bronya_motherly.png", ypos=730)
+image bronya panic = Image("{{assets}}/sprite/bronya_panic.png", ypos=730)
+image bronya talk = Image("{{assets}}/sprite/bronya_talk.png", ypos=730)
+image bronya umm = Image("{{assets}}/sprite/bronya_umm.png", ypos=730)
+image bronya worried = Image("{{assets}}/sprite/bronya_worried.png", ypos=730)

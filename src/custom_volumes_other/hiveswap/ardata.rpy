@@ -1,0 +1,11 @@
+define ardata = Character(name="ARDATA", kind=hiveswap, image="ardata", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
+
+image ardata bored = Image("{{assets}}/sprite/ardata_bored.png", ypos=730)
+image ardata cry = Image("{{assets}}/sprite/ardata_cry.png", ypos=730)
+image ardata hand = Image("{{assets}}/sprite/ardata_hand.png", ypos=730)
+image ardata laugh = Image("{{assets}}/sprite/ardata_laugh.png", ypos=730)
+image ardata murder = Image("{{assets}}/sprite/ardata_murder.png", ypos=730)
+image ardata ohoho = Image("{{assets}}/sprite/ardata_ohoho.png", ypos=730)
+image ardata smile = Image("{{assets}}/sprite/ardata_smile.png", ypos=730)
+image ardata testy = Image("{{assets}}/sprite/ardata_testy.png", ypos=730)
+image ardata wink = Image("{{assets}}/sprite/ardata_wink.png", ypos=730)
