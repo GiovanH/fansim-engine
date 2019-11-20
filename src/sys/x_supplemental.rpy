@@ -73,12 +73,11 @@ init python:
     import re
 
     quirks = {
-        "john": ("([A-Z])", lambda m: m.group(1).lower()),
         "gamzee": ("([a-zA-Z])([a-zA-Z]?)", lambda m: m.group(1).lower() + m.group(2).upper())
     }
 
     def quirkSay(who, quirk, what, *args, **kwargs):
-        pattern, repl = quirks.get(quirk.lower())
+        pattern, repl = quirks.get(quirk.lower(), ("(.+)", f"[ERR: NO QUIRK {quirk}] \g<1>"))
         return who(re.sub(pattern, repl, what), *args, **kwargs)
 
 
