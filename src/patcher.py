@@ -21,9 +21,6 @@ elif platform == "posix":
 else:
     raise Exception("Unknown platform " + platform)
 
-outdir = "./pesterquest"
-rpatool = "./rpatool/rpatool"
-
 gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
 
 with open("subtable.json", "r") as fp:
@@ -220,7 +217,17 @@ def main():
     ap.add_argument(
         "--clean", action="store_true",
         help="Delete old custom assets")
+    ap.add_argument(
+        "--makepatch", action="store_true",
+        help="Just make a patch folder")
     args = ap.parse_args()
+
+    if args.makepatch:
+        global gamedir_root
+        global gamedir
+        os.makedirs("../patch/game/", exist_ok=True)
+        gamedir_root = "../patch/"
+        gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
 
     try:
         if args.clean:
