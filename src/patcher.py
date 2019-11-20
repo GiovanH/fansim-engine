@@ -97,7 +97,7 @@ def processPackages(quiet=False):
     all_volumes = []
     warn = False
     sysdir = os.path.join(".", "sys/")
-    for subdir in [sysdir] + glob.glob(os.path.join("custom_volumes", "*/")):
+    for subdir in [sysdir] + glob.glob(os.path.join("../custom_volumes", "*/")):
         print()
         # Load metadata from json file
         try:

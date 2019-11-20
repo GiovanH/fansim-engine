@@ -21,9 +21,9 @@ import glob
 import shutil
 
 for package_id in sys.argv[1:]:
-    pysubdir = f"custom_volumes_other/{package_id}/"
+    pysubdir = f"../custom_volumes_other/{package_id}/"
 
-    pysubdir_new = f"custom_volumes/{package_id}_min/"
+    pysubdir_new = f"../custom_volumes/{package_id}_min/"
 
     os.makedirs(pysubdir_new, exist_ok=True)
 
@@ -36,11 +36,11 @@ for package_id in sys.argv[1:]:
     with open(os.path.join(pysubdir_new, f"{package_id}.rpy"), "w") as fp:
         fp.write(merged)
 
-    cmdstr = f"python rpatool.py -c custom_volumes/{package_id}_min/assets.rpa"
+    cmdstr = f"python rpatool.py -c ../custom_volumes/{package_id}_min/assets.rpa"
     if os.path.isdir(os.path.join(pysubdir, "assets")):
         cmdstr += f" custom_assets_{package_id}={pysubdir}assets"
     if os.path.isdir(os.path.join(pysubdir, "assets_common")):
         cmdstr += f" custom_assets={pysubdir}assets_common"
     print(cmdstr)
-    os.unlink(f"custom_volumes/{package_id}_min/assets.rpa")
+    os.unlink(f"../custom_volumes/{package_id}_min/assets.rpa")
     retcode = subprocess.call(cmdstr.split(" "))
