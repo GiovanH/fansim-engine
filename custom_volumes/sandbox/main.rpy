@@ -47,6 +47,10 @@ label {{package_entrypoint}}_sandbox:
     narrator_dirk "Some ultimate dirk narration."
     narrator_calliope "Narrator calliope"
 
+    show ob_meulin idle
+    ob_meulin "!!!"
+    hide ob_meulin
+
     show john neutral
     {{p}}_jostart "hi! i'm john"
     $ quirkSay({{p}}_jo, "john", "Quirk formatting 1")

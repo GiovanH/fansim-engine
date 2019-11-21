@@ -2818,7 +2818,7 @@ image ob_kurmeme9:
     Image("{{assets}}/interface/backgrounds/kurmeme9-35.png")
     pause 0.1
     repeat
-define ob_meulin = Character("Meulin Leijon", kind=trollean, what_color="#416600", image="ob_meulin", window_background="gui/textbox_trollian_olive.png")
+define ob_meulin = Character("Meulin Leijon", kind=openbound, show_color="#416600", image="ob_meulin", window_background="gui/textbox_trollian_olive.png")
 image ob_meulin dies = Image("{{assets}}/dialogs/meulin/meulin_dies.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happier = Image("{{assets}}/dialogs/meulin/meulin_happier.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happiertalk = Image("{{assets}}/dialogs/meulin/meulin_happiertalk.png", yoffset=-197, xanchor=240, yalign=1.0)

@@ -1,5 +1,6 @@
 init offset = 0
 
+# Trollean
 style trollean_namebox:
     properties gui.text_properties("name", accent=True)
     yalign 0.5
@@ -8,31 +9,18 @@ style trollean_namebox:
     ypos 16
     size 17
 
-style hiveswap_namebox:
-    properties gui.text_properties("name", accent=True)
-    yalign 0.5
-    xalign 0.0
-    xpos -380
-    ypos -34
-    size 42
-
-style pesterchum_namebox:
-    properties gui.text_properties("name", accent=True)
-    yalign 0.5
-    xalign 0.5
-    xpos 0
-
-style hiveswap_textbox:
-    size 26
-    xpos 300
-    ypos 26
-    xmaximum 720
-
 define trollean = Character(
     color='#FFFFFF', who_style="trollean_namebox", who_prefix="trolling: ",
     # Characters will need to set these attributes manually:
     name="trollTag", image="", window_background="gui/textbox_trollian_teal.png"
 )
+
+# Pesterchum
+style pesterchum_namebox:
+    properties gui.text_properties("name", accent=True)
+    yalign 0.5
+    xalign 0.5
+    xpos 0
 
 define pesterchumstart = Character(
     who_prefix=":: ", who_suffix=" ::", who_style="pesterchum_namebox",
@@ -47,6 +35,22 @@ define pesterchum = Character(
     what_color='#e00707', image=""
 )
 
+# Hiveswap
+style hiveswap_namebox:
+    properties gui.text_properties("name", accent=True)
+    yalign 0.5
+    xalign 0.0
+    xpos -380
+    ypos -34
+    size 42
+
+style hiveswap_textbox:
+    properties gui.text_properties("dialogue")
+    size 26
+    xpos 300
+    ypos 26
+    xmaximum 720
+
 define hiveswap = Character(
     color='#FFFFFF', what_color='#FFFFFF', 
     who_style="hiveswap_namebox", who_font="Berlin Sans FB Demi Bold.ttf",
@@ -54,6 +58,44 @@ define hiveswap = Character(
     window_ypos=744, 
     # Characters will need to set these attributes manually:
     name="NAME", image="", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")]
+)
+
+# Openbound
+style openbound_namebox:
+    properties gui.text_properties("name", accent=True)
+    yalign 0.0
+    xalign 0.0
+    xpos -380
+    ypos -52
+    size 42
+    outlines [(4, "#FFF")]
+    color "#00baff"
+
+style openbound_textbox:
+    properties gui.text_properties("dialogue")
+    size 26
+    xpos 300
+    ypos 26
+    xmaximum 720
+
+screen openbound_say:
+    style_prefix "say"
+    default color = "#000"
+    window:
+        background "{{assets_common}}/textbox_openbound.png"
+        id "ob"
+
+        if who is not None:
+            window:
+                id "namebox"
+                style "namebox"
+                text who id "who" style "openbound_namebox" color color
+
+        text what id "what" style "openbound_textbox" color color
+        
+
+define openbound = Character(
+    screen="openbound_say", what_style="openbound_textbox", who_style="openbound_namebox"
 )
 
 # Examples using these templates instead of the vanilla method:
