@@ -63,16 +63,24 @@ label {{package_entrypoint}}_sandbox:
     hide ob_meulin
 
 
-    show john neutral
-    {{p}}_jostart "hi! i'm john"
-    $ quirkSay({{p}}_jo, "john", "Quirk formatting 1")
+    # Different approaches to quirk formatting
+    show gamzee neutral
 
-    $ gamjohn = quirkSayer({{p}}_jo, "gamzee")
-    gamjohn "Quirk formatting 2"
+    # Approach 1: Call quirksay
+    # Arguments are sayer (character), quirk name, text
+    $ quirkSay(gam, "gamzee", "Quirk formatting 1")
 
-    $ quirkSay({{p}}_jo, "gamZee", "Gamzee Quirk formatting")
-    {{p}}_jo "i'm still john"
-    hide john
+    # Approach 2: Define a new sayer
+    # Define a new character, given an existing character and a quirk
+    # New sayer is reusable!
+    $ {{p}}gamq = quirkSayer(gam, "gamzee")
+    {{p}}gamq "Quirk formatting 2"
+    {{p}}gamq "Quirk formatting 2 forever"
+
+    # Approach 3
+    # You can quirk format text without saying it directly
+    $ gam(quirkSub("gamzee", "Quirk formatting 3") + " and I guess other stuff")
+    hide gamzee
 
     show vriska neutral1
     {{p}}_vr "I'm 8riska"
