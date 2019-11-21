@@ -1,4 +1,4 @@
-define ob_horuss = Character(name="Horuss", show_color="#000056", kind=openbound, image="ob_horuss")
+define ob_horuss = Character(name="HORUSS", show_color="#000056", kind=openbound, image="ob_horuss")
 image ob_horuss bashful = Image("{{assets}}/dialogs/horuss/horuss_bashful.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_horuss crossed2 = Image("{{assets}}/dialogs/horuss/horuss_crossed2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_horuss crossed = Image("{{assets}}/dialogs/horuss/horuss_crossed.png", yoffset=-197, xanchor=240, yalign=1.0)

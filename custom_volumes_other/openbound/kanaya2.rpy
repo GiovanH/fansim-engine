@@ -1,4 +1,4 @@
-define ob_kanaya2 = Character(name="Kanaya2", show_color="#008141", kind=openbound, image="ob_kanaya2")
+define ob_kanaya2 = Character(name="KANAYA", show_color="#008141", kind=openbound, image="ob_kanaya2")
 image ob_kanaya2 bored = Image("{{assets}}/dialogs/kanaya/kanaya2_bored.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya2 cry = Image("{{assets}}/dialogs/kanaya/kanaya2_cry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya2 facepalm = Image("{{assets}}/dialogs/kanaya/kanaya2_facepalm.png", yoffset=-197, xanchor=240, yalign=1.0)
