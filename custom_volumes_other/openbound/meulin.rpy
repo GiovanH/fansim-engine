@@ -1,4 +1,4 @@
-define ob_meulin = Character(name="MEULIN", show_color="", kind=openbound, image="ob_meulin")
+define ob_meulin = Character(name="MEULIN", show_color="#416600", kind=openbound, image="ob_meulin")
 image ob_meulin dies = Image("{{assets}}/dialogs/meulin/meulin_dies.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happier = Image("{{assets}}/dialogs/meulin/meulin_happier.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happiertalk = Image("{{assets}}/dialogs/meulin/meulin_happiertalk.png", yoffset=-197, xanchor=240, yalign=1.0)

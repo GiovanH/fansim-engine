@@ -83,10 +83,16 @@ screen openbound_say:
     default color = "#000"
     default hashtags = ""
     default obstyle = "pixel"
+    default chuckle = False
+
+    default purple = "#6600DA"
+
+    default chucklefix = ("_chuckle" if chuckle else "")
+    default tagcolor = (purple if chuckle else "#000")
 
     window:
         id "ob"
-        background "{{assets_common}}/textbox_openbound_" + obstyle + ".png"
+        background "{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png"
 
         if who is not None:
             window:
@@ -94,16 +100,19 @@ screen openbound_say:
                 style "namebox"
                 text who id "who" style "openbound_namebox" color color
 
-        text what id "what" style "openbound_textbox" color color
+        if chuckle:
+            text what id "what" style "openbound_textbox" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+        else:
+            text what id "what" style "openbound_textbox" color color
 
         if hashtags:
             vbox:
-                image "{{assets_common}}/hashbox_openbound_" + obstyle + ".png":
+                image "{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png":
                     pos(0, 142)
 
                 text "[hashtags]": #tags:
                     pos(292, 106)
-                    color "#000"
+                    color tagcolor
                     line_spacing 0
                     size 18
 

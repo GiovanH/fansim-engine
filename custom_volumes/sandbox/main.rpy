@@ -25,6 +25,9 @@ image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640
 image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
 
+define ob_meulin2 = Character(name="MEULIN", show_color="#416600", kind=openround, image="ob_meulin")
+
+
 # Start of route
 label {{package_entrypoint}}_sandbox:
 
@@ -50,8 +53,15 @@ label {{package_entrypoint}}_sandbox:
     show ob_meulin idle
     ob_meulin "!!"
     ob_meulin "!!!" (show_hashtags="#hashtag1")
-    ob_meulin "!!!!"
+    ob_meulin "A very spooky bit of text which reads about three lines at this size" (show_chuckle=True)
+    ob_meulin "spoop" (show_chuckle=True, show_hashtags="#HONK")
+
+    ob_meulin2 "!!"
+    ob_meulin2 "!!!" (show_hashtags="#hashtag1")
+    ob_meulin2 "HONK" (show_chuckle=True)
+    ob_meulin2 "spoop" (show_chuckle=True, show_hashtags="#HONK")
     hide ob_meulin
+
 
     show john neutral
     {{p}}_jostart "hi! i'm john"
