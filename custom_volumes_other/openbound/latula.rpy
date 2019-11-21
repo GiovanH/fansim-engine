@@ -1,4 +1,4 @@
-define ob_latula = Character("Latula Pyrope", kind=trollean, what_color="#008282", image="ob_latula", window_background="gui/textbox_trollian_teal.png")
+define ob_latula = Character(name="Latula", show_color="#008282", kind=openbound, image="ob_latula")
 image ob_latula angry = Image("{{assets}}/dialogs/latula/latula_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_latula annoyed = Image("{{assets}}/dialogs/latula/latula_annoyed.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_latula annoyedtalk = Image("{{assets}}/dialogs/latula/latula_annoyedtalk.png", yoffset=-197, xanchor=240, yalign=1.0)

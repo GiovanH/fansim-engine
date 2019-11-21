@@ -1,4 +1,4 @@
-define ob_rose = Character("tentacleTherapist", kind=pesterchumstart, what_color="#b536da", image="ob_rose")
+define ob_rose = Character(name="Rose", show_color="#b536da", kind=openbound, image="ob_rose")
 image ob_rose annoyed = Image("{{assets}}/dialogs/rose/rose_annoyed.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rose annoyedtalk = Image("{{assets}}/dialogs/rose/rose_annoyedtalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rose concern = Image("{{assets}}/dialogs/rose/rose_concern.png", yoffset=-197, xanchor=240, yalign=1.0)

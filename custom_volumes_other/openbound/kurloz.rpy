@@ -1,4 +1,3 @@
-define ob_kurloz = Character("Kurloz Makara", kind=trollean, what_color="#2b0057", image="ob_kurloz", window_background="gui/textbox_trollian_purple.png")
 image ob_kurloz angry = Image("{{assets}}/dialogs/kurloz/kurloz_angry.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz annoyed = Image("{{assets}}/dialogs/kurloz/kurloz_annoyed.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz bye = Image("{{assets}}/dialogs/kurloz/kurloz_bye.png", yoffset=-197, xalign=0.5, yalign=1.0)
@@ -33,6 +32,7 @@ image ob_kurloz shrug = Image("{{assets}}/dialogs/kurloz/kurloz_shrug.png", yoff
 image ob_kurloz smile = Image("{{assets}}/dialogs/kurloz/kurloz_smile.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz thumbsup = Image("{{assets}}/dialogs/kurloz/kurloz_thumbsup.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz zip = Image("{{assets}}/dialogs/kurloz/kurloz_zip.png", yoffset=-197, xalign=0.5, yalign=1.0)
+define ob_kurloz = Character(name="Kurloz", show_color="#2b0057", kind=openbound, image="ob_kurloz")
 image ob_kurloz dead:
     Image("{{assets}}/dialogs/kurloz/kurloz_dead-0.png", yoffset=-197, xalign=0.5, yalign=1.0)
     pause 0.1

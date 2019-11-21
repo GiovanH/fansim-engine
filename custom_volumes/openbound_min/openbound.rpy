@@ -1,4 +1,4 @@
-define ob_aradia = Character("apocalypseArisen", kind=trollean, what_color="#a10000", image="ob_aradia", window_background="gui/textbox_trollian_rust.png")
+define ob_aradia = Character(name="Aradia", show_color="#a10000", kind=openbound, image="ob_aradia")
 image ob_aradia happy = Image("{{assets}}/dialogs/aradia_happy.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aradia happytalk = Image("{{assets}}/dialogs/aradia_happytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aradia idle = Image("{{assets}}/dialogs/aradia_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -18,7 +18,7 @@ image ob_aradia talk:
     Image("{{assets}}/dialogs/aradia_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_aranea = Character("Aranea Serket", kind=trollean, what_color="#005682", image="ob_aranea", window_background="gui/textbox_trollian_blue.png")
+define ob_aranea = Character(name="Aranea", show_color="#005682", kind=openbound, image="ob_aranea")
 image ob_aranea angry = Image("{{assets}}/dialogs/aranea/aranea_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aranea angrytalk = Image("{{assets}}/dialogs/aranea/aranea_angrytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_aranea annoyed = Image("{{assets}}/dialogs/aranea/aranea_annoyed.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -190,7 +190,7 @@ image ob_aranea talk:
     Image("{{assets}}/dialogs/aranea/aranea_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_cronus = Character("Cronus Ampora", kind=trollean, what_color="#6a006a", image="ob_cronus", window_background="gui/textbox_trollian_violet.png")
+define ob_cronus = Character(name="Cronus", show_color="#6a006a", kind=openbound, image="ob_cronus")
 image ob_cronus angry = Image("{{assets}}/dialogs/cronus/cronus_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_cronus bored = Image("{{assets}}/dialogs/cronus/cronus_bored.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_cronus happy = Image("{{assets}}/dialogs/cronus/cronus_happy.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -277,7 +277,7 @@ image ob_cronus talk:
     Image("{{assets}}/dialogs/cronus/cronus_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_damara = Character("Damara Megido", kind=trollean, what_color="#a10000", image="ob_damara", window_background="gui/textbox_trollian_rust.png")
+define ob_damara = Character(name="Damara", show_color="#a10000", kind=openbound, image="ob_damara")
 image ob_damara fiendish = Image("{{assets}}/dialogs/damara/damara_fiendish.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_damara fu1 = Image("{{assets}}/dialogs/damara/damara_fu1.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_damara fu2 = Image("{{assets}}/dialogs/damara/damara_fu2.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -354,7 +354,7 @@ image ob_damara talk:
     Image("{{assets}}/dialogs/damara/damara_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_dave = Character("turntechGodhead", kind=pesterchumstart, what_color="#e00707", image="ob_dave")
+define ob_dave = Character(name="Dave", show_color="#e00707", kind=openbound, image="ob_dave")
 image ob_dave concern = Image("{{assets}}/dialogs/dave/dave_concern.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_dave huh = Image("{{assets}}/dialogs/dave/dave_huh.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_dave huhtalk = Image("{{assets}}/dialogs/dave/dave_huhtalk.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -431,10 +431,10 @@ image ob_dave talk:
     Image("{{assets}}/dialogs/dave/dave_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_gamzee = Character("terminallyCapricious", kind=trollean, what_color="#2b0057", image="ob_gamzee", window_background="gui/textbox_trollian_purple.png")
+define ob_gamzee = Character(name="Gamzee", show_color="#2b0057", kind=openbound, image="ob_gamzee")
 image ob_gamzee idle = Image("{{assets}}/dialogs/gamzee/gamzee_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_gamzee idle = Image("{{assets}}/dialogs/gamzee/gamzee_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
-define ob_horuss = Character("Horuss Zahhak", kind=trollean, what_color="#000056", image="ob_horuss", window_background="gui/textbox_trollian_cobalt.png")
+define ob_horuss = Character(name="Horuss", show_color="#000056", kind=openbound, image="ob_horuss")
 image ob_horuss bashful = Image("{{assets}}/dialogs/horuss/horuss_bashful.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_horuss crossed2 = Image("{{assets}}/dialogs/horuss/horuss_crossed2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_horuss crossed = Image("{{assets}}/dialogs/horuss/horuss_crossed.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -556,7 +556,7 @@ image ob_horuss sweat talk:
     Image("{{assets}}/dialogs/horuss/horuss_sweat_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_kanaya = Character("grimAuxillatrix", kind=trollean, what_color="#008141", image="ob_kanaya", window_background="gui/textbox_trollian_jade.png")
+define ob_kanaya = Character(name="Kanaya", show_color="#008141", kind=openbound, image="ob_kanaya")
 image ob_kanaya angrytalk = Image("{{assets}}/dialogs/kanaya/kanaya_angrytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya bored = Image("{{assets}}/dialogs/kanaya/kanaya_bored.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya cry = Image("{{assets}}/dialogs/kanaya/kanaya_cry.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -673,7 +673,7 @@ image ob_kanaya talk:
     Image("{{assets}}/dialogs/kanaya/kanaya_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_kanaya2 = Character("grimAuxillatrix", kind=trollean, what_color="#008141", image="ob_kanaya", window_background="gui/textbox_trollian_jade.png")
+define ob_kanaya2 = Character(name="Kanaya2", show_color="#008141", kind=openbound, image="ob_kanaya2")
 image ob_kanaya2 bored = Image("{{assets}}/dialogs/kanaya/kanaya2_bored.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya2 cry = Image("{{assets}}/dialogs/kanaya/kanaya2_cry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya2 facepalm = Image("{{assets}}/dialogs/kanaya/kanaya2_facepalm.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -725,7 +725,7 @@ image ob_kanaya2 talk:
     Image("{{assets}}/dialogs/kanaya/kanaya2_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_kankri = Character("Kankri Vantas", kind=trollean, what_color="#ff0000", image="ob_kankri", window_background="gui/textbox_trollian_rust.png")
+define ob_kankri = Character(name="Kankri", show_color="#ff0000", kind=openbound, image="ob_kankri")
 image ob_kankri glance = Image("{{assets}}/dialogs/kankri/kankri_glance.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kankri idle = Image("{{assets}}/dialogs/kankri/kankri_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kankri rage = Image("{{assets}}/dialogs/kankri/kankri_rage.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -846,7 +846,7 @@ image ob_kankri whistle:
     Image("{{assets}}/dialogs/kankri/kankri_whistle-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_karkat = Character("carcinoGeneticist", kind=trollean, what_color="#626262", image="ob_karkat", window_background="gui/textbox_trollian_grey.png")
+define ob_karkat = Character(name="Karkat", show_color="#626262", kind=openbound, image="ob_karkat")
 image ob_karkat eyeroll1 = Image("{{assets}}/dialogs/karkat/karkat_eyeroll1.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_karkat eyeroll2 = Image("{{assets}}/dialogs/karkat/karkat_eyeroll2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_karkat facepalm = Image("{{assets}}/dialogs/karkat/karkat_facepalm.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -949,7 +949,6 @@ image ob_karkat yell:
     Image("{{assets}}/dialogs/karkat/karkat_yell-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_kurloz = Character("Kurloz Makara", kind=trollean, what_color="#2b0057", image="ob_kurloz", window_background="gui/textbox_trollian_purple.png")
 image ob_kurloz angry = Image("{{assets}}/dialogs/kurloz/kurloz_angry.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz annoyed = Image("{{assets}}/dialogs/kurloz/kurloz_annoyed.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz bye = Image("{{assets}}/dialogs/kurloz/kurloz_bye.png", yoffset=-197, xalign=0.5, yalign=1.0)
@@ -984,6 +983,7 @@ image ob_kurloz shrug = Image("{{assets}}/dialogs/kurloz/kurloz_shrug.png", yoff
 image ob_kurloz smile = Image("{{assets}}/dialogs/kurloz/kurloz_smile.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz thumbsup = Image("{{assets}}/dialogs/kurloz/kurloz_thumbsup.png", yoffset=-197, xalign=0.5, yalign=1.0)
 image ob_kurloz zip = Image("{{assets}}/dialogs/kurloz/kurloz_zip.png", yoffset=-197, xalign=0.5, yalign=1.0)
+define ob_kurloz = Character(name="Kurloz", show_color="#2b0057", kind=openbound, image="ob_kurloz")
 image ob_kurloz dead:
     Image("{{assets}}/dialogs/kurloz/kurloz_dead-0.png", yoffset=-197, xalign=0.5, yalign=1.0)
     pause 0.1
@@ -1196,7 +1196,7 @@ image ob_kurloz zip:
     Image("{{assets}}/dialogs/kurloz/kurloz_zip-2.png", yoffset=-197, xalign=0.5, yalign=1.0)
     pause 0.1
     repeat
-define ob_latula = Character("Latula Pyrope", kind=trollean, what_color="#008282", image="ob_latula", window_background="gui/textbox_trollian_teal.png")
+define ob_latula = Character(name="Latula", show_color="#008282", kind=openbound, image="ob_latula")
 image ob_latula angry = Image("{{assets}}/dialogs/latula/latula_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_latula annoyed = Image("{{assets}}/dialogs/latula/latula_annoyed.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_latula annoyedtalk = Image("{{assets}}/dialogs/latula/latula_annoyedtalk.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -1333,7 +1333,7 @@ image ob_latula talk:
     Image("{{assets}}/dialogs/latula/latula_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_meenah = Character("Meenah Peixes", kind=trollean, what_color="#77003c", image="ob_meenah", window_background="gui/textbox_trollian_fuschia.png")
+define ob_meenah = Character(name="Meenah", show_color="#77003c", kind=openbound, image="ob_meenah")
 image ob_meenah idle = Image("{{assets}}/dialogs/meenah/meenah_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meenah talk = Image("{{assets}}/dialogs/meenah/meenah_talk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meenah angry = Image("{{assets}}/dialogs/meenah/meenah_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -2818,7 +2818,7 @@ image ob_kurmeme9:
     Image("{{assets}}/interface/backgrounds/kurmeme9-35.png")
     pause 0.1
     repeat
-define ob_meulin = Character("Meulin Leijon", kind=openbound, show_color="#416600", image="ob_meulin", window_background="gui/textbox_trollian_olive.png")
+define ob_meulin = Character(name="Meulin", show_color="", kind=openbound, image="ob_meulin")
 image ob_meulin dies = Image("{{assets}}/dialogs/meulin/meulin_dies.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happier = Image("{{assets}}/dialogs/meulin/meulin_happier.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happiertalk = Image("{{assets}}/dialogs/meulin/meulin_happiertalk.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -3129,7 +3129,7 @@ image ob_meulin worrytalk:
     Image("{{assets}}/dialogs/meulin/meulin_worrytalk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_mituna = Character("Mituna Captor", kind=trollean, what_color="#a1a100", image="ob_mituna", window_background="gui/textbox_trollian_gold.png")
+define ob_mituna = Character(name="Mituna", show_color="#a1a100", kind=openbound, image="ob_mituna")
 image ob_mituna agitated = Image("{{assets}}/dialogs/mituna/mituna_agitated.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_mituna angry2 = Image("{{assets}}/dialogs/mituna/mituna_angry2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_mituna angry = Image("{{assets}}/dialogs/mituna/mituna_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -4122,7 +4122,7 @@ label {{package_entrypoint}}_route:
     ob_rufioh talk "rufioh_talk"
     hide ob_rufioh
 
-define ob_porrim = Character("Porrim Maryam", kind=trollean, what_color="#008141", image="ob_porrim", window_background="gui/textbox_trollian_jade.png")
+define ob_porrim = Character(name="Porrim", show_color="#008141", kind=openbound, image="ob_porrim")
 image ob_porrim angry2 = Image("{{assets}}/dialogs/porrim/porrim_angry2.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_porrim angry = Image("{{assets}}/dialogs/porrim/porrim_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_porrim angrytalk = Image("{{assets}}/dialogs/porrim/porrim_angrytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -4268,7 +4268,7 @@ image rb_squarewave idle:
     pause 0.1
     repeat
 
-define ob_rose = Character("tentacleTherapist", kind=pesterchumstart, what_color="#b536da", image="ob_rose")
+define ob_rose = Character(name="Rose", show_color="#b536da", kind=openbound, image="ob_rose")
 image ob_rose annoyed = Image("{{assets}}/dialogs/rose/rose_annoyed.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rose annoyedtalk = Image("{{assets}}/dialogs/rose/rose_annoyedtalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rose concern = Image("{{assets}}/dialogs/rose/rose_concern.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -4403,7 +4403,7 @@ image ob_rose talk:
     Image("{{assets}}/dialogs/rose/rose_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_rufioh = Character("Rufioh Nitram", kind=trollean, what_color="#000000", image="ob_rufioh", window_background="gui/textbox_trollian_rust.png")
+define ob_rufioh = Character(name="Rufioh", show_color="#000000", kind=openbound, image="ob_rufioh")
 image ob_rufioh happy = Image("{{assets}}/dialogs/rufioh/rufioh_happy.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rufioh happytalk = Image("{{assets}}/dialogs/rufioh/rufioh_happytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rufioh idle = Image("{{assets}}/dialogs/rufioh/rufioh_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
@@ -4466,7 +4466,7 @@ image ob_rufioh talk:
     Image("{{assets}}/dialogs/rufioh/rufioh_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define ob_terezi = Character("gallowsCallibrator", kind=trollean, what_color="#008282", image="ob_terezi", window_background="gui/textbox_trollian_teal.png")
+define ob_terezi = Character(name="Terezi", show_color="#008282", kind=openbound, image="ob_terezi")
 image ob_terezi idle = Image("{{assets}}/dialogs/terezi/terezi_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_terezi sad = Image("{{assets}}/dialogs/terezi/terezi_sad.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_terezi idle = Image("{{assets}}/dialogs/terezi/terezi_idle.png", yoffset=-197, xanchor=240, yalign=1.0)

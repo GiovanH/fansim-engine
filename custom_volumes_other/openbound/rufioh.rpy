@@ -1,4 +1,4 @@
-define ob_rufioh = Character("Rufioh Nitram", kind=trollean, what_color="#000000", image="ob_rufioh", window_background="gui/textbox_trollian_rust.png")
+define ob_rufioh = Character(name="Rufioh", show_color="#000000", kind=openbound, image="ob_rufioh")
 image ob_rufioh happy = Image("{{assets}}/dialogs/rufioh/rufioh_happy.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rufioh happytalk = Image("{{assets}}/dialogs/rufioh/rufioh_happytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_rufioh idle = Image("{{assets}}/dialogs/rufioh/rufioh_idle.png", yoffset=-197, xanchor=240, yalign=1.0)

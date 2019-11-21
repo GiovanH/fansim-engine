@@ -48,7 +48,9 @@ label {{package_entrypoint}}_sandbox:
     narrator_calliope "Narrator calliope"
 
     show ob_meulin idle
-    ob_meulin "!!!"
+    ob_meulin "!!"
+    ob_meulin "!!!" (show_hashtags="#hashtag1")
+    ob_meulin "!!!!"
     hide ob_meulin
 
     show john neutral

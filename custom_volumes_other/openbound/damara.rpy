@@ -1,4 +1,4 @@
-define ob_damara = Character("Damara Megido", kind=trollean, what_color="#a10000", image="ob_damara", window_background="gui/textbox_trollian_rust.png")
+define ob_damara = Character(name="Damara", show_color="#a10000", kind=openbound, image="ob_damara")
 image ob_damara fiendish = Image("{{assets}}/dialogs/damara/damara_fiendish.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_damara fu1 = Image("{{assets}}/dialogs/damara/damara_fu1.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_damara fu2 = Image("{{assets}}/dialogs/damara/damara_fu2.png", yoffset=-197, xanchor=240, yalign=1.0)

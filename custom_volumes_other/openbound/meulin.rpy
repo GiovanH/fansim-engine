@@ -1,4 +1,4 @@
-define ob_meulin = Character("Meulin Leijon", kind=trollean, what_color="#416600", image="ob_meulin", window_background="gui/textbox_trollian_olive.png")
+define ob_meulin = Character(name="Meulin", show_color="", kind=openbound, image="ob_meulin")
 image ob_meulin dies = Image("{{assets}}/dialogs/meulin/meulin_dies.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happier = Image("{{assets}}/dialogs/meulin/meulin_happier.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_meulin happiertalk = Image("{{assets}}/dialogs/meulin/meulin_happiertalk.png", yoffset=-197, xanchor=240, yalign=1.0)

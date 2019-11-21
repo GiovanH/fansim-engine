@@ -1,4 +1,4 @@
-define ob_dave = Character("turntechGodhead", kind=pesterchumstart, what_color="#e00707", image="ob_dave")
+define ob_dave = Character(name="Dave", show_color="#e00707", kind=openbound, image="ob_dave")
 image ob_dave concern = Image("{{assets}}/dialogs/dave/dave_concern.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_dave huh = Image("{{assets}}/dialogs/dave/dave_huh.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_dave huhtalk = Image("{{assets}}/dialogs/dave/dave_huhtalk.png", yoffset=-197, xanchor=240, yalign=1.0)

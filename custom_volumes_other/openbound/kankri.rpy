@@ -1,4 +1,4 @@
-define ob_kankri = Character("Kankri Vantas", kind=trollean, what_color="#ff0000", image="ob_kankri", window_background="gui/textbox_trollian_rust.png")
+define ob_kankri = Character(name="Kankri", show_color="#ff0000", kind=openbound, image="ob_kankri")
 image ob_kankri glance = Image("{{assets}}/dialogs/kankri/kankri_glance.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kankri idle = Image("{{assets}}/dialogs/kankri/kankri_idle.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kankri rage = Image("{{assets}}/dialogs/kankri/kankri_rage.png", yoffset=-197, xanchor=240, yalign=1.0)

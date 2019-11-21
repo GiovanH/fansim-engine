@@ -74,16 +74,19 @@ style openbound_namebox:
 style openbound_textbox:
     properties gui.text_properties("dialogue")
     size 26
-    xpos 300
-    ypos 26
+    xpos 292
+    ypos 30
     xmaximum 720
 
 screen openbound_say:
     style_prefix "say"
     default color = "#000"
+    default hashtags = ""
+    default obstyle = "pixel"
+
     window:
-        background "{{assets_common}}/textbox_openbound.png"
         id "ob"
+        background "{{assets_common}}/textbox_openbound_" + obstyle + ".png"
 
         if who is not None:
             window:
@@ -92,12 +95,25 @@ screen openbound_say:
                 text who id "who" style "openbound_namebox" color color
 
         text what id "what" style "openbound_textbox" color color
-        
+
+        if hashtags:
+            vbox:
+                image "{{assets_common}}/hashbox_openbound_" + obstyle + ".png":
+                    pos(0, 142)
+
+                text "[hashtags]": #tags:
+                    pos(292, 106)
+                    color "#000"
+                    line_spacing 0
+                    size 18
 
 define openbound = Character(
     screen="openbound_say", what_style="openbound_textbox", who_style="openbound_namebox"
 )
-
+define openround = Character(
+    screen="openbound_say", what_style="openbound_textbox", who_style="openbound_namebox",
+    show_obstyle="round"
+)
 # Examples using these templates instead of the vanilla method:
 # define jostart = Character(name="ectoBiologist", kind=pesterchumstart, what_color='#0715cd', image="john")
 # define jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")

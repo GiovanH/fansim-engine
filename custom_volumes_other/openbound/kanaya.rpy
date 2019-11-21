@@ -1,4 +1,4 @@
-define ob_kanaya = Character("grimAuxillatrix", kind=trollean, what_color="#008141", image="ob_kanaya", window_background="gui/textbox_trollian_jade.png")
+define ob_kanaya = Character(name="Kanaya", show_color="#008141", kind=openbound, image="ob_kanaya")
 image ob_kanaya angrytalk = Image("{{assets}}/dialogs/kanaya/kanaya_angrytalk.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya bored = Image("{{assets}}/dialogs/kanaya/kanaya_bored.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_kanaya cry = Image("{{assets}}/dialogs/kanaya/kanaya_cry.png", yoffset=-197, xanchor=240, yalign=1.0)

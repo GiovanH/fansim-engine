@@ -1,4 +1,4 @@
-define ob_cronus = Character("Cronus Ampora", kind=trollean, what_color="#6a006a", image="ob_cronus", window_background="gui/textbox_trollian_violet.png")
+define ob_cronus = Character(name="Cronus", show_color="#6a006a", kind=openbound, image="ob_cronus")
 image ob_cronus angry = Image("{{assets}}/dialogs/cronus/cronus_angry.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_cronus bored = Image("{{assets}}/dialogs/cronus/cronus_bored.png", yoffset=-197, xanchor=240, yalign=1.0)
 image ob_cronus happy = Image("{{assets}}/dialogs/cronus/cronus_happy.png", yoffset=-197, xanchor=240, yalign=1.0)
