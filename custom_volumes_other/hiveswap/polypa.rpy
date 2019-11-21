@@ -11,5 +11,4 @@ image polypa shocked = Image("{{assets}}/sprite/polypa_shocked.png", ypos=730)
 image polypa shooshpap = Image("{{assets}}/sprite/polypa_shooshpap.png", ypos=730)
 
 init python:
-    quirks["polypa"] = ("(.+)", "<1> *|")
-    
+    quirks["polypa"] = [("(.+)", "<1> *|")]

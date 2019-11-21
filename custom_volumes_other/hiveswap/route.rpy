@@ -11,28 +11,87 @@ label {{package_entrypoint}}_route:
     scene bg alternia4
 
 
-    show wanshi betrayed
-    wanshi betrayed "betrayed"
-    wanshi claspshands "claspshands"
-    wanshi curiosity "curiosity"
-    wanshi eager "eager"
-    wanshi expectant "expectant"
-    wanshi fear "fear"
-    wanshi gift "gift"
-    wanshi hi "hi"
-    wanshi intro_nothingtoseehere "intro_nothingtoseehere"
-    wanshi intro_snitch "intro_snitch"
-    wanshi intro_wanshiout "intro_wanshiout"
-    wanshi OoO "OoO"
-    wanshi rp "rp"
-    wanshi sadsmile "sadsmile"
-    wanshi shakingwithexcitement "shakingwithexcitement"
-    wanshi sideye "sideye"
-    wanshi teary "teary"
-    wanshi ughlame "ughlame"
-    wanshi woah "woah"
-    wanshi youknowit "youknowit"
-    hide wanshi
+    show vikare angry
+    vikare angry "angry"
+    vikare conspiracy "conspiracy"
+    vikare curious "curious"
+    vikare Fractured "Fractured"
+    vikare inspired "inspired"
+    vikare neutral "neutral"
+    vikare sad "sad"
+    vikare worried "worried"
+    hide vikare
+
+    show zebede crying
+    zebede crying "crying"
+    zebede distressed "distressed"
+    zebede happy "happy"
+    zebede hi "hi"
+    zebede neutral "neutral"
+    zebede questioning "questioning"
+    zebede radiant "radiant"
+    zebede shiftyeyed "shiftyeyed"
+    zebede shockedembarassed "shockedembarassed"
+    hide zebede
+
+    show diemen cry
+    diemen cry "cry"
+    diemen cry_dogless "cry_dogless"
+    diemen cry_shirtless "cry_shirtless"
+    diemen curious "curious"
+    diemen curious_dogless "curious_dogless"
+    diemen curious_shirtless "curious_shirtless"
+    diemen die_shirtless "die_shirtless"
+    diemen frown "frown"
+    diemen frown_dogless "frown_dogless"
+    diemen offer "offer"
+    diemen offer_dogless "offer_dogless"
+    diemen offer_dogless_resized "offer_dogless_resized"
+    diemen offer_shirtless "offer_shirtless"
+    diemen optimistic "optimistic"
+    diemen optimistic_dogless "optimistic_dogless"
+    diemen optimistic_dogless_resized "optimistic_dogless_resized"
+    diemen optimistic_scaled "optimistic_scaled"
+    diemen recoil "recoil"
+    diemen recoil_shirtless "recoil_shirtless"
+    diemen shock "shock"
+    diemen shock_shirtless "shock_shirtless"
+    diemen smile "smile"
+    diemen smile_dogless "smile_dogless"
+    diemen smile_dogless_resized "smile_dogless_resized"
+    diemen smile_scaled "smile_scaled"
+    diemen smile_shirtless "smile_shirtless"
+    diemen talk "talk"
+    diemen talk_dogless "talk_dogless"
+    diemen talk_dogless_resized "talk_dogless_resized"
+    diemen thinking "thinking"
+    diemen thinking_dogless "thinking_dogless"
+    diemen thinking_dogless_resized "thinking_dogless_resized"
+    hide diemen
+
+    show ardata bored
+    ardata bored "bored"
+    ardata cry "cry"
+    ardata hand "hand"
+    ardata laugh "laugh"
+    ardata murder "murder"
+    ardata ohoho "ohoho"
+    ardata smile "smile"
+    ardata testy "testy"
+    ardata wink "wink"
+    hide ardata
+
+    show cirava angst
+    cirava angst "angst"
+    cirava cross "cross"
+    cirava feelingit "feelingit"
+    cirava peace "peace"
+    cirava point "point"
+    cirava shrug "shrug"
+    cirava standing "standing"
+    cirava talk "talk"
+    cirava vape "vape"
+    hide cirava
 
     show chixie annoyed
     chixie annoyed "annoyed"
@@ -53,93 +112,65 @@ label {{package_entrypoint}}_route:
     chixie talk "talk"
     hide chixie
 
-    show charun allartisdickingaround
-    charun allartisdickingaround "allartisdickingaround"
-    charun bandannaneutral "bandannaneutral"
-    charun bandannaseeanything "bandannaseeanything"
-    charun bandannasquint "bandannasquint"
-    charun canihaveit "canihaveit"
-    charun disappointed "disappointed"
-    charun itsbeautiful "itsbeautiful"
-    charun maybe "maybe"
-    charun neutral_imstuck "neutral_imstuck"
-    charun pleased "pleased"
-    charun quoteinteresting "quoteinteresting"
-    charun squint "squint"
-    charun thereis "thereis"
-    charun tired "tired"
-    hide charun
+    show folykl idle
+    folykl idle "idle"
+    folykl pain "pain"
+    folykl scaled "scaled"
+    hide folykl
 
-    show galekh disappointedpause
-    galekh disappointedpause "disappointedpause"
-    galekh expressions001 "expressions001"
-    galekh frustration "frustration"
-    galekh glare "glare"
-    galekh neutral "neutral"
-    galekh nojacketneutral "nojacketneutral"
-    galekh nojacketpleased "nojacketpleased"
-    galekh pissed "pissed"
-    galekh pleased "pleased"
-    galekh questioning "questioning"
-    galekh surprise "surprise"
-    galekh tattoocrookedsmile "tattoocrookedsmile"
-    galekh tattooflush "tattooflush"
-    galekh tattooneutral "tattooneutral"
-    galekh tattoowince "tattoowince"
-    hide galekh
+    show boldir antidote
+    boldir antidote "antidote"
+    boldir cold "cold"
+    boldir cold_small "cold_small"
+    boldir dressneutral "dressneutral"
+    boldir dressthoughtful "dressthoughtful"
+    boldir dresswideeyed "dresswideeyed"
+    boldir dying "dying"
+    boldir hurt "hurt"
+    boldir mean "mean"
+    boldir mean_small "mean_small"
+    boldir neutral "neutral"
+    boldir oof "oof"
+    boldir thoughtful "thoughtful"
+    boldir wideeyed "wideeyed"
+    hide boldir
 
-    show tegiri angry
-    tegiri angry "angry"
-    tegiri brood "brood"
-    tegiri demanding "demanding"
-    tegiri doyoudance "doyoudance"
-    tegiri doyoudance_fx01 "doyoudance_fx01"
-    tegiri doyoudance_fx02 "doyoudance_fx02"
-    tegiri neutral "neutral"
-    tegiri pleased "pleased"
-    tegiri proud "proud"
-    tegiri question "question"
-    tegiri sharingan "sharingan"
-    tegiri sour "sour"
-    tegiri talk "talk"
-    tegiri thepowerofkamiandanime "thepowerofkamiandanime"
-    hide tegiri
-
-    show marsti angry
-    marsti angry "angry"
-    marsti browquirk "browquirk"
-    marsti browquirk_talking "browquirk_talking"
-    marsti gogglesup "gogglesup"
-    marsti gogglesup_angry "gogglesup_angry"
-    marsti gogglesup_duh "gogglesup_duh"
-    marsti gogglesup_resigned "gogglesup_resigned"
-    marsti gogglesup_snarky "gogglesup_snarky"
-    marsti Neutral "Neutral"
-    marsti Neutral_talking "Neutral_talking"
-    marsti peeved "peeved"
-    marsti peeved_talking "peeved_talking"
-    marsti shrug "shrug"
-    marsti shrug_talking "shrug_talking"
-    marsti smile "smile"
-    marsti worried "worried"
-    hide marsti
-
-    show mallek down
-    mallek down "down"
-    mallek drones "drones"
-    mallek grin "grin"
-    mallek interest "interest"
-    mallek laugh "laugh"
-    mallek lowered "lowered"
-    mallek neutral "neutral"
-    mallek pissed "pissed"
-    mallek really "really"
-    mallek scrutinyannoyance "scrutinyannoyance"
-    mallek shirtlessflush "shirtlessflush"
-    mallek shirtlessmybad "shirtlessmybad"
-    mallek shirtlesstalk "shirtlesstalk"
-    mallek shirtlessum "shirtlessum"
-    hide mallek
+    show marvus annoyed
+    marvus annoyed "annoyed"
+    marvus burnt babbling "burnt babbling"
+    marvus burnt HoldinUp "burnt HoldinUp"
+    marvus burnt JustToasty "burnt JustToasty"
+    marvus burnt "burnt"
+    marvus BurntUpButStillTurntUp "BurntUpButStillTurntUp"
+    marvus casual aw shiz "casual aw shiz"
+    marvus casual flattered "casual flattered"
+    marvus casual shrug "casual shrug"
+    marvus casual talking smug "casual talking smug"
+    marvus casual talking "casual talking"
+    marvus casual winkyface "casual winkyface"
+    marvus casual "casual"
+    marvus disgust "disgust"
+    marvus HearTheCrowd WhatYallSay "HearTheCrowd WhatYallSay"
+    marvus HearTheCrowd "HearTheCrowd"
+    marvus hug "hug"
+    marvus neutral talking "neutral talking"
+    marvus neutral "neutral"
+    marvus openarms talking "openarms talking"
+    marvus openarms "openarms"
+    marvus pan sprite "pan sprite"
+    marvus raiseblade "raiseblade"
+    marvus rank "rank"
+    marvus rapping "rapping"
+    marvus shameless "shameless"
+    marvus shielding "shielding"
+    marvus STAB look "STAB look"
+    marvus STAB "STAB"
+    marvus thinking "thinking"
+    marvus u naughty "u naughty"
+    marvus withdrawblade wink "withdrawblade wink"
+    marvus withdrawblade "withdrawblade"
+    marvus wtf "wtf"
+    hide marvus
 
     show folyklkuprum double frown
     folyklkuprum double frown "double frown"
@@ -153,275 +184,6 @@ label {{package_entrypoint}}_route:
     folyklkuprum k_mouthopen "k_mouthopen"
     folyklkuprum POWER "POWER"
     hide folyklkuprum
-
-    show tirona 3whisper_small
-    tirona 3whisper_small "3whisper_small"
-    tirona deerintheheadlights_small "deerintheheadlights_small"
-    tirona FEASTYOUREYES_small "FEASTYOUREYES_small"
-    tirona lilhelper_small "lilhelper_small"
-    tirona memetalk_small "memetalk_small"
-    tirona meme_small "meme_small"
-    tirona pigtailyank_small "pigtailyank_small"
-    tirona secretwhisper_small "secretwhisper_small"
-    tirona talk_small "talk_small"
-    tirona WOW_small "WOW_small"
-    tirona YEAHfrazzled_small "YEAHfrazzled_small"
-    tirona YEAH_small "YEAH_small"
-    hide tirona
-
-    show remele attack
-    remele attack "attack"
-    remele bag "bag"
-    remele discomfort "discomfort"
-    remele discomfort_painting "discomfort_painting"
-    remele grin "grin"
-    remele Neutral "Neutral"
-    remele Neutral_after "Neutral_after"
-    remele pokerface "pokerface"
-    remele stagger "stagger"
-    remele wink "wink"
-    hide remele
-
-    show baizli CalmManic
-    baizli CalmManic "CalmManic"
-    baizli CalmManicTalk "CalmManicTalk"
-    baizli CalmMorose "CalmMorose"
-    baizli CalmMoroseTalk "CalmMoroseTalk"
-    baizli Confused "Confused"
-    baizli ConfusedTalking "ConfusedTalking"
-    baizli Disapproving "Disapproving"
-    baizli DisapprovingTalk "DisapprovingTalk"
-    baizli InShadow "InShadow"
-    baizli Laughing "Laughing"
-    baizli Neutral "Neutral"
-    baizli NeutralTalking "NeutralTalking"
-    baizli Skeptical "Skeptical"
-    baizli Thinking "Thinking"
-    baizli ThinkingTalk "ThinkingTalk"
-    hide baizli
-
-    show chahut blood
-    chahut blood "blood"
-    chahut lazysmile "lazysmile"
-    chahut neutral "neutral"
-    chahut pissed "pissed"
-    chahut pray "pray"
-    chahut spray "spray"
-    chahut suprise "suprise"
-    chahut wince "wince"
-    hide chahut
-
-    show amisia axe
-    amisia axe "axe"
-    amisia blur2 "blur2"
-    amisia confess "confess"
-    amisia doubt "doubt"
-    amisia frame "frame"
-    amisia growl "growl"
-    amisia hairpull "hairpull"
-    amisia hop "hop"
-    amisia nya "nya"
-    amisia ponder "ponder"
-    amisia smile "smile"
-    amisia smile2 "smile2"
-    amisia smug "smug"
-    hide amisia
-
-    show skylla anger
-    skylla anger "anger"
-    skylla concern "concern"
-    skylla depressed "depressed"
-    skylla distress "distress"
-    skylla happy "happy"
-    skylla kickass "kickass"
-    skylla numb "numb"
-    skylla numb2 "numb2"
-    skylla stand "stand"
-    skylla talk "talk"
-    skylla upset "upset"
-    hide skylla
-
-    show karako ATTACK
-    karako ATTACK "ATTACK"
-    karako curious "curious"
-    karako emo "emo"
-    karako FEAR "FEAR"
-    karako grateful "grateful"
-    karako happy "happy"
-    karako injured "injured"
-    karako RLYupset "RLYupset"
-    karako treestuck "treestuck"
-    karako upset "upset"
-    hide karako
-
-    show polypa dejected
-    polypa dejected "dejected"
-    polypa hoodie_intro "hoodie_intro"
-    polypa hoodie_pissed "hoodie_pissed"
-    polypa neutral "neutral"
-    polypa pleased "pleased"
-    polypa scuffle "scuffle"
-    polypa serious "serious"
-    polypa shocked "shocked"
-    polypa shooshpap "shooshpap"
-    hide polypa
-
-    show tagora clasp
-    tagora clasp "clasp"
-    tagora document "document"
-    tagora ew "ew"
-    tagora helpful "helpful"
-    tagora hollering "hollering"
-    tagora judging "judging"
-    tagora nervous "nervous"
-    tagora neutral "neutral"
-    tagora neutral2 "neutral2"
-    hide tagora
-
-    show folykl idle
-    folykl idle "idle"
-    folykl pain "pain"
-    folykl scaled "scaled"
-    hide folykl
-
-    show cirava angst
-    cirava angst "angst"
-    cirava cross "cross"
-    cirava feelingit "feelingit"
-    cirava peace "peace"
-    cirava point "point"
-    cirava shrug "shrug"
-    cirava standing "standing"
-    cirava talk "talk"
-    cirava vape "vape"
-    hide cirava
-
-    show ardata bored
-    ardata bored "bored"
-    ardata cry "cry"
-    ardata hand "hand"
-    ardata laugh "laugh"
-    ardata murder "murder"
-    ardata ohoho "ohoho"
-    ardata smile "smile"
-    ardata testy "testy"
-    ardata wink "wink"
-    hide ardata
-
-    show stelsa embarrassed
-    stelsa embarrassed "embarrassed"
-    stelsa embarrassedcasual "embarrassedcasual"
-    stelsa fakesmile "fakesmile"
-    stelsa fakesmilecasual "fakesmilecasual"
-    stelsa gesticulate "gesticulate"
-    stelsa gesticulatecasual "gesticulatecasual"
-    stelsa happy "happy"
-    stelsa happycasual "happycasual"
-    stelsa happytowel "happytowel"
-    stelsa harried "harried"
-    stelsa harriedcasual "harriedcasual"
-    stelsa harriedruffled "harriedruffled"
-    stelsa smile "smile"
-    stelsa smilecasual "smilecasual"
-    stelsa smiletowel "smiletowel"
-    stelsa surprise "surprise"
-    stelsa surprisecasual "surprisecasual"
-    stelsa wringing "wringing"
-    stelsa wringingcasual "wringingcasual"
-    hide stelsa
-
-    show zebruh disgust
-    zebruh disgust "disgust"
-    zebruh displeased "displeased"
-    zebruh excited "excited"
-    zebruh huh "huh"
-    zebruh showoff "showoff"
-    zebruh stand "stand"
-    zebruh talk "talk"
-    zebruh upset "upset"
-    zebruh wink "wink"
-    $ quirkSay(zebruh, "zebruh_hearts", "Hearts")
-    $ quirkSay(zebruh, "zebruh_spades", "Spades")
-    $ quirkSay(zebruh, "zebruh_diamonds", "Diamonds")
-    $ quirkSay(zebruh, "zebruh_clubs", "Clubs")
-
-    hide zebruh
-
-    show bronya angry
-    bronya angry "angry"
-    bronya duty "duty"
-    bronya happy "happy"
-    bronya motherly "motherly"
-    bronya panic "panic"
-    bronya talk "talk"
-    bronya umm "umm"
-    bronya worried "worried"
-    hide bronya
-
-    show vikare angry
-    vikare angry "angry"
-    vikare conspiracy "conspiracy"
-    vikare curious "curious"
-    vikare Fractured "Fractured"
-    vikare inspired "inspired"
-    vikare neutral "neutral"
-    vikare sad "sad"
-    vikare worried "worried"
-    hide vikare
-
-    show tyzias grimace
-    tyzias grimace "grimace"
-    tyzias irritated "irritated"
-    tyzias irritatedtalk "irritatedtalk"
-    tyzias laugh "laugh"
-    tyzias miserable "miserable"
-    tyzias mugglare "mugglare"
-    tyzias sad "sad"
-    tyzias sip "sip"
-    tyzias siplook "siplook"
-    tyzias talk "talk"
-    tyzias weary "weary"
-    tyzias workedup "workedup"
-    tyzias workedup2 "workedup2"
-    hide tyzias
-
-    show konyyl ask
-    konyyl ask "ask"
-    konyyl attack "attack"
-    konyyl defeated "defeated"
-    konyyl laugh "laugh"
-    konyyl menacing "menacing"
-    konyyl neutral "neutral"
-    konyyl sad "sad"
-    konyyl surprised "surprised"
-    konyyl thinking "thinking"
-    konyyl why "why"
-    hide konyyl
-
-    show nikhee blankface
-    nikhee blankface "blankface"
-    nikhee coward "coward"
-    nikhee doiscareyou "doiscareyou"
-    nikhee FLEXSTAR_01 "FLEXSTAR_01"
-    nikhee FLEXSTAR_02 "FLEXSTAR_02"
-    nikhee FLEXSTAR_03 "FLEXSTAR_03"
-    nikhee getoutofmysight "getoutofmysight"
-    nikhee hemhaw "hemhaw"
-    nikhee kylorenlol "kylorenlol"
-    nikhee listentome "listentome"
-    nikhee lostleg "lostleg"
-    nikhee MAYBE "MAYBE"
-    nikhee milkflex "milkflex"
-    nikhee NO "NO"
-    nikhee notimpressed "notimpressed"
-    nikhee offended "offended"
-    nikhee proud "proud"
-    nikhee ringstand "ringstand"
-    nikhee smile "smile"
-    nikhee THEBRAWNISEUM "THEBRAWNISEUM"
-    nikhee weirdflexbutok "weirdflexbutok"
-    nikhee weirdflexbutok_scowl "weirdflexbutok_scowl"
-    hide nikhee
 
     show lynera anguish
     lynera anguish "anguish"
@@ -440,6 +202,28 @@ label {{package_entrypoint}}_route:
     lynera wouldyoureally "wouldyoureally"
     lynera wrong "wrong"
     hide lynera
+
+    show amisia axe
+    amisia axe "axe"
+    amisia blur2 "blur2"
+    amisia confess "confess"
+    amisia doubt "doubt"
+    amisia frame "frame"
+    amisia growl "growl"
+    amisia hairpull "hairpull"
+    amisia hop "hop"
+    amisia nya "nya"
+    amisia ponder "ponder"
+    amisia smile "smile"
+    amisia smile2 "smile2"
+    amisia smug "smug"
+    hide amisia
+
+    show kuprum anger
+    kuprum anger "anger"
+    kuprum idle "idle"
+    kuprum POWER "POWER"
+    hide kuprum
 
     show lanque Bitching
     lanque Bitching "Bitching"
@@ -487,130 +271,73 @@ label {{package_entrypoint}}_route:
     lanque VALID_Uh "VALID_Uh"
     hide lanque
 
-    show boldir antidote
-    boldir antidote "antidote"
-    boldir cold "cold"
-    boldir cold_small "cold_small"
-    boldir dressneutral "dressneutral"
-    boldir dressthoughtful "dressthoughtful"
-    boldir dresswideeyed "dresswideeyed"
-    boldir dying "dying"
-    boldir hurt "hurt"
-    boldir mean "mean"
-    boldir mean_small "mean_small"
-    boldir neutral "neutral"
-    boldir oof "oof"
-    boldir thoughtful "thoughtful"
-    boldir wideeyed "wideeyed"
-    hide boldir
+    show karako ATTACK
+    karako ATTACK "ATTACK"
+    karako curious "curious"
+    karako emo "emo"
+    karako FEAR "FEAR"
+    karako grateful "grateful"
+    karako happy "happy"
+    karako injured "injured"
+    karako RLYupset "RLYupset"
+    karako treestuck "treestuck"
+    karako upset "upset"
+    hide karako
 
-    show barzum CalmManic
-    barzum CalmManic "CalmManic"
-    barzum CalmManicTalk "CalmManicTalk"
-    barzum CalmMorose "CalmMorose"
-    barzum CalmMoroseTalk "CalmMoroseTalk"
-    barzum Confused "Confused"
-    barzum ConfusedTalk "ConfusedTalk"
-    barzum Disapproving "Disapproving"
-    barzum DisapprovingTalk "DisapprovingTalk"
-    barzum InShadow "InShadow"
-    barzum Laughing "Laughing"
-    barzum Neutral "Neutral"
-    barzum NeutralTalk "NeutralTalk"
-    barzum Sketpical "Sketpical"
-    barzum Thinking "Thinking"
-    barzum ThinkingTalk "ThinkingTalk"
-    hide barzum
+    show remele attack
+    remele attack "attack"
+    remele bag "bag"
+    remele discomfort "discomfort"
+    remele discomfort_painting "discomfort_painting"
+    remele grin "grin"
+    remele Neutral "Neutral"
+    remele Neutral_after "Neutral_after"
+    remele pokerface "pokerface"
+    remele stagger "stagger"
+    remele wink "wink"
+    hide remele
 
-    show zebede crying
-    zebede crying "crying"
-    zebede distressed "distressed"
-    zebede happy "happy"
-    zebede hi "hi"
-    zebede neutral "neutral"
-    zebede questioning "questioning"
-    zebede radiant "radiant"
-    zebede shiftyeyed "shiftyeyed"
-    zebede shockedembarassed "shockedembarassed"
-    hide zebede
+    show charun allartisdickingaround
+    charun allartisdickingaround "allartisdickingaround"
+    charun bandannaneutral "bandannaneutral"
+    charun bandannaseeanything "bandannaseeanything"
+    charun bandannasquint "bandannasquint"
+    charun canihaveit "canihaveit"
+    charun disappointed "disappointed"
+    charun itsbeautiful "itsbeautiful"
+    charun maybe "maybe"
+    charun neutral_imstuck "neutral_imstuck"
+    charun pleased "pleased"
+    charun quoteinteresting "quoteinteresting"
+    charun squint "squint"
+    charun thereis "thereis"
+    charun tired "tired"
+    hide charun
 
-    show kuprum anger
-    kuprum anger "anger"
-    kuprum idle "idle"
-    kuprum POWER "POWER"
-    hide kuprum
-
-    show fozzer accusatory
-    fozzer accusatory "accusatory"
-    fozzer AirQuotes "AirQuotes"
-    fozzer ArmsCrossed "ArmsCrossed"
-    fozzer ArmsCrossedDispleased "ArmsCrossedDispleased"
-    fozzer ArmsCrossedQuestioning "ArmsCrossedQuestioning"
-    fozzer digging "digging"
-    fozzer embrace "embrace"
-    fozzer estatic "estatic"
-    fozzer estaticListening "estaticListening"
-    fozzer fistpump "fistpump"
-    fozzer LetsShovel "LetsShovel"
-    fozzer panicked "panicked"
-    fozzer SPOOKED "SPOOKED"
-    fozzer squint "squint"
-    fozzer thinking "thinking"
-    fozzer thinkinghard "thinkinghard"
-    fozzer thinkingImpressed "thinkingImpressed"
-    fozzer thinkingUnimpressed "thinkingUnimpressed"
-    hide fozzer
-
-    show diemen cry
-    diemen cry "cry"
-    diemen cry_dogless "cry_dogless"
-    diemen cry_shirtless "cry_shirtless"
-    diemen curious "curious"
-    diemen curious_dogless "curious_dogless"
-    diemen curious_shirtless "curious_shirtless"
-    diemen die_shirtless "die_shirtless"
-    diemen frown "frown"
-    diemen frown_dogless "frown_dogless"
-    diemen offer "offer"
-    diemen offer_dogless "offer_dogless"
-    diemen offer_dogless_resized "offer_dogless_resized"
-    diemen offer_shirtless "offer_shirtless"
-    diemen optimistic "optimistic"
-    diemen optimistic_dogless "optimistic_dogless"
-    diemen optimistic_dogless_resized "optimistic_dogless_resized"
-    diemen optimistic_scaled "optimistic_scaled"
-    diemen recoil "recoil"
-    diemen recoil_shirtless "recoil_shirtless"
-    diemen shock "shock"
-    diemen shock_shirtless "shock_shirtless"
-    diemen smile "smile"
-    diemen smile_dogless "smile_dogless"
-    diemen smile_dogless_resized "smile_dogless_resized"
-    diemen smile_scaled "smile_scaled"
-    diemen smile_shirtless "smile_shirtless"
-    diemen talk "talk"
-    diemen talk_dogless "talk_dogless"
-    diemen talk_dogless_resized "talk_dogless_resized"
-    diemen thinking "thinking"
-    diemen thinking_dogless "thinking_dogless"
-    diemen thinking_dogless_resized "thinking_dogless_resized"
-    hide diemen
-
-    show elwurd casualsurprise
-    elwurd casualsurprise "casualsurprise"
-    elwurd defensive "defensive"
-    elwurd fingerguns "fingerguns"
-    elwurd frown "frown"
-    elwurd handsome "handsome"
-    elwurd headtilt "headtilt"
-    elwurd interested "interested"
-    elwurd pissed "pissed"
-    elwurd psh "psh"
-    elwurd scowl "scowl"
-    elwurd shrug "shrug"
-    elwurd smile "smile"
-    elwurd ugh "ugh"
-    hide elwurd
+    show nikhee blankface
+    nikhee blankface "blankface"
+    nikhee coward "coward"
+    nikhee doiscareyou "doiscareyou"
+    nikhee FLEXSTAR_01 "FLEXSTAR_01"
+    nikhee FLEXSTAR_02 "FLEXSTAR_02"
+    nikhee FLEXSTAR_03 "FLEXSTAR_03"
+    nikhee getoutofmysight "getoutofmysight"
+    nikhee hemhaw "hemhaw"
+    nikhee kylorenlol "kylorenlol"
+    nikhee listentome "listentome"
+    nikhee lostleg "lostleg"
+    nikhee MAYBE "MAYBE"
+    nikhee milkflex "milkflex"
+    nikhee NO "NO"
+    nikhee notimpressed "notimpressed"
+    nikhee offended "offended"
+    nikhee proud "proud"
+    nikhee ringstand "ringstand"
+    nikhee smile "smile"
+    nikhee THEBRAWNISEUM "THEBRAWNISEUM"
+    nikhee weirdflexbutok "weirdflexbutok"
+    nikhee weirdflexbutok_scowl "weirdflexbutok_scowl"
+    hide nikhee
 
     show daraya burnitdown
     daraya burnitdown "burnitdown"
@@ -633,42 +360,123 @@ label {{package_entrypoint}}_route:
     daraya WHOCARES "WHOCARES"
     hide daraya
 
-    show marvus annoyed
-    marvus annoyed "annoyed"
-    marvus burnt babbling "burnt babbling"
-    marvus burnt HoldinUp "burnt HoldinUp"
-    marvus burnt JustToasty "burnt JustToasty"
-    marvus burnt "burnt"
-    marvus BurntUpButStillTurntUp "BurntUpButStillTurntUp"
-    marvus casual aw shiz "casual aw shiz"
-    marvus casual flattered "casual flattered"
-    marvus casual shrug "casual shrug"
-    marvus casual talking smug "casual talking smug"
-    marvus casual talking "casual talking"
-    marvus casual winkyface "casual winkyface"
-    marvus casual "casual"
-    marvus disgust "disgust"
-    marvus HearTheCrowd WhatYallSay "HearTheCrowd WhatYallSay"
-    marvus HearTheCrowd "HearTheCrowd"
-    marvus hug "hug"
-    marvus neutral talking "neutral talking"
-    marvus neutral "neutral"
-    marvus openarms talking "openarms talking"
-    marvus openarms "openarms"
-    marvus pan sprite "pan sprite"
-    marvus raiseblade "raiseblade"
-    marvus rank "rank"
-    marvus rapping "rapping"
-    marvus shameless "shameless"
-    marvus shielding "shielding"
-    marvus STAB look "STAB look"
-    marvus STAB "STAB"
-    marvus thinking "thinking"
-    marvus u naughty "u naughty"
-    marvus withdrawblade wink "withdrawblade wink"
-    marvus withdrawblade "withdrawblade"
-    marvus wtf "wtf"
-    hide marvus
+    show marsti angry
+    marsti angry "angry"
+    marsti browquirk "browquirk"
+    marsti browquirk_talking "browquirk_talking"
+    marsti gogglesup "gogglesup"
+    marsti gogglesup_angry "gogglesup_angry"
+    marsti gogglesup_duh "gogglesup_duh"
+    marsti gogglesup_resigned "gogglesup_resigned"
+    marsti gogglesup_snarky "gogglesup_snarky"
+    marsti Neutral "Neutral"
+    marsti Neutral_talking "Neutral_talking"
+    marsti peeved "peeved"
+    marsti peeved_talking "peeved_talking"
+    marsti shrug "shrug"
+    marsti shrug_talking "shrug_talking"
+    marsti smile "smile"
+    marsti worried "worried"
+    hide marsti
+
+    show bronya angry
+    bronya angry "angry"
+    bronya duty "duty"
+    bronya happy "happy"
+    bronya motherly "motherly"
+    bronya panic "panic"
+    bronya talk "talk"
+    bronya umm "umm"
+    bronya worried "worried"
+    hide bronya
+
+    show barzum CalmManic
+    barzum CalmManic "CalmManic"
+    barzum CalmManicTalk "CalmManicTalk"
+    barzum CalmMorose "CalmMorose"
+    barzum CalmMoroseTalk "CalmMoroseTalk"
+    barzum Confused "Confused"
+    barzum ConfusedTalk "ConfusedTalk"
+    barzum Disapproving "Disapproving"
+    barzum DisapprovingTalk "DisapprovingTalk"
+    barzum InShadow "InShadow"
+    barzum Laughing "Laughing"
+    barzum Neutral "Neutral"
+    barzum NeutralTalk "NeutralTalk"
+    barzum Sketpical "Sketpical"
+    barzum Thinking "Thinking"
+    barzum ThinkingTalk "ThinkingTalk"
+    hide barzum
+
+    show stelsa embarrassed
+    stelsa embarrassed "embarrassed"
+    stelsa embarrassedcasual "embarrassedcasual"
+    stelsa fakesmile "fakesmile"
+    stelsa fakesmilecasual "fakesmilecasual"
+    stelsa gesticulate "gesticulate"
+    stelsa gesticulatecasual "gesticulatecasual"
+    stelsa happy "happy"
+    stelsa happycasual "happycasual"
+    stelsa happytowel "happytowel"
+    stelsa harried "harried"
+    stelsa harriedcasual "harriedcasual"
+    stelsa harriedruffled "harriedruffled"
+    stelsa smile "smile"
+    stelsa smilecasual "smilecasual"
+    stelsa smiletowel "smiletowel"
+    stelsa surprise "surprise"
+    stelsa surprisecasual "surprisecasual"
+    stelsa wringing "wringing"
+    stelsa wringingcasual "wringingcasual"
+    hide stelsa
+
+    show polypa dejected
+    polypa dejected "dejected"
+    polypa hoodie_intro "hoodie_intro"
+    polypa hoodie_pissed "hoodie_pissed"
+    polypa neutral "neutral"
+    polypa pleased "pleased"
+    polypa scuffle "scuffle"
+    polypa serious "serious"
+    polypa shocked "shocked"
+    polypa shooshpap "shooshpap"
+    hide polypa
+
+    show tirona 3whisper_small
+    tirona 3whisper_small "3whisper_small"
+    tirona deerintheheadlights_small "deerintheheadlights_small"
+    tirona FEASTYOUREYES_small "FEASTYOUREYES_small"
+    tirona lilhelper_small "lilhelper_small"
+    tirona memetalk_small "memetalk_small"
+    tirona meme_small "meme_small"
+    tirona pigtailyank_small "pigtailyank_small"
+    tirona secretwhisper_small "secretwhisper_small"
+    tirona talk_small "talk_small"
+    tirona WOW_small "WOW_small"
+    tirona YEAHfrazzled_small "YEAHfrazzled_small"
+    tirona YEAH_small "YEAH_small"
+    hide tirona
+
+    show fozzer accusatory
+    fozzer accusatory "accusatory"
+    fozzer AirQuotes "AirQuotes"
+    fozzer ArmsCrossed "ArmsCrossed"
+    fozzer ArmsCrossedDispleased "ArmsCrossedDispleased"
+    fozzer ArmsCrossedQuestioning "ArmsCrossedQuestioning"
+    fozzer digging "digging"
+    fozzer embrace "embrace"
+    fozzer estatic "estatic"
+    fozzer estaticListening "estaticListening"
+    fozzer fistpump "fistpump"
+    fozzer LetsShovel "LetsShovel"
+    fozzer panicked "panicked"
+    fozzer SPOOKED "SPOOKED"
+    fozzer squint "squint"
+    fozzer thinking "thinking"
+    fozzer thinkinghard "thinkinghard"
+    fozzer thinkingImpressed "thinkingImpressed"
+    fozzer thinkingUnimpressed "thinkingUnimpressed"
+    hide fozzer
 
     show azdaja analize
     azdaja analize "analize"
@@ -684,5 +492,197 @@ label {{package_entrypoint}}_route:
     azdaja sayonara "sayonara"
     azdaja surprise "surprise"
     hide azdaja
+
+    show tyzias grimace
+    tyzias grimace "grimace"
+    tyzias irritated "irritated"
+    tyzias irritatedtalk "irritatedtalk"
+    tyzias laugh "laugh"
+    tyzias miserable "miserable"
+    tyzias mugglare "mugglare"
+    tyzias sad "sad"
+    tyzias sip "sip"
+    tyzias siplook "siplook"
+    tyzias talk "talk"
+    tyzias weary "weary"
+    tyzias workedup "workedup"
+    tyzias workedup2 "workedup2"
+    hide tyzias
+
+    show wanshi betrayed
+    wanshi betrayed "betrayed"
+    wanshi claspshands "claspshands"
+    wanshi curiosity "curiosity"
+    wanshi eager "eager"
+    wanshi expectant "expectant"
+    wanshi fear "fear"
+    wanshi gift "gift"
+    wanshi hi "hi"
+    wanshi intro_nothingtoseehere "intro_nothingtoseehere"
+    wanshi intro_snitch "intro_snitch"
+    wanshi intro_wanshiout "intro_wanshiout"
+    wanshi OoO "OoO"
+    wanshi rp "rp"
+    wanshi sadsmile "sadsmile"
+    wanshi shakingwithexcitement "shakingwithexcitement"
+    wanshi sideye "sideye"
+    wanshi teary "teary"
+    wanshi ughlame "ughlame"
+    wanshi woah "woah"
+    wanshi youknowit "youknowit"
+    hide wanshi
+
+    show galekh disappointedpause
+    galekh disappointedpause "disappointedpause"
+    galekh expressions001 "expressions001"
+    galekh frustration "frustration"
+    galekh glare "glare"
+    galekh neutral "neutral"
+    galekh nojacketneutral "nojacketneutral"
+    galekh nojacketpleased "nojacketpleased"
+    galekh pissed "pissed"
+    galekh pleased "pleased"
+    galekh questioning "questioning"
+    galekh surprise "surprise"
+    galekh tattoocrookedsmile "tattoocrookedsmile"
+    galekh tattooflush "tattooflush"
+    galekh tattooneutral "tattooneutral"
+    galekh tattoowince "tattoowince"
+    hide galekh
+
+    show tegiri angry
+    tegiri angry "angry"
+    tegiri brood "brood"
+    tegiri demanding "demanding"
+    tegiri doyoudance "doyoudance"
+    tegiri doyoudance_fx01 "doyoudance_fx01"
+    tegiri doyoudance_fx02 "doyoudance_fx02"
+    tegiri neutral "neutral"
+    tegiri pleased "pleased"
+    tegiri proud "proud"
+    tegiri question "question"
+    tegiri sharingan "sharingan"
+    tegiri sour "sour"
+    tegiri talk "talk"
+    tegiri thepowerofkamiandanime "thepowerofkamiandanime"
+    hide tegiri
+
+    show chahut blood
+    chahut blood "blood"
+    chahut lazysmile "lazysmile"
+    chahut neutral "neutral"
+    chahut pissed "pissed"
+    chahut pray "pray"
+    chahut spray "spray"
+    chahut suprise "suprise"
+    chahut wince "wince"
+    hide chahut
+
+    show zebruh disgust
+    zebruh disgust "disgust"
+    zebruh displeased "displeased"
+    zebruh excited "excited"
+    zebruh huh "huh"
+    zebruh showoff "showoff"
+    zebruh stand "stand"
+    zebruh talk "talk"
+    zebruh upset "upset"
+    zebruh wink "wink"
+    $ quirkSay(zebruh, "zebruh_hearts", "Hearts")
+    $ quirkSay(zebruh, "zebruh_spades", "Spades")
+    $ quirkSay(zebruh, "zebruh_diamonds", "Diamonds")
+    $ quirkSay(zebruh, "zebruh_clubs", "Clubs")
+
+    hide zebruh
+
+    show baizli CalmManic
+    baizli CalmManic "CalmManic"
+    baizli CalmManicTalk "CalmManicTalk"
+    baizli CalmMorose "CalmMorose"
+    baizli CalmMoroseTalk "CalmMoroseTalk"
+    baizli Confused "Confused"
+    baizli ConfusedTalking "ConfusedTalking"
+    baizli Disapproving "Disapproving"
+    baizli DisapprovingTalk "DisapprovingTalk"
+    baizli InShadow "InShadow"
+    baizli Laughing "Laughing"
+    baizli Neutral "Neutral"
+    baizli NeutralTalking "NeutralTalking"
+    baizli Skeptical "Skeptical"
+    baizli Thinking "Thinking"
+    baizli ThinkingTalk "ThinkingTalk"
+    hide baizli
+
+    show mallek down
+    mallek down "down"
+    mallek drones "drones"
+    mallek grin "grin"
+    mallek interest "interest"
+    mallek laugh "laugh"
+    mallek lowered "lowered"
+    mallek neutral "neutral"
+    mallek pissed "pissed"
+    mallek really "really"
+    mallek scrutinyannoyance "scrutinyannoyance"
+    mallek shirtlessflush "shirtlessflush"
+    mallek shirtlessmybad "shirtlessmybad"
+    mallek shirtlesstalk "shirtlesstalk"
+    mallek shirtlessum "shirtlessum"
+    hide mallek
+
+    show tagora clasp
+    tagora clasp "clasp"
+    tagora document "document"
+    tagora ew "ew"
+    tagora helpful "helpful"
+    tagora hollering "hollering"
+    tagora judging "judging"
+    tagora nervous "nervous"
+    tagora neutral "neutral"
+    tagora neutral2 "neutral2"
+    hide tagora
+
+    show skylla anger
+    skylla anger "anger"
+    skylla concern "concern"
+    skylla depressed "depressed"
+    skylla distress "distress"
+    skylla happy "happy"
+    skylla kickass "kickass"
+    skylla numb "numb"
+    skylla numb2 "numb2"
+    skylla stand "stand"
+    skylla talk "talk"
+    skylla upset "upset"
+    hide skylla
+
+    show elwurd casualsurprise
+    elwurd casualsurprise "casualsurprise"
+    elwurd defensive "defensive"
+    elwurd fingerguns "fingerguns"
+    elwurd frown "frown"
+    elwurd handsome "handsome"
+    elwurd headtilt "headtilt"
+    elwurd interested "interested"
+    elwurd pissed "pissed"
+    elwurd psh "psh"
+    elwurd scowl "scowl"
+    elwurd shrug "shrug"
+    elwurd smile "smile"
+    elwurd ugh "ugh"
+    hide elwurd
+
+    show konyyl ask
+    konyyl ask "ask"
+    konyyl attack "attack"
+    konyyl defeated "defeated"
+    konyyl laugh "laugh"
+    konyyl menacing "menacing"
+    konyyl neutral "neutral"
+    konyyl sad "sad"
+    konyyl surprised "surprised"
+    konyyl thinking "thinking"
+    konyyl why "why"
+    hide konyyl
     call ending pass ("gui/game_menu.png", True, True)
     return

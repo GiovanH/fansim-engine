@@ -11,7 +11,7 @@ image zebruh upset = Image("{{assets}}/sprite/zebruh_upset.png", ypos=730)
 image zebruh wink = Image("{{assets}}/sprite/zebruh_wink.png", ypos=730)
 
 init python:
-    quirks["zebruh_hearts"] = ("(.+)", "{image=char heart} \g<1> {image=char heart}")
-    quirks["zebruh_diamonds"] = ("(.+)", "{image=char diamond} \g<1> {image=char diamond}")
-    quirks["zebruh_clubs"] = ("(.+)", "{image=char club} \g<1> {image=char club}")
-    quirks["zebruh_spades"] = ("(.+)", "{image=char spade} \g<1> {image=char spade}")
+    quirks["zebruh_hearts"] = [("(.+)", "{image=char heart} \g<1> {image=char heart}")]
+    quirks["zebruh_diamonds"] = [("(.+)", "{image=char diamond} \g<1> {image=char diamond}")]
+    quirks["zebruh_clubs"] = [("(.+)", "{image=char club} \g<1> {image=char club}")]
+    quirks["zebruh_spades"] = [("(.+)", "{image=char spade} \g<1> {image=char spade}")]

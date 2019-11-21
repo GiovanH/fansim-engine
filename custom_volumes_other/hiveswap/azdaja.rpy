@@ -14,5 +14,4 @@ image azdaja sayonara = Image("{{assets}}/sprite/Azdaja_sayonara.png", ypos=730)
 image azdaja surprise = Image("{{assets}}/sprite/Azdaja_surprise.png", ypos=730)
 
 init python:
-    quirks["azdaja"] = ("(.+)", "||| \g<1> |||")
-    
+    quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]

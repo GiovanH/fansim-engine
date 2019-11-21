@@ -34,5 +34,4 @@ image diemen thinking_dogless = Image("{{assets}}/sprite/diemen_thinking_dogless
 image diemen thinking_dogless_resized = Image("{{assets}}/sprite/diemen_thinking_dogless_resized.png", ypos=730)
 
 init python:
-    quirks["diemen"] = ("(.+)", "(| \g<1> |)")
-    
+    quirks["diemen"] = [("(.+)", "(| \g<1> |)")]

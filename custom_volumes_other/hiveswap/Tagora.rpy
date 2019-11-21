@@ -11,5 +11,4 @@ image tagora neutral = Image("{{assets}}/sprite/Tagora_neutral.png", ypos=730)
 image tagora neutral2 = Image("{{assets}}/sprite/Tagora_neutral2.png", ypos=730)
 
 init python:
-    quirks["tagora"] = ("(.+)", "<1>\n\n*__________")
-    
+    quirks["tagora"] = [("(.+)", "<1>\n\n*__________")]

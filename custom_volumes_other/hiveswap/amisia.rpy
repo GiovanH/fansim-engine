@@ -15,5 +15,4 @@ image amisia smile2 = Image("{{assets}}/sprite/amisia_smile2.png", ypos=730)
 image amisia smug = Image("{{assets}}/sprite/amisia_smug.png", ypos=730)
 
 init python:
-    quirks["amisia"] = ("u", "uu")
-    
+    quirks["amisia"] = [("u", "uu")]

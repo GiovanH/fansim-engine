@@ -58,30 +58,30 @@ char_kwargs = {
 char_exdata = {
     "DIEMEN": r"""
 init python:
-    quirks["diemen"] = ("(.+)", "(| \g<1> |)")
-    """,
+    quirks["diemen"] = [("(.+)", "(| \g<1> |)")]
+""",
     "AZDAJA": r"""
 init python:
-    quirks["azdaja"] = ("(.+)", "||| \g<1> |||")
-    """,
+    quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]
+""",
     "AMISIA": r"""
 init python:
-    quirks["amisia"] = ("u", "uu")
-    """,
+    quirks["amisia"] = [("u", "uu")]
+""",
     "TAGORA": r"""
 init python:
-    quirks["tagora"] = ("(.+)", "<1>\n\n*__________")
-    """,
+    quirks["tagora"] = [("(.+)", "<1>\n\n*__________")]
+""",
     "POLYPA": r"""
 init python:
-    quirks["polypa"] = ("(.+)", "<1> *|")
-    """,
+    quirks["polypa"] = [("(.+)", "<1> *|")]
+""",
     "ZEBRUH": r"""
 init python:
-    quirks["zebruh_hearts"] = ("(.+)", "{image=char heart} \g<1> {image=char heart}")
-    quirks["zebruh_diamonds"] = ("(.+)", "{image=char diamond} \g<1> {image=char diamond}")
-    quirks["zebruh_clubs"] = ("(.+)", "{image=char club} \g<1> {image=char club}")
-    quirks["zebruh_spades"] = ("(.+)", "{image=char spade} \g<1> {image=char spade}")
+    quirks["zebruh_hearts"] = [("(.+)", "{image=char heart} \g<1> {image=char heart}")]
+    quirks["zebruh_diamonds"] = [("(.+)", "{image=char diamond} \g<1> {image=char diamond}")]
+    quirks["zebruh_clubs"] = [("(.+)", "{image=char club} \g<1> {image=char club}")]
+    quirks["zebruh_spades"] = [("(.+)", "{image=char spade} \g<1> {image=char spade}")]
 """,
 }
 
