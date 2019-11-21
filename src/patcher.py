@@ -172,7 +172,8 @@ def processVolumes(all_volumes, quiet=False):
         template_data = fp.read()
 
     for volume in all_volumes:
-        pprint(volume)
+        if not quiet:
+            pprint(volume)
         volume_id = volume["volume_id"]
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
 
