@@ -1,22 +1,18 @@
 # Define characters
 
-define {{p}}_jostart = Character(name="ectoBiologist", kind=pesterchumstart, what_color='#0715cd', image="john")
-define {{p}}_jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
-define {{p}}_bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
+# Always prefix your definitions with {{p}} so they won't conflict with existing resources.
 
-define {{p}}_vr = Character(name="arachnidsGrip", kind=trollian, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
+define {{p}}_jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
+# define {{p}}_jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
+define {{p}}_vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
+define {{p}}_bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", show_blood="olive")
 
-
-# Give characters poses
-image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
-
-# Other images
-image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
-define {{p}}_tz = Character("[tztitle]", kind=trollian, what_color='#008282', image="{{p}}_terezi", window_background="gui/textbox_trollian_teal.png",)
+define {{p}}_tz = Character("[tztitle]", kind=trollian, show_blood='teal', image="{{p}}_terezi")
 
 # Give characters poses
 # image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
 image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
+image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
 
 # Define backgrounds
 # image bg johnroom = im.Scale("images/john_s room.png", 1300,730)
@@ -24,11 +20,15 @@ image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640
 # Define other graphics, end cards
 image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
+image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 
+# ob_meulin is already defined; define a new copy using the openround style
 define ob_meulin2 = Character(name="MEULIN", show_color="#416600", kind=openround, image="ob_meulin")
 
 
 # Start of route
+# Start of route should always be named like this, where sandbox is replaced
+# with your volume_id.
 label {{package_entrypoint}}_sandbox:
 
     # Menu boilerplate: Exit main menu, fade to black
@@ -43,13 +43,63 @@ label {{package_entrypoint}}_sandbox:
     # Set the scene, fade in from black
     scene bg johnroom
 
+    # Helper for rewind
     "rollback"
 
+    # Test dialogue systems
+
+    show vriska neutral1
+    vr "Vanilla vriska"
+    {{p}}_vr "Hi! I'm vriska\nLines are loose"
+    {{p}}_vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
+    
+    {{p}}_vr "Gray" (show_blood="gray")
+    {{p}}_vr "Burgandy" (show_blood="burgandy")
+    {{p}}_vr "Bronze" (show_blood="bronze")
+    {{p}}_vr "Gold" (show_blood="gold")
+    {{p}}_vr "Lime" (show_blood="lime")
+    {{p}}_vr "Olive" (show_blood="olive")
+    {{p}}_vr "Jade" (show_blood="jade")
+    {{p}}_vr "Teal" (show_blood="teal")
+    {{p}}_vr "Cerulean" (show_blood="cerulean")
+    {{p}}_vr "Indigo" (show_blood="indigo")
+    {{p}}_vr "Purple" (show_blood="purple")
+    {{p}}_vr "Violet" (show_blood="violet")
+    {{p}}_vr "Fuchsia" (show_blood="fuchsia")
+    hide vriska
+
+    show boldir neutral
+    bo "Vanilla boldir"
+    {{p}}_bo "Default"
+    {{p}}_bo "Gray" (show_blood="gray")
+    {{p}}_bo "Burgandy" (show_blood="burgandy")
+    {{p}}_bo "Bronze" (show_blood="bronze")
+    {{p}}_bo "Gold" (show_blood="gold")
+    {{p}}_bo "Lime" (show_blood="lime")
+    {{p}}_bo "Olive" (show_blood="olive")
+    {{p}}_bo "Jade" (show_blood="jade")
+    {{p}}_bo "Teal" (show_blood="teal")
+    {{p}}_bo "Cerulean" (show_blood="cerulean")
+    {{p}}_bo "Indigo" (show_blood="indigo")
+    {{p}}_bo "Purple" (show_blood="purple")
+    {{p}}_bo "Violet" (show_blood="violet")
+    {{p}}_bo "Fuchsia" (show_blood="fuchsia")
+    hide boldir
+
+
+    show john neutral
+    jo "Vanilla john"
+    {{p}}_jo "Hi! I'm john\nLines are loose"
+    {{p}}_jo "Hi! I'm john, but busy.\nMultiple lines are tight." (show_big=True)
+    hide john
+
+    # Test our supplemental narrators, characters
     flarp "Flarp instructions."
     narrator_prattle "Generic prattle"
     narrator_dirk "Some ultimate dirk narration."
     narrator_calliope "Narrator calliope"
 
+    # Openbound: Use parameters for effects.
     show ob_meulin idle
     ob_meulin "!!"
     ob_meulin "!!!" (show_hashtags="#hashtag1")
@@ -85,11 +135,6 @@ label {{package_entrypoint}}_sandbox:
     show vriska neutral1
     {{p}}_vr "I'm 8riska"
     hide vriska
-
-
-    show boldir neutral
-    {{p}}_bo "I'm secrets"
-    hide boldir
 
     show {{p}}_terezi neutral
     # play music "music/fs_BOLDIR.wav" loop

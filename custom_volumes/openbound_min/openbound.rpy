@@ -4032,7 +4032,7 @@ image ob_porrim talk:
     Image("{{assets}}/dialogs/porrim/porrim_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-define rb_dirk = Character("DIRK", kind=pesterchumstart, what_color="#f2a400", image="rb_dirk")
+define rb_dirk = Character("DIRK", kind=pesterchum, what_color="#f2a400", image="rb_dirk")
 image rb_dirk idle = im.FactorScale("{{assets}}/rapoff/dirk.png", width=2, bilinear=False, yoffset=-177, xanchor=240, yalign=1.0)
 
 define rb_squarewave = Character(kind=narrator, what_color="#000000", image="rb_squarewave")

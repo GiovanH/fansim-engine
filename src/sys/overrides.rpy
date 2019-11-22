@@ -28,6 +28,7 @@ screen main_menu():
     imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
 
 define config.developer = True
+define config.autoreload = False
 
 # Fix name alignment
 define gui.name_xalign = 0.0

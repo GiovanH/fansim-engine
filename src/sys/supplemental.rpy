@@ -1,5 +1,100 @@
 init offset = 0
 
+# Blood helper
+
+init python:
+    _hemospectrum = {
+        'gray': {
+            "hex": "#646464",
+            "sat": 0,
+            "bright": 0.2,
+            "hue": 0
+        },
+        'burgandy': {
+            "hex": '#a20000',
+            "sat": 0.80,
+            "bright": 0,
+            "hue": 0
+        },
+        'bronze': {
+            "hex": '#bb6405',
+            "sat": 0.97,
+            "bright": 0.1,
+            "hue": 31
+        },
+        'gold': {
+            "hex": '#a1a100',
+            "sat": 0.92,
+            "bright": 0.2,
+            "hue": 58
+        },
+        'lime': {
+            "hex": '#84A224',
+            "sat": 0.68,
+            "bright": 0.2,
+            "hue": 74
+        },
+        'olive': {
+            "hex": '#416600',
+            "sat": 1.00,
+            "bright": 0.2,
+            "hue": 81
+        },
+        'jade': {
+            "hex": '#0aa85b',
+            "sat": 0.94,
+            "bright": 0.2,
+            "hue": 150
+        },
+        'teal': {
+            "hex": '#008282',
+            "sat": 1.00,
+            "bright": 0.2,
+            "hue": 180
+        },
+        'cerulean': {
+            "hex": '#005682',
+            "sat": 1.00,
+            "bright": 0,
+            "hue": 200
+        },
+        'indigo': {
+            "hex": '#0021cb',
+            "sat": 1.00,
+            "bright": 0,
+            "hue": 240
+        },
+        'purple': {
+            "hex": '#2b0057',
+            "sat": 1.00,
+            "bright": 0,
+            "hue": 269
+        },
+        'violet': {
+            "hex": '#6a006a',
+            "sat": 1.00,
+            "bright": 0,
+            "hue": 300
+        },
+        'fuchsia': {
+            "hex": '#77003c',
+            "sat": 1.00,
+            "bright": 0,
+            "hue": 329
+        },
+    }
+    hemoalias = {
+        "grey": "gray",  # i HATE
+        "rust": "burgandy",
+        "blue": "cerulean",
+        "cobalt": "indigo"
+    }
+    def hemospectrum(color):
+        try:
+            return _hemospectrum[color]
+        except KeyError:
+            return _hemospectrum[hemoalias[color]]
+
 # Trollean
 style trollian_namebox:
     properties gui.text_properties("name", accent=True)
@@ -9,10 +104,48 @@ style trollian_namebox:
     ypos 16
     size 17
 
+screen trollian_say:
+    style_prefix "say"
+    default blood = "gray"
+    default big = False
+    if big:
+        window:
+            id "window"
+            background Composite(
+                (1280, 194),
+                (0, 0), "{{assets_common}}/trollian_bg.png",
+                (0, 0), im.MatrixColor(
+                    "{{assets_common}}/trollian_large_rim.png",
+                    im.matrix.saturation(hemospectrum(blood)["sat"]) * 
+                    im.matrix.brightness(hemospectrum(blood)["bright"]) *
+                    im.matrix.hue(hemospectrum(blood)["hue"])
+                )
+            )
+            text what id "what" ypos 22 line_spacing 2 color hemospectrum(blood)["hex"]
+    else: 
+        window:
+            id "window"
+            background Composite(
+                (1280, 194),
+                (0, 0), "{{assets_common}}/trollian_bg.png",
+                (0, 0), im.MatrixColor(
+                    "{{assets_common}}/trollian_small_rim.png",
+                    im.matrix.saturation(hemospectrum(blood)["sat"]) * 
+                    im.matrix.brightness(hemospectrum(blood)["bright"]) *
+                    im.matrix.hue(hemospectrum(blood)["hue"])
+                )
+            )
+            if who is not None:
+                window:
+                    id "namebox"
+                    style "namebox"
+                    text "trolling: " + who id "who"
+            text what id "what" ypos 53 color hemospectrum(blood)["hex"]
+
 define trollian = Character(
-    color='#FFFFFF', who_style="trollian_namebox", who_prefix="trolling: ",
+    color='#FFFFFF', who_style="trollian_namebox", screen="trollian_say",
     # Characters will need to set these attributes manually:
-    name="trollTag", image="", window_background="gui/textbox_trollian_teal.png"
+    name="trollTag", image="", show_blood="gray"
 )
 
 # Pesterchum
@@ -22,18 +155,31 @@ style pesterchum_namebox:
     xalign 0.5
     xpos 0
 
-define pesterchumstart = Character(
-    who_prefix=":: ", who_suffix=" ::", who_style="pesterchum_namebox",
-    color='#FFFFFF', what_ypos=53, 
-    # Characters will need to set these attributes manually:
-    name="chumHandle", image="", what_color='#e00707', window_background="gui/textbox_pesterlog.png"
-)
+screen pesterchum_say:
+    style_prefix "say"
+    default big = False
+    if big:
+        window:
+            id "window"
+            background "gui/textbox_pesterlog_large.png"
+            text what id "what" ypos 22 line_spacing 2
+    else: 
+        window:
+            id "window"
+            background "gui/textbox_pesterlog.png"
+            if who is not None:
+                window:
+                    id "namebox"
+                    style "namebox"
+                    text ":: " + who + " ::" id "who" color '#FFF'
+            text what id "what" ypos 53
+
 define pesterchum = Character(
-    "", color='#FFFFFF', window_background="gui/textbox_pesterlog_large.png", 
-    what_ypos=22, what_line_spacing=2,
+    screen="pesterchum_say", who_style="pesterchum_namebox",
     # Characters will need to set these attributes manually:
-    what_color='#e00707', image=""
+    name="chumHandle", what_color='#e00707', image="john"
 )
+
 
 # Hiveswap
 style hiveswap_namebox:
@@ -51,13 +197,33 @@ style hiveswap_textbox:
     ypos 26
     xmaximum 720
 
+screen hiveswap_say:
+    style_prefix "say"
+    default blood = "gray"
+    window:
+        id "window"
+        # background "{{assets_common}}/hiveswap_textbox_" + blood + ".png"
+        background im.MatrixColor(
+            "{{assets_common}}/hiveswap_textbox_base.png",
+            im.matrix.saturation(hemospectrum(blood)["sat"]) * 
+            im.matrix.brightness(hemospectrum(blood)["bright"]) *
+            im.matrix.hue(hemospectrum(blood)["hue"])
+        )
+
+        if who is not None:
+            window:
+                id "namebox"
+                style "namebox"
+                text who id "who" color '#FFF' outlines [(4, hemospectrum(blood)["hex"])]
+        text what id "what" color '#FFF'
+
 define hiveswap = Character(
-    color='#FFFFFF', what_color='#FFFFFF', 
+    color='#FFFFFF', screen="hiveswap_say",
     who_style="hiveswap_namebox", who_font="Berlin Sans FB Demi Bold.ttf",
     what_style="hiveswap_textbox", what_font="Berlin Sans FB Regular.ttf", 
     window_ypos=744, 
     # Characters will need to set these attributes manually:
-    name="NAME", image="", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")]
+    name="NAME", image="", show_blood="gray"
 )
 
 # Openbound
@@ -101,9 +267,9 @@ screen openbound_say:
                 text who id "who" style "openbound_namebox" color color
 
         if chuckle:
-            text what id "what" style "openbound_textbox" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+            text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
         else:
-            text what id "what" style "openbound_textbox" color color
+            text what id "what" color color
 
         if hashtags:
             vbox:
@@ -170,19 +336,14 @@ label start_custom:
 
     # This is used to easily add a formatted '>' to the start of choices in menus.
     $ pick = "{color=#000000}>{/color}"
-
     $ quick_menu = False
 
     # Stop main menu music, or any other music playing, and transition to volume select.
     stop music fadeout 1
 
     show image "gui/main_menu.png"
-
     window hide
-
     scene black with Dissolve(0.5)
-
     $ main_menu = True
-
     call screen vol_select_custom() with Dissolve(0.5)
     return
