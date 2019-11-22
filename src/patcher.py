@@ -1,5 +1,7 @@
 #!/bin/python3
 
+# This is the main script that patches custom resources into the main game.
+
 import subprocess
 import os
 import glob
@@ -220,16 +222,16 @@ def main():
         "--clean", action="store_true",
         help="Delete old custom assets")
     ap.add_argument(
-        "--makepatch", action="store_true",
+        "--patchdir",
         help="Just make a patch folder")
     args = ap.parse_args()
 
-    if args.makepatch:
+    if args.patchdir:
         global gamedir_root
         global gamedir
-        os.makedirs("../patch/game/", exist_ok=True)
-        gamedir_root = "../patch/"
+        gamedir_root = args.patchdir
         gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
+        os.makedirs(gamedir, exist_ok=True)
 
     try:
         if args.clean:
