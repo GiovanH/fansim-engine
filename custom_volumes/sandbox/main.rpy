@@ -2,17 +2,17 @@
 
 define {{p}}_jostart = Character(name="ectoBiologist", kind=pesterchumstart, what_color='#0715cd', image="john")
 define {{p}}_jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
-define {{p}}_vr = Character(name="arachnidsGrip", kind=trollean, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
 define {{p}}_bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
+define {{p}}_vr = Character(name="arachnidsGrip", kind=trollian, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
 
-define {{p}}_tz = Character("[tztitle]", kind=trollean, what_color='#008282', image="{{p}}_terezi", window_background="gui/textbox_trollian_teal.png",)
 
 # Give characters poses
 image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
 
 # Other images
 image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
+define {{p}}_tz = Character("[tztitle]", kind=trollian, what_color='#008282', image="{{p}}_terezi", window_background="gui/textbox_trollian_teal.png",)
 
 # Give characters poses
 # image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)

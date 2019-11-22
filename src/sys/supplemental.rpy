@@ -1,7 +1,7 @@
 init offset = 0
 
 # Trollean
-style trollean_namebox:
+style trollian_namebox:
     properties gui.text_properties("name", accent=True)
     yalign 0.5
     xalign 0.0
@@ -9,8 +9,8 @@ style trollean_namebox:
     ypos 16
     size 17
 
-define trollean = Character(
-    color='#FFFFFF', who_style="trollean_namebox", who_prefix="trolling: ",
+define trollian = Character(
+    color='#FFFFFF', who_style="trollian_namebox", who_prefix="trolling: ",
     # Characters will need to set these attributes manually:
     name="trollTag", image="", window_background="gui/textbox_trollian_teal.png"
 )
@@ -126,7 +126,7 @@ define openround = Character(
 # Examples using these templates instead of the vanilla method:
 # define jostart = Character(name="ectoBiologist", kind=pesterchumstart, what_color='#0715cd', image="john")
 # define jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
-# define vr = Character(name="arachnidsGrip", kind=trollean, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
+# define vr = Character(name="arachnidsGrip", kind=trollian, what_color='#005682', image="vriska", window_background="gui/textbox_trollian_cobalt.png")
 # define bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
 # Alternate narrators:
