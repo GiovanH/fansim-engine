@@ -95,65 +95,10 @@ init python:
         except KeyError:
             return _hemospectrum[hemoalias[color]]
 
-# Trollean
-style trollian_namebox:
-    properties gui.text_properties("name", accent=True)
-    yalign 0.5
-    xalign 0.0
-    xpos -365
-    ypos 16
-    size 17
-
-screen trollian_say:
-    style_prefix "say"
-    default blood = "gray"
-    default big = False
-    if big:
-        window:
-            id "window"
-            background Composite(
-                (1280, 194),
-                (0, 0), "{{assets_common}}/trollian_bg.png",
-                (0, 0), im.MatrixColor(
-                    "{{assets_common}}/trollian_large_rim.png",
-                    im.matrix.saturation(hemospectrum(blood)["sat"]) * 
-                    im.matrix.brightness(hemospectrum(blood)["bright"]) *
-                    im.matrix.hue(hemospectrum(blood)["hue"])
-                )
-            )
-            text what id "what" ypos 22 line_spacing 2 color hemospectrum(blood)["hex"]
-    else: 
-        window:
-            id "window"
-            background Composite(
-                (1280, 194),
-                (0, 0), "{{assets_common}}/trollian_bg.png",
-                (0, 0), im.MatrixColor(
-                    "{{assets_common}}/trollian_small_rim.png",
-                    im.matrix.saturation(hemospectrum(blood)["sat"]) * 
-                    im.matrix.brightness(hemospectrum(blood)["bright"]) *
-                    im.matrix.hue(hemospectrum(blood)["hue"])
-                )
-            )
-            if who is not None:
-                window:
-                    id "namebox"
-                    style "namebox"
-                    text "trolling: " + who id "who"
-            text what id "what" ypos 53 color hemospectrum(blood)["hex"]
-
-define trollian = Character(
-    color='#FFFFFF', who_style="trollian_namebox", screen="trollian_say",
-    # Characters will need to set these attributes manually:
-    name="trollTag", image="", show_blood="gray"
-)
-
 # Pesterchum
-style pesterchum_namebox:
-    properties gui.text_properties("name", accent=True)
-    yalign 0.5
-    xalign 0.5
-    xpos 0
+style pesterchum_namelabel is say_label
+# style pesterchum_namelabel:
+#     pass
 
 screen pesterchum_say:
     style_prefix "say"
@@ -175,23 +120,71 @@ screen pesterchum_say:
             text what id "what" ypos 53
 
 define pesterchum = Character(
-    screen="pesterchum_say", who_style="pesterchum_namebox",
+    screen="pesterchum_say", who_style="pesterchum_namelabel",
     # Characters will need to set these attributes manually:
     name="chumHandle", what_color='#e00707', image="john"
 )
 
 
-# Hiveswap
-style hiveswap_namebox:
-    properties gui.text_properties("name", accent=True)
-    yalign 0.5
+# Trollean
+style trollian_namebox is namebox
+style trollian_namebox:
+    xpos 272
+    xanchor 0
+
+style trollian_namelabel is say_label
+style trollian_namelabel:
+    ypos 16
     xalign 0.0
-    xpos -380
-    ypos -34
+    size 17
+
+screen trollian_say:
+    style_prefix "say"
+    default blood = "gray"
+    default big = False
+    window:
+        id "window"
+        background Composite(
+            (1280, 194),
+            (0, 0), "{{assets_common}}/trollian_bg.png",
+            (0, 0), im.MatrixColor(
+                "{{assets_common}}/trollian_" + ("large" if big else "small") + "_rim.png",
+                im.matrix.saturation(hemospectrum(blood)["sat"]) * 
+                im.matrix.brightness(hemospectrum(blood)["bright"]) *
+                im.matrix.hue(hemospectrum(blood)["hue"])
+            )
+        )
+        if big:
+            text what id "what" ypos 22 line_spacing 2 color hemospectrum(blood)["hex"]
+        else:
+            if who is not None:
+                window:
+                    id "namebox"
+                    style "trollian_namebox"
+                    text "trolling: " + who id "who"
+            text what id "what" ypos 53 color hemospectrum(blood)["hex"]
+
+define trollian = Character(
+    color='#FFFFFF', who_style="trollian_namelabel", screen="trollian_say",
+    # Characters will need to set these attributes manually:
+    name="trollTag", image="", show_blood="gray"
+)
+
+# Hiveswap
+style hiveswap_namebox is namebox
+style hiveswap_namebox:
+    xpos 248
+    xanchor 0
+    ypos -58
+
+style hiveswap_namelabel is say_label
+style hiveswap_namelabel:
+    # yalign 0.5
+    xalign 0.0
     size 42
 
-style hiveswap_textbox:
-    properties gui.text_properties("dialogue")
+style hiveswap_dialogue is say_dialogue
+style hiveswap_dialogue:
     size 26
     xpos 300
     ypos 26
@@ -202,6 +195,7 @@ screen hiveswap_say:
     default blood = "gray"
     window:
         id "window"
+        ypos 744
         # background "{{assets_common}}/hiveswap_textbox_" + blood + ".png"
         background im.MatrixColor(
             "{{assets_common}}/hiveswap_textbox_base.png",
@@ -213,32 +207,35 @@ screen hiveswap_say:
         if who is not None:
             window:
                 id "namebox"
-                style "namebox"
-                text who id "who" color '#FFF' outlines [(4, hemospectrum(blood)["hex"])]
-        text what id "what" color '#FFF'
+                style "hiveswap_namebox"
+                text who id "who" color '#FFF' font "Berlin Sans FB Demi Bold.ttf" outlines [(4, hemospectrum(blood)["hex"])]
+        text what id "what" color '#FFF' font "Berlin Sans FB Regular.ttf"
 
 define hiveswap = Character(
     color='#FFFFFF', screen="hiveswap_say",
-    who_style="hiveswap_namebox", who_font="Berlin Sans FB Demi Bold.ttf",
-    what_style="hiveswap_textbox", what_font="Berlin Sans FB Regular.ttf", 
-    window_ypos=744, 
+    who_style="hiveswap_namelabel", 
+    what_style="hiveswap_dialogue",
     # Characters will need to set these attributes manually:
     name="NAME", image="", show_blood="gray"
 )
 
 # Openbound
+
+style openbound_namebox is namebox
 style openbound_namebox:
-    properties gui.text_properties("name", accent=True)
-    yalign 0.0
+    xpos 248
+    xanchor 0
+    ypos -58
+
+style openbound_namelabel is say_label
+style openbound_namelabel:
+    # yalign 0.5
     xalign 0.0
-    xpos -380
-    ypos -52
     size 42
     outlines [(4, "#FFF")]
-    color "#00baff"
 
-style openbound_textbox:
-    properties gui.text_properties("dialogue")
+style openbound_dialogue is say_dialogue
+style openbound_dialogue:
     size 26
     xpos 292
     ypos 30
@@ -263,8 +260,8 @@ screen openbound_say:
         if who is not None:
             window:
                 id "namebox"
-                style "namebox"
-                text who id "who" style "openbound_namebox" color color
+                style "openbound_namebox"
+                text who id "who" color color 
 
         if chuckle:
             text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
@@ -283,10 +280,10 @@ screen openbound_say:
                     size 18
 
 define openbound = Character(
-    screen="openbound_say", what_style="openbound_textbox", who_style="openbound_namebox"
+    screen="openbound_say", what_style="openbound_dialogue", who_style="openbound_namelabel"
 )
 define openround = Character(
-    screen="openbound_say", what_style="openbound_textbox", who_style="openbound_namebox",
+    screen="openbound_say", what_style="openbound_dialogue", who_style="openbound_namelabel",
     show_obstyle="round"
 )
 # Examples using these templates instead of the vanilla method:

@@ -48,6 +48,15 @@ label {{package_entrypoint}}_sandbox:
 
     # Test dialogue systems
 
+
+    bo "Vanilla boldir"
+    {{p}}_bo "Custom boldir"
+    vr "Vanilla vriska"
+    {{p}}_vr "Custom vriska"
+    jo "Vanilla john"
+    {{p}}_jo "Custom john"
+    ob_meulin "Custom openbound"
+
     show vriska neutral1
     vr "Vanilla vriska"
     {{p}}_vr "Hi! I'm vriska\nLines are loose"
