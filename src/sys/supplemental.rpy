@@ -92,8 +92,8 @@ init python:
     hemoalias = {
         "grey": "gray",  # i HATE
         "rust": "burgandy",
-        "blue": "cerulean",
-        "cobalt": "indigo"
+        "blue": "indigo",
+        "cobalt": "cerulean"
     }
     def hemospectrum(color):
         try:
