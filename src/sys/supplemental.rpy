@@ -6,81 +6,87 @@ init python:
     _hemospectrum = {
         'gray': {
             "hex": "#646464",
-            "sat": 0,
-            "bright": 0.2,
-            "hue": 0
+            "r": 64,
+            "g": 64,
+            "b": 64
+        },
+        'test': {
+            "hex": "#f00",
+            "r": 200,
+            "g": 200,
+            "b": 200
         },
         'burgandy': {
             "hex": '#a20000',
-            "sat": 0.80,
-            "bright": 0,
-            "hue": 0
+            "r": 111,
+            "g": 33,
+            "b": 14
         },
         'bronze': {
             "hex": '#bb6405',
-            "sat": 0.97,
-            "bright": 0.1,
-            "hue": 31
+            "r": 162,
+            "g": 82,
+            "b": 0
         },
         'gold': {
             "hex": '#a1a100',
-            "sat": 0.92,
-            "bright": 0.2,
-            "hue": 58
+            "r": 162,
+            "g": 162,
+            "b": 0
         },
         'lime': {
             "hex": '#84A224',
-            "sat": 0.68,
-            "bright": 0.2,
-            "hue": 74
+            "r": 132,
+            "g": 162,
+            "b": 36
         },
         'olive': {
             "hex": '#416600',
-            "sat": 1.00,
-            "bright": 0.2,
-            "hue": 81
+            "r": 66,
+            "g": 105,
+            "b": 0
         },
         'jade': {
             "hex": '#0aa85b',
-            "sat": 0.94,
-            "bright": 0.2,
-            "hue": 150
+            "r": 0,
+            "g": 131,
+            "b": 66
         },
         'teal': {
             "hex": '#008282',
-            "sat": 1.00,
-            "bright": 0.2,
-            "hue": 180
+            "r": 0,
+            "g": 132,
+            "b": 132
         },
         'cerulean': {
             "hex": '#005682',
-            "sat": 1.00,
-            "bright": 0,
-            "hue": 200
+            "r": 0,
+            "g": 86,
+            "b": 130
         },
         'indigo': {
             "hex": '#0021cb',
-            "sat": 1.00,
-            "bright": 0,
-            "hue": 240
+            "r": 0,
+            "g": 0,
+            "b": 88
         },
         'purple': {
             "hex": '#2b0057',
-            "sat": 1.00,
-            "bright": 0,
-            "hue": 269
+            "r": 44,
+            "g": 0,
+            "b": 89
         },
         'violet': {
             "hex": '#6a006a',
-            "sat": 1.00,
-            "bright": 0,
-            "hue": 300
+            "r": 106,
+            "g": 0,
+            "b": 106
         },
         'fuchsia': {
             "hex": '#77003c',
-            "sat": 1.00,
-            "bright": 0,
-            "hue": 329
+            "r": 119,
+            "g": 0,
+            "b": 60
         },
     }
     hemoalias = {
@@ -95,6 +101,13 @@ init python:
         except KeyError:
             return _hemospectrum[hemoalias[color]]
 
+    def bloodTint(color):
+        return im.matrix.tint(
+            hemospectrum(color)["r"]/200.0, 
+            hemospectrum(color)["g"]/200.0, 
+            hemospectrum(color)["b"]/200.0
+        )
+
 # Pesterchum
 style pesterchum_namelabel is say_label
 # style pesterchum_namelabel:
@@ -107,7 +120,7 @@ screen pesterchum_say:
         window:
             id "window"
             background "gui/textbox_pesterlog_large.png"
-            text what id "what" ypos 22 line_spacing 2
+            text what id "what" ypos 34 line_spacing 2
     else: 
         window:
             id "window"
@@ -117,7 +130,7 @@ screen pesterchum_say:
                     id "namebox"
                     style "namebox"
                     text ":: " + who + " ::" id "who" color '#FFF'
-            text what id "what" ypos 53
+            text what id "what" ypos 65
 
 define pesterchum = Character(
     screen="pesterchum_say", who_style="pesterchum_namelabel",
@@ -146,23 +159,21 @@ screen trollian_say:
         id "window"
         background Composite(
             (1280, 194),
-            (0, 0), "{{assets_common}}/trollian_bg.png",
+            (0, 0), "{{assets_common}}/trollian_bg_" + ("large" if big else "small") + ".png",
             (0, 0), im.MatrixColor(
                 "{{assets_common}}/trollian_" + ("large" if big else "small") + "_rim.png",
-                im.matrix.saturation(hemospectrum(blood)["sat"]) * 
-                im.matrix.brightness(hemospectrum(blood)["bright"]) *
-                im.matrix.hue(hemospectrum(blood)["hue"])
+                bloodTint(blood)
             )
         )
         if big:
-            text what id "what" ypos 22 line_spacing 2 color hemospectrum(blood)["hex"]
+            text what id "what" ypos 34 line_spacing 2 color hemospectrum(blood)["hex"]
         else:
             if who is not None:
                 window:
                     id "namebox"
                     style "trollian_namebox"
                     text "trolling: " + who id "who"
-            text what id "what" ypos 53 color hemospectrum(blood)["hex"]
+            text what id "what" ypos 65 color hemospectrum(blood)["hex"]
 
 define trollian = Character(
     color='#FFFFFF', who_style="trollian_namelabel", screen="trollian_say",
@@ -199,10 +210,12 @@ screen hiveswap_say:
         # background "{{assets_common}}/hiveswap_textbox_" + blood + ".png"
         background im.MatrixColor(
             "{{assets_common}}/hiveswap_textbox_base.png",
-            im.matrix.saturation(hemospectrum(blood)["sat"]) * 
-            im.matrix.brightness(hemospectrum(blood)["bright"]) *
-            im.matrix.hue(hemospectrum(blood)["hue"])
+            bloodTint(blood)
         )
+        #     im.matrix.saturation(hemospectrum(blood)["sat"] * 
+        #     im.matrix.brightness(hemospectrum(blood)["bright"]) *
+        #     im.matrix.hue(hemospectrum(blood)["hue"])
+        # )
 
         if who is not None:
             window:
@@ -243,7 +256,7 @@ style openbound_dialogue:
 
 screen openbound_say:
     style_prefix "say"
-    default color = "#000"
+    default blood = "gray"
     default hashtags = ""
     default obstyle = "pixel"
     default chuckle = False
@@ -261,12 +274,12 @@ screen openbound_say:
             window:
                 id "namebox"
                 style "openbound_namebox"
-                text who id "who" color color 
+                text who id "who" color hemospectrum(blood)["hex"] 
 
         if chuckle:
             text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
         else:
-            text what id "what" color color
+            text what id "what" color hemospectrum(blood)["hex"]
 
         if hashtags:
             vbox:
