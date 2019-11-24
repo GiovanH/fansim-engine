@@ -48,7 +48,8 @@ label {{package_entrypoint}}_sandbox:
 
     # Test dialogue systems
 
-
+    # Compare our dialog systems against the vanilla ones
+    # to ensure everything matches up
     bo "Vanilla boldir"
     {{p}}_bo "Custom boldir"
     vr "Vanilla vriska"
@@ -57,11 +58,13 @@ label {{package_entrypoint}}_sandbox:
     {{p}}_jo "Custom john"
     ob_meulin "Custom openbound"
 
+    # Trollian multiline test
     show vriska neutral1
     vr "Vanilla vriska"
     {{p}}_vr "Hi! I'm vriska\nLines are loose"
     {{p}}_vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
     
+    # Trollian colorizing
     {{p}}_vr "Override" (show_color="#0A0", show_blood=None)
     {{p}}_vr "Gray" (show_blood="gray")
     {{p}}_vr "Candy red" (show_blood="candyred")
@@ -79,6 +82,7 @@ label {{package_entrypoint}}_sandbox:
     {{p}}_vr "Fuchsia" (show_blood="fuchsia")
     hide vriska
 
+    # Hiveswap colorizing
     show boldir neutral
     bo "Vanilla boldir"
     {{p}}_bo "Default"
@@ -109,7 +113,7 @@ label {{package_entrypoint}}_sandbox:
     {{p}}_bo "Fuchsia" (show_blood="fuchsia")
     hide boldir
 
-
+    # Pesterchum and multilines
     show john neutral
     jo "Vanilla john"
     {{p}}_jo "Hi! I'm john\nLines are loose"
@@ -165,6 +169,7 @@ label {{package_entrypoint}}_sandbox:
     # play music "music/fs_BOLDIR.wav" loop
     hide blackcover with dissolve
 
+    # Test dynamic name growth
     $ tztitle = "A"
     {{p}}_tz "1"
     $ tztitle = "AAAAAAAAAAAA"
@@ -173,7 +178,8 @@ label {{package_entrypoint}}_sandbox:
     {{p}}_tz "3"
     $ tztitle = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     {{p}}_tz "4"
-    # Write dialogue!
+
+    # Twitter demo
     {{p}}_tz neutral "Hey. Hey. Over here."
 
     "Oh shit. You’re just standing out here with all his mail, he’s going to think you’re trying to rob the place."
@@ -205,7 +211,7 @@ label {{package_entrypoint}}_sandbox:
 
     hide vriska  # goodbye
 
-    # You can also use assets that have already been definied in other pesterquest routes directly!
+    # You can use assets that have already been definied in other pesterquest routes directly!
     show bg gamzeehive
     show gamzee pie1
     gam pie1 "cAn I oFfEr YoU a PiE iN tHeSe TrYiNg TiMeS"

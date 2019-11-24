@@ -315,7 +315,7 @@ init python:
         quirksubs = quirks.get(quirk.lower(), None)
         if not quirksubs:
             if renpy.config.developer:
-                raise Exception("ERROR: No quirk {}".format(quirk))
+                raise Exception("ERROR: No such quirk {}".format(quirk))
             return what
         for (pattern, repl) in quirksubs:
             what = re.sub(pattern, repl, what)
