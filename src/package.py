@@ -32,7 +32,7 @@ for package_id in sys.argv[1:]:
     merged = ""
     for rpy in glob.glob(os.path.join(pysubdir, "*.rpy")):
         with open(rpy, "r") as rpyfp:
-            merged += rpyfp.read()
+            merged += f"# {rpy}\n{rpyfp.read()}\n"
     with open(os.path.join(pysubdir_new, f"{package_id}.rpy"), "w") as fp:
         fp.write(merged)
 

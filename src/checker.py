@@ -3,7 +3,6 @@ import glob
 from pprint import pprint
 import json
 import re
-import _parser as parser
 
 platform = os.name
 
@@ -44,15 +43,16 @@ def checkMeta():
 
 
 def checkNames():
+    global names
     names = {}
 
-    def checkGlobalNames(lineno, line):
-        pattern = r"(\n|^)\s*(define|style|transform|image)\s+([^\s{}]+)\s*="
+    def checkGlobalNames(lineno, line, ignore=False):
+        pattern = r"(\n|^)\s*(define|style|transform|image)\s+([^{}]+\s*)(=|:)"
         for match in re.finditer(pattern, line):
-            __, type, name = match.groups()
+            __, type, name, __ = match.groups()
             key = (type, name)
 
-            if names.get(key):
+            if names.get(key) and not ignore:
                 conflict = names.get(key)
                 (cfile, clineno, cline) = conflict
                 print(f"[ERROR]\t[{rpy}:{lineno}] '{line[:-1][:75]}[...]'\n\t{type} '{name}' already defined at \n\t[{cfile}:{clineno}] '{cline}[...]'")
@@ -70,7 +70,7 @@ def checkNames():
             lineno = 0
             for line in rpyfp.readlines():
                 lineno += 1
-                checkGlobalNames(lineno, line)
+                checkGlobalNames(lineno, line, ignore=True)
 
     for rpy in rpy_files_custom_sys:
         with open(rpy, "r") as rpyfp:
