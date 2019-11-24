@@ -23,7 +23,7 @@ image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
 image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 
 # ob_meulin is already defined; define a new copy using the openround style
-define ob_meulin2 = Character(name="MEULIN", show_color="#416600", kind=openround, image="ob_meulin")
+define ob_meulin2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
 
 
 # Start of route

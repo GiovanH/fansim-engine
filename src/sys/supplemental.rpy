@@ -254,14 +254,16 @@ style openbound_namebox is namebox
 style openbound_namebox:
     xpos 248
     xanchor 0
-    ypos -58
+    ypos -48
 
 style openbound_namelabel is say_label
 style openbound_namelabel:
     # yalign 0.5
     xalign 0.0
     size 42
-    outlines [(4, "#FFF")]
+    yalign 1
+    ypos 1
+    
 
 style openbound_dialogue is say_dialogue
 style openbound_dialogue:
@@ -276,11 +278,12 @@ screen openbound_say:
     default hashtags = ""
     default obstyle = "pixel"
     default chuckle = False
+    default use_nameframe = False
 
+    default color = hemospectrum(blood)["hex"]
     default purple = "#6600DA"
 
     default chucklefix = ("_chuckle" if chuckle else "")
-    default tagcolor = (purple if chuckle else "#000")
 
     window:
         id "ob"
@@ -290,12 +293,20 @@ screen openbound_say:
             window:
                 id "namebox"
                 style "openbound_namebox"
-                text who id "who" color hemospectrum(blood)["hex"] 
+                if use_nameframe:
+                    padding (24, 8)
+                    background Frame(
+                        im.Crop(
+                            "{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png",
+                            (243, 0, 793, 55)
+                        ),
+                        left=21, top=21)
+                text who id "who" color (purple if chuckle else color) outlines [(0 if use_nameframe else 4, "#FFF")] 
 
         if chuckle:
             text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
         else:
-            text what id "what" color hemospectrum(blood)["hex"]
+            text what id "what" color color
 
         if hashtags:
             vbox:
@@ -304,7 +315,7 @@ screen openbound_say:
 
                 text "[hashtags]": #tags:
                     pos(292, 106)
-                    color tagcolor
+                    color (purple if chuckle else color)
                     line_spacing 0
                     size 18
 
