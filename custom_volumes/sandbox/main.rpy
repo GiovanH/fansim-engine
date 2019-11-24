@@ -62,7 +62,9 @@ label {{package_entrypoint}}_sandbox:
     {{p}}_vr "Hi! I'm vriska\nLines are loose"
     {{p}}_vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
     
+    {{p}}_vr "Override" (show_color="#0A0", show_blood=None)
     {{p}}_vr "Gray" (show_blood="gray")
+    {{p}}_vr "Candy red" (show_blood="candyred")
     {{p}}_vr "Burgandy" (show_blood="burgandy")
     {{p}}_vr "Bronze" (show_blood="bronze")
     {{p}}_vr "Gold" (show_blood="gold")
@@ -80,8 +82,10 @@ label {{package_entrypoint}}_sandbox:
     show boldir neutral
     bo "Vanilla boldir"
     {{p}}_bo "Default"
+    {{p}}_bo "Override" (show_color="#0A0")
     {{p}}_bo "Test" (show_blood="test")
     {{p}}_bo "Gray" (show_blood="gray")
+    {{p}}_bo "Candy red" (show_blood="candyred")
     bo "Burgandy" (window_background="gui/textbox_rust.png")
     {{p}}_bo "Burgandy" (show_blood="burgandy")
     bo "Bronze" (window_background="gui/textbox_bronze.png")
@@ -120,15 +124,17 @@ label {{package_entrypoint}}_sandbox:
 
     # Openbound: Use parameters for effects.
     show ob_meulin idle
-    ob_meulin "!!"
-    ob_meulin "!!!" (show_hashtags="#hashtag1")
-    ob_meulin "A very spooky bit of text which reads about three lines at this size" (show_chuckle=True)
-    ob_meulin "spoop" (show_chuckle=True, show_hashtags="#HONK")
+    ob_meulin idle "Color by color" (show_color="#0A0")
+    ob_meulin idle "Color by blood" (show_blood="candyred")
+    ob_meulin idle "!!"
+    ob_meulin laugh "!!!" (show_hashtags="#hashtag1")
+    ob_meulin hypno "A very spooky bit of text which reads about three lines at this size" (show_chuckle=True)
+    ob_meulin hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
 
-    ob_meulin2 "!!"
-    ob_meulin2 "!!!" (show_hashtags="#hashtag1")
-    ob_meulin2 "HONK" (show_chuckle=True)
-    ob_meulin2 "spoop" (show_chuckle=True, show_hashtags="#HONK")
+    ob_meulin2 idle "!!"
+    ob_meulin2 laugh "!!!" (show_hashtags="#hashtag1")
+    ob_meulin2 hypno "HONK" (show_chuckle=True)
+    ob_meulin2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
     hide ob_meulin
 
 

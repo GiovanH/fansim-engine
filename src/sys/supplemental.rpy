@@ -10,6 +10,12 @@ init python:
             "g": 64,
             "b": 64
         },
+        'candyred': {
+            "hex": "#FF0000",
+            "r": 200,
+            "g": 0,
+            "b": 0
+        },
         'test': {
             "hex": "#f00",
             "r": 200,
@@ -95,18 +101,30 @@ init python:
         "blue": "indigo",
         "cobalt": "cerulean"
     }
+
+    def hex_to_rgb(hex):
+        # Doesn't currently handle three-digit hex codes right :(
+        hex = hex.lstrip('#')
+        if len(hex) == 3:
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
+        hlen = len(hex)
+        return tuple(int(hex[i:i+hlen/3], 16) for i in range(0, hlen, hlen/3))
+    
     def hemospectrum(color):
         try:
             return _hemospectrum[color]
         except KeyError:
             return _hemospectrum[hemoalias[color]]
 
-    def bloodTint(color):
-        return im.matrix.tint(
-            hemospectrum(color)["r"]/200.0, 
-            hemospectrum(color)["g"]/200.0, 
-            hemospectrum(color)["b"]/200.0
-        )
+    def bloodTint(color, fallback):
+        try:
+            return im.matrix.tint(
+                hemospectrum(color)["r"]/200.0, 
+                hemospectrum(color)["g"]/200.0, 
+                hemospectrum(color)["b"]/200.0
+            )
+        except KeyError:
+            return im.matrix.tint(*map(lambda c: c/200.0, hex_to_rgb(fallback)))
 
 # Pesterchum
 style pesterchum_namelabel is say_label
@@ -154,6 +172,7 @@ style trollian_namelabel:
 screen trollian_say:
     style_prefix "say"
     default blood = "gray"
+    default color = hemospectrum(blood)["hex"]
     default big = False
     window:
         id "window"
@@ -162,18 +181,18 @@ screen trollian_say:
             (0, 0), "{{assets_common}}/trollian_bg_" + ("large" if big else "small") + ".png",
             (0, 0), im.MatrixColor(
                 "{{assets_common}}/trollian_" + ("large" if big else "small") + "_rim.png",
-                bloodTint(blood)
+                bloodTint(blood, color)
             )
         )
         if big:
-            text what id "what" ypos 34 line_spacing 2 color hemospectrum(blood)["hex"]
+            text what id "what" ypos 34 line_spacing 2 color color
         else:
             if who is not None:
                 window:
                     id "namebox"
                     style "trollian_namebox"
                     text "trolling: " + who id "who"
-            text what id "what" ypos 65 color hemospectrum(blood)["hex"]
+            text what id "what" ypos 65 color color
 
 define trollian = Character(
     color='#FFFFFF', who_style="trollian_namelabel", screen="trollian_say",
@@ -193,6 +212,7 @@ style hiveswap_namelabel:
     # yalign 0.5
     xalign 0.0
     size 42
+    yalign 1
 
 style hiveswap_dialogue is say_dialogue
 style hiveswap_dialogue:
@@ -204,24 +224,20 @@ style hiveswap_dialogue:
 screen hiveswap_say:
     style_prefix "say"
     default blood = "gray"
+    default color = hemospectrum(blood)["hex"]
     window:
         id "window"
         ypos 744
-        # background "{{assets_common}}/hiveswap_textbox_" + blood + ".png"
         background im.MatrixColor(
             "{{assets_common}}/hiveswap_textbox_base.png",
-            bloodTint(blood)
+            bloodTint(blood, color)
         )
-        #     im.matrix.saturation(hemospectrum(blood)["sat"] * 
-        #     im.matrix.brightness(hemospectrum(blood)["bright"]) *
-        #     im.matrix.hue(hemospectrum(blood)["hue"])
-        # )
 
         if who is not None:
             window:
                 id "namebox"
                 style "hiveswap_namebox"
-                text who id "who" color '#FFF' font "Berlin Sans FB Demi Bold.ttf" outlines [(4, hemospectrum(blood)["hex"])]
+                text who id "who" color '#FFF' font "Berlin Sans FB Demi Bold.ttf" outlines [(4, color)]
         text what id "what" color '#FFF' font "Berlin Sans FB Regular.ttf"
 
 define hiveswap = Character(
