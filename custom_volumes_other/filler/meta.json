@@ -1,0 +1,29 @@
+{
+    "package_id": "filler",
+    "volumes": [
+        {
+            "volume_id": "fill1",
+            "title": "Filler 1",
+            "subtitle": "\"BLUH BLUH\"",
+            "author": "Gio"
+        },
+        {
+            "volume_id": "fill2",
+            "title": "Filler 2",
+            "subtitle": "\"BLUH BLUH\"",
+            "author": "Gio"
+        },
+        {
+            "volume_id": "fill3",
+            "title": "Filler 3",
+            "subtitle": "\"BLUH BLUH\"",
+            "author": "Gio"
+        },
+        {
+            "volume_id": "fill4",
+            "title": "Filler 4",
+            "subtitle": "\"BLUH BLUH\"",
+            "author": "Gio"
+        }
+    ]
+}
