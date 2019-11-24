@@ -5,94 +5,49 @@ init offset = 0
 init python:
     _hemospectrum = {
         'gray': {
-            "hex": "#646464",
-            "r": 64,
-            "g": 64,
-            "b": 64
+            "hex": "#646464"
         },
         'candyred': {
-            "hex": "#FF0000",
-            "r": 200,
-            "g": 0,
-            "b": 0
+            "hex": "#FF0000"
         },
         'test': {
-            "hex": "#f00",
-            "r": 200,
-            "g": 200,
-            "b": 200
+            "hex": "#f00"
         },
         'burgandy': {
-            "hex": '#a20000',
-            "r": 111,
-            "g": 33,
-            "b": 14
+            "hex": '#a20000'
         },
         'bronze': {
-            "hex": '#bb6405',
-            "r": 162,
-            "g": 82,
-            "b": 0
+            "hex": '#bb6405'
         },
         'gold': {
-            "hex": '#a1a100',
-            "r": 162,
-            "g": 162,
-            "b": 0
+            "hex": '#a1a100'
         },
         'lime': {
-            "hex": '#84A224',
-            "r": 132,
-            "g": 162,
-            "b": 36
+            "hex": '#84A224'
         },
         'olive': {
-            "hex": '#416600',
-            "r": 66,
-            "g": 105,
-            "b": 0
+            "hex": '#416600'
         },
         'jade': {
-            "hex": '#0aa85b',
-            "r": 0,
-            "g": 131,
-            "b": 66
+            "hex": '#0aa85b'
         },
         'teal': {
-            "hex": '#008282',
-            "r": 0,
-            "g": 132,
-            "b": 132
+            "hex": '#008282'
         },
         'cerulean': {
-            "hex": '#005682',
-            "r": 0,
-            "g": 86,
-            "b": 130
+            "hex": '#005682'
         },
         'indigo': {
-            "hex": '#0021cb',
-            "r": 0,
-            "g": 0,
-            "b": 88
+            "hex": '#0021cb'
         },
         'purple': {
-            "hex": '#2b0057',
-            "r": 44,
-            "g": 0,
-            "b": 89
+            "hex": '#2b0057'
         },
         'violet': {
-            "hex": '#6a006a',
-            "r": 106,
-            "g": 0,
-            "b": 106
+            "hex": '#6a006a'
         },
         'fuchsia': {
-            "hex": '#77003c',
-            "r": 119,
-            "g": 0,
-            "b": 60
+            "hex": '#77003c'
         },
     }
     hemoalias = {
@@ -103,12 +58,14 @@ init python:
     }
 
     def hex_to_rgb(hex):
-        # Doesn't currently handle three-digit hex codes right :(
         hex = hex.lstrip('#')
         if len(hex) == 3:
-            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
+            hex = "".join(c + c for c in hex)
         hlen = len(hex)
-        return tuple(int(hex[i:i+hlen/3], 16) for i in range(0, hlen, hlen/3))
+        return tuple(
+            int(hex[i:i+hlen/3], 16)
+            for i in range(0, hlen, hlen/3)
+        )
     
     def hemospectrum(color):
         try:
@@ -117,14 +74,9 @@ init python:
             return _hemospectrum[hemoalias[color]]
 
     def bloodTint(color, fallback):
-        try:
-            return im.matrix.tint(
-                hemospectrum(color)["r"]/200.0, 
-                hemospectrum(color)["g"]/200.0, 
-                hemospectrum(color)["b"]/200.0
-            )
-        except KeyError:
-            return im.matrix.tint(*map(lambda c: c/200.0, hex_to_rgb(fallback)))
+        return im.matrix.tint(
+            *map(lambda c: c/200.0, hex_to_rgb(fallback))
+        )
 
 # Pesterchum
 style pesterchum_namelabel is say_label
