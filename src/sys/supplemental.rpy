@@ -73,10 +73,19 @@ init python:
         except KeyError:
             return _hemospectrum[hemoalias[color]]
 
-    def bloodTint(color, fallback):
-        return im.matrix.tint(
-            *map(lambda c: c/200.0, hex_to_rgb(fallback))
-        )
+    def doTint(displayable, hex, cap=255):
+        """Tints a white displayable to the color given, where cap controls the intensity of the color
+        This is used to create blood and text color based graphics and effects.
+        
+        example: doTint(displayable, "#AA0000", 200) will map the color white with an intensity of 200 to AA0000, with other colors being adjusted proportionately.
+        """
+        return im.MatrixColor(
+                displayable,
+                im.matrix.tint(
+                    *map(lambda c: c/float(cap), hex_to_rgb(hex))
+                )
+            )
+
 
 # Pesterchum
 style pesterchum_namelabel is say_label
@@ -131,9 +140,9 @@ screen trollian_say:
         background Composite(
             (1280, 194),
             (0, 0), "{{assets_common}}/trollian_bg_" + ("large" if big else "small") + ".png",
-            (0, 0), im.MatrixColor(
+            (0, 0), doTint(
                 "{{assets_common}}/trollian_" + ("large" if big else "small") + "_rim.png",
-                bloodTint(blood, color)
+                color, 200.0
             )
         )
         if big:
@@ -180,9 +189,9 @@ screen hiveswap_say:
     window:
         id "window"
         ypos 744
-        background im.MatrixColor(
+        background doTint(
             "{{assets_common}}/hiveswap_textbox_base.png",
-            bloodTint(blood, color)
+            color, 200.0
         )
 
         if who is not None:
