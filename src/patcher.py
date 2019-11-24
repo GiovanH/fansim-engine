@@ -111,10 +111,6 @@ def processPackages(quiet=False):
             # Grab metadata id
             package_id = meta["package_id"]
 
-            dirname = os.path.split(os.path.dirname(subdir))[-1]
-            if package_id != dirname:
-                print(f"[WARNING]\tPackage {package_id} is in incorrectly named folder {dirname}")
-
             # Backreference containing package and add to volume list
             for volume in meta["volumes"]:
                 volume["package_id"] = meta["package_id"]
@@ -176,11 +172,11 @@ def processVolumes(all_volumes, quiet=False):
     for volume in all_volumes:
         if not quiet:
             pprint(volume)
-        volume_id = volume["volume_id"]
         volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
 
         # Doesn't work with rpa archives.
 
+        # volume_id = volume["volume_id"]
         # required_files = [
         #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png"),
         #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png")
