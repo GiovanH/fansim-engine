@@ -3,6 +3,7 @@ import glob
 from pprint import pprint
 import json
 import re
+import textwrap
 
 platform = os.name
 
@@ -51,19 +52,21 @@ def checkNames():
         for match in re.finditer(pattern, line):
             __, type, name, __ = match.groups()
             key = (type, name)
+            shortline = textwrap.shorten(line[:-1], width=75)
 
             if names.get(key) and not ignore:
                 conflict = names.get(key)
                 (cfile, clineno, cline) = conflict
-                print(f"[ERROR]\t[{rpy}:{lineno}] '{line[:-1][:75]}[...]'\n\t{type} '{name}' already defined at \n\t[{cfile}:{clineno}] '{cline}[...]'")
+                print(f"[ERROR]\t[{rpy}:{lineno}] '{shortline}'\n\t{type} '{name}' already defined at \n\t[{cfile}:{clineno}] '{cline}'")
             else:
-                names[key] = (rpy, lineno, line[:-1][:75])
+                names[key] = (rpy, lineno, shortline)
 
     def checkCustomNames(lineno, line):
         pattern = r"(\n|^)\s*(define|style|transform|image)\s+([^\s{}]+)\s*="
         for match in re.finditer(pattern, line):
             __, type, name = match.groups()
-            print(f"[WARNING]\t[{rpy}:{lineno}] '{line[:-1][:75]}[...]'\n\t\t{type} '{name}' is not namespaced! Please include a substitution " + r"('{{p}}') to prevent conflicts.")
+            shortline = textwrap.shorten(line[:-1], width=75)
+            print(f"[WARNING]\t[{rpy}:{lineno}] '{shortline}'\n\t\t{type} '{name}' is not namespaced! Please include a substitution " + r"('{{p}}') to prevent conflicts.")
 
     for rpy in rpy_files_vanilla:
         with open(rpy, "r") as rpyfp:
