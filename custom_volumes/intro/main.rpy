@@ -9,7 +9,7 @@ image {{p}}_namelabel = Text(
 )
 
 transform {{p}}_char_pos:
-    xpos 240
+    ease 0.4 xpos 240
 
 transform {{p}}_namelabel_pos:
     yanchor 0.5
@@ -47,7 +47,8 @@ label {{package_entrypoint}}_route:
 
     show vriska at brushright
     show {{p}}_greenscreen behind vriska with Dissolve(0.1)
-    show vriska at {{p}}_char_pos  with ease
+    show vriska at shoveright
+    show vriska at {{p}}_char_pos
 
     show {{p}}_namelabel at {{p}}_namelabel_pos with Dissolve(0.1) 
 
