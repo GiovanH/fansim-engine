@@ -42,33 +42,3 @@ image ob_cronus talk:
     Image("{{assets}}/dialogs/cronus/cronus_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
     pause 0.1
     repeat
-image ob_cronus angry:
-    Image("{{assets}}/dialogs/cronus/cronus_angry-0.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    Image("{{assets}}/dialogs/cronus/cronus_angry-1.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    repeat
-image ob_cronus bored:
-    Image("{{assets}}/dialogs/cronus/cronus_bored-0.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    Image("{{assets}}/dialogs/cronus/cronus_bored-1.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    repeat
-image ob_cronus happytalk:
-    Image("{{assets}}/dialogs/cronus/cronus_happytalk-0.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    Image("{{assets}}/dialogs/cronus/cronus_happytalk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    repeat
-image ob_cronus sad2:
-    Image("{{assets}}/dialogs/cronus/cronus_sad2-0.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    Image("{{assets}}/dialogs/cronus/cronus_sad2-1.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    repeat
-image ob_cronus talk:
-    Image("{{assets}}/dialogs/cronus/cronus_talk-0.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    Image("{{assets}}/dialogs/cronus/cronus_talk-1.png", yoffset=-197, xanchor=240, yalign=1.0)
-    pause 0.1
-    repeat
