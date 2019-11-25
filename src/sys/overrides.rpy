@@ -1,11 +1,4 @@
-init offset = 0
-
-init python:
-    def Secret():
-        # bg_cur = renpy.music.get_playing(channel='music')
-        # renpy.music.stop()
-        renpy.play("music/honk_short.wav")
-        # renpy.music.queue(bg_cur)
+init offset = 1
 
 screen main_menu():
 
@@ -34,7 +27,6 @@ screen main_menu():
     imagebutton auto "gui/credits_%s.png" action ShowMenu('about') pos (20, 585) at menumove
     imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
 
-    textbutton "Music Room" action ShowMenu("music_room")
+    use mainmenu_devbox
+    # key "game_menu" action ShowMenu('mainmenu_devbox')
 
-define config.developer = True
-define config.autoreload = False
