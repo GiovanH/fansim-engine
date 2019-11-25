@@ -1,5 +1,12 @@
 init offset = 0
 
+init python:
+    def Secret():
+        # bg_cur = renpy.music.get_playing(channel='music')
+        # renpy.music.stop()
+        renpy.play("music/honk_short.wav")
+        # renpy.music.queue(bg_cur)
+
 screen main_menu():
 
 
@@ -19,13 +26,15 @@ screen main_menu():
 
     #imagebutton auto "gui/title_%s.png" action NullAction() pos (5, 5)
 
-    imagebutton auto "{{assets_common}}/start_canon_%s.png" action Start("start") pos (20, 285) at menumove
-    imagebutton auto "{{assets_common}}/start_fanon_%s.png" action Start("start_custom") pos (20, 345) at menumove
+    imagebutton auto "{{assets}}/start_canon_%s.png" action Start("start") pos (20, 285) at menumove
+    imagebutton auto "{{assets}}/start_fanon_%s.png" action Start("start_custom") alternate (lambda: renpy.play("music/honk_short.wav")) pos (20, 345) at menumove
     imagebutton auto "gui/load_%s.png" action ShowMenu('load') pos (20, 405) at menumove
     imagebutton auto "gui/options_%s.png" action ShowMenu('preferences') pos (20, 465) at menumove
     imagebutton auto "gui/friends_%s.png" action ShowMenu('achievements') pos (20, 525) at menumove
     imagebutton auto "gui/credits_%s.png" action ShowMenu('about') pos (20, 585) at menumove
     imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
+
+    textbutton "Music Room" action ShowMenu("music_room")
 
 define config.developer = True
 define config.autoreload = False
