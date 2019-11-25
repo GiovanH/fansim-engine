@@ -1,9 +1,17 @@
 init python:
+    import random
     def ResetVolSelectCustom():
         SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
         SetScreenVariable("title", "Volume Select"), 
         SetScreenVariable("subtitle", "Hover over an icon!"),
         SetScreenVariable("author", "Pesterquest Modsuite")
+
+    # def customVolumeSplash():
+    #     splashes = [
+    #         "do what thou whilst shall be the whole of the law",
+    #         "Pesterquest Modsuite written by your pal {a=https://twitter.com/giovan_h}Gio{/a}"
+    #     ]
+    #     return random.choice(splashes)
 
 
 screen vol_select_custom():
@@ -16,8 +24,12 @@ screen vol_select_custom():
         default subtitle = "Hover over an icon for info!"
         default author = "Pesterquest Modsuite"
 
+        default num_custom_volumes = {{num_custom_volumes}}
+        default num_cols = 8
+
         # fixed area contains overlapping elements
         fixed:
+            xpos 10
             image "gui/volumeselect_background.png" xpos 30
             image icon xpos 50 ypos 15
             text title xpos 526 ypos 32 font "verdana.ttf" size 48 xalign 0.5 color "#b4b4b5"
@@ -26,26 +38,20 @@ screen vol_select_custom():
 
         viewport:
             mousewheel True
-            scrollbars "vertical"
+            scrollbars ("vertical" if num_custom_volumes > (num_cols*3) else None)
             ypos 180
-            ysize 300
+            ysize 350
+
             vbox:
-                xpos 10
-                ymaximum 5
-
-                if renpy.variant("android") or renpy.variant("ios"):
-                    spacing 60
-                else:
-                    spacing 20
-
-                # Pad top, but not when scrolled
-                null height 10
-                hbox:
-                    xpos 0
+                null height 20
+                vpgrid:
+                    xpos 10
+                    cols num_cols
                     spacing 10
 
 {{volumes}}
 
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 
-    text "do what thou whilst shall be the whole of the law" xpos 460 ypos 635 text_align 0.5
+        text "do what thou whilst shall be the whole of the law" xalign 0.5 text_align 0.5 ypos 540
+        # text customVolumeSplash() 

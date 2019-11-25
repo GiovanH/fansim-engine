@@ -169,14 +169,7 @@ def processVolumes(all_volumes, quiet=False):
     with open(os.path.join("templates", "vol_select_custom_template.rpy"), "r") as fp:
         template_data = fp.read()
 
-    row = 0
-    column = 0
-
-    # Table should be 8 long and go down forever
-    maxcolumn = 8
-
-    with open(os.path.join("templates", "vol_select_new_row.rpy"), "r") as fp:
-        new_row = fp.read()
+    template_data = template_data.replace("{{num_custom_volumes}}", str(len(all_volumes)))
 
     for volume in sorted(all_volumes, key=lambda v: v["author"]):
         if not quiet:
@@ -202,13 +195,6 @@ def processVolumes(all_volumes, quiet=False):
         template_data = template_data.replace(
             "{{volumes}}", 
             textwrap.indent(new_entry, "    " * 5) + "\n{{volumes}}")
-        column += 1
-        if column >= maxcolumn:
-            column = 0
-            row += 1
-            template_data = template_data.replace(
-                "{{volumes}}", 
-                textwrap.indent(new_row.format(row * -10), "    " * 4) + "\n{{volumes}}")
 
     template_data = template_data.replace("{{volumes}}", "")
     with open(os.path.join(gamedir, "xcustom_volumeselect.rpy"), 'w') as fp:
