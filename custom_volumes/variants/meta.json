@@ -1,0 +1,11 @@
+{
+    "package_id": "variants",
+    "volumes": [
+        {
+            "volume_id": "route",
+            "title": "Character variants",
+            "subtitle": "\"woof!\"",
+            "author": "Gio"
+        }
+    ]
+}
