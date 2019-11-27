@@ -11,15 +11,16 @@ init python:
         # renpy.music.queue(bg_cur)
 
     # Script
-    
-    def debug_dump_character(sayer):
-        images = filter(
+
+    def get_images_from_sayer(sayer):
+        return filter(
             lambda i: i[0][0] == sayer.image_tag,
             renpy.display.image.images.items()
         )
 
+    def debug_dump_character(sayer):
         renpy.say(None, repr(sayer))
-        for name, image in images:
+        for name, image in sorted(get_images_from_sayer(sayer)):
             renpy.show(name)
             ja(repr(name))
         renpy.hide(sayer.image_tag)
