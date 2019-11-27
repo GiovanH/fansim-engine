@@ -32,7 +32,7 @@ def checkMeta(searchnormal, searchother):
 
 
 def findNames(rpy):            
-    pattern = r"(\n|^)\s*(define|style|transform|image)\s+([^{}=:]+\s*) +(=|:)"
+    pattern = r"(\n|^)\s*(define|style|transform|image)\s+([^{}=:]+\s*) *(=|:)"
     with open(rpy, "r") as rpyfp:
         lineno = 0
         for line in rpyfp.readlines():

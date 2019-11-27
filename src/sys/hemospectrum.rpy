@@ -29,7 +29,7 @@ init python:
             "hex": '#416600'
         },
         'jade': {
-            "hex": '#0aa85b'
+            "hex": '#008342'
         },
         'teal': {
             "hex": '#008282'

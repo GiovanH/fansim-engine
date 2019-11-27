@@ -1,14 +1,13 @@
 init offset = 1
 
 screen main_menu():
-
-
     ## This ensures that any other menu screen is replaced.
     tag menu
 
     style_prefix "main_menu"
 
     add "titlesky"
+
 
     #add "gui/sun2.png" at titlesun
     #add "gui/lensflare.png" at titleflare

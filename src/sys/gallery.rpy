@@ -159,7 +159,8 @@ screen music_room:
 
 
     # Start the music playing on entry to the music room.
-    # on "replace" action mr.Play()
+    on "replace" action renpy.music.stop
+    # mr.Play()
 
     # Restore the main menu music upon leaving.
     on "replaced" action (lambda: renpy.music.set_pause(False, channel='music'))

@@ -41,7 +41,7 @@ label {{package_entrypoint}}_sandbox:
     $ quick_menu = True
 
     # Set the scene, fade in from black
-    scene bg johnroom
+    scene bg johnroom with Dissolve(0.6)
 
     # Helper for rewind
     "rollback"
