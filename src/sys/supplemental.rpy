@@ -1,11 +1,28 @@
 init offset = 0
 
 init python:
+
+    # Menus
+
     def Secret():
         # bg_cur = renpy.music.get_playing(channel='music')
         # renpy.music.stop()
         renpy.play("music/honk_short.wav")
         # renpy.music.queue(bg_cur)
+
+    # Script
+    
+    def debug_dump_character(sayer):
+        images = filter(
+            lambda i: i[0][0] == sayer.image_tag,
+            renpy.display.image.images.items()
+        )
+
+        renpy.say(None, repr(sayer))
+        for name, image in images:
+            renpy.show(name)
+            ja(repr(name))
+        renpy.hide(sayer.image_tag)
 
     # if persistent.developer is not None:
     #     config.developer = persistent.developer

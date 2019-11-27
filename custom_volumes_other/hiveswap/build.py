@@ -125,7 +125,6 @@ for character in characters:
         define = f'define {character.lower()} = Character(name="{character.upper()}", kind=hiveswap, image="{character}", window_background="gui/textbox_{guicolor}.png", who_outlines=[(4, "{outlines}")])\n\n'
 
         charfp.write(define)
-        shown = False
         for charsprite in glob.glob(f"assets/sprite/{character}_*.*"):
             filedir, filename = os.path.split(charsprite)
             charname, *rest = filename.split("_")
@@ -139,15 +138,10 @@ for character in characters:
             imgpath = charsprite.replace("assets/", "{{assets}}/").replace("\\", "/")
             image = f'image {charname} {pose} = Image("{imgpath}"{kwargs})\n'
             charfp.write(image)
-            if not shown:
-                routefp.write(f"\n\n    show {character} {pose}")
-                shown = True
-            routefp.write(f"\n    {character} {pose} \"{pose}\"")
 
         charfp.write(char_exdata.get(character.upper(), ""))
         charfp.close()
-        routefp.write(char_extests.get(character.upper(), ""))
-        routefp.write(f"\n    hide {character}")
+        routefp.write(f"\n    $ debug_dump_character({character.lower()})")
 
 routefp.write("""
     call ending pass ("gui/game_menu.png", True, True)

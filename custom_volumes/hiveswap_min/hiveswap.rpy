@@ -1,3 +1,4 @@
+# ../custom_volumes_other/hiveswap\amisia.rpy
 define amisia = Character(name="AMISIA", kind=hiveswap, image="amisia", window_background="gui/textbox_blue.png", who_outlines=[(4, "#000056")])
 
 image amisia axe = Image("{{assets}}/sprite/amisia_axe.png", ypos=730)
@@ -16,6 +17,8 @@ image amisia smug = Image("{{assets}}/sprite/amisia_smug.png", ypos=730)
 
 init python:
     quirks["amisia"] = [("u", "uu")]
+
+# ../custom_volumes_other/hiveswap\ardata.rpy
 define ardata = Character(name="ARDATA", kind=hiveswap, image="ardata", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
 
 image ardata bored = Image("{{assets}}/sprite/ardata_bored.png", ypos=730)
@@ -27,6 +30,8 @@ image ardata ohoho = Image("{{assets}}/sprite/ardata_ohoho.png", ypos=730)
 image ardata smile = Image("{{assets}}/sprite/ardata_smile.png", ypos=730)
 image ardata testy = Image("{{assets}}/sprite/ardata_testy.png", ypos=730)
 image ardata wink = Image("{{assets}}/sprite/ardata_wink.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\azdaja.rpy
 define azdaja = Character(name="AZDAJA", kind=hiveswap, image="azdaja", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
 
 image azdaja analize = Image("{{assets}}/sprite/Azdaja_analize.png", ypos=730)
@@ -44,6 +49,8 @@ image azdaja surprise = Image("{{assets}}/sprite/Azdaja_surprise.png", ypos=730)
 
 init python:
     quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]
+
+# ../custom_volumes_other/hiveswap\backgrounds.rpy
 image bg alley = Image("{{assets}}/bg/alley.png")
 image bg alley2 = Image("{{assets}}/bg/alley2.png")
 image bg alternia = Image("{{assets}}/bg/alternia.png")
@@ -162,6 +169,8 @@ image bg zebedehiveinterior = Image("{{assets}}/bg/zebedehiveinterior.png")
 image bg zebruh_concert = Image("{{assets}}/bg/zebruh_concert.png")
 image bg zebruh_mansion = Image("{{assets}}/bg/zebruh_mansion.png")
 image bg zen_garden = Image("{{assets}}/bg/zen_garden.png")
+
+# ../custom_volumes_other/hiveswap\BAIZLI.rpy
 define baizli = Character(name="BAIZLI", kind=hiveswap, image="baizli", window_background="gui/textbox_purple.png", who_outlines=[(4, "#2b0057")])
 
 image baizli CalmManic = Image("{{assets}}/sprite/BAIZLI_CalmManic.png", ypos=730)
@@ -179,6 +188,8 @@ image baizli NeutralTalking = Image("{{assets}}/sprite/BAIZLI_NeutralTalking.png
 image baizli Skeptical = Image("{{assets}}/sprite/BAIZLI_Skeptical.png", ypos=730)
 image baizli Thinking = Image("{{assets}}/sprite/BAIZLI_Thinking.png", ypos=730)
 image baizli ThinkingTalk = Image("{{assets}}/sprite/BAIZLI_ThinkingTalk.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\BARZUM.rpy
 define barzum = Character(name="BARZUM", kind=hiveswap, image="barzum", window_background="gui/textbox_purple.png", who_outlines=[(4, "#2b0057")])
 
 image barzum CalmManic = Image("{{assets}}/sprite/BARZUM_CalmManic.png", ypos=730)
@@ -196,6 +207,8 @@ image barzum NeutralTalk = Image("{{assets}}/sprite/BARZUM_NeutralTalk.png", ypo
 image barzum Sketpical = Image("{{assets}}/sprite/BARZUM_Sketpical.png", ypos=730)
 image barzum Thinking = Image("{{assets}}/sprite/BARZUM_Thinking.png", ypos=730)
 image barzum ThinkingTalk = Image("{{assets}}/sprite/BARZUM_ThinkingTalk.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\boldir.rpy
 define boldir = Character(name="BOLDIR", kind=hiveswap, image="boldir", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
 image boldir antidote = Image("{{assets}}/sprite/boldir_antidote.png", ypos=730)
@@ -212,6 +225,8 @@ image boldir neutral = Image("{{assets}}/sprite/boldir_neutral.png", ypos=730)
 image boldir oof = Image("{{assets}}/sprite/boldir_oof.png", ypos=730)
 image boldir thoughtful = Image("{{assets}}/sprite/boldir_thoughtful.png", ypos=730)
 image boldir wideeyed = Image("{{assets}}/sprite/boldir_wideeyed.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\bronya.rpy
 define bronya = Character(name="BRONYA", kind=hiveswap, image="bronya", window_background="gui/textbox_jade.png", who_outlines=[(4, "#0aa85b")])
 
 image bronya angry = Image("{{assets}}/sprite/bronya_angry.png", ypos=730)
@@ -222,6 +237,8 @@ image bronya panic = Image("{{assets}}/sprite/bronya_panic.png", ypos=730)
 image bronya talk = Image("{{assets}}/sprite/bronya_talk.png", ypos=730)
 image bronya umm = Image("{{assets}}/sprite/bronya_umm.png", ypos=730)
 image bronya worried = Image("{{assets}}/sprite/bronya_worried.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\Chahut.rpy
 define chahut = Character(name="CHAHUT", kind=hiveswap, image="chahut", window_background="gui/textbox_purple.png", who_outlines=[(4, "#2b0057")])
 
 image chahut blood = Image("{{assets}}/sprite/Chahut_blood.png", ypos=730)
@@ -232,6 +249,8 @@ image chahut pray = Image("{{assets}}/sprite/Chahut_pray.png", ypos=730)
 image chahut spray = Image("{{assets}}/sprite/Chahut_spray.png", ypos=730)
 image chahut suprise = Image("{{assets}}/sprite/Chahut_suprise.png", ypos=730)
 image chahut wince = Image("{{assets}}/sprite/Chahut_wince.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\charun.rpy
 define charun = Character(name="CHARUN", kind=hiveswap, image="charun", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
 image charun allartisdickingaround = Image("{{assets}}/sprite/charun_allartisdickingaround.png", ypos=730)
@@ -248,6 +267,8 @@ image charun quoteinteresting = Image("{{assets}}/sprite/charun_quoteinteresting
 image charun squint = Image("{{assets}}/sprite/charun_squint.png", ypos=730)
 image charun thereis = Image("{{assets}}/sprite/charun_thereis.png", ypos=730)
 image charun tired = Image("{{assets}}/sprite/charun_tired.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\Chixie.rpy
 define chixie = Character(name="CHIXIE", kind=hiveswap, image="chixie", window_background="gui/textbox_bronze.png", who_outlines=[(4, "#bb6405")])
 
 image chixie annoyed = Image("{{assets}}/sprite/Chixie_annoyed.png", ypos=730)
@@ -266,6 +287,8 @@ image chixie sad = Image("{{assets}}/sprite/Chixie_sad.png", ypos=730)
 image chixie sadfaygo = Image("{{assets}}/sprite/Chixie_sadfaygo.png", ypos=730)
 image chixie shocked = Image("{{assets}}/sprite/Chixie_shocked.png", ypos=730)
 image chixie talk = Image("{{assets}}/sprite/Chixie_talk.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\cirava.rpy
 define cirava = Character(name="CIRAVA", kind=hiveswap, image="cirava", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
 
 image cirava angst = Image("{{assets}}/sprite/cirava_angst.png", ypos=730)
@@ -277,6 +300,8 @@ image cirava shrug = Image("{{assets}}/sprite/cirava_shrug.png", ypos=730)
 image cirava standing = Image("{{assets}}/sprite/cirava_standing.png", ypos=730)
 image cirava talk = Image("{{assets}}/sprite/cirava_talk.png", ypos=730)
 image cirava vape = Image("{{assets}}/sprite/cirava_vape.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\daraya.rpy
 define daraya = Character(name="DARAYA", kind=hiveswap, image="daraya", window_background="gui/textbox_jade.png", who_outlines=[(4, "#0aa85b")])
 
 image daraya burnitdown = Image("{{assets}}/sprite/daraya_burnitdown.png", ypos=730)
@@ -297,6 +322,8 @@ image daraya upset = Image("{{assets}}/sprite/daraya_upset.png", ypos=730)
 image daraya well = Image("{{assets}}/sprite/daraya_well.png", ypos=730)
 image daraya whatever = Image("{{assets}}/sprite/daraya_whatever.png", ypos=730)
 image daraya WHOCARES = Image("{{assets}}/sprite/daraya_WHOCARES.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\diemen.rpy
 define diemen = Character(name="DIEMEN", kind=hiveswap, image="diemen", window_background="gui/textbox_rust.png", who_outlines=[(4, "#a20000")])
 
 image diemen cry = Image("{{assets}}/sprite/diemen_cry.png", ypos=730)
@@ -334,6 +361,10 @@ image diemen thinking_dogless_resized = Image("{{assets}}/sprite/diemen_thinking
 
 init python:
     quirks["diemen"] = [("(.+)", "(| \g<1> |)")]
+
+# ../custom_volumes_other/hiveswap\DS.rpy
+
+# ../custom_volumes_other/hiveswap\effects.rpy
 image fx bgbison = Image("{{assets}}/object/bgbison.png")
 image fx bisonlusus = Image("{{assets}}/object/bisonlusus.png")
 image fx bush = Image("{{assets}}/object/bush.png")
@@ -349,6 +380,8 @@ image fx shibasaru = Image("{{assets}}/object/shibasaru.png")
 image fx statue = Image("{{assets}}/object/statue.png")
 image fx tegirijojo = Image("{{assets}}/object/tegirijojo.png")
 image fx zebralusus = Image("{{assets}}/object/zebralusus.png")
+
+# ../custom_volumes_other/hiveswap\elwurd.rpy
 define elwurd = Character(name="ELWURD", kind=hiveswap, image="elwurd", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
 
 image elwurd casualsurprise = Image("{{assets}}/sprite/elwurd_casualsurprise.png", ypos=730)
@@ -364,11 +397,17 @@ image elwurd scowl = Image("{{assets}}/sprite/elwurd_scowl.png", ypos=730)
 image elwurd shrug = Image("{{assets}}/sprite/elwurd_shrug.png", ypos=730)
 image elwurd smile = Image("{{assets}}/sprite/elwurd_smile.png", ypos=730)
 image elwurd ugh = Image("{{assets}}/sprite/elwurd_ugh.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\ferret.rpy
+
+# ../custom_volumes_other/hiveswap\folykl.rpy
 define folykl = Character(name="FOLYKL", kind=hiveswap, image="folykl", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
 
 image folykl idle = Image("{{assets}}/sprite/folykl_idle.png", ypos=730)
 image folykl pain = Image("{{assets}}/sprite/folykl_pain.png", ypos=730)
 image folykl scaled = Image("{{assets}}/sprite/folykl_scaled.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\FOLYKLKUPRUM.rpy
 define folyklkuprum = Character(name="FOLYKLKUPRUM", kind=hiveswap, image="folyklkuprum", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
 
 image folyklkuprum double frown = Image("{{assets}}/sprite/FOLYKLKUPRUM_double frown.png", ypos=730)
@@ -381,6 +420,8 @@ image folyklkuprum karmsdown = Image("{{assets}}/sprite/FOLYKLKUPRUM_karmsdown.p
 image folyklkuprum k_armpower = Image("{{assets}}/sprite/FOLYKLKUPRUM_k_armpower.png", ypos=730)
 image folyklkuprum k_mouthopen = Image("{{assets}}/sprite/FOLYKLKUPRUM_k_mouthopen.png", ypos=730)
 image folyklkuprum POWER = Image("{{assets}}/sprite/FOLYKLKUPRUM_POWER.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\fozzer.rpy
 define fozzer = Character(name="FOZZER", kind=hiveswap, image="fozzer", window_background="gui/textbox_rust.png", who_outlines=[(4, "#a20000")])
 
 image fozzer accusatory = Image("{{assets}}/sprite/fozzer_accusatory.png", ypos=730)
@@ -401,6 +442,8 @@ image fozzer thinking = Image("{{assets}}/sprite/fozzer_thinking.png", ypos=730)
 image fozzer thinkinghard = Image("{{assets}}/sprite/fozzer_thinkinghard.png", ypos=730)
 image fozzer thinkingImpressed = Image("{{assets}}/sprite/fozzer_thinkingImpressed.png", ypos=730)
 image fozzer thinkingUnimpressed = Image("{{assets}}/sprite/fozzer_thinkingUnimpressed.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\galekh.rpy
 define galekh = Character(name="GALEKH", kind=hiveswap, image="galekh", window_background="gui/textbox_blue.png", who_outlines=[(4, "#000056")])
 
 image galekh disappointedpause = Image("{{assets}}/sprite/galekh_disappointedpause.png", ypos=730)
@@ -418,6 +461,8 @@ image galekh tattoocrookedsmile = Image("{{assets}}/sprite/galekh_tattoocrookeds
 image galekh tattooflush = Image("{{assets}}/sprite/galekh_tattooflush.png", ypos=730)
 image galekh tattooneutral = Image("{{assets}}/sprite/galekh_tattooneutral.png", ypos=730)
 image galekh tattoowince = Image("{{assets}}/sprite/galekh_tattoowince.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\Karako.rpy
 define karako = Character(name="KARAKO", kind=hiveswap, image="karako", window_background="gui/textbox_purple.png", who_outlines=[(4, "#2b0057")])
 
 image karako ATTACK = Image("{{assets}}/sprite/Karako_ATTACK.png", ypos=730)
@@ -430,6 +475,8 @@ image karako injured = Image("{{assets}}/sprite/Karako_injured.png", ypos=730)
 image karako RLYupset = Image("{{assets}}/sprite/Karako_RLYupset.png", ypos=730)
 image karako treestuck = Image("{{assets}}/sprite/Karako_treestuck.png", ypos=730)
 image karako upset = Image("{{assets}}/sprite/Karako_upset.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\Konyyl.rpy
 define konyyl = Character(name="KONYYL", kind=hiveswap, image="konyyl", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
 image konyyl ask = Image("{{assets}}/sprite/Konyyl_ask.png", ypos=730)
@@ -442,11 +489,15 @@ image konyyl sad = Image("{{assets}}/sprite/Konyyl_sad.png", ypos=730)
 image konyyl surprised = Image("{{assets}}/sprite/Konyyl_surprised.png", ypos=730)
 image konyyl thinking = Image("{{assets}}/sprite/Konyyl_thinking.png", ypos=730)
 image konyyl why = Image("{{assets}}/sprite/Konyyl_why.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\kuprum.rpy
 define kuprum = Character(name="KUPRUM", kind=hiveswap, image="kuprum", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
 
 image kuprum anger = Image("{{assets}}/sprite/kuprum_anger.png", ypos=730)
 image kuprum idle = Image("{{assets}}/sprite/kuprum_idle.png", ypos=730)
 image kuprum POWER = Image("{{assets}}/sprite/kuprum_POWER.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\LANQUE.rpy
 define lanque = Character(name="LANQUE", kind=hiveswap, image="lanque", window_background="gui/textbox_jade.png", who_outlines=[(4, "#0aa85b")])
 
 image lanque Bitching = Image("{{assets}}/sprite/LANQUE_Bitching.png", ypos=730)
@@ -492,6 +543,8 @@ image lanque VALID_PoetryTime = Image("{{assets}}/sprite/LANQUE_VALID_PoetryTime
 image lanque VALID_PoetryTimeTalk = Image("{{assets}}/sprite/LANQUE_VALID_PoetryTimeTalk.png", ypos=730)
 image lanque VALID_Smile = Image("{{assets}}/sprite/LANQUE_VALID_Smile.png", ypos=730)
 image lanque VALID_Uh = Image("{{assets}}/sprite/LANQUE_VALID_Uh.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\lynera.rpy
 define lynera = Character(name="LYNERA", kind=hiveswap, image="lynera", window_background="gui/textbox_jade.png", who_outlines=[(4, "#0aa85b")])
 
 image lynera anguish = Image("{{assets}}/sprite/lynera_anguish.png", ypos=730)
@@ -509,6 +562,8 @@ image lynera wellinever = Image("{{assets}}/sprite/lynera_wellinever.png", ypos=
 image lynera whatmoirails = Image("{{assets}}/sprite/lynera_whatmoirails.png", ypos=730)
 image lynera wouldyoureally = Image("{{assets}}/sprite/lynera_wouldyoureally.png", ypos=730)
 image lynera wrong = Image("{{assets}}/sprite/lynera_wrong.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\mallek.rpy
 define mallek = Character(name="MALLEK", kind=hiveswap, image="mallek", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image mallek down = Image("{{assets}}/sprite/mallek_down.png", ypos=730)
@@ -525,6 +580,8 @@ image mallek shirtlessflush = Image("{{assets}}/sprite/mallek_shirtlessflush.png
 image mallek shirtlessmybad = Image("{{assets}}/sprite/mallek_shirtlessmybad.png", ypos=730)
 image mallek shirtlesstalk = Image("{{assets}}/sprite/mallek_shirtlesstalk.png", ypos=730)
 image mallek shirtlessum = Image("{{assets}}/sprite/mallek_shirtlessum.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\MARSTI.rpy
 define marsti = Character(name="MARSTI", kind=hiveswap, image="marsti", window_background="gui/textbox_rust.png", who_outlines=[(4, "#a20000")])
 
 image marsti angry = Image("{{assets}}/sprite/MARSTI_angry.png", ypos=730)
@@ -543,6 +600,8 @@ image marsti shrug = Image("{{assets}}/sprite/MARSTI_shrug.png", ypos=730)
 image marsti shrug_talking = Image("{{assets}}/sprite/MARSTI_shrug_talking.png", ypos=730)
 image marsti smile = Image("{{assets}}/sprite/MARSTI_smile.png", ypos=730)
 image marsti worried = Image("{{assets}}/sprite/MARSTI_worried.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\marvus.rpy
 define marvus = Character(name="MARVUS", kind=hiveswap, image="marvus", window_background="gui/textbox_purple.png", who_outlines=[(4, "#2b0057")])
 
 image marvus annoyed = Image("{{assets}}/sprite/marvus_annoyed.png", ypos=730)
@@ -579,6 +638,10 @@ image marvus u naughty = Image("{{assets}}/sprite/marvus_u naughty.png", ypos=73
 image marvus withdrawblade wink = Image("{{assets}}/sprite/marvus_withdrawblade wink.png", ypos=730)
 image marvus withdrawblade = Image("{{assets}}/sprite/marvus_withdrawblade.png", ypos=730)
 image marvus wtf = Image("{{assets}}/sprite/marvus_wtf.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\MSPAreader.rpy
+
+# ../custom_volumes_other/hiveswap\nikhee.rpy
 define nikhee = Character(name="NIKHEE", kind=hiveswap, image="nikhee", window_background="gui/textbox_blue.png", who_outlines=[(4, "#000056")])
 
 image nikhee blankface = Image("{{assets}}/sprite/nikhee_blankface.png", ypos=730)
@@ -603,6 +666,8 @@ image nikhee smile = Image("{{assets}}/sprite/nikhee_smile.png", ypos=730)
 image nikhee THEBRAWNISEUM = Image("{{assets}}/sprite/nikhee_THEBRAWNISEUM.png", ypos=730)
 image nikhee weirdflexbutok = Image("{{assets}}/sprite/nikhee_weirdflexbutok.png", ypos=730)
 image nikhee weirdflexbutok_scowl = Image("{{assets}}/sprite/nikhee_weirdflexbutok_scowl.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\objects.rpy
 image bgbison = Image("{{assets}}/object/bgbison.png")
 image bisonlusus = Image("{{assets}}/object/bisonlusus.png")
 image bush = Image("{{assets}}/object/bush.png")
@@ -618,6 +683,8 @@ image shibasaru = Image("{{assets}}/object/shibasaru.png")
 image statue = Image("{{assets}}/object/statue.png")
 image tegirijojo = Image("{{assets}}/object/tegirijojo.png")
 image zebralusus = Image("{{assets}}/object/zebralusus.png")
+
+# ../custom_volumes_other/hiveswap\polypa.rpy
 define polypa = Character(name="POLYPA", kind=hiveswap, image="polypa", window_background="gui/textbox_olive.png", who_outlines=[(4, "#416600")])
 
 image polypa dejected = Image("{{assets}}/sprite/polypa_dejected.png", ypos=730)
@@ -632,6 +699,8 @@ image polypa shooshpap = Image("{{assets}}/sprite/polypa_shooshpap.png", ypos=73
 
 init python:
     quirks["polypa"] = [("(.+)", "<1> *|")]
+
+# ../custom_volumes_other/hiveswap\Remele.rpy
 define remele = Character(name="REMELE", kind=hiveswap, image="remele", window_background="gui/textbox_cobalt.png", who_outlines=[(4, "#005682")])
 
 image remele attack = Image("{{assets}}/sprite/Remele_attack.png", ypos=730)
@@ -645,6 +714,8 @@ image remele pokerface = Image("{{assets}}/sprite/Remele_pokerface.png", ypos=73
 image remele stagger = Image("{{assets}}/sprite/Remele_stagger.png", ypos=730)
 image remele wink = Image("{{assets}}/sprite/Remele_wink.png", ypos=730)
 
+# ../custom_volumes_other/hiveswap\route.rpy
+
 label {{package_entrypoint}}_route:
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()
@@ -656,682 +727,49 @@ label {{package_entrypoint}}_route:
     $ quick_menu = True
     scene bg alternia4
 
-
-    show vikare angry
-    vikare angry "angry"
-    vikare conspiracy "conspiracy"
-    vikare curious "curious"
-    vikare Fractured "Fractured"
-    vikare inspired "inspired"
-    vikare neutral "neutral"
-    vikare sad "sad"
-    vikare worried "worried"
-    hide vikare
-
-    show zebede crying
-    zebede crying "crying"
-    zebede distressed "distressed"
-    zebede happy "happy"
-    zebede hi "hi"
-    zebede neutral "neutral"
-    zebede questioning "questioning"
-    zebede radiant "radiant"
-    zebede shiftyeyed "shiftyeyed"
-    zebede shockedembarassed "shockedembarassed"
-    hide zebede
-
-    show diemen cry
-    diemen cry "cry"
-    diemen cry_dogless "cry_dogless"
-    diemen cry_shirtless "cry_shirtless"
-    diemen curious "curious"
-    diemen curious_dogless "curious_dogless"
-    diemen curious_shirtless "curious_shirtless"
-    diemen die_shirtless "die_shirtless"
-    diemen frown "frown"
-    diemen frown_dogless "frown_dogless"
-    diemen offer "offer"
-    diemen offer_dogless "offer_dogless"
-    diemen offer_dogless_resized "offer_dogless_resized"
-    diemen offer_shirtless "offer_shirtless"
-    diemen optimistic "optimistic"
-    diemen optimistic_dogless "optimistic_dogless"
-    diemen optimistic_dogless_resized "optimistic_dogless_resized"
-    diemen optimistic_scaled "optimistic_scaled"
-    diemen recoil "recoil"
-    diemen recoil_shirtless "recoil_shirtless"
-    diemen shock "shock"
-    diemen shock_shirtless "shock_shirtless"
-    diemen smile "smile"
-    diemen smile_dogless "smile_dogless"
-    diemen smile_dogless_resized "smile_dogless_resized"
-    diemen smile_scaled "smile_scaled"
-    diemen smile_shirtless "smile_shirtless"
-    diemen talk "talk"
-    diemen talk_dogless "talk_dogless"
-    diemen talk_dogless_resized "talk_dogless_resized"
-    diemen thinking "thinking"
-    diemen thinking_dogless "thinking_dogless"
-    diemen thinking_dogless_resized "thinking_dogless_resized"
-    hide diemen
-
-    show ardata bored
-    ardata bored "bored"
-    ardata cry "cry"
-    ardata hand "hand"
-    ardata laugh "laugh"
-    ardata murder "murder"
-    ardata ohoho "ohoho"
-    ardata smile "smile"
-    ardata testy "testy"
-    ardata wink "wink"
-    hide ardata
-
-    show cirava angst
-    cirava angst "angst"
-    cirava cross "cross"
-    cirava feelingit "feelingit"
-    cirava peace "peace"
-    cirava point "point"
-    cirava shrug "shrug"
-    cirava standing "standing"
-    cirava talk "talk"
-    cirava vape "vape"
-    hide cirava
-
-    show chixie annoyed
-    chixie annoyed "annoyed"
-    chixie crying "crying"
-    chixie customerserviceface "customerserviceface"
-    chixie dejected "dejected"
-    chixie frown "frown"
-    chixie happy "happy"
-    chixie mad "mad"
-    chixie nervous "nervous"
-    chixie neutral "neutral"
-    chixie ouch "ouch"
-    chixie pissed "pissed"
-    chixie RAP "RAP"
-    chixie sad "sad"
-    chixie sadfaygo "sadfaygo"
-    chixie shocked "shocked"
-    chixie talk "talk"
-    hide chixie
-
-    show folykl idle
-    folykl idle "idle"
-    folykl pain "pain"
-    folykl scaled "scaled"
-    hide folykl
-
-    show boldir antidote
-    boldir antidote "antidote"
-    boldir cold "cold"
-    boldir cold_small "cold_small"
-    boldir dressneutral "dressneutral"
-    boldir dressthoughtful "dressthoughtful"
-    boldir dresswideeyed "dresswideeyed"
-    boldir dying "dying"
-    boldir hurt "hurt"
-    boldir mean "mean"
-    boldir mean_small "mean_small"
-    boldir neutral "neutral"
-    boldir oof "oof"
-    boldir thoughtful "thoughtful"
-    boldir wideeyed "wideeyed"
-    hide boldir
-
-    show marvus annoyed
-    marvus annoyed "annoyed"
-    marvus burnt babbling "burnt babbling"
-    marvus burnt HoldinUp "burnt HoldinUp"
-    marvus burnt JustToasty "burnt JustToasty"
-    marvus burnt "burnt"
-    marvus BurntUpButStillTurntUp "BurntUpButStillTurntUp"
-    marvus casual aw shiz "casual aw shiz"
-    marvus casual flattered "casual flattered"
-    marvus casual shrug "casual shrug"
-    marvus casual talking smug "casual talking smug"
-    marvus casual talking "casual talking"
-    marvus casual winkyface "casual winkyface"
-    marvus casual "casual"
-    marvus disgust "disgust"
-    marvus HearTheCrowd WhatYallSay "HearTheCrowd WhatYallSay"
-    marvus HearTheCrowd "HearTheCrowd"
-    marvus hug "hug"
-    marvus neutral talking "neutral talking"
-    marvus neutral "neutral"
-    marvus openarms talking "openarms talking"
-    marvus openarms "openarms"
-    marvus pan sprite "pan sprite"
-    marvus raiseblade "raiseblade"
-    marvus rank "rank"
-    marvus rapping "rapping"
-    marvus shameless "shameless"
-    marvus shielding "shielding"
-    marvus STAB look "STAB look"
-    marvus STAB "STAB"
-    marvus thinking "thinking"
-    marvus u naughty "u naughty"
-    marvus withdrawblade wink "withdrawblade wink"
-    marvus withdrawblade "withdrawblade"
-    marvus wtf "wtf"
-    hide marvus
-
-    show folyklkuprum double frown
-    folyklkuprum double frown "double frown"
-    folyklkuprum doublegrin "doublegrin"
-    folyklkuprum f_mouthopen "f_mouthopen"
-    folyklkuprum grin "grin"
-    folyklkuprum hairtug "hairtug"
-    folyklkuprum hairtug_angry "hairtug_angry"
-    folyklkuprum karmsdown "karmsdown"
-    folyklkuprum k_armpower "k_armpower"
-    folyklkuprum k_mouthopen "k_mouthopen"
-    folyklkuprum POWER "POWER"
-    hide folyklkuprum
-
-    show lynera anguish
-    lynera anguish "anguish"
-    lynera glare "glare"
-    lynera itsfine "itsfine"
-    lynera knifethreat "knifethreat"
-    lynera knifethreattears "knifethreattears"
-    lynera maybewhatimdoingis "maybewhatimdoingis"
-    lynera ohnolookwhatyoumademedo "ohnolookwhatyoumademedo"
-    lynera ohshit "ohshit"
-    lynera pissed "pissed"
-    lynera sadredfeelings "sadredfeelings"
-    lynera smile "smile"
-    lynera wellinever "wellinever"
-    lynera whatmoirails "whatmoirails"
-    lynera wouldyoureally "wouldyoureally"
-    lynera wrong "wrong"
-    hide lynera
-
-    show amisia axe
-    amisia axe "axe"
-    amisia blur2 "blur2"
-    amisia confess "confess"
-    amisia doubt "doubt"
-    amisia frame "frame"
-    amisia growl "growl"
-    amisia hairpull "hairpull"
-    amisia hop "hop"
-    amisia nya "nya"
-    amisia ponder "ponder"
-    amisia smile "smile"
-    amisia smile2 "smile2"
-    amisia smug "smug"
-    hide amisia
-
-    show kuprum anger
-    kuprum anger "anger"
-    kuprum idle "idle"
-    kuprum POWER "POWER"
-    hide kuprum
-
-    show lanque Bitching
-    lanque Bitching "Bitching"
-    lanque Close "Close"
-    lanque CloseHiding "CloseHiding"
-    lanque CloseJK "CloseJK"
-    lanque CloseKiss "CloseKiss"
-    lanque CloseLicky "CloseLicky"
-    lanque CloseNakeyKiss "CloseNakeyKiss"
-    lanque CloseNakeyShh "CloseNakeyShh"
-    lanque CloseNakeyTalk "CloseNakeyTalk"
-    lanque CloseTalk "CloseTalk"
-    lanque Embrace "Embrace"
-    lanque Grinding "Grinding"
-    lanque Hmph "Hmph"
-    lanque Interesting "Interesting"
-    lanque InterestingTalk "InterestingTalk"
-    lanque Laughing "Laughing"
-    lanque Licky "Licky"
-    lanque NakeyBitching "NakeyBitching"
-    lanque NakeyFeigning "NakeyFeigning"
-    lanque NakeyHmph "NakeyHmph"
-    lanque NakeyOhShit "NakeyOhShit"
-    lanque NakeySlapped "NakeySlapped"
-    lanque Neutral "Neutral"
-    lanque NeutralTalk "NeutralTalk"
-    lanque OhShit "OhShit"
-    lanque Questioning "Questioning"
-    lanque Redress "Redress"
-    lanque RedressExcuses "RedressExcuses"
-    lanque Scathing "Scathing"
-    lanque Smile "Smile"
-    lanque Sneer "Sneer"
-    lanque Undress "Undress"
-    lanque VALID_Happy "VALID_Happy"
-    lanque VALID_Heartfelt "VALID_Heartfelt"
-    lanque VALID_HeartfeltTalk "VALID_HeartfeltTalk"
-    lanque VALID_JoinUs "VALID_JoinUs"
-    lanque VALID_Neutral "VALID_Neutral"
-    lanque VALID_PoetryReading "VALID_PoetryReading"
-    lanque VALID_PoetryTears "VALID_PoetryTears"
-    lanque VALID_PoetryTime "VALID_PoetryTime"
-    lanque VALID_PoetryTimeTalk "VALID_PoetryTimeTalk"
-    lanque VALID_Smile "VALID_Smile"
-    lanque VALID_Uh "VALID_Uh"
-    hide lanque
-
-    show karako ATTACK
-    karako ATTACK "ATTACK"
-    karako curious "curious"
-    karako emo "emo"
-    karako FEAR "FEAR"
-    karako grateful "grateful"
-    karako happy "happy"
-    karako injured "injured"
-    karako RLYupset "RLYupset"
-    karako treestuck "treestuck"
-    karako upset "upset"
-    hide karako
-
-    show remele attack
-    remele attack "attack"
-    remele bag "bag"
-    remele discomfort "discomfort"
-    remele discomfort_painting "discomfort_painting"
-    remele grin "grin"
-    remele Neutral "Neutral"
-    remele Neutral_after "Neutral_after"
-    remele pokerface "pokerface"
-    remele stagger "stagger"
-    remele wink "wink"
-    hide remele
-
-    show charun allartisdickingaround
-    charun allartisdickingaround "allartisdickingaround"
-    charun bandannaneutral "bandannaneutral"
-    charun bandannaseeanything "bandannaseeanything"
-    charun bandannasquint "bandannasquint"
-    charun canihaveit "canihaveit"
-    charun disappointed "disappointed"
-    charun itsbeautiful "itsbeautiful"
-    charun maybe "maybe"
-    charun neutral_imstuck "neutral_imstuck"
-    charun pleased "pleased"
-    charun quoteinteresting "quoteinteresting"
-    charun squint "squint"
-    charun thereis "thereis"
-    charun tired "tired"
-    hide charun
-
-    show nikhee blankface
-    nikhee blankface "blankface"
-    nikhee coward "coward"
-    nikhee doiscareyou "doiscareyou"
-    nikhee FLEXSTAR_01 "FLEXSTAR_01"
-    nikhee FLEXSTAR_02 "FLEXSTAR_02"
-    nikhee FLEXSTAR_03 "FLEXSTAR_03"
-    nikhee getoutofmysight "getoutofmysight"
-    nikhee hemhaw "hemhaw"
-    nikhee kylorenlol "kylorenlol"
-    nikhee listentome "listentome"
-    nikhee lostleg "lostleg"
-    nikhee MAYBE "MAYBE"
-    nikhee milkflex "milkflex"
-    nikhee NO "NO"
-    nikhee notimpressed "notimpressed"
-    nikhee offended "offended"
-    nikhee proud "proud"
-    nikhee ringstand "ringstand"
-    nikhee smile "smile"
-    nikhee THEBRAWNISEUM "THEBRAWNISEUM"
-    nikhee weirdflexbutok "weirdflexbutok"
-    nikhee weirdflexbutok_scowl "weirdflexbutok_scowl"
-    hide nikhee
-
-    show daraya burnitdown
-    daraya burnitdown "burnitdown"
-    daraya comeon "comeon"
-    daraya elwurdspcool "elwurdspcool"
-    daraya eyeroll "eyeroll"
-    daraya frozen "frozen"
-    daraya frustrated "frustrated"
-    daraya gross "gross"
-    daraya oldbuildingsarekindasick "oldbuildingsarekindasick"
-    daraya quirkedup "quirkedup"
-    daraya sogoodriddance "sogoodriddance"
-    daraya takemewithyou "takemewithyou"
-    daraya trapped "trapped"
-    daraya ughitsyou "ughitsyou"
-    daraya uhhyouknowwhat "uhhyouknowwhat"
-    daraya upset "upset"
-    daraya well "well"
-    daraya whatever "whatever"
-    daraya WHOCARES "WHOCARES"
-    hide daraya
-
-    show marsti angry
-    marsti angry "angry"
-    marsti browquirk "browquirk"
-    marsti browquirk_talking "browquirk_talking"
-    marsti gogglesup "gogglesup"
-    marsti gogglesup_angry "gogglesup_angry"
-    marsti gogglesup_duh "gogglesup_duh"
-    marsti gogglesup_resigned "gogglesup_resigned"
-    marsti gogglesup_snarky "gogglesup_snarky"
-    marsti Neutral "Neutral"
-    marsti Neutral_talking "Neutral_talking"
-    marsti peeved "peeved"
-    marsti peeved_talking "peeved_talking"
-    marsti shrug "shrug"
-    marsti shrug_talking "shrug_talking"
-    marsti smile "smile"
-    marsti worried "worried"
-    hide marsti
-
-    show bronya angry
-    bronya angry "angry"
-    bronya duty "duty"
-    bronya happy "happy"
-    bronya motherly "motherly"
-    bronya panic "panic"
-    bronya talk "talk"
-    bronya umm "umm"
-    bronya worried "worried"
-    hide bronya
-
-    show barzum CalmManic
-    barzum CalmManic "CalmManic"
-    barzum CalmManicTalk "CalmManicTalk"
-    barzum CalmMorose "CalmMorose"
-    barzum CalmMoroseTalk "CalmMoroseTalk"
-    barzum Confused "Confused"
-    barzum ConfusedTalk "ConfusedTalk"
-    barzum Disapproving "Disapproving"
-    barzum DisapprovingTalk "DisapprovingTalk"
-    barzum InShadow "InShadow"
-    barzum Laughing "Laughing"
-    barzum Neutral "Neutral"
-    barzum NeutralTalk "NeutralTalk"
-    barzum Sketpical "Sketpical"
-    barzum Thinking "Thinking"
-    barzum ThinkingTalk "ThinkingTalk"
-    hide barzum
-
-    show stelsa embarrassed
-    stelsa embarrassed "embarrassed"
-    stelsa embarrassedcasual "embarrassedcasual"
-    stelsa fakesmile "fakesmile"
-    stelsa fakesmilecasual "fakesmilecasual"
-    stelsa gesticulate "gesticulate"
-    stelsa gesticulatecasual "gesticulatecasual"
-    stelsa happy "happy"
-    stelsa happycasual "happycasual"
-    stelsa happytowel "happytowel"
-    stelsa harried "harried"
-    stelsa harriedcasual "harriedcasual"
-    stelsa harriedruffled "harriedruffled"
-    stelsa smile "smile"
-    stelsa smilecasual "smilecasual"
-    stelsa smiletowel "smiletowel"
-    stelsa surprise "surprise"
-    stelsa surprisecasual "surprisecasual"
-    stelsa wringing "wringing"
-    stelsa wringingcasual "wringingcasual"
-    hide stelsa
-
-    show polypa dejected
-    polypa dejected "dejected"
-    polypa hoodie_intro "hoodie_intro"
-    polypa hoodie_pissed "hoodie_pissed"
-    polypa neutral "neutral"
-    polypa pleased "pleased"
-    polypa scuffle "scuffle"
-    polypa serious "serious"
-    polypa shocked "shocked"
-    polypa shooshpap "shooshpap"
-    hide polypa
-
-    show tirona 3whisper_small
-    tirona 3whisper_small "3whisper_small"
-    tirona deerintheheadlights_small "deerintheheadlights_small"
-    tirona FEASTYOUREYES_small "FEASTYOUREYES_small"
-    tirona lilhelper_small "lilhelper_small"
-    tirona memetalk_small "memetalk_small"
-    tirona meme_small "meme_small"
-    tirona pigtailyank_small "pigtailyank_small"
-    tirona secretwhisper_small "secretwhisper_small"
-    tirona talk_small "talk_small"
-    tirona WOW_small "WOW_small"
-    tirona YEAHfrazzled_small "YEAHfrazzled_small"
-    tirona YEAH_small "YEAH_small"
-    hide tirona
-
-    show fozzer accusatory
-    fozzer accusatory "accusatory"
-    fozzer AirQuotes "AirQuotes"
-    fozzer ArmsCrossed "ArmsCrossed"
-    fozzer ArmsCrossedDispleased "ArmsCrossedDispleased"
-    fozzer ArmsCrossedQuestioning "ArmsCrossedQuestioning"
-    fozzer digging "digging"
-    fozzer embrace "embrace"
-    fozzer estatic "estatic"
-    fozzer estaticListening "estaticListening"
-    fozzer fistpump "fistpump"
-    fozzer LetsShovel "LetsShovel"
-    fozzer panicked "panicked"
-    fozzer SPOOKED "SPOOKED"
-    fozzer squint "squint"
-    fozzer thinking "thinking"
-    fozzer thinkinghard "thinkinghard"
-    fozzer thinkingImpressed "thinkingImpressed"
-    fozzer thinkingUnimpressed "thinkingUnimpressed"
-    hide fozzer
-
-    show azdaja analize
-    azdaja analize "analize"
-    azdaja bragging "bragging"
-    azdaja controlled "controlled"
-    azdaja embarrased "embarrased"
-    azdaja neutral "neutral"
-    azdaja pissed "pissed"
-    azdaja power1 "power1"
-    azdaja power2 "power2"
-    azdaja power3 "power3"
-    azdaja power4 "power4"
-    azdaja sayonara "sayonara"
-    azdaja surprise "surprise"
-    hide azdaja
-
-    show tyzias grimace
-    tyzias grimace "grimace"
-    tyzias irritated "irritated"
-    tyzias irritatedtalk "irritatedtalk"
-    tyzias laugh "laugh"
-    tyzias miserable "miserable"
-    tyzias mugglare "mugglare"
-    tyzias sad "sad"
-    tyzias sip "sip"
-    tyzias siplook "siplook"
-    tyzias talk "talk"
-    tyzias weary "weary"
-    tyzias workedup "workedup"
-    tyzias workedup2 "workedup2"
-    hide tyzias
-
-    show wanshi betrayed
-    wanshi betrayed "betrayed"
-    wanshi claspshands "claspshands"
-    wanshi curiosity "curiosity"
-    wanshi eager "eager"
-    wanshi expectant "expectant"
-    wanshi fear "fear"
-    wanshi gift "gift"
-    wanshi hi "hi"
-    wanshi intro_nothingtoseehere "intro_nothingtoseehere"
-    wanshi intro_snitch "intro_snitch"
-    wanshi intro_wanshiout "intro_wanshiout"
-    wanshi OoO "OoO"
-    wanshi rp "rp"
-    wanshi sadsmile "sadsmile"
-    wanshi shakingwithexcitement "shakingwithexcitement"
-    wanshi sideye "sideye"
-    wanshi teary "teary"
-    wanshi ughlame "ughlame"
-    wanshi woah "woah"
-    wanshi youknowit "youknowit"
-    hide wanshi
-
-    show galekh disappointedpause
-    galekh disappointedpause "disappointedpause"
-    galekh expressions001 "expressions001"
-    galekh frustration "frustration"
-    galekh glare "glare"
-    galekh neutral "neutral"
-    galekh nojacketneutral "nojacketneutral"
-    galekh nojacketpleased "nojacketpleased"
-    galekh pissed "pissed"
-    galekh pleased "pleased"
-    galekh questioning "questioning"
-    galekh surprise "surprise"
-    galekh tattoocrookedsmile "tattoocrookedsmile"
-    galekh tattooflush "tattooflush"
-    galekh tattooneutral "tattooneutral"
-    galekh tattoowince "tattoowince"
-    hide galekh
-
-    show tegiri angry
-    tegiri angry "angry"
-    tegiri brood "brood"
-    tegiri demanding "demanding"
-    tegiri doyoudance "doyoudance"
-    tegiri doyoudance_fx01 "doyoudance_fx01"
-    tegiri doyoudance_fx02 "doyoudance_fx02"
-    tegiri neutral "neutral"
-    tegiri pleased "pleased"
-    tegiri proud "proud"
-    tegiri question "question"
-    tegiri sharingan "sharingan"
-    tegiri sour "sour"
-    tegiri talk "talk"
-    tegiri thepowerofkamiandanime "thepowerofkamiandanime"
-    hide tegiri
-
-    show chahut blood
-    chahut blood "blood"
-    chahut lazysmile "lazysmile"
-    chahut neutral "neutral"
-    chahut pissed "pissed"
-    chahut pray "pray"
-    chahut spray "spray"
-    chahut suprise "suprise"
-    chahut wince "wince"
-    hide chahut
-
-    show zebruh disgust
-    zebruh disgust "disgust"
-    zebruh displeased "displeased"
-    zebruh excited "excited"
-    zebruh huh "huh"
-    zebruh showoff "showoff"
-    zebruh stand "stand"
-    zebruh talk "talk"
-    zebruh upset "upset"
-    zebruh wink "wink"
-    $ quirkSay(zebruh, "zebruh_hearts", "Hearts")
-    $ quirkSay(zebruh, "zebruh_spades", "Spades")
-    $ quirkSay(zebruh, "zebruh_diamonds", "Diamonds")
-    $ quirkSay(zebruh, "zebruh_clubs", "Clubs")
-
-    hide zebruh
-
-    show baizli CalmManic
-    baizli CalmManic "CalmManic"
-    baizli CalmManicTalk "CalmManicTalk"
-    baizli CalmMorose "CalmMorose"
-    baizli CalmMoroseTalk "CalmMoroseTalk"
-    baizli Confused "Confused"
-    baizli ConfusedTalking "ConfusedTalking"
-    baizli Disapproving "Disapproving"
-    baizli DisapprovingTalk "DisapprovingTalk"
-    baizli InShadow "InShadow"
-    baizli Laughing "Laughing"
-    baizli Neutral "Neutral"
-    baizli NeutralTalking "NeutralTalking"
-    baizli Skeptical "Skeptical"
-    baizli Thinking "Thinking"
-    baizli ThinkingTalk "ThinkingTalk"
-    hide baizli
-
-    show mallek down
-    mallek down "down"
-    mallek drones "drones"
-    mallek grin "grin"
-    mallek interest "interest"
-    mallek laugh "laugh"
-    mallek lowered "lowered"
-    mallek neutral "neutral"
-    mallek pissed "pissed"
-    mallek really "really"
-    mallek scrutinyannoyance "scrutinyannoyance"
-    mallek shirtlessflush "shirtlessflush"
-    mallek shirtlessmybad "shirtlessmybad"
-    mallek shirtlesstalk "shirtlesstalk"
-    mallek shirtlessum "shirtlessum"
-    hide mallek
-
-    show tagora clasp
-    tagora clasp "clasp"
-    tagora document "document"
-    tagora ew "ew"
-    tagora helpful "helpful"
-    tagora hollering "hollering"
-    tagora judging "judging"
-    tagora nervous "nervous"
-    tagora neutral "neutral"
-    tagora neutral2 "neutral2"
-    hide tagora
-
-    show skylla anger
-    skylla anger "anger"
-    skylla concern "concern"
-    skylla depressed "depressed"
-    skylla distress "distress"
-    skylla happy "happy"
-    skylla kickass "kickass"
-    skylla numb "numb"
-    skylla numb2 "numb2"
-    skylla stand "stand"
-    skylla talk "talk"
-    skylla upset "upset"
-    hide skylla
-
-    show elwurd casualsurprise
-    elwurd casualsurprise "casualsurprise"
-    elwurd defensive "defensive"
-    elwurd fingerguns "fingerguns"
-    elwurd frown "frown"
-    elwurd handsome "handsome"
-    elwurd headtilt "headtilt"
-    elwurd interested "interested"
-    elwurd pissed "pissed"
-    elwurd psh "psh"
-    elwurd scowl "scowl"
-    elwurd shrug "shrug"
-    elwurd smile "smile"
-    elwurd ugh "ugh"
-    hide elwurd
-
-    show konyyl ask
-    konyyl ask "ask"
-    konyyl attack "attack"
-    konyyl defeated "defeated"
-    konyyl laugh "laugh"
-    konyyl menacing "menacing"
-    konyyl neutral "neutral"
-    konyyl sad "sad"
-    konyyl surprised "surprised"
-    konyyl thinking "thinking"
-    konyyl why "why"
-    hide konyyl
+    $ debug_dump_character(bronya)
+    $ debug_dump_character(amisia)
+    $ debug_dump_character(charun)
+    $ debug_dump_character(mallek)
+    $ debug_dump_character(remele)
+    $ debug_dump_character(chixie)
+    $ debug_dump_character(galekh)
+    $ debug_dump_character(polypa)
+    $ debug_dump_character(marvus)
+    $ debug_dump_character(stelsa)
+    $ debug_dump_character(barzum)
+    $ debug_dump_character(nikhee)
+    $ debug_dump_character(marsti)
+    $ debug_dump_character(elwurd)
+    $ debug_dump_character(folykl)
+    $ debug_dump_character(azdaja)
+    $ debug_dump_character(tagora)
+    $ debug_dump_character(wanshi)
+    $ debug_dump_character(tegiri)
+    $ debug_dump_character(tyzias)
+    $ debug_dump_character(zebruh)
+    $ debug_dump_character(lanque)
+    $ debug_dump_character(folyklkuprum)
+    $ debug_dump_character(kuprum)
+    $ debug_dump_character(lynera)
+    $ debug_dump_character(karako)
+    $ debug_dump_character(chahut)
+    $ debug_dump_character(zebede)
+    $ debug_dump_character(skylla)
+    $ debug_dump_character(vikare)
+    $ debug_dump_character(daraya)
+    $ debug_dump_character(cirava)
+    $ debug_dump_character(boldir)
+    $ debug_dump_character(diemen)
+    $ debug_dump_character(konyyl)
+    $ debug_dump_character(fozzer)
+    $ debug_dump_character(ardata)
+    $ debug_dump_character(tirona)
+    $ debug_dump_character(baizli)
     call ending pass ("gui/game_menu.png", True, True)
     return
+
+# ../custom_volumes_other/hiveswap\Skylla.rpy
 define skylla = Character(name="SKYLLA", kind=hiveswap, image="skylla", window_background="gui/textbox_bronze.png", who_outlines=[(4, "#bb6405")])
 
 image skylla anger = Image("{{assets}}/sprite/Skylla_anger.png", ypos=730)
@@ -1345,6 +783,8 @@ image skylla numb2 = Image("{{assets}}/sprite/Skylla_numb2.png", ypos=730)
 image skylla stand = Image("{{assets}}/sprite/Skylla_stand.png", ypos=730)
 image skylla talk = Image("{{assets}}/sprite/Skylla_talk.png", ypos=730)
 image skylla upset = Image("{{assets}}/sprite/Skylla_upset.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\stelsa.rpy
 define stelsa = Character(name="STELSA", kind=hiveswap, image="stelsa", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image stelsa embarrassed = Image("{{assets}}/sprite/stelsa_embarrassed.png", ypos=730)
@@ -1366,6 +806,8 @@ image stelsa surprise = Image("{{assets}}/sprite/stelsa_surprise.png", ypos=730)
 image stelsa surprisecasual = Image("{{assets}}/sprite/stelsa_surprisecasual.png", ypos=730)
 image stelsa wringing = Image("{{assets}}/sprite/stelsa_wringing.png", ypos=730)
 image stelsa wringingcasual = Image("{{assets}}/sprite/stelsa_wringingcasual.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\Tagora.rpy
 define tagora = Character(name="TAGORA", kind=hiveswap, image="tagora", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image tagora clasp = Image("{{assets}}/sprite/Tagora_clasp.png", ypos=730)
@@ -1380,6 +822,8 @@ image tagora neutral2 = Image("{{assets}}/sprite/Tagora_neutral2.png", ypos=730)
 
 init python:
     quirks["tagora"] = [("(.+)", "<1>\n\n*__________")]
+
+# ../custom_volumes_other/hiveswap\tegiri.rpy
 define tegiri = Character(name="TEGIRI", kind=hiveswap, image="tegiri", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image tegiri angry = Image("{{assets}}/sprite/tegiri_angry.png", ypos=730)
@@ -1396,6 +840,8 @@ image tegiri sharingan = Image("{{assets}}/sprite/tegiri_sharingan.png", ypos=73
 image tegiri sour = Image("{{assets}}/sprite/tegiri_sour.png", ypos=730)
 image tegiri talk = Image("{{assets}}/sprite/tegiri_talk.png", ypos=730)
 image tegiri thepowerofkamiandanime = Image("{{assets}}/sprite/tegiri_thepowerofkamiandanime.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\text.rpy
 image char bottomspike = Image("{{assets}}/text/bottomspike.png")
 image char cashmoney = Image("{{assets}}/text/cashmoney.png")
 image char club = Image("{{assets}}/text/club.png")
@@ -1415,6 +861,8 @@ image char lyneraemoji_mad = Image("{{assets}}/text/lyneraemoji_mad.png")
 image char moneygui = Image("{{assets}}/text/moneygui.png")
 image char spade = Image("{{assets}}/text/spade.png")
 image char topspike = Image("{{assets}}/text/topspike.png")
+
+# ../custom_volumes_other/hiveswap\tirona.rpy
 define tirona = Character(name="TIRONA", kind=hiveswap, image="tirona", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image tirona 3whisper_small = Image("{{assets}}/sprite/tirona_3whisper_small.png", ypos=730)
@@ -1429,6 +877,8 @@ image tirona talk_small = Image("{{assets}}/sprite/tirona_talk_small.png", ypos=
 image tirona WOW_small = Image("{{assets}}/sprite/tirona_WOW_small.png", ypos=730)
 image tirona YEAHfrazzled_small = Image("{{assets}}/sprite/tirona_YEAHfrazzled_small.png", ypos=730)
 image tirona YEAH_small = Image("{{assets}}/sprite/tirona_YEAH_small.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\tyzias.rpy
 define tyzias = Character(name="TYZIAS", kind=hiveswap, image="tyzias", window_background="gui/textbox_teal.png", who_outlines=[(4, "#008282")])
 
 image tyzias grimace = Image("{{assets}}/sprite/Tyzias_grimace.png", ypos=730)
@@ -1444,6 +894,8 @@ image tyzias talk = Image("{{assets}}/sprite/Tyzias_talk.png", ypos=730)
 image tyzias weary = Image("{{assets}}/sprite/Tyzias_weary.png", ypos=730)
 image tyzias workedup = Image("{{assets}}/sprite/Tyzias_workedup.png", ypos=730)
 image tyzias workedup2 = Image("{{assets}}/sprite/Tyzias_workedup2.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\Vikare.rpy
 define vikare = Character(name="VIKARE", kind=hiveswap, image="vikare", window_background="gui/textbox_bronze.png", who_outlines=[(4, "#bb6405")])
 
 image vikare angry = Image("{{assets}}/sprite/Vikare_angry.png", ypos=730)
@@ -1454,6 +906,10 @@ image vikare inspired = Image("{{assets}}/sprite/Vikare_inspired.png", ypos=730)
 image vikare neutral = Image("{{assets}}/sprite/Vikare_neutral.png", ypos=730)
 image vikare sad = Image("{{assets}}/sprite/Vikare_sad.png", ypos=730)
 image vikare worried = Image("{{assets}}/sprite/Vikare_worried.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\vision.rpy
+
+# ../custom_volumes_other/hiveswap\wanshi.rpy
 define wanshi = Character(name="WANSHI", kind=hiveswap, image="wanshi", window_background="gui/textbox_jade.png", who_outlines=[(4, "#0aa85b")])
 
 image wanshi betrayed = Image("{{assets}}/sprite/wanshi_betrayed.png", ypos=730)
@@ -1476,6 +932,8 @@ image wanshi teary = Image("{{assets}}/sprite/wanshi_teary.png", ypos=730)
 image wanshi ughlame = Image("{{assets}}/sprite/wanshi_ughlame.png", ypos=730)
 image wanshi woah = Image("{{assets}}/sprite/wanshi_woah.png", ypos=730)
 image wanshi youknowit = Image("{{assets}}/sprite/wanshi_youknowit.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\zebede.rpy
 define zebede = Character(name="ZEBEDE", kind=hiveswap, image="zebede", window_background="gui/textbox_gold.png", who_outlines=[(4, "#a1a100")])
 
 image zebede crying = Image("{{assets}}/sprite/zebede_crying.png", ypos=730)
@@ -1487,6 +945,8 @@ image zebede questioning = Image("{{assets}}/sprite/zebede_questioning.png", ypo
 image zebede radiant = Image("{{assets}}/sprite/zebede_radiant.png", ypos=730)
 image zebede shiftyeyed = Image("{{assets}}/sprite/zebede_shiftyeyed.png", ypos=730)
 image zebede shockedembarassed = Image("{{assets}}/sprite/zebede_shockedembarassed.png", ypos=730)
+
+# ../custom_volumes_other/hiveswap\zebruh.rpy
 define zebruh = Character(name="ZEBRUH", kind=hiveswap, image="zebruh", window_background="gui/textbox_blue.png", who_outlines=[(4, "#000056")])
 
 image zebruh disgust = Image("{{assets}}/sprite/zebruh_disgust.png", ypos=730)
@@ -1504,3 +964,4 @@ init python:
     quirks["zebruh_diamonds"] = [("(.+)", "{image=char diamond} \g<1> {image=char diamond}")]
     quirks["zebruh_clubs"] = [("(.+)", "{image=char club} \g<1> {image=char club}")]
     quirks["zebruh_spades"] = [("(.+)", "{image=char spade} \g<1> {image=char spade}")]
+
