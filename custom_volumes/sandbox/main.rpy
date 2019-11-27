@@ -2,12 +2,12 @@
 
 # Always prefix your definitions with {{p}} so they won't conflict with existing resources.
 
-define {{p}}_jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
-# define {{p}}_jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
-define {{p}}_vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
-define {{p}}_bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", show_blood="olive")
+define {{p}}.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
+# define {{p}}.jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
+define {{p}}.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
+define {{p}}.bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", show_blood="olive")
 
-define {{p}}_tz = Character("[tztitle]", kind=trollian, show_blood='teal', image="{{p}}_terezi")
+define {{p}}.tz = Character("[tztitle]", kind=trollian, show_blood='teal', image="{{p}}_terezi")
 
 # Give characters poses
 # image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
@@ -51,73 +51,73 @@ label {{package_entrypoint}}_sandbox:
     # Compare our dialog systems against the vanilla ones
     # to ensure everything matches up
     bo "Vanilla boldir"
-    {{p}}_bo "Custom boldir"
+    {{p}}.bo "Custom boldir"
     vr "Vanilla vriska"
-    {{p}}_vr "Custom vriska"
+    {{p}}.vr "Custom vriska"
     jo "Vanilla john"
-    {{p}}_jo "Custom john"
+    {{p}}.jo "Custom john"
     ob_meulin "Custom openbound"
 
     # Trollian multiline test
     show vriska neutral1
     vr "Vanilla vriska"
-    {{p}}_vr "Hi! I'm vriska\nLines are loose"
-    {{p}}_vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
+    {{p}}.vr "Hi! I'm vriska\nLines are loose"
+    {{p}}.vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
     
     # Trollian colorizing
-    {{p}}_vr "Override" (show_color="#0A0", show_blood=None)
-    {{p}}_vr "Gray" (show_blood="gray")
-    {{p}}_vr "Candy red" (show_blood="candyred")
-    {{p}}_vr "Burgandy" (show_blood="burgandy")
-    {{p}}_vr "Bronze" (show_blood="bronze")
-    {{p}}_vr "Gold" (show_blood="gold")
-    {{p}}_vr "Lime" (show_blood="lime")
-    {{p}}_vr "Olive" (show_blood="olive")
-    {{p}}_vr "Jade" (show_blood="jade")
-    {{p}}_vr "Teal" (show_blood="teal")
-    {{p}}_vr "Cerulean" (show_blood="cerulean")
-    {{p}}_vr "Indigo" (show_blood="indigo")
-    {{p}}_vr "Purple" (show_blood="purple")
-    {{p}}_vr "Violet" (show_blood="violet")
-    {{p}}_vr "Fuchsia" (show_blood="fuchsia")
+    {{p}}.vr "Override" (show_color="#0A0", show_blood=None)
+    {{p}}.vr "Gray" (show_blood="gray")
+    {{p}}.vr "Candy red" (show_blood="candyred")
+    {{p}}.vr "Burgandy" (show_blood="burgandy")
+    {{p}}.vr "Bronze" (show_blood="bronze")
+    {{p}}.vr "Gold" (show_blood="gold")
+    {{p}}.vr "Lime" (show_blood="lime")
+    {{p}}.vr "Olive" (show_blood="olive")
+    {{p}}.vr "Jade" (show_blood="jade")
+    {{p}}.vr "Teal" (show_blood="teal")
+    {{p}}.vr "Cerulean" (show_blood="cerulean")
+    {{p}}.vr "Indigo" (show_blood="indigo")
+    {{p}}.vr "Purple" (show_blood="purple")
+    {{p}}.vr "Violet" (show_blood="violet")
+    {{p}}.vr "Fuchsia" (show_blood="fuchsia")
     hide vriska
 
     # Hiveswap colorizing
     show boldir neutral
     bo "Vanilla boldir"
-    {{p}}_bo "Default"
-    {{p}}_bo "Override" (show_color="#0A0")
-    {{p}}_bo "Test" (show_blood="test")
-    {{p}}_bo "Gray" (show_blood="gray")
-    {{p}}_bo "Candy red" (show_blood="candyred")
+    {{p}}.bo "Default"
+    {{p}}.bo "Override" (show_color="#0A0")
+    {{p}}.bo "Test" (show_blood="test")
+    {{p}}.bo "Gray" (show_blood="gray")
+    {{p}}.bo "Candy red" (show_blood="candyred")
     bo "Burgandy" (window_background="gui/textbox_rust.png")
-    {{p}}_bo "Burgandy" (show_blood="burgandy")
+    {{p}}.bo "Burgandy" (show_blood="burgandy")
     bo "Bronze" (window_background="gui/textbox_bronze.png")
-    {{p}}_bo "Bronze" (show_blood="bronze")
+    {{p}}.bo "Bronze" (show_blood="bronze")
     bo "Gold" (window_background="gui/textbox_gold.png")
-    {{p}}_bo "Gold" (show_blood="gold")
-    {{p}}_bo "Lime" (show_blood="lime")
+    {{p}}.bo "Gold" (show_blood="gold")
+    {{p}}.bo "Lime" (show_blood="lime")
     bo "Olive" (window_background="gui/textbox_olive.png")
-    {{p}}_bo "Olive" (show_blood="olive")
+    {{p}}.bo "Olive" (show_blood="olive")
     bo "Jade" (window_background="gui/textbox_jade.png")
-    {{p}}_bo "Jade" (show_blood="jade")
+    {{p}}.bo "Jade" (show_blood="jade")
     bo "Teal" (window_background="gui/textbox_teal.png")
-    {{p}}_bo "Teal" (show_blood="teal")
+    {{p}}.bo "Teal" (show_blood="teal")
     bo "Cobalt" (window_background="gui/textbox_cobalt.png")
-    {{p}}_bo "Cerulean" (show_blood="cerulean")
+    {{p}}.bo "Cerulean" (show_blood="cerulean")
     bo "Blue" (window_background="gui/textbox_blue.png")
-    {{p}}_bo "Indigo" (show_blood="indigo")
+    {{p}}.bo "Indigo" (show_blood="indigo")
     bo "Purple" (window_background="gui/textbox_purple.png")
-    {{p}}_bo "Purple" (show_blood="purple")
-    {{p}}_bo "Violet" (show_blood="violet")
-    {{p}}_bo "Fuchsia" (show_blood="fuchsia")
+    {{p}}.bo "Purple" (show_blood="purple")
+    {{p}}.bo "Violet" (show_blood="violet")
+    {{p}}.bo "Fuchsia" (show_blood="fuchsia")
     hide boldir
 
     # Pesterchum and multilines
     show john neutral
     jo "Vanilla john"
-    {{p}}_jo "Hi! I'm john\nLines are loose"
-    {{p}}_jo "Hi! I'm john, but busy.\nMultiple lines are tight." (show_big=True)
+    {{p}}.jo "Hi! I'm john\nLines are loose"
+    {{p}}.jo "Hi! I'm john, but busy.\nMultiple lines are tight." (show_big=True)
     hide john
 
     # Test our supplemental narrators, characters
@@ -162,7 +162,7 @@ label {{package_entrypoint}}_sandbox:
     hide gamzee
 
     show vriska neutral1
-    {{p}}_vr "I'm 8riska"
+    {{p}}.vr "I'm 8riska"
     hide vriska
 
     show {{p}}_terezi neutral
@@ -171,16 +171,16 @@ label {{package_entrypoint}}_sandbox:
 
     # Test dynamic name growth
     $ tztitle = "A"
-    {{p}}_tz "1"
+    {{p}}.tz "1"
     $ tztitle = "AAAAAAAAAAAA"
-    {{p}}_tz "2"
+    {{p}}.tz "2"
     $ tztitle = "AAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    {{p}}_tz "3"
+    {{p}}.tz "3"
     $ tztitle = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    {{p}}_tz "4"
+    {{p}}.tz "4"
 
     # Twitter demo
-    {{p}}_tz neutral "Hey. Hey. Over here."
+    {{p}}.tz neutral "Hey. Hey. Over here."
 
     "Oh shit. You’re just standing out here with all his mail, he’s going to think you’re trying to rob the place."
     menu:
@@ -192,13 +192,13 @@ label {{package_entrypoint}}_sandbox:
             pass
 
     show {{p}}_fakemenu
-    {{p}}_tz "UHHHHHHHH"
+    {{p}}.tz "UHHHHHHHH"
 
     show {{p}}_terezi at right1280 with ease
-    {{p}}_tz "*SNIFFFFFFFF*"
+    {{p}}.tz "*SNIFFFFFFFF*"
 
     show {{p}}_terezi at left1280 with move
-    {{p}}_tz "TF 1S TH1S TH1NG :?"
+    {{p}}.tz "TF 1S TH1S TH1NG :?"
 
     hide {{p}}_terezi
     hide {{p}}_fakemenu
