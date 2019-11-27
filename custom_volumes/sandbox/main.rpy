@@ -11,7 +11,7 @@ define {{p}}_tz = Character("[tztitle]", kind=trollian, show_blood='teal', image
 
 # Give characters poses
 # image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
-image vriska ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
+image vriska {{p}}_ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
 image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
 
 # Define backgrounds
@@ -23,7 +23,7 @@ image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
 image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
 
 # ob_meulin is already defined; define a new copy using the openround style
-define ob_meulin2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
+define {{p}}_meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
 
 
 # Start of route
@@ -135,10 +135,10 @@ label {{package_entrypoint}}_sandbox:
     ob_meulin hypno "A very spooky bit of text which reads about three lines at this size" (show_chuckle=True)
     ob_meulin hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
 
-    ob_meulin2 idle "!!"
-    ob_meulin2 laugh "!!!" (show_hashtags="#hashtag1")
-    ob_meulin2 hypno "HONK" (show_chuckle=True)
-    ob_meulin2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
+    {{p}}_meu2 idle "!!"
+    {{p}}_meu2 laugh "!!!" (show_hashtags="#hashtag1")
+    {{p}}_meu2 hypno "HONK" (show_chuckle=True)
+    {{p}}_meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
     hide ob_meulin
 
 
@@ -207,7 +207,7 @@ label {{package_entrypoint}}_sandbox:
 
     # Write dialogue!
     vr neutral3 "Hey. Hey. Over here."
-    vr ngreen "8itch."
+    vr {{p}}_ngreen "8itch."
 
     hide vriska  # goodbye
 
