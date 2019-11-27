@@ -205,7 +205,7 @@ def runGame():
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
-def main():
+def main(argstr=None):
     import argparse
 
     ap = argparse.ArgumentParser()
@@ -224,7 +224,8 @@ def main():
     ap.add_argument(
         "--patchdir",
         help="Just make a patch folder")
-    args = ap.parse_args()
+
+    args = (ap.parse_args(argstr) if argstr else ap.parse_args())
 
     if args.patchdir:
         global gamedir_root

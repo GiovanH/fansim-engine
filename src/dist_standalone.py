@@ -38,13 +38,7 @@ def main():
 
 def run_patcher():
     from patcher import main as patch
-    argv_ = sys.argv
-    sys.argv = [sys.argv[0]]
-    sys.argv.append("--patchdir")
-    sys.argv.append(distdir)
-    sys.argv.append("--nolaunch")
-    patch()
-    sys.argv = argv_
+    patch(["--patchdir", distdir, "--nolaunch"])
 
 
 main()
