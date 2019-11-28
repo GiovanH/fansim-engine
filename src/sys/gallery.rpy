@@ -10,7 +10,7 @@ init python:
 
     gallery_buttons = []
     for name, image in sorted(gallery_images):
-        buttonname = name[0].split("_")[0].rstrip('0123456789')
+        buttonname = name[0].split("_")[0].rstrip('-0123456789')
         if buttonname not in gallery_buttons:
             gallery_buttons.append(buttonname)
             gallery.button(buttonname)
