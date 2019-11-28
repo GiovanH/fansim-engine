@@ -11,11 +11,19 @@ init python:
         # renpy.music.queue(bg_cur)
 
     # Script
+    def get_all_sayers(store_=store):
+        return filter(
+            lambda i: isinstance(i[1], ADVCharacter),
+            store_.__dict__.items()
+        )
+
+    def get_all_images():
+        return renpy.display.image.images.items()
 
     def get_images_from_sayer(sayer):
         return filter(
             lambda i: i[0][0] == sayer.image_tag,
-            renpy.display.image.images.items()
+            get_all_images()
         )
 
     def debug_dump_character(sayer):

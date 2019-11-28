@@ -1,4 +1,4 @@
-init offset = 0
+init offset = 900
 
 init python:
 
@@ -6,21 +6,18 @@ init python:
     gallery.transition = Dissolve(0.1)
     gallery.navigation = True
 
-    gallery_images = filter(
-        lambda f: f.lower()[-4:] in [".png"],
-        renpy.list_files(common=False))
+    gallery_images = get_all_images()
 
     gallery_buttons = []
-    for imagepath in sorted(gallery_images):
-        filesub = imagepath.split("/")[0].replace("custom_assets_", "")
-        if filesub not in gallery_buttons:
-            gallery_buttons.append(filesub)
-            gallery.button(filesub)
-        gallery.image(imagepath)
+    for name, image in sorted(gallery_images):
+        buttonname = name[0].split("_")[0].rstrip('0123456789')
+        if buttonname not in gallery_buttons:
+            gallery_buttons.append(buttonname)
+            gallery.button(buttonname)
+        gallery.image(image)
 
 # Override
 screen _gallery:
-
     frame:
         xfill True
         yfill True
@@ -56,23 +53,21 @@ screen gallery_navigation:
 
 screen panel_room:
     tag menu
-    use game_menu(_("Click the panels!"), yinitial=-40):
+    use game_menu(_("Click the panels!")):
         # Ensure this replaces the main menu.
 
         # A grid of buttons.
         vpgrid:
-            cols 2
-            spacing 5
-            draggable True
             mousewheel True
             scrollbars "vertical"
-            side_xalign 0.5
 
-            xfill True
+            cols 3
+
+            xsize 940
             yfill True
-            # add gallery.make_button("all", "{{assets}}/freshjamz/00830-316.png", xalign=0.5, yalign=0.5)
+
             for buttonname in gallery_buttons:
-                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5)
+                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
 
 
 init python:
