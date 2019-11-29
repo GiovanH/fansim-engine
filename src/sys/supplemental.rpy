@@ -2,14 +2,6 @@ init offset = 0
 
 init python:
 
-    # Menus
-
-    def Secret():
-        # bg_cur = renpy.music.get_playing(channel='music')
-        # renpy.music.stop()
-        renpy.play("music/honk_short.wav")
-        # renpy.music.queue(bg_cur)
-
     # Script
     def get_all_sayers(store_=store):
         return filter(
@@ -40,27 +32,6 @@ init python:
     #     config.developer = not config.developer
     #     return SetField(persistent, 'developer', config.developer)()
 
-style mainmenu_devbox_frame:
-    xalign 1.0
-    yalign 1.0
-    spacing -10
-
-style mainmenu_devbox_button:
-    xalign 1.0 
-
-style mainmenu_devbox_button_text:
-    idle_color "#000" 
-    text_align 1.0
-
-style mainmenu_devbox_text is mainmenu_devbox_button_text
-
-screen mainmenu_devbox:
-    frame:
-        style_prefix "mainmenu_devbox"
-        vbox:
-            # background Solid("#0A0")
-            textbutton "Music Room" action ShowMenu("music_room") 
-            textbutton "Panel Room" action ShowMenu("panel_room")
 
 label start_custom:
 

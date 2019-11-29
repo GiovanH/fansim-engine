@@ -58,6 +58,45 @@ label {{package_entrypoint}}_sandbox:
     {{p}}.jo "Custom john"
     ob_meulin "Custom openbound"
 
+    # Music notifications. 
+    # See full implementation in sys/fx.rpy
+    # By default, shows a notification and hides itself.
+    show screen MusicToast()
+    "Drink it in"
+
+    # ...although you do need to hide it yourself eventually
+    # if you want things to work right, even if you use the autohiding versions. 
+    hide screen MusicToast
+
+    # Set albumart, title, artist, and album fields to your data.
+    # Set tf to toast_down instead of toast_down_peek to make the notification stick on the screen.
+    # You can use tags here like other text.
+
+    # Advanced:
+    # You can supply an arbitrary transofmration to the tf parameter
+    # You can style the entire window using stule=x
+    # You can edit the template form strings using ttitle, tartist, and talbum
+    # You can edit the size of the album art using albumartsize
+    show screen MusicToast(
+        tf=toast_down,
+        albumart="{{assets}}/scourgequest.jpg",
+        title="Let Me Tell You About (Instrumental)",
+        artist="Flutterwhat",
+        album="{a=https://flutterwhat.bandcamp.com/track/let-me-tell-you-about-insturmental}ScourgeQuest{/a}")
+    
+    "Drink it in {i}forever{/i}"
+    # After *something*, hide the notification, if you used something like toast_down to make it stick.
+    # Something that uses toast_down or toast_up will use the toast animation to hide the window.
+    hide screen MusicToast
+
+    "and I guess let it leave before bringing in the next thing"
+
+    # pause 0.3
+
+    show screen MusicToast(tf=toast_flyby)
+    "Is this even a toast anymore?"
+    hide screen MusicToast
+
     # Trollian multiline test
     show vriska neutral1
     vr "Vanilla vriska"
