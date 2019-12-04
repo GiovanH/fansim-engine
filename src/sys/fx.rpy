@@ -83,25 +83,3 @@ screen MusicToast:
                 text tartist style_suffix "artist"
                 text talbum style_suffix "album"
         at tf
-
-style mainmenu_devbox_frame:
-    xalign 1.0
-    yalign 1.0
-    spacing -10
-
-style mainmenu_devbox_button:
-    xalign 1.0 
-
-style mainmenu_devbox_button_text:
-    idle_color "#000" 
-    text_align 1.0
-
-style mainmenu_devbox_text is mainmenu_devbox_button_text
-
-screen mainmenu_devbox:
-    frame:
-        style_prefix "mainmenu_devbox"
-        vbox:
-            # background Solid("#0A0")
-            textbutton "Music Room" action ShowMenu("music_room") 
-            textbutton "Panel Room" action ShowMenu("panel_room")

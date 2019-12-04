@@ -25,13 +25,6 @@ init python:
             ja(repr(name))
         renpy.hide(sayer.image_tag)
 
-    # if persistent.developer is not None:
-    #     config.developer = persistent.developer
-
-    # def ToggleDevMode():
-    #     config.developer = not config.developer
-    #     return SetField(persistent, 'developer', config.developer)()
-
 
 label start_custom:
 
@@ -49,5 +42,4 @@ label start_custom:
     call screen vol_select_custom() with Dissolve(0.5)
     return
 
-define config.developer = True
 define config.autoreload = False

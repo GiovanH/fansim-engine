@@ -1,5 +1,9 @@
 init offset = 1
 
+init python:
+    config.keymap['game_menu'].remove('mouseup_3')
+    config.keymap['hide_windows'].append('mouseup_3')
+
 screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
@@ -26,6 +30,6 @@ screen main_menu():
     imagebutton auto "gui/credits_%s.png" action ShowMenu('about') pos (20, 585) at menumove
     imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
 
-    use mainmenu_devbox
-    # key "game_menu" action ShowMenu('mainmenu_devbox')
+    # use mainmenu_devbox
+    key "ctrl_K_t" action getMousePosition, ShowMenu('mainmenu_devbox')
 
