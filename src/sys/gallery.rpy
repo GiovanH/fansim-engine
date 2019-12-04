@@ -69,7 +69,6 @@ screen panel_room:
             for buttonname in gallery_buttons:
                 add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
 
-
 init python:
 
     mr = MusicRoom(fadeout=0.0)
@@ -81,13 +80,6 @@ init python:
     for track in tracks:
         mr.add(track, always_unlocked=True)
 
-    # def getSongDuration(filepath, sacrifice_channel="sound"):
-    #     # prev_volume = renpy.music.set_volume(volume, delay=0, channel=sacrifice_channel)
-    #     renpy.music.play(filepath, channel=sacrifice_channel)
-    #     duration = renpy.music.get_duration(channel=sacrifice_channel)
-    #     renpy.music.stop(channel=sacrifice_channel)
-    #     return duration
-
     def formatSongName(filepath):
         # return filepath
         filename = filepath.split("/")[-1]
@@ -95,6 +87,24 @@ init python:
         ext = filename.split(".")[-1]
         filenamep = ".".join(filename.split(".")[:-1])
         return "[{}] {} ({})".format(filesub, filenamep, ext)
+
+transform {{p}}fruitBounce(bpm=60):
+    yanchor 0
+    pause (60.0/bpm)
+    yanchor 0.2
+    pause (60.0/bpm)
+    repeat
+
+image {{p}}green_gear:
+    im.FactorScale("{{assets}}/freshjamz/00830-162.png", 0.5, 0.5, bilinear=False)
+    pause 0.25
+    im.FactorScale("{{assets}}/freshjamz/00830-164.png", 0.5, 0.5, bilinear=False)
+    pause 0.25
+    im.FactorScale("{{assets}}/freshjamz/00830-166.png", 0.5, 0.5, bilinear=False)
+    pause 0.25
+    im.FactorScale("{{assets}}/freshjamz/00830-168.png", 0.5, 0.5, bilinear=False)
+    pause 0.25
+    repeat
 
 
 screen music_room:
@@ -152,6 +162,14 @@ screen music_room:
                                         text "\t"
                                         textbutton formatSongName(track) action mr.Play(track) text_idle_color "#D0004F" text_selected_color "#FF1C87" text_hover_color "#FF1C87"
 
+            # Critical functionality
+            add "{{p}}green_gear" xpos -200 ypos -20
+
+            # Friends
+            add im.FactorScale("{{assets}}/freshjamz/00830-295.png", 2, 2, bilinear=False) xpos -200 ypos 500 at {{p}}fruitBounce(30)
+            add im.FactorScale("{{assets}}/freshjamz/00830-298.png", 2, 2, bilinear=False) xpos -260 ypos 540 at {{p}}fruitBounce(45)
+            add im.FactorScale("{{assets}}/freshjamz/00830-301.png", 2, 2, bilinear=False) xpos -220 ypos 560 at {{p}}fruitBounce(120)
+            add im.FactorScale("{{assets}}/freshjamz/00830-304.png", 2, 2, bilinear=False) xpos -280 ypos 560 at {{p}}fruitBounce(60)
 
     # Start the music playing on entry to the music room.
     on "replace" action renpy.music.stop
