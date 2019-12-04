@@ -1,5 +1,4 @@
 init 800 python:
-    print(get_images_from_sayer(ja))
     for name, image in get_images_from_sayer(ja):
         newname = ("dogjade",) + name[1:]
 
