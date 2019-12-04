@@ -1,6 +1,6 @@
-init offset = 900
+init offset = 1
 
-init python:
+init 900 python:
 
     gallery = Gallery()
     gallery.transition = Dissolve(0.1)
@@ -69,7 +69,7 @@ screen panel_room:
             for buttonname in gallery_buttons:
                 add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
 
-init python:
+init 900 python:
 
     mr = MusicRoom(fadeout=0.0)
 
@@ -86,7 +86,7 @@ init python:
         filesub = filepath.split("/")[0].replace("custom_assets_", "")
         ext = filename.split(".")[-1]
         filenamep = ".".join(filename.split(".")[:-1])
-        return "[{}] {} ({})".format(filesub, filenamep, ext)
+        return "[[{}] {} ({})".format(filesub, filenamep, ext)
 
 transform {{p}}fruitBounce(bpm=60):
     yanchor 0
@@ -106,11 +106,31 @@ image {{p}}green_gear:
     pause 0.25
     repeat
 
+style {{p}}freshjamz_button_text:
+    idle_color "#D0004F"
+    selected_color "#FF1C87"
+    hover_color "#FF1C87"
+
+
+style {{p}}freshjamz_scrollbar:
+    base_bar Solid("#FF1C87")
+    thumb Solid("#D0004F")
+style {{p}}freshjamz_vscrollbar:
+    base_bar Solid("#FF1C87")
+    thumb Solid("#D0004F")
+style {{p}}freshjamz_slider:
+    base_bar Solid("#FF1C87")
+    thumb Solid("#D0004F")
+style {{p}}freshjamz_vslider:
+    base_bar Solid("#FF1C87")
+    thumb Solid("#D0004F")
+
 
 screen music_room:
     tag menu
     use game_menu(_(""), yinitial=-40):
         frame:
+            style_prefix "{{p}}freshjamz"
             ypos -100
             background Image("{{assets}}/freshjamz/00830-286.png", xpos=-80)
             vbox:
@@ -135,7 +155,7 @@ screen music_room:
                             left=21, top=21)
                         vbox:
                             xsize 220
-                            label _("Music Volume")
+                            label _("Music Volume") text_color "#D0004F"
                             bar value Preference("music volume")
                     # bar adjustment ui.adjustment(
                 #     range=100,
@@ -160,7 +180,7 @@ screen music_room:
                                 for track in tracks:
                                     hbox:
                                         text "\t"
-                                        textbutton formatSongName(track) action mr.Play(track) text_idle_color "#D0004F" text_selected_color "#FF1C87" text_hover_color "#FF1C87"
+                                        textbutton formatSongName(track) action mr.Play(track) # text_style {{p}}songitem
 
             # Critical functionality
             add "{{p}}green_gear" xpos -200 ypos -20
