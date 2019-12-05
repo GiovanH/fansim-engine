@@ -1,8 +1,9 @@
 [
     ["{{assets}}", "custom_assets_{package_id}"],
-    ["{{package_id}}", "{package_id}"],
-    ["__p__", "{package_id}_"],
-    ["{{p}}", "{package_id}_"],
     ["{{assets_common}}", "custom_assets"],
-    ["{{package_entrypoint}}", "custom_entry_{package_id}"]
+    ["{{package_id}}", "{package_id}"],
+    ["{{p}}", "__p__"],
+    ["__p__", "{package_id}_"],
+    ["{{package_entrypoint}}", "__package_entrypoint__"],
+    ["__package_entrypoint__", "custom_entry_{package_id}"]
 ]

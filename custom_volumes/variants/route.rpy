@@ -1,4 +1,4 @@
-label {{package_entrypoint}}_route:
+label __package_entrypoint___route:
     $ renpy.block_rollback()
     $ main_menu = False
     show image "gui/game_menu.png"

@@ -18,7 +18,7 @@ transform __p___namelabel_pos:
     xalign 0.9
 
 # Start of route
-label {{package_entrypoint}}_route:
+label __package_entrypoint___route:
 
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()

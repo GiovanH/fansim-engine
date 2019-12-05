@@ -44,7 +44,7 @@
 image {{package_id}}_endcard = "{{assets}}/gamzee_endcard_goodend.png"
 
 # Start of route
-label {{package_entrypoint}}_gio_ultgamv:
+label __package_entrypoint___gio_ultgamv:
 
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()

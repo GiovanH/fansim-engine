@@ -29,7 +29,7 @@ define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround,
 # Start of route
 # Start of route should always be named like this, where sandbox is replaced
 # with your volume_id.
-label {{package_entrypoint}}_sandbox:
+label __package_entrypoint___sandbox:
 
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()

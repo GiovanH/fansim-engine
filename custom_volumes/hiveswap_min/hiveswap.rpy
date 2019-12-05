@@ -716,7 +716,7 @@ image remele wink = Image("{{assets}}/sprite/Remele_wink.png", ypos=730)
 
 # ../custom_volumes_other/hiveswap\route.rpy
 
-label {{package_entrypoint}}_route:
+label __package_entrypoint___route:
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()
     $ main_menu = False

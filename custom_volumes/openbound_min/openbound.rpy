@@ -2068,7 +2068,7 @@ image ob_mituna fall:
 # ../custom_volumes_other/openbound\openbound.rpy
 
 # Start of route
-label {{package_entrypoint}}_route:
+label __package_entrypoint___route:
 
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()
