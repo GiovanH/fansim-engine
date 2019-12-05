@@ -35,6 +35,17 @@ Incomplete, please see the demo packages in `custom_volumes/` and `custom_volume
 
 The core difficulty is that ren'py dumps all the names into a global namespace, so we need to coordinate to avoid name conflicts.
 
+## Features
+**Preprocessor substitution**
+
+In order to help you avoid namespace conflicts, the patcher runs a text preprocessor on your files. The following substitutions are availible:
+
+- `{{assets}}`: Points to the package-level assets folder. Use this as your `assets` folder, the folder containing assets unique to your package.
+- `{{asssets_commmon}}`: Points to the common assets folder identified by `assets_common`. Use this sparingly and remember to namespace any assets you put here.
+- `{{p}}` and `__p__`: Interchangable. These are a package-specific prefix: define names starting with these to avoid namespace conflicts. The latter version is provided for ease in syntax highlighting. 
+- `{{package_id}}`: This is the unique ID of your package, for use in other areas. Be careful: this is not guaranteed to have any relation to the package-specific prefix!
+- `{{package_entrypoint}}`: This is the the first part of your entry label. PQMS will direct players to the label `{{package_entrypoint}}_{route_id}` when they start your route. Note that `{route_id}` is *not* a preprocessor substituion; you will need to fill this in manually.
+
 ### What's in the box:
 
 - `launcher.py`: This runs `patcher.py` while logging all output to file.
