@@ -29,7 +29,7 @@ screen _gallery:
         background Solid("#222")
 
         key "viewport_leftarrow" action gallery.Previous()
-        key "viewport_leftarrow" action gallery.Next()
+        key "viewport_rightarrow" action gallery.Next()
 
         if locked:
             add "#000"
@@ -70,10 +70,11 @@ screen __p__panel_room:
             scrollbars "vertical"
             cols 3
             xsize 940
+            ysize 520
             yfill True
 
             for buttonname in sorted(gallery_buttons):
-                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
+                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.0, xsize=300)
 
 
 
@@ -85,6 +86,7 @@ label __p__sayer_bootstrap2:
 
     call debug_dump_character(store.__p__sayer)
 
+    call screen __p__sayer_room
     return
 
 
@@ -102,7 +104,7 @@ screen __p__sayer_room:
 
             for sayername, sayer in sorted(get_all_sayers()):
                 if sayername and sayer.image_tag:
-                    textbutton sayername action SetVariable("store.__p__sayer", sayer), Start("__p__sayer_bootstrap2") xsize 300 text_style "button_text"
+                    textbutton ((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), Start("__p__sayer_bootstrap2") xsize 300 ysize 25 yalign 0 text_style "button_text"
 
 init 900 python:
 

@@ -36,6 +36,7 @@ label debug_dump_character(sayer):
         $ sayer(" ".join(name))
         $ __p__dumpi += 1
     $ renpy.choice_for_skipping()
+    $ renpy.pause()
     $ renpy.hide(sayer.image_tag)
     return 
 
