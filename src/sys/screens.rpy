@@ -5,7 +5,7 @@ init python:
         config.developer = persistent.developer
 
     def ToggleDevModeMenu():
-        message = "Developer mode is currently [{}].\n\nEnabling developer mode will enable the console and reload the game.\nToggle developer mode?".format(
+        message = "Developer mode is currently [[{}].\n\nEnabling developer mode will enable the console and reload the game.\nToggle developer mode?".format(
             "ON" if config.developer else "OFF")
         return ShowMenu(
             "confirm", message, 
@@ -58,8 +58,9 @@ screen mainmenu_devbox:
         style_prefix "mainmenu_devbox"
         vbox:
             # background Solid("#0A0")
-            textbutton "Music Room" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room") 
-            textbutton "Panel Room" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
+            textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room") 
+            textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
+            textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
             null height 12
             textbutton "Developer Tools" action Hide("mainmenu_devbox"), ToggleDevModeMenu
             if config.developer:

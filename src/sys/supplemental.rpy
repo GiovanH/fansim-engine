@@ -18,12 +18,26 @@ init python:
             get_all_images()
         )
 
-    def debug_dump_character(sayer):
-        renpy.say(None, repr(sayer))
-        for name, image in sorted(get_images_from_sayer(sayer)):
-            renpy.show(name)
-            ja(repr(name))
-        renpy.hide(sayer.image_tag)
+label debug_dump_character(sayer):
+
+    # This is basically a whole convolution in order to keep rollback working
+
+    $ renpy.say(None, repr(sayer))
+
+    $ renpy.choice_for_skipping()
+    
+    $ __p__dumpcollection = sorted(get_images_from_sayer(sayer))
+    $ __p__dumplen = len(__p__dumpcollection)
+    $ __p__dumpi = 0
+
+    while __p__dumpi < __p__dumplen:
+        $ (name, image) = __p__dumpcollection[__p__dumpi]
+        $ renpy.show(name)
+        $ sayer(" ".join(name))
+        $ __p__dumpi += 1
+    $ renpy.choice_for_skipping()
+    $ renpy.hide(sayer.image_tag)
+    return 
 
 
 label start_custom:

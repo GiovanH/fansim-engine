@@ -63,27 +63,6 @@ screen gallery_navigation:
 
 screen __p__panel_room:
     tag menu
-    use game_menu(_("Choose a Character")):
-        # A grid of buttons.
-        vpgrid:
-            mousewheel True
-            scrollbars "vertical"
-            cols 3
-            xsize 940
-            yfill True
-
-            for buttonname in gallery_buttons:
-                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
-
-
-
-label __p__dump_sayer:
-    $ debug_dump_character(sayer)
-    return
-
-
-screen __p__sayer_room:
-    tag menu
     use game_menu(_("Click the panels!")):
         # A grid of buttons.
         vpgrid:
@@ -93,8 +72,37 @@ screen __p__sayer_room:
             xsize 940
             yfill True
 
-            for sayer in get_all_sayers():
-                textbutton sayer action SetField(store, "sayer", sayer), Jump("__p__dump_sayer")
+            for buttonname in sorted(gallery_buttons):
+                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
+
+
+
+label __p__sayer_bootstrap2:
+    $ renpy.block_rollback()
+    $ main_menu = False
+    scene whitecover with Dissolve(1.0)
+    $ quick_menu = True
+
+    call debug_dump_character(store.__p__sayer)
+
+    return
+
+
+screen __p__sayer_room:
+    tag menu
+    $ store.__p__sayer = "s"
+    use game_menu_volumes(_("Choose a Character")):
+        # A grid of buttons.
+        vpgrid:
+            mousewheel True
+            scrollbars "vertical"
+            cols 3
+            xsize 940
+            yfill True
+
+            for sayername, sayer in sorted(get_all_sayers()):
+                if sayername and sayer.image_tag:
+                    textbutton sayername action SetVariable("store.__p__sayer", sayer), Start("__p__sayer_bootstrap2") xsize 300 text_style "button_text"
 
 init 900 python:
 

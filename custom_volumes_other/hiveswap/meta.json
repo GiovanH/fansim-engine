@@ -1,11 +1,4 @@
 {
     "package_id": "hiveswap",
-    "volumes": [
-        {
-            "volume_id": "route",
-            "title": "Hiveswap",
-            "subtitle": "#include friendsim",
-            "author": "Code: Gio; Art: Hiveswap Friendsim Artists"
-        }
-    ]
+    "volumes": []
 }

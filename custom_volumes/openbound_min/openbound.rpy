@@ -2234,49 +2234,49 @@ label __package_entrypoint___route:
 
     hide ob_meulin
 
-    $ debug_dump_character(rb_squarewave)
+    call debug_dump_character(rb_squarewave)
 
-    $ debug_dump_character(rb_dirk)
+    call debug_dump_character(rb_dirk)
 
-    $ debug_dump_character(ob_aradia)
+    call debug_dump_character(ob_aradia)
 
-    $ debug_dump_character(ob_meenah)
+    call debug_dump_character(ob_meenah)
 
-    $ debug_dump_character(ob_aranea)
+    call debug_dump_character(ob_aranea)
 
-    $ debug_dump_character(ob_dave)
+    call debug_dump_character(ob_dave)
 
-    $ debug_dump_character(ob_kanaya)
+    call debug_dump_character(ob_kanaya)
 
-    $ debug_dump_character(ob_rose)
+    call debug_dump_character(ob_rose)
 
-    $ debug_dump_character(ob_kankri)
+    call debug_dump_character(ob_kankri)
 
-    $ debug_dump_character(ob_karkat)
+    call debug_dump_character(ob_karkat)
 
-    $ debug_dump_character(ob_latula)
+    call debug_dump_character(ob_latula)
 
-    $ debug_dump_character(ob_porrim)
+    call debug_dump_character(ob_porrim)
 
-    $ debug_dump_character(ob_cronus)
+    call debug_dump_character(ob_cronus)
 
-    $ debug_dump_character(ob_kurloz)
+    call debug_dump_character(ob_kurloz)
 
-    $ debug_dump_character(ob_meulin)
+    call debug_dump_character(ob_meulin)
 
-    $ debug_dump_character(ob_mituna)
+    call debug_dump_character(ob_mituna)
 
-    $ debug_dump_character(ob_terezi)
+    call debug_dump_character(ob_terezi)
 
-    $ debug_dump_character(ob_gamzee)
+    call debug_dump_character(ob_gamzee)
 
-    $ debug_dump_character(ob_damara)
+    call debug_dump_character(ob_damara)
 
-    $ debug_dump_character(ob_horuss)
+    call debug_dump_character(ob_horuss)
 
-    $ debug_dump_character(ob_kanaya2)
+    call debug_dump_character(ob_kanaya2)
 
-    $ debug_dump_character(ob_rufioh)
+    call debug_dump_character(ob_rufioh)
 
 
 # ../custom_volumes_other/openbound\porrim.rpy
