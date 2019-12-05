@@ -4,7 +4,6 @@ label __package_entrypoint___route:
 
     # Menu boilerplate: Exit main menu, fade to black
     $ renpy.block_rollback()
-    stop music
     $ main_menu = False
     show image "gui/game_menu.png"
     window hide

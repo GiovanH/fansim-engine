@@ -3,6 +3,10 @@ init offset = 1
 init python:
     config.keymap['game_menu'].remove('mouseup_3')
     config.keymap['hide_windows'].append('mouseup_3')
+    config.keymap['trickster'] = []
+    config.keymap['trickster'].append('ctrl_K_t')
+    config.keymap['trickster'].append('alt_K_t')
+    config.keymap['trickster'].append('shift_K_t')
 
 screen main_menu():
     ## This ensures that any other menu screen is replaced.
@@ -31,5 +35,5 @@ screen main_menu():
     imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
 
     # use mainmenu_devbox
-    key "ctrl_K_t" action getMousePosition, ShowMenu('mainmenu_devbox')
+    key "trickster" action getMousePosition, ShowMenu('mainmenu_devbox')
 

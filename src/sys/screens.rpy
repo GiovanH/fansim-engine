@@ -22,6 +22,8 @@ init python:
     def getMousePosition():
         store.mousex, store.mousey = renpy.get_mouse_pos()
 
+    # Add devbox
+    config.overlay_screens.append("ingame_devbox_loader")
 
 # Styles and other for menu, defined in overrides
 
@@ -43,14 +45,11 @@ screen mainmenu_devbox:
 
     # on "show" action getMousePosition
 
-    key "ctrl_K_t" action ToggleDevModeMenu
-    key "game_menu" action Hide("mainmenu_devbox")
-    key "hide_windows" action Hide("mainmenu_devbox")
-
+    key "trickster" action ToggleDevModeMenu
+    key "game_menu" action Return()
+    key "hide_windows" action Return()
     modal True
-
-    imagebutton idle "gui/overlay/confirm.png" unhovered Hide("mainmenu_devbox")
-
+    add "gui/overlay/confirm.png"
     frame:
         anchor (0.0, 0.0)
         xpos mousex
@@ -58,13 +57,13 @@ screen mainmenu_devbox:
         style_prefix "mainmenu_devbox"
         vbox:
             # background Solid("#0A0")
-            textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room") 
-            textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
-            textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
+            textbutton "Music Player" action ShowMenu("__p__music_room"), Return()
+            textbutton "Displayables" action ShowMenu("__p__panel_room"), Return()
+            textbutton "Characters" action ShowMenu("__p__sayer_room"), Return()
             null height 12
-            textbutton "Developer Tools" action Hide("mainmenu_devbox"), ToggleDevModeMenu
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
+            textbutton "Developer Tools" action ToggleDevModeMenu
     # frame:
     #     style_prefix "mainmenu_devbox"
     #     vbox:
@@ -73,3 +72,37 @@ screen mainmenu_devbox:
             #     textbutton "Mode: Normal" action ToggleDevMode
             # else:
             #     textbutton "Mode: Dev" action ToggleDevMode
+
+label __p__NewWatchAction:
+    $ __p__expr = renpy.input(prompt="Expression to watch")
+    $ renpy.watch(__p__expr)
+    $ renpy.show_screen("_trace_screen")
+    return 
+
+screen ingame_devbox:
+
+    # on "show" action getMousePosition
+
+    key "trickster" action ToggleDevModeMenu
+    key "game_menu" action Return()
+    key "hide_windows" action Return()
+    modal True
+    add "gui/overlay/confirm.png"
+    frame:
+        anchor (0.0, 0.0)
+        xpos mousex
+        ypos mousey
+        style_prefix "mainmenu_devbox"
+        vbox:
+            # background Solid("#0A0")
+            textbutton "Watcher" action Call("__p__NewWatchAction"), Return()
+            textbutton "Unwatch All" action (lambda: map(renpy.unwatch, _console.traced_expressions)), Return()
+            null height 12
+            textbutton "Reload (Ctrl+R)" action _reload_game
+            textbutton "Developer Tools" action ToggleDevModeMenu
+            
+
+screen ingame_devbox_loader:
+    if config.developer:
+        key "trickster" action getMousePosition, ShowMenu('ingame_devbox')
+
