@@ -76,3 +76,11 @@ Please see the example volumes for examples.
 l33t hacker notes:
 - The system data is loaded first, so any custom volume content can replace it. You can use this to reskin the menu and other system assets. 
 - patcher.py is a preprocessor that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
+
+
+## Credits
+
+The Befriendus Dev Team (and alienoid) for the "openround" rounded dialog box style
+
+Gio for everything else here
+
