@@ -1,17 +1,17 @@
 # Define characters
 
-image {{p}}_greenscreen = Solid(hemospectrum("cerulean")["hex"])
+image __p___greenscreen = Solid(hemospectrum("cerulean")["hex"])
 # "{{assets}}/greenscreen.png"
 
-image {{p}}_namelabel = Text(
+image __p___namelabel = Text(
     "VRISKA\nSERKET", 
     color="#FFF", size=180, font="{{assets}}/LargoD.ttf", line_spacing=-40
 )
 
-transform {{p}}_char_pos:
+transform __p___char_pos:
     ease 0.4 xpos 240
 
-transform {{p}}_namelabel_pos:
+transform __p___namelabel_pos:
     yanchor 0.5
     xanchor 0.5
     yalign 0.5
@@ -46,11 +46,11 @@ label {{package_entrypoint}}_route:
     show vriska neutral1 with Dissolve(0.1)
 
     show vriska at brushright
-    show {{p}}_greenscreen behind vriska with Dissolve(0.1)
+    show __p___greenscreen behind vriska with Dissolve(0.1)
     show vriska at shoveright
-    show vriska at {{p}}_char_pos
+    show vriska at __p___char_pos
 
-    show {{p}}_namelabel at {{p}}_namelabel_pos with Dissolve(0.1) 
+    show __p___namelabel at __p___namelabel_pos with Dissolve(0.1) 
 
     $ renpy.pause(8.0)
     
@@ -58,8 +58,8 @@ label {{package_entrypoint}}_route:
     vr "Introducing vriska"
 
     hide vriska
-    hide {{p}}_greenscreen
+    hide __p___greenscreen
 
     # Show end card
-    call ending pass ("{{p}}_greenscreen", True, True)
+    call ending pass ("__p___greenscreen", True, True)
     return

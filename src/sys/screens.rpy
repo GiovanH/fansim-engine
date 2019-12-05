@@ -58,8 +58,8 @@ screen mainmenu_devbox:
         style_prefix "mainmenu_devbox"
         vbox:
             # background Solid("#0A0")
-            textbutton "Music Room" action Hide("mainmenu_devbox"), ShowMenu("music_room") 
-            textbutton "Panel Room" action Hide("mainmenu_devbox"), ShowMenu("panel_room")
+            textbutton "Music Room" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room") 
+            textbutton "Panel Room" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
             null height 12
             textbutton "Developer Tools" action Hide("mainmenu_devbox"), ToggleDevModeMenu
             if config.developer:

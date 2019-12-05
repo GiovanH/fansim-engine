@@ -18,10 +18,18 @@ init 900 python:
 
 # Override
 screen _gallery:
+    # $ print(locked)
+    # $ print(displayables)
+    # $ print(index)
+    # $ print(count)
+    # $ print(gallery)
     frame:
         xfill True
         yfill True
         background Solid("#222")
+
+        key "viewport_leftarrow" action gallery.Previous()
+        key "viewport_leftarrow" action gallery.Next()
 
         if locked:
             add "#000"
@@ -51,23 +59,42 @@ screen gallery_navigation:
             textbutton _("slideshow") action gallery.ToggleSlideshow()
             textbutton _("return") action gallery.Return()
 
-screen panel_room:
-    tag menu
-    use game_menu(_("Click the panels!")):
-        # Ensure this replaces the main menu.
 
+
+screen __p__panel_room:
+    tag menu
+    use game_menu(_("Choose a Character")):
         # A grid of buttons.
         vpgrid:
             mousewheel True
             scrollbars "vertical"
-
             cols 3
-
             xsize 940
             yfill True
 
             for buttonname in gallery_buttons:
                 add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.5, xsize=300)
+
+
+
+label __p__dump_sayer:
+    $ debug_dump_character(sayer)
+    return
+
+
+screen __p__sayer_room:
+    tag menu
+    use game_menu(_("Click the panels!")):
+        # A grid of buttons.
+        vpgrid:
+            mousewheel True
+            scrollbars "vertical"
+            cols 3
+            xsize 940
+            yfill True
+
+            for sayer in get_all_sayers():
+                textbutton sayer action SetField(store, "sayer", sayer), Jump("__p__dump_sayer")
 
 init 900 python:
 
@@ -88,14 +115,14 @@ init 900 python:
         filenamep = ".".join(filename.split(".")[:-1])
         return "[[{}] {} ({})".format(filesub, filenamep, ext)
 
-transform {{p}}fruitBounce(bpm=60):
+transform __p__fruitBounce(bpm=60):
     yanchor 0
     pause (60.0/bpm)
     yanchor 0.2
     pause (60.0/bpm)
     repeat
 
-image {{p}}green_gear:
+image __p__green_gear:
     im.FactorScale("{{assets}}/freshjamz/00830-162.png", 0.5, 0.5, bilinear=False)
     pause 0.25
     im.FactorScale("{{assets}}/freshjamz/00830-164.png", 0.5, 0.5, bilinear=False)
@@ -106,31 +133,31 @@ image {{p}}green_gear:
     pause 0.25
     repeat
 
-style {{p}}freshjamz_button_text:
+style __p__freshjamz_button_text:
     idle_color "#D0004F"
     selected_color "#FF1C87"
     hover_color "#FF1C87"
 
 
-style {{p}}freshjamz_scrollbar:
+style __p__freshjamz_scrollbar:
     base_bar Solid("#FF1C87")
     thumb Solid("#D0004F")
-style {{p}}freshjamz_vscrollbar:
+style __p__freshjamz_vscrollbar:
     base_bar Solid("#FF1C87")
     thumb Solid("#D0004F")
-style {{p}}freshjamz_slider:
+style __p__freshjamz_slider:
     base_bar Solid("#FF1C87")
     thumb Solid("#D0004F")
-style {{p}}freshjamz_vslider:
+style __p__freshjamz_vslider:
     base_bar Solid("#FF1C87")
     thumb Solid("#D0004F")
 
 
-screen music_room:
+screen __p__music_room:
     tag menu
     use game_menu(_(""), yinitial=-40):
         frame:
-            style_prefix "{{p}}freshjamz"
+            style_prefix "__p__freshjamz"
             ypos -100
             background Image("{{assets}}/freshjamz/00830-286.png", xpos=-80)
             vbox:
@@ -180,16 +207,16 @@ screen music_room:
                                 for track in tracks:
                                     hbox:
                                         text "\t"
-                                        textbutton formatSongName(track) action mr.Play(track) # text_style {{p}}songitem
+                                        textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
 
             # Critical functionality
-            add "{{p}}green_gear" xpos -200 ypos -20
+            add "__p__green_gear" xpos -200 ypos -20
 
             # Friends
-            add im.FactorScale("{{assets}}/freshjamz/00830-295.png", 2, 2, bilinear=False) xpos -200 ypos 500 at {{p}}fruitBounce(30)
-            add im.FactorScale("{{assets}}/freshjamz/00830-298.png", 2, 2, bilinear=False) xpos -260 ypos 540 at {{p}}fruitBounce(45)
-            add im.FactorScale("{{assets}}/freshjamz/00830-301.png", 2, 2, bilinear=False) xpos -220 ypos 560 at {{p}}fruitBounce(120)
-            add im.FactorScale("{{assets}}/freshjamz/00830-304.png", 2, 2, bilinear=False) xpos -280 ypos 560 at {{p}}fruitBounce(60)
+            add im.FactorScale("{{assets}}/freshjamz/00830-295.png", 2, 2, bilinear=False) xpos -200 ypos 500 at __p__fruitBounce(30)
+            add im.FactorScale("{{assets}}/freshjamz/00830-298.png", 2, 2, bilinear=False) xpos -260 ypos 540 at __p__fruitBounce(45)
+            add im.FactorScale("{{assets}}/freshjamz/00830-301.png", 2, 2, bilinear=False) xpos -220 ypos 560 at __p__fruitBounce(120)
+            add im.FactorScale("{{assets}}/freshjamz/00830-304.png", 2, 2, bilinear=False) xpos -280 ypos 560 at __p__fruitBounce(60)
 
     # Start the music playing on entry to the music room.
     on "replace" action renpy.music.stop

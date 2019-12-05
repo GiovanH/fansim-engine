@@ -1,29 +1,29 @@
 # Define characters
 
-# Always prefix your definitions with {{p}} so they won't conflict with existing resources.
+# Always prefix your definitions with __p__ so they won't conflict with existing resources.
 
-define {{p}}.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
-# define {{p}}.jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
-define {{p}}.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
-define {{p}}.bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", show_blood="olive")
+define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
+# define __p__.jo = Character(kind=pesterchum,  what_color='#0715cd', image="john")
+define __p__.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
+define __p__.bo = Character(name="BOLDIR", kind=hiveswap, image="boldir", show_blood="olive")
 
-define {{p}}.tz = Character("[tztitle]", kind=trollian, show_blood='teal', image="{{p}}_terezi")
+define __p__.tz = Character("[tztitle]", kind=trollian, show_blood='teal', image="__p___terezi")
 
 # Give characters poses
 # image vriska neutral3 = Image("images/Vriska_Neutral_3.png", ypos=730, xanchor=640, yanchor=730)
-image vriska {{p}}_ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
-image {{p}}_terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
+image vriska __p___ngreen = Image("{{assets}}/Vriska_Green.png", ypos=730, xanchor=640, yanchor=730)
+image __p___terezi neutral = Image("{{assets}}/terezi.png", ypos=730, xanchor=640, yanchor=730)
 
 # Define backgrounds
 # image bg johnroom = im.Scale("images/john_s room.png", 1300,730)
 
 # Define other graphics, end cards
-image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
-image {{p}}_vriskaend = "images/vriska_endcard_badend1.png"
-image {{p}}_fakemenu = "{{assets}}/fakemenu.png"
+image __p___fakemenu = "{{assets}}/fakemenu.png"
+image __p___vriskaend = "images/vriska_endcard_badend1.png"
+image __p___fakemenu = "{{assets}}/fakemenu.png"
 
 # ob_meulin is already defined; define a new copy using the openround style
-define {{p}}_meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
+define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
 
 
 # Start of route
@@ -51,11 +51,11 @@ label {{package_entrypoint}}_sandbox:
     # Compare our dialog systems against the vanilla ones
     # to ensure everything matches up
     bo "Vanilla boldir"
-    {{p}}.bo "Custom boldir"
+    __p__.bo "Custom boldir"
     vr "Vanilla vriska"
-    {{p}}.vr "Custom vriska"
+    __p__.vr "Custom vriska"
     jo "Vanilla john"
-    {{p}}.jo "Custom john"
+    __p__.jo "Custom john"
     ob_meulin "Custom openbound"
 
     # Music notifications. 
@@ -100,63 +100,63 @@ label {{package_entrypoint}}_sandbox:
     # Trollian multiline test
     show vriska neutral1
     vr "Vanilla vriska"
-    {{p}}.vr "Hi! I'm vriska\nLines are loose"
-    {{p}}.vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
+    __p__.vr "Hi! I'm vriska\nLines are loose"
+    __p__.vr "Hi! I'm vriska, but busy.\nMultiple lines are tight." (show_big=True)
     
     # Trollian colorizing
-    {{p}}.vr "Override" (show_color="#0A0", show_blood=None)
-    {{p}}.vr "Gray" (show_blood="gray")
-    {{p}}.vr "Candy red" (show_blood="candyred")
-    {{p}}.vr "Burgandy" (show_blood="burgandy")
-    {{p}}.vr "Bronze" (show_blood="bronze")
-    {{p}}.vr "Gold" (show_blood="gold")
-    {{p}}.vr "Lime" (show_blood="lime")
-    {{p}}.vr "Olive" (show_blood="olive")
-    {{p}}.vr "Jade" (show_blood="jade")
-    {{p}}.vr "Teal" (show_blood="teal")
-    {{p}}.vr "Cerulean" (show_blood="cerulean")
-    {{p}}.vr "Indigo" (show_blood="indigo")
-    {{p}}.vr "Purple" (show_blood="purple")
-    {{p}}.vr "Violet" (show_blood="violet")
-    {{p}}.vr "Fuchsia" (show_blood="fuchsia")
+    __p__.vr "Override" (show_color="#0A0", show_blood=None)
+    __p__.vr "Gray" (show_blood="gray")
+    __p__.vr "Candy red" (show_blood="candyred")
+    __p__.vr "Burgandy" (show_blood="burgandy")
+    __p__.vr "Bronze" (show_blood="bronze")
+    __p__.vr "Gold" (show_blood="gold")
+    __p__.vr "Lime" (show_blood="lime")
+    __p__.vr "Olive" (show_blood="olive")
+    __p__.vr "Jade" (show_blood="jade")
+    __p__.vr "Teal" (show_blood="teal")
+    __p__.vr "Cerulean" (show_blood="cerulean")
+    __p__.vr "Indigo" (show_blood="indigo")
+    __p__.vr "Purple" (show_blood="purple")
+    __p__.vr "Violet" (show_blood="violet")
+    __p__.vr "Fuchsia" (show_blood="fuchsia")
     hide vriska
 
     # Hiveswap colorizing
     show boldir neutral
     bo "Vanilla boldir"
-    {{p}}.bo "Default"
-    {{p}}.bo "Override" (show_color="#0A0")
-    {{p}}.bo "Test" (show_blood="test")
-    {{p}}.bo "Gray" (show_blood="gray")
-    {{p}}.bo "Candy red" (show_blood="candyred")
+    __p__.bo "Default"
+    __p__.bo "Override" (show_color="#0A0")
+    __p__.bo "Test" (show_blood="test")
+    __p__.bo "Gray" (show_blood="gray")
+    __p__.bo "Candy red" (show_blood="candyred")
     bo "Burgandy" (window_background="gui/textbox_rust.png")
-    {{p}}.bo "Burgandy" (show_blood="burgandy")
+    __p__.bo "Burgandy" (show_blood="burgandy")
     bo "Bronze" (window_background="gui/textbox_bronze.png")
-    {{p}}.bo "Bronze" (show_blood="bronze")
+    __p__.bo "Bronze" (show_blood="bronze")
     bo "Gold" (window_background="gui/textbox_gold.png")
-    {{p}}.bo "Gold" (show_blood="gold")
-    {{p}}.bo "Lime" (show_blood="lime")
+    __p__.bo "Gold" (show_blood="gold")
+    __p__.bo "Lime" (show_blood="lime")
     bo "Olive" (window_background="gui/textbox_olive.png")
-    {{p}}.bo "Olive" (show_blood="olive")
+    __p__.bo "Olive" (show_blood="olive")
     bo "Jade" (window_background="gui/textbox_jade.png")
-    {{p}}.bo "Jade" (show_blood="jade")
+    __p__.bo "Jade" (show_blood="jade")
     bo "Teal" (window_background="gui/textbox_teal.png")
-    {{p}}.bo "Teal" (show_blood="teal")
+    __p__.bo "Teal" (show_blood="teal")
     bo "Cobalt" (window_background="gui/textbox_cobalt.png")
-    {{p}}.bo "Cerulean" (show_blood="cerulean")
+    __p__.bo "Cerulean" (show_blood="cerulean")
     bo "Blue" (window_background="gui/textbox_blue.png")
-    {{p}}.bo "Indigo" (show_blood="indigo")
+    __p__.bo "Indigo" (show_blood="indigo")
     bo "Purple" (window_background="gui/textbox_purple.png")
-    {{p}}.bo "Purple" (show_blood="purple")
-    {{p}}.bo "Violet" (show_blood="violet")
-    {{p}}.bo "Fuchsia" (show_blood="fuchsia")
+    __p__.bo "Purple" (show_blood="purple")
+    __p__.bo "Violet" (show_blood="violet")
+    __p__.bo "Fuchsia" (show_blood="fuchsia")
     hide boldir
 
     # Pesterchum and multilines
     show john neutral
     jo "Vanilla john"
-    {{p}}.jo "Hi! I'm john\nLines are loose"
-    {{p}}.jo "Hi! I'm john, but busy.\nMultiple lines are tight." (show_big=True)
+    __p__.jo "Hi! I'm john\nLines are loose"
+    __p__.jo "Hi! I'm john, but busy.\nMultiple lines are tight." (show_big=True)
     hide john
 
     # Test our supplemental narrators, characters
@@ -174,10 +174,10 @@ label {{package_entrypoint}}_sandbox:
     ob_meulin hypno "A very spooky bit of text which reads about three lines at this size" (show_chuckle=True)
     ob_meulin hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
 
-    {{p}}_meu2 idle "!!"
-    {{p}}_meu2 laugh "!!!" (show_hashtags="#hashtag1")
-    {{p}}_meu2 hypno "HONK" (show_chuckle=True)
-    {{p}}_meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
+    __p___meu2 idle "!!"
+    __p___meu2 laugh "!!!" (show_hashtags="#hashtag1")
+    __p___meu2 hypno "HONK" (show_chuckle=True)
+    __p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
     hide ob_meulin
 
 
@@ -191,9 +191,9 @@ label {{package_entrypoint}}_sandbox:
     # Approach 2: Define a new sayer
     # Define a new character, given an existing character and a quirk
     # New sayer is reusable!
-    $ {{p}}gamq = quirkSayer(gam, "gamzee")
-    {{p}}gamq "Quirk formatting 2"
-    {{p}}gamq "Quirk formatting 2 forever"
+    $ __p__gamq = quirkSayer(gam, "gamzee")
+    __p__gamq "Quirk formatting 2"
+    __p__gamq "Quirk formatting 2 forever"
 
     # Approach 3
     # You can quirk format text without saying it directly
@@ -201,25 +201,25 @@ label {{package_entrypoint}}_sandbox:
     hide gamzee
 
     show vriska neutral1
-    {{p}}.vr "I'm 8riska"
+    __p__.vr "I'm 8riska"
     hide vriska
 
-    show {{p}}_terezi neutral
+    show __p___terezi neutral
     # play music "music/fs_BOLDIR.wav" loop
     hide blackcover with dissolve
 
     # Test dynamic name growth
     $ tztitle = "A"
-    {{p}}.tz "1"
+    __p__.tz "1"
     $ tztitle = "AAAAAAAAAAAA"
-    {{p}}.tz "2"
+    __p__.tz "2"
     $ tztitle = "AAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    {{p}}.tz "3"
+    __p__.tz "3"
     $ tztitle = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    {{p}}.tz "4"
+    __p__.tz "4"
 
     # Twitter demo
-    {{p}}.tz neutral "Hey. Hey. Over here."
+    __p__.tz neutral "Hey. Hey. Over here."
 
     "Oh shit. You’re just standing out here with all his mail, he’s going to think you’re trying to rob the place."
     menu:
@@ -230,23 +230,23 @@ label {{package_entrypoint}}_sandbox:
         "[pick] Hide the evidence":
             pass
 
-    show {{p}}_fakemenu
-    {{p}}.tz "UHHHHHHHH"
+    show __p___fakemenu
+    __p__.tz "UHHHHHHHH"
 
-    show {{p}}_terezi at right1280 with ease
-    {{p}}.tz "*SNIFFFFFFFF*"
+    show __p___terezi at right1280 with ease
+    __p__.tz "*SNIFFFFFFFF*"
 
-    show {{p}}_terezi at left1280 with move
-    {{p}}.tz "TF 1S TH1S TH1NG :?"
+    show __p___terezi at left1280 with move
+    __p__.tz "TF 1S TH1S TH1NG :?"
 
-    hide {{p}}_terezi
-    hide {{p}}_fakemenu
+    hide __p___terezi
+    hide __p___fakemenu
 
     show vriska neutral4
 
     # Write dialogue!
     vr neutral3 "Hey. Hey. Over here."
-    vr {{p}}_ngreen "8itch."
+    vr __p___ngreen "8itch."
 
     hide vriska  # goodbye
 
@@ -258,5 +258,5 @@ label {{package_entrypoint}}_sandbox:
     # I help where I can by offering the substitutions like {{package_id}}.
 
     # Show end card
-    call ending pass ("{{p}}_vriskaend", True, True)
+    call ending pass ("__p___vriskaend", True, True)
     return
