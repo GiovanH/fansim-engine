@@ -27,6 +27,25 @@ init python:
 
 # Styles and other for menu, defined in overrides
 
+style pqms_volume_select_title:
+    font "verdana.ttf" 
+    size 48 
+    xalign 0.5 
+    color "#b4b4b5"
+
+style pqms_volume_select_subtitle:
+    font "verdana.ttf" 
+    size 38 
+    xalign 0.5 
+    color "#00baff"
+
+style pqms_volume_select_author:
+    font "verdana.ttf" 
+    size 12 
+    xalign 1.0 
+    text_align 1.0 
+    color "#b4b4b5" 
+
 style mainmenu_devbox_frame:
     xalign 1.0
     yalign 1.0

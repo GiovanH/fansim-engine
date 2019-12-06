@@ -4,6 +4,13 @@ style pesterchum_namelabel is say_label
 # style pesterchum_namelabel:
 #     pass
 
+
+
+# Grype UI for hiveswap
+
+
+image grype_alpha = "{{assets_common}}/grype_alpha.png"
+
 screen pesterchum_say:
     style_prefix "say"
     default big = False

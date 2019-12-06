@@ -32,9 +32,9 @@ screen vol_select_custom():
             xpos 10
             image "gui/volumeselect_background.png" xpos 30
             image icon xpos 50 ypos 15
-            text title xpos 526 ypos 32 font "verdana.ttf" size 48 xalign 0.5 color "#b4b4b5"
-            text subtitle xpos 526 ypos 90 font "verdana.ttf" size 38 xalign 0.5 color "#00baff"
-            text author xpos 860 ypos 160 font "verdana.ttf" size 12 xalign 1.0 text_align 1.0 color "#b4b4b5"
+            text title xpos 526 ypos 32 style "pqms_volume_select_title"
+            text subtitle xpos 526 ypos 90  style "pqms_volume_select_subtitle"
+            text author xpos 860 ypos 160 style "pqms_volume_select_author"
 
         viewport:
             mousewheel True

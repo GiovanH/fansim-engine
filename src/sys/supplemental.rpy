@@ -58,3 +58,13 @@ label start_custom:
     return
 
 define config.autoreload = False
+
+# Various hiveswap transforms
+
+transform floaties3:
+    alpha 0.0 xpos 900 ypos 225
+    pause 28
+    parallel:
+        easeout 4 alpha 0.4
+        pause 2
+        easein 4 alpha 0.0
