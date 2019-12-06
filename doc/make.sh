@@ -6,7 +6,7 @@ grep -Pzo "(?s)\"\"\".+?\"\"\"" ../src/sys/**.rpy |\
 
 rm readme.md
 
-for file in $(ls -rt assets/*.png assets/*.gif assets/*.jfif assets/*.webm)
+for file in $(ls -t loose/*.png loose/*.gif loose/*.jfif loose/*.webm)
 do
     modtime=$(stat -c %y $file | cut -d '.' -f1)
     echo $file $modtime
