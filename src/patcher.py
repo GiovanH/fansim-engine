@@ -108,9 +108,13 @@ def copyAndSubRpy(src, dst, metadata, quiet=False):
         raise
 
 
-def processPackages(quiet=False):
+def processPackages(only_volumes=[], quiet=False):
     all_volumes = []
     warn = False
+
+    filtering_volumes = (only_volumes != [])
+    only_volumes.append("sys")
+
     sysdir = os.path.join(".", "sys/")
     for subdir in [sysdir] + glob.glob(os.path.join("../custom_volumes", "*/")):
         print()
@@ -123,6 +127,8 @@ def processPackages(quiet=False):
 
             # Grab metadata id
             package_id = meta["package_id"]
+            if filtering_volumes and package_id not in only_volumes:
+                continue
 
             # Backreference containing package and add to volume list
             for volume in meta["volumes"]:
@@ -240,6 +246,10 @@ def main(argstr=None):
     ap.add_argument(
         "--patchdir",
         help="Just make a patch folder")
+    ap.add_argument(
+        '--volumes', nargs="+", default=[],
+        help="If set, only look at custom volumes with these IDs."
+    )
 
     args = (ap.parse_args(argstr) if argstr else ap.parse_args())
 
@@ -262,10 +272,11 @@ def main(argstr=None):
             for cfile in glob.glob(os.path.join(gamedir, "custom_*/")) + glob.glob(os.path.join(gamedir, "*custom_*")):
                 if not args.quiet:
                     print(f"{cfile} --> [X]")
-                shutil.rmtree(cfile)
+                if os.path.isdir(cfile):
+                    shutil.rmtree(cfile)
 
         print("\nCopying user scripts")
-        (all_volumes, warn,) = processPackages(quiet=args.quiet)
+        (all_volumes, warn,) = processPackages(only_volumes=args.volumes, quiet=args.quiet)
 
         print("\nCompiling volumes")
         processVolumes(all_volumes, quiet=args.quiet)

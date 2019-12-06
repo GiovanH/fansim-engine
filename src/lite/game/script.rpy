@@ -22,13 +22,6 @@ init -2 python:
 
         persistent.firstscreen = True
         
-    if persistent.flarpname is None:
-        
-        persistent.flarpname = "8uddy"
-        
-    if persistent.flarpclass is None:
-        
-        persistent.flarpclass = "CLASSLESS"
 
     # Used for open/close eyes animation
 

@@ -14,6 +14,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--skin", default="default")
+    ap.add_argument(
+        '--volumes', nargs="+", default=[],
+        help="If set, only look at custom volumes with these IDs."
+    )
     args = ap.parse_args()
 
     skin = args.skin
@@ -33,12 +37,15 @@ def main():
     copy_tree(skindir, distdir, update=True)
 
     print("Patching mods")
-    run_patcher()
+    run_patcher(args.volumes)
 
 
-def run_patcher():
+def run_patcher(volumes=[]):
     from patcher import main as patch
-    patch(["--patchdir", distdir, "--nolaunch"])
+    if volumes != []:
+        patch(["--patchdir", distdir, "--clean", "--nolaunch", "--volumes", *volumes])
+    else:
+        patch(["--patchdir", distdir, "--clean", "--nolaunch"])
 
 
 main()

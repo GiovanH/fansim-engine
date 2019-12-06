@@ -27,6 +27,9 @@ screen main_menu():
     imagebutton auto "gui/credits_%s.png" action ShowMenu('about') pos (20, 585) at menumove
     imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
 
+    # use mainmenu_devbox
+    key "trickster" action getMousePosition, ShowMenu('mainmenu_devbox')
+
 
 
 style main_menu_frame is empty
