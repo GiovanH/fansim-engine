@@ -57,9 +57,9 @@ screen mainmenu_devbox:
         style_prefix "mainmenu_devbox"
         vbox:
             # background Solid("#0A0")
-            textbutton "Music Player" action ShowMenu("__p__music_room"), Return()
-            textbutton "Displayables" action ShowMenu("__p__panel_room"), Return()
-            textbutton "Characters" action ShowMenu("__p__sayer_room"), Return()
+            textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
+            textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
+            textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
             null height 12
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
