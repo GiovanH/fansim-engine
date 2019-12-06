@@ -5,3 +5,9 @@ src/latest.log
 dist/
 patch/
 src/report_*.txt
+
+custom_volumes/befriendus/
+custom_volumes/volumex/
+custom_volumes/dancestorquest/
+custom_volumes/secret_toby_fox_collab/
+custom_volumes/aysha/
