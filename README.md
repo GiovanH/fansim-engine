@@ -9,6 +9,12 @@ Design goals:
 - Hyper-simple for users to play fan volumes
 - Mix-and-match: Put all the fan volumes you want and play routes without conflicts
 
+
+
+This is written by me, Gio, and it's a labor of love.
+
+If you have any comments, suggestions, complaints, or contributions, you're welcome to reach me on twitter [@giovan_h](https://twitter.com/giovan_h), make an issue here on the [issues](https://github.com/GiovanH/pesterquest-modsuite/issues) page, or even make a pull request if you want to add something new.
+
 ## Guide for users:
 
 1. Download this repository. You can use git or simply download the current version as a zip file.
