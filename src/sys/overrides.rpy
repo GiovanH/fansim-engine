@@ -1,3 +1,13 @@
+"""
+Overrides
+
+These are the few areas we intentionally override names.
+We have to replace the main menu.
+We also switch around a few key bindings.
+
+"""
+
+
 init offset = 1
 
 init python:

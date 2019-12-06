@@ -1,7 +1,7 @@
 init offset = 1
 
 image titlesky = "gui/game_menu.png"
-
+define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
 
 screen main_menu():
 

@@ -1,3 +1,43 @@
+"""
+Namebox code.
+
+The PQMS nameboxes provide an alternative to the way WP handles nameboxes,
+drastically simplifying the process of defining and using characters.
+
+Here are some example characters using these templates.
+
+
+
+define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
+Pesterchum takes a chumhandle, a text color, and a standard character image prefix.
+
+define __p__.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
+define __p__.bo = Character(name="BOLDIR", kind=hiveswap, show_blood="olive", image="boldir")
+Trolls use the hemospectrum blood system by default.
+Trolls take a name (or handle), a blood color, and a standard image prefix.
+
+For all the above templates, you can use show_big to hide the namebox, 
+allowing for more text on the screen at once.
+__p__.jo "Hi! I'm john"
+__p__.jo "Hi! I'm john" (show_big=True)
+
+define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openbound, image="ob_meulin")
+define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
+Two different openbound systems. The latter uses keyword arguments to override the default style.
+Openbound characters can use hashtags:  
+__p___meu2 idle "!!"
+__p___meu2 laugh "!!!" (show_hashtags="#hashtag1")
+Openbound characters can be posessed by chucklevoodoos:
+__p___meu2 hypno "HONK" (show_chuckle=True)
+Openbound characters can do both at once:
+__p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
+
+
+
+"""
+
+
+
 init offset = 0
 # Pesterchum
 style pesterchum_namelabel is say_label

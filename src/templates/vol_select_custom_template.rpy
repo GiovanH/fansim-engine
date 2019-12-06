@@ -1,3 +1,8 @@
+"""
+This is the screen that contains all the volumes from installed packages.
+This is precomputed by patcher.py, and cannot be handled at runtime.
+"""
+
 init python:
     import random
     def ResetVolSelectCustom():

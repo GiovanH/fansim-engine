@@ -1,3 +1,8 @@
+"""
+Non-template generic sayers we make availible.
+"""
+
+
 # Load after script.rpy so narrator is defined
 init offset = 1
 

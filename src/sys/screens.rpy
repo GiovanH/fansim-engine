@@ -1,3 +1,13 @@
+"""
+Custom screens:
+    Developer mode menu
+    Mouse utilities
+    Volume select styling
+    Developer boxes for main menu and ingame
+    Watcher
+"""
+
+
 init offset = 0
 
 init python:

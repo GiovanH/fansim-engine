@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+grep -Pzo "(?s)\"\"\".+?\"\"\"" ../src/sys/**.rpy |\
+    sed -E "s/\"\"\"(\x00){0,1}/\n/g" > docstrings.txt &
+
 rm readme.md
 
 for file in $(ls -rt *.png *.gif *.jfif)
@@ -11,3 +15,4 @@ do
     echo "| [${file}](${file}) (${modtime}) |" >> readme.md
     echo "" >> readme.md
 done
+

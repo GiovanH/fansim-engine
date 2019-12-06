@@ -1,6 +1,6 @@
-# pesterquest-modsuite v0.7.0
-Tools for modifying and extending pesterquest, and adding your own routes
-WIP tools for adding your own routes to pesterquest without breaking the base game or needing a standalone engine!
+# Pesterquest Modsuite (PQMS)
+
+Tools for modifying and extending pesterquest, and adding your own routes. WIP tools for adding your own routes to pesterquest without breaking the base game or needing a standalone engine!
 
 Design goals:
 
@@ -11,40 +11,60 @@ Design goals:
 
 ## Guide for users:
 
-Download this repository, put the fan volumes you want in the `custom_volumes` folder, and run `src/launcher.py` with a recent version of Python.
+1. Download this repository. You can use git or simply download the current version as a zip file.
+2. Put the fan volumes you want to use in the `custom_volumes` folder.
+3. Run `src/launcher.py` with a recent version of Python.
 
 ## FAQ:
+
+or, "this is easier than documentation." AMA!
+
+
 
 Q: What's a "recent version of python"?
 
 A: 3.6 or above
 
-Q: 
+Q: Can I package a mod as a standalone distributable that people who don't own pesterquest can play?
 
-AMA
+A: Yes, actually! Use `dist_standalone.py`. [Read this document for more details.](./doc/pqlite.md)
 
-## Technical notes:
+Q: I packaged my mod as a standalone distributable but I get an error when I run it!
 
-This does not overwrite any game files and should be compatable with all future updates!
-The only content this overrides is the main menu to add a menu option. (Here, just a plain `> ` for now.)
-You cannot use any of this to pirate pesterquest. 
+A: You're probably referencing assets that are present in the base game. In a standalone distribution, you won't have access to the pesterquest characters, images, or audio: you'll need to manually add those if you want them, or simply distribute the mod normally.
 
 ## Guide for developers:
 
 Incomplete, please see the demo packages in `custom_volumes/` and `custom_volumes_other/`.
 
+Please read the docstrings of the rpy files in `src/sys` for the latest details about features.
+
 The core difficulty is that ren'py dumps all the names into a global namespace, so we need to coordinate to avoid name conflicts.
 
 ## Features
+a partial list
+
+**Hemospectrum tools**
+
+**Automatic quirk formatting**
+
+**Dialog tools**
+
 **Preprocessor substitution**
 
-In order to help you avoid namespace conflicts, the patcher runs a text preprocessor on your files. The following substitutions are availible:
+In order to help you avoid namespace conflicts, the patcher runs a text preprocessor on your files. The following substitutions are available:
 
 - `{{assets}}`: Points to the package-level assets folder. Use this as your `assets` folder, the folder containing assets unique to your package.
 - `{{asssets_commmon}}`: Points to the common assets folder identified by `assets_common`. Use this sparingly and remember to namespace any assets you put here.
-- `{{p}}` and `__p__`: Interchangable. These are a package-specific prefix: define names starting with these to avoid namespace conflicts. The latter version is provided for ease in syntax highlighting. 
+- `{{p}}` and `__p__`: Interchangeable. These are a package-specific prefix: define names starting with these to avoid namespace conflicts. The latter version is provided for ease in syntax highlighting. 
 - `{{package_id}}`: This is the unique ID of your package, for use in other areas. Be careful: this is not guaranteed to have any relation to the package-specific prefix!
-- `{{package_entrypoint}}`: This is the the first part of your entry label. PQMS will direct players to the label `{{package_entrypoint}}_{route_id}` when they start your route. Note that `{route_id}` is *not* a preprocessor substituion; you will need to fill this in manually.
+- `{{package_entrypoint}}`: This is the the first part of your entry label. PQMS will direct players to the label `{{package_entrypoint}}_{route_id}` when they start your route. Note that `{route_id}` is *not* a preprocessor substitution; you will need to fill this in manually.
+
+TLDR:
+
+- All your custom names (labels, defines, characters, transforms, image ids, etc) should have `__p__` somewhere in the name so pqms can prevent conflicts for you
+- The package entrypoint must conform exactly to either ``{{package_entrypoint}}_{route_id}`` or ``__package_entrypoint___{route_id}``. (Two, one, three underscores.)
+- You might be tempted to ignore all of this. If you do, things may work at first. ***Please do not do this.***
 
 ### What's in the box:
 
@@ -96,7 +116,7 @@ l33t hacker notes:
 
 ## Credits
 
-The Befriendus Dev Team (and alienoid) for the "openround" rounded dialog box style
+The Befriendus Dev Team (and alienoid) for the "openround" rounded dialog box style as well as the befriendus litestyle.
 
 Gio for everything else here
 

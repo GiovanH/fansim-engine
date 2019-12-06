@@ -1,3 +1,11 @@
+"""
+Graphical effects:
+    Toast notifications
+    Toast music boxes
+    
+"""
+
+
 init offset = 0
 
 # Toast transformations

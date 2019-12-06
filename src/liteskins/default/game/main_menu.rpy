@@ -1,6 +1,7 @@
 init offset = 1
 
 image titlesky = "gui/game_menu.png"
+define config.main_menu_music = "music/Pdatingsimtitlehvs.wav"
 
 screen main_menu():
 

@@ -1,3 +1,35 @@
+"""
+Hemospectrum tools
+
+These allow you to automatically manage blood coloring
+and textboxes.
+
+Examples:
+
+define __p__.vr = Character(
+    name="arachnidsGrip", kind=trollian, 
+    show_blood="cerulean", image="vriska")
+define __p__.bo = Character(
+    name="BOLDIR", kind=hiveswap, 
+    image="boldir", show_blood="olive")
+
+You can use _hemospectrum["colorname"] = {"hex": "#000000"} in your code
+to define new blood colors. 
+
+The predefined PQMS templates (trolian, hiveswap, openbound, etc)
+use show_blood to color the textbox and dialogue.
+
+hemospectrum(color) where color is the name of a blood color
+returns the hexadecimal color code for that color.
+
+doTint(displayable, color, cap) where color is the name of a blood color
+will tint all channels of a displayable (the color white) to the blood color given.
+This is how textboxes are colored.
+
+hex_to_rgb may be useful to advanced users, and is publicly exposed.
+"""
+
+
 init offset = 0
 
 # Blood helper
