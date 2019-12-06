@@ -1,3 +1,5 @@
+init offset = 2
+
 # Define characters
 
 # Just reminders:

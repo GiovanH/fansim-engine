@@ -1,3 +1,4 @@
+init offset 1
 
 # Start of route
 label __package_entrypoint___route:

@@ -1,3 +1,5 @@
+init offset = 1
+
 # ../custom_volumes_other/openbound\aradia.rpy
 define ob_aradia = Character(name="Aradia", show_color="#a10000", kind=openbound, image="ob_aradia")
 image ob_aradia happy = Image("{{assets}}/dialogs/aradia_happy.png", yoffset=-197, xanchor=240, yalign=1.0)

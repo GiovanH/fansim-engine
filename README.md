@@ -88,6 +88,11 @@ l33t hacker notes:
 - The system data is loaded first, so any custom volume content can replace it. You can use this to reskin the menu and other system assets. 
 - patcher.py is a preprocessor that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
 
+## Standard init offsets
+
+0: Reserved for system and library definitions that depend on pesterquest
+1: Reserved for definitions that depend on system and library definitions
+2: Require assets to be defined first
 
 ## Credits
 
