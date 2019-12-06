@@ -30,6 +30,18 @@ with open("subtable.json", "r") as fp:
     rpy_sub_table = json.load(fp)
 
 
+dummy_package = {
+    "package_id": "pid",
+    "volumes": [
+        {
+            "volume_id": "vid",
+            "title": "title",
+            "subtitle": "pull quote",
+            "author": "author"
+        }
+    ]
+}
+
 def print_tree(startpath):
     for root, dirs, files in os.walk(startpath):
         level = root.replace(startpath, '').count(os.sep)
@@ -64,7 +76,7 @@ def mergeDirIntoDir(src, dst, quiet=False):
         raise
 
 
-def subtableReplace(subtable, textdata, fstrings):
+def subtableReplace(textdata, fstrings=dummy_package, subtable=rpy_sub_table):
     for pattern, repl in subtable:
         try:
             if pattern in textdata:
@@ -85,7 +97,7 @@ def copyAndSubRpy(src, dst, metadata, quiet=False):
         rpy_data = fp.read()
 
     try:
-        rpy_data = subtableReplace(rpy_sub_table, rpy_data, metadata)
+        rpy_data = subtableReplace(rpy_data, metadata)
         with open(dst, 'w') as fp:
             fp.write(rpy_data)
         if not quiet:
@@ -130,6 +142,8 @@ def processPackages(quiet=False):
 
         print(f"Detected package {package_id} at {subdir}")
 
+        # custom_rpa_dir = os.path.join(gamedir, "custom_archives")
+        # os.makedirs(custom_rpa_dir, exist_ok=True)
         for rpa in glob.glob(os.path.join(subdir, "*.rpa")):
             __, filename = os.path.split(rpa)
             destfile = os.path.join(gamedir, (f"ycustom_{package_id}_{filename}"))
@@ -137,9 +151,11 @@ def processPackages(quiet=False):
             copy2(rpa, destfile, quiet=quiet)
 
         # Parse and copy rpy files
+        custom_scripts_dir = os.path.join(gamedir, "custom_scripts")
+        os.makedirs(custom_scripts_dir, exist_ok=True)
         for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
             __, filename = os.path.split(rpy)
-            destfile = os.path.join(gamedir, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == sysdir) else f"zcustom_{package_id}_{filename}"))
+            destfile = os.path.join(custom_scripts_dir, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == sysdir) else f"zcustom_{package_id}_{filename}"))
             copyAndSubRpy(rpy, destfile, meta, quiet=quiet)
 
         # Copy namespaced assets
@@ -174,7 +190,7 @@ def processVolumes(all_volumes, quiet=False):
     for volume in sorted(all_volumes, key=lambda v: v["author"]):
         if not quiet:
             pprint(volume)
-        volume["entrypoint"] = subtableReplace(rpy_sub_table, "{{package_entrypoint}}_", volume) + volume["volume_id"]
+        volume["entrypoint"] = subtableReplace("{{package_entrypoint}}_", volume) + volume["volume_id"]
 
         # Doesn't work with rpa archives.
 
@@ -197,7 +213,7 @@ def processVolumes(all_volumes, quiet=False):
             textwrap.indent(new_entry, "    " * 5) + "\n{{volumes}}")
 
     template_data = template_data.replace("{{volumes}}", "")
-    with open(os.path.join(gamedir, "xcustom_volumeselect.rpy"), 'w') as fp:
+    with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w') as fp:
         fp.write(template_data)
 
 
@@ -235,18 +251,18 @@ def main(argstr=None):
         os.makedirs(gamedir, exist_ok=True)
 
     try:
+        print("\nClearing old scripts")
+        for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
+            if not args.quiet:
+                print(f"{rpy} --> [X]")
+            os.unlink(rpy)
         if args.clean:
-            print("\nClearing old scripts")
-            for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
-                if not args.quiet:
-                    print(f"{rpy} --> [X]")
-                os.unlink(rpy)
 
             print("\nCleaning out old assets")
-            for rpy in glob.glob(os.path.join(gamedir, "custom_*/")):
+            for cfile in glob.glob(os.path.join(gamedir, "custom_*/")) + glob.glob(os.path.join(gamedir, "*custom_*")):
                 if not args.quiet:
-                    print(f"{rpy} --> [X]")
-                shutil.rmtree(rpy)
+                    print(f"{cfile} --> [X]")
+                shutil.rmtree(cfile)
 
         print("\nCopying user scripts")
         (all_volumes, warn,) = processPackages(quiet=args.quiet)

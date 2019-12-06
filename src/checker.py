@@ -5,8 +5,13 @@ import json
 import re
 import textwrap
 
+from patcher import subtableReplace
+import shutil
+
+
 platform = os.name
 
+autofix = False
 
 def listmapglob(p):
     return list(map(os.path.normpath, glob.glob(p, recursive=True)))
@@ -20,7 +25,7 @@ def checkMeta(searchnormal, searchother):
         subdirs += glob.glob(os.path.join("../custom_volumes_other", "*/"))
     for subdir in subdirs:
         meta_filepath = os.path.join(subdir, "meta.json")
-        with open(meta_filepath, "r") as fp:
+        with open(meta_filepath, "r", encoding="utf-8") as fp:
             meta = json.load(fp)
 
         # Grab metadata id
@@ -32,13 +37,13 @@ def checkMeta(searchnormal, searchother):
 
 
 def findNames(rpy):            
-    pattern = r"(\n|^)\s*(define|style|transform|image)\s+([^{}=:]+\s*) *(=|:)"
-    with open(rpy, "r") as rpyfp:
+    pattern = r"(\n|^)(\s*)(define|style|transform|image|label)\s+([^=:]+\s*) *(=|:)"
+    with open(rpy, "r", encoding="utf-8") as rpyfp:
         lineno = 0
         for line in rpyfp.readlines():
             lineno += 1
             for match in re.finditer(pattern, line):
-                __, type, name, __ = match.groups()
+                __, space, type, name, __ = match.groups()
                 yield (type, name, lineno, line)
 
 
@@ -67,13 +72,65 @@ def checkNameConflicts():
 
 def checkNameNamespace():
     for rpy in rpy_files_custom_vols:
+        global_names = []
         for type, name, lineno, line in findNames(rpy):
-            shortline = textwrap.shorten(line[:-1], width=75)
-            print(f"[WARNING]\t[{rpy}:{lineno}] '{shortline}'\n\t\t{type} '{name}' is not namespaced! Please include a substitution " + r"('{{p}}') to prevent conflicts.")
+            if subtableReplace(name) == name:
+                global_names.append((type, name, lineno, line,))
+                shortline = textwrap.shorten(line[:-1], width=75)
+                print(f"[WARNING]\t[{rpy}:{lineno}] '{shortline}'\n\t\t{type} '{name}' is not namespaced! Please include a substitution " + r"('{{p}}') to prevent conflicts.")
+        if autofix:
+            i = 1
+            bakfilepath = rpy + f".bak"
+            while os.path.isfile(bakfilepath):
+                i += 1
+                bakfilepath = rpy + f".bak{i}"
+            shutil.copy2(rpy, bakfilepath)
+
+            with open(rpy, "r", encoding="utf-8") as fp:
+                contents = fp.read()
+
+            for type, name, lineno, line in global_names:
+                contents = re.sub(
+                    r"(\n|^)(\s*)(define|style|transform|image|label)\s+(" + name + ") *(=|:)",
+                    r"\g<1>\g<2>\g<3> __p__" + name + r"\g<5>", contents
+                )
+                fname = name.split(" ")[0]
+                if type == "image":
+                    contents = re.sub(
+                        r"(Character\(.+image=[\"'])(" + fname + r")([\"'].+)",
+                        r"\g<1>__p__" + fname + r"\g<3>", contents
+                    )
+                if type == "image" or type == "transform":                    
+                    pattern = r"\b(as|at|behind|onlayer|zorder|show|expression|scene|hide|with|window|call|jump|stop|pause|play|menu) " + fname + r"\b"
+                    contents = re.sub(
+                        pattern,
+                        r"\g<1> __p__" + fname, contents
+                    )
+                if type == "define":
+                    pattern = r"(\n\s+)" + fname + r"(\s+)"
+                    contents = re.sub(
+                        pattern, r"\g<1>__p__" + fname + r"\g<2>", contents
+                    )
+                if type == "label":
+                    pattern = r"(Jump\([\"'])(" + fname + r")([\"']\))"
+                    contents = re.sub(
+                        pattern,
+                        r"\g<1>__p__" + fname + r"\g<3>", contents
+                    )
+
+            with open(rpy, "w", encoding="utf-8") as fp:
+                fp.write(contents)
+
+            try:
+                import subprocess
+                out = subprocess.run(['diff', rpy, bakfilepath], capture_output=True)
+                print(out.stdout.decode())
+            except:
+                pass
 
 
 def writeNameReport():
-    with open("report_names.txt", "w") as outfp:
+    with open("report_names.txt", "w", encoding="utf-8") as outfp:
         for rpy in rpy_files:
             for type, name, lineno, line in sorted(findNames(rpy)):
                 outfp.write(f"{type} {name}\t[{rpy}:{lineno}]\t{line}")
@@ -105,6 +162,7 @@ def main():
     add_bool_arg(ap, "searchvanilla", default=True, help="Search in vanilla pesterquest")
     add_bool_arg(ap, "searchsys", default=True, help="Search in pqms system")
 
+    add_bool_arg(ap, 'autofix', help="Attempt to fix errors and warnings", default=False)
     add_bool_arg(ap, 'checkmeta', help="Verify metadata")
     add_bool_arg(ap, 'checknames', help="Verify names")
     add_bool_arg(ap, 'checkglobals', help="Detect global names")
@@ -112,6 +170,9 @@ def main():
     args = ap.parse_args()
 
     print(args)
+
+    global autofix
+    autofix = args.autofix
 
     # global overwrite
     # overwrite = args.overwrite
