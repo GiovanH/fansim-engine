@@ -7,7 +7,7 @@ Design goals:
 - Cross-platform (Win/Mac/Linux)
 - Easy to write and distribute fan volumes
 - Hyper-simple for users to play fan volumes
-- Mix-and-match: Put all the fan volumes you want and play routes without conflicts
+- Mix-and-match: Put all the fan volumes you want and play routes without conflicts!
 
 
 
@@ -46,41 +46,72 @@ If you already have work done, you can easily convert it into package format eit
 
 **You should definitely use PQMS.**
 
+
+
 ## FAQ:
 
 or, "this is easier than documentation." AMA!
 
 
 
-Q: Why should I use this instead of just editing up the rpy files--
+**Q:** I want it! Gimmie it!
 
-A: **please do not do that.** See [Why PQMS?](#why-pqms)
+**A:** Great! See [Installation](#installation)
 
-Q: What's a "recent version of python"?
+**Q:** Why should I use this instead of just editing up the rpy files that came with the game--
 
-A: 3.6 or above. [You should download the latest stable version for windows](https://www.python.org/downloads/) and add python to your PATH during installation. 
+**A:** *please do not do that.* See [Why PQMS?](#why-pqms)
+
+**Q:** What's a "recent version of python"?
+
+**A:** 3.6 or above. [You should download the latest stable version for windows](https://www.python.org/downloads/) and add python to your PATH during installation. 
 
 Recommended use is to execute the scripts from console while in the `src` folder, but just launching the scripts *should* work in most cases for the patcher and launcher.
 
-Q: How do I run a python script in a terminal on windows?
+**Q:** How do I run a python script in a terminal on windows?
 
-A: On Windows 10:
+**A:** On Windows 10:
 
-- Navigate to the `src` directory
-- `Shift+Right Click` somewhere in the folder, like you would if you were making a new folder.
-- In that menu, you'll either see "Open PowerShell Window Here" or "Open Command Prompt Here". Click that.
-  - If you opened a powershell window, type `start cmd` and press enter. You are now in a command prompt window.
+- [Open a terminal window](#opening-a-terminal) in your PQMS folder
 - Type your python command (like `python run_wizard.py --quiet`) and press enter.
   - A python 3.x installation may install as `python3`. If you have errors, try `python3 run_wizard.py --quiet`.
   - If python is not in your PATH, you still won't be able to launch python. You should [add python to your path](https://duckduckgo.com/?q=add+python+3+to+path&t=vivaldi&ia=web). 
 
-Q: Can I package a mod as a standalone distributable that people who don't own pesterquest can play?
+**Q:** Can I package a mod as a standalone distributable that people who don't own pesterquest can play?
 
-A: Yes, actually! Use `dist_standalone.py`. [Read this document for more details.](./doc/pqlite.md)
+**A:** Yes, but this is not recommended. Use `dist_standalone.py`. [Read this document for more details.](./doc/pqlite.md)
 
-Q: I packaged my mod as a standalone distributable but I get an error when I run it!
+**Q:** I packaged my mod as a standalone distributable but I get an error when I run it!
 
-A: You're probably referencing assets that are present in the base game. In a standalone distribution, you won't have access to the pesterquest characters, images, or audio: you'll need to manually add those if you want them, or simply distribute the mod normally. Any assets you use will need to have been explicitly provided by a mod. Because of this, **it's really best not to distribute fanroutes standalone unless your project is very large.**
+**A:** You're probably referencing assets that are present in the base game. In a standalone distribution, you won't have access to the pesterquest characters, images, or audio: you'll need to manually add those if you want them, or simply distribute the mod normally. Any assets you use will need to have been explicitly provided by a mod. Because of this, **it's really best not to distribute fanroutes standalone unless your project is very large.**
+
+**Q:** Is there any more documentation, besides the online ren'py documentation?
+
+**A:** Browse [the `docs/` folder](https://github.com/GiovanH/pesterquest-modsuite/tree/master/doc) to see supplemental documentation and tutorials as they're added.
+
+## Installation
+
+### Installation with git: (Recommended)
+
+Using git is to keep your version of PQMS up-to-date is recommended so you have access to all the latest features and development updates.
+
+1. Install git for [windows](http://msysgit.github.io/) or [osx](http://git-scm.com/download/mac)
+2. Download PQMS
+   1. Go to a new work folder, for instance `Documents`.
+   2. [Open a terminal window](#opening-a-terminal) in that folder.
+   3. Run `git clone https://github.com/GiovanH/pesterquest-modsuite`
+   4. Congratulations! PQMS is installed at `Documents/pesterquest-modsuite`
+3. Download PQMS Extras (optional)
+   1. Starting after step 2.2, run `git clone https://github.com/GiovanH/pqms-extras`
+   2. Congratulations! Extras are installed at `Documents/pesterquest-modsuite`
+
+Why use git? Because it makes updating extremely easy.
+
+Included in PQMS and PQMS-extras are updater files. On windows, launch `update.bat`, or on osx, launch `update.sh`, and PQMS will automatically update itself without deleting any mods or your other files.
+
+Developers can also use standard git commands to update the repository.
+
+For more on git, try http://rogerdudler.github.io/git-guide/
 
 ## Features
 a partial list
@@ -105,7 +136,7 @@ TLDR:
 
 - All your custom names (labels, defines, characters, transforms, image ids, etc) should have `__p__` somewhere in the name so pqms can prevent conflicts for you
 - The package entrypoint must conform exactly to either ``{{package_entrypoint}}_{route_id}`` or ``__package_entrypoint___{route_id}``. (Two, one, three underscores.)
-- You might be tempted to ignore all of this. If you do, things may work at first. ***Please do not do this.***
+- You might be tempted to ignore all of this. If you do, things may work at first. ***Please do not do this.*** See [Why PQMS?](#why-pqms)
 
 ### What's in the box:
 
@@ -145,7 +176,7 @@ Developing with this basically the same as extending ren'py using the base game,
 Please see the implementation in `patcher.py` and the demo route for more details.
 Updates and contributions to this guide, as well as suggestions for logic rework are all very much appreciated. 
 
-## Guide for developers:
+## Developer notes:
 
 Incomplete, please see the demo packages in `custom_volumes/` and `custom_volumes_other/`.
 
@@ -157,15 +188,30 @@ The system data is loaded first, so any custom volume content can replace it. Yo
 
 patcher.py is a preprocessor that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
 
-## Example
+### Standard init offsets
+
+Including the line `init offset = [x]` changes the load order of your files. Read this if you're experiencing errors about names not being defined when you launch renpy, or if you're just interested.
+
+If you define characters, styles, or transforms in a separate file from your script, it should start with `init offset = 1`.
+
+In general your scripts should start with `init offset = 2`.
+
+0: Reserved for system and library definitions that depend on the base game.
+1: Require the base game and PQMS supplemental assets to be loaded first.
+2: Require all assets to be loaded first.
+
+## Examples
 
 Please see the example volumes from [pqms-extras](https://github.com/GiovanH/pqms-extras) for examples. 
 
-## Standard init offsets
+## Appendix
 
-0: Reserved for system and library definitions that depend on pesterquest
-1: Reserved for definitions that depend on system and library definitions
-2: Require assets to be defined first
+### Opening a terminal
+
+- Navigate to the `src` directory
+- `Shift+Right Click` somewhere in the folder, like you would if you were making a new folder.
+- In that menu, you'll either see "Open PowerShell Window Here" or "Open Command Prompt Here". Click that.
+  - If you opened a powershell window, type `start cmd` and press enter. You are now in a command prompt window.
 
 ## Credits
 
