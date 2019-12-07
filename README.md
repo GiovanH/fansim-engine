@@ -33,7 +33,21 @@ A: **please do not do that.** When you edit screens.rpy, script.rpy, etc from th
 
 Q: What's a "recent version of python"?
 
-A: 3.6 or above. Recommended use is to execute the scripts from console while in the `src` folder, but just launching the scripts *should* work in most cases for the patcher and launcher.
+A: 3.6 or above. [You should download the latest stable version for windows](https://www.python.org/downloads/) and add python to your PATH during installation. 
+
+Recommended use is to execute the scripts from console while in the `src` folder, but just launching the scripts *should* work in most cases for the patcher and launcher.
+
+Q: How do I run a python script in a terminal on windows?
+
+A: On Windows 10:
+
+- Navigate to the `src` directory
+- `Shift+Right Click` somewhere in the folder, like you would if you were making a new folder.
+- In that menu, you'll either see "Open PowerShell Window Here" or "Open Command Prompt Here". Click that.
+  - If you opened a powershell window, type `cmd` and press enter. You are now in a command prompt window.
+- Type your python command (like `python launcher.py --quiet`) and press enter.
+  - A python 3.x installation may install as `python3`. If you have errors, try `python3 launcher.py --quiet`.
+  - If python is not in your PATH, you still won't be able to launch python. You should [add python to your path](https://duckduckgo.com/?q=add+python+3+to+path&t=vivaldi&ia=web). 
 
 Q: Can I package a mod as a standalone distributable that people who don't own pesterquest can play?
 
