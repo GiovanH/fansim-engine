@@ -132,7 +132,8 @@ screen ingame_devbox:
             textbutton "Developer Tools" action ToggleDevModeMenu
             
 
+define pqms_block_devbox = False
 screen ingame_devbox_loader:
-    if config.developer:
+    if config.developer and not pqms_block_devbox:
         key "trickster" action getMousePosition, ShowMenu('ingame_devbox')
 
