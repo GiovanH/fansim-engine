@@ -7,6 +7,12 @@ litedist/
 patch/
 src/report_*.txt
 
+extras/
+custom_volumes/hiveswap_min/
+custom_volumes/openbound_min/
+custom_volumes_other/hiveswap/
+custom_volumes_other/openbound/
+
 custom_volumes/befriendus/
 custom_volumes/volumex/
 custom_volumes/dancestorquest/
