@@ -1,6 +1,8 @@
-
 init offset = -1
 
+define config.name = "Pesterquest Lite"
+
+# PQMS Overrides
 style outlined:
     outlines [ (absolute(1), "#000", absolute(0), absolute(0)) ]
     color "FFFF00"

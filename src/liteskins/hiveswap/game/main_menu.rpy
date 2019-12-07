@@ -1,7 +1,9 @@
 init offset = 1
 
+# Main menu for Hiveswap Liteskin
+
 image titlesky = "gui/game_menu.png"
-define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
+define config.main_menu_music = "music/datingsimtitlehvs.wav"
 
 screen main_menu():
 

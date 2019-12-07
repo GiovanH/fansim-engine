@@ -1,7 +1,9 @@
 init offset = 1
 
+# Main menu for default liteskin
+
 image titlesky = "gui/game_menu.png"
-define config.main_menu_music = "music/Pdatingsimtitlehvs.wav"
+define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
 
 screen main_menu():
 
@@ -31,6 +33,55 @@ screen main_menu():
     # use mainmenu_devbox
     key "trickster" action getMousePosition, ShowMenu('mainmenu_devbox')
 
+
+transform title:
+
+    "gui/logo-noglitch.png"
+    pause 3.0
+    "gui/logo-glitch1.png"
+    pause 0.04
+    "gui/logo-glitch2.png"
+    pause 0.04
+    "gui/logo-glitch3.png"
+    pause 0.04
+    "gui/logo-glitch4.png"
+    pause 0.04
+    "gui/logo-glitch5.png"
+    pause 0.04
+    "gui/logo-glitch6.png"
+    pause 0.04
+    "gui/logo-noglitch.png"
+    pause 4.0
+    "gui/logo-glitch1.png"
+    pause 0.04
+    "gui/logo-glitch2.png"
+    pause 0.06
+    "gui/logo-glitch3.png"
+    pause 0.17
+    "gui/logo-glitch4.png"
+    pause 0.03
+    "gui/logo-glitch5.png"
+    pause 0.04
+    "gui/logo-glitch6.png"
+    pause 0.04
+    repeat
+
+transform titlesun:
+
+    rotate 30 pos (1175, 85) around (2.0, 2.0)
+    easeout 16.0 rotate 0 pos (720, -100) around (2.0, 2.0)
+
+transform titleflare:
+
+    additive 1.0
+    alpha 0.0
+    pause 8.0
+    easeout 8.0 alpha 1.0
+
+transform titleclouds:
+
+    alpha 0.9
+    additive 1.0
 
 
 style main_menu_frame is empty

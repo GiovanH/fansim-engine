@@ -8,6 +8,17 @@ import argparse
 litedir = "lite"
 distdir = "../dist"
 skinbase = "liteskins"
+skindir_default = os.path.join(skinbase, "default")
+
+
+def copyLiteWithSkin(distdir, skindir=skindir_default):
+    print("Copying PQ lite")
+    copy_tree(litedir, distdir, update=True)
+
+    print("Patching skin")
+    copy_tree(skindir_default, distdir, update=True)
+    if skindir != skindir_default:
+        copy_tree(skindir, distdir, update=True)
 
 
 def main():
@@ -30,11 +41,7 @@ def main():
     # print("Clearing dist")
     # subprocess.run(["rm", "-rv", os.path.join(distdir, "game")])
 
-    print("Copying PQ lite")
-    copy_tree(litedir, distdir, update=True)
-
-    print("Patching skin")
-    copy_tree(skindir, distdir, update=True)
+    copyLiteWithSkin(distdir, skindir)
 
     print("Patching mods")
     run_patcher(args.volumes)
@@ -47,5 +54,5 @@ def run_patcher(volumes=[]):
     else:
         patch(["--patchdir", distdir, "--clean", "--nolaunch"])
 
-
-main()
+if __name__ == "__main__":
+    main()

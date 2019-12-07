@@ -55,132 +55,25 @@ define slowpinkflash = Fade(0.35, 0.35, 0.65, color="#ff82d9")
 define bluestab = Fade(0.09, 0.25, 0.25, color="#0000AA")
 define olivestab = Fade(0.09, 0.25, 0.25, color="#416600")
 
-
-define retjump = Fade(.25, 0.25, .25, color="#FFFFFF")
-define retjumpslow = Fade(.4, 0.3, .4, color="#FFFFFF")
-define retdissolve = Dissolve(.25)
-
 define slowmove = MoveTransition(1.0)
 
 # close/open eyes
 define closeeyes = ImageDissolve("eye.png", 0.8, ramplen=128, reverse=True, time_warp=eyewarp)
 define openeyes = ImageDissolve("eye.png", 0.8, ramplen=64, time_warp=eyewarp)
 
-image panelscape1 = "images/panelscape1.png"
-image panelscape2 = "images/panelscape2.png"
-image panelscape3 = "images/panelscape3.png"
-
-image scapewhite = "images/scapewhite.png"
-
-image exception = "images/exception.png"
-
-image bg sky = "images/sky.png"
-image bg greensun = "images/greensun.png"
-
-image bg daveroof = "images/dave_roof.png"
-image bg jadeatrium = "images/jade_bg_atrium.png"
-image bg prospit = "images/jade_bg_prospit.png"
 
 image bg spaceship = "images/background_spaceship.png"
-image bg corpsefield = "images/field-2.png"
-image bg junkyard = "images/junkyard_final.png"
-image bg yourhive = "images/yourhive.png"
-image bg undergrowth = "images/bg_undergrowth.png"
 image bg outsidenight = "images/bg_outsidenight.png"
 image bg outsideday = "images/bg_outsideday.png"
 image bg sewer = "images/sewer.png"
 image bg forest = "images/forest.png"
 image bg cave = "images/Cave.png"
-image bg garden = "images/zen_garden.png"
-image bg mall = "images/bg_mall3.png"
-
-# misc effects saved from the previous game for reuse
-
-image streetlight = "images/streetlight.png"
-
-image splatter = "images/splatter.png"
-image sludge = "images/sludge.png"
 
 image blackcover = "images/blackcover.png"
 image whitecover = "images/whitecover.png"
 image redcover = "images/redcover.png"
 
-image brownblood = "images/brownblood.png"
-image goldblood = "images/goldblood.png"
-image oliveblood = "images/oliveblood.png"
-
-image emoji_peace = "images/emoji_peace.png"
-image money = "images/cashmoney.png"
-
-image text_clubs = "images/text_clubs.png"
-image text_spades = "images/text_spades.png"
-image text_hearts = "images/text_hearts.png"
-image text_diamonds = "images/text_diamonds.png"
-
-image grypealpha = "gui/grype_alpha.png"
-
-image bg alternia = "images/background1.png"
-image bg alternia2 = "images/background4.png"
-image bg alternia3 = "images/background2.png"
 image bg alternia4 = "images/background3.png"
-
-image fog = "images/fog.png"
-
-image zap = "images/zap.png"
-
-image bg black = "images/blackcover.png"
-
-# fail/win images for this volume
-image gameover = "images/gameover.png"
-
-transform title:
-
-    "gui/logo-noglitch.png"
-    pause 3.0
-    "gui/logo-glitch1.png"
-    pause 0.04
-    "gui/logo-glitch2.png"
-    pause 0.04
-    "gui/logo-glitch3.png"
-    pause 0.04
-    "gui/logo-glitch4.png"
-    pause 0.04
-    "gui/logo-glitch5.png"
-    pause 0.04
-    "gui/logo-glitch6.png"
-    pause 0.04
-    "gui/logo-noglitch.png"
-    pause 4.0
-    "gui/logo-glitch1.png"
-    pause 0.04
-    "gui/logo-glitch2.png"
-    pause 0.06
-    "gui/logo-glitch3.png"
-    pause 0.17
-    "gui/logo-glitch4.png"
-    pause 0.03
-    "gui/logo-glitch5.png"
-    pause 0.04
-    "gui/logo-glitch6.png"
-    pause 0.04
-    repeat
-
-transform titlesun:
-
-    rotate 30 pos (1175, 85) around (2.0, 2.0)
-    easeout 16.0 rotate 0 pos (720, -100) around (2.0, 2.0)
-
-transform titleflare:
-
-    additive 1.0
-    alpha 0.0
-    pause 8.0
-    easeout 8.0 alpha 1.0
-
-transform titleclouds:
-
-    alpha 0.9
-    additive 1.0
 
 transform floaties1:
 

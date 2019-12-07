@@ -1,5 +1,6 @@
-
 init offset = -1
+
+define config.name = "Befriendus"
 
 style outlined:
     outlines [ (absolute(1), "#000", absolute(0), absolute(0)) ]

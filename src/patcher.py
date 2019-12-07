@@ -245,13 +245,23 @@ def main(argstr=None):
         help="Delete old custom assets")
     ap.add_argument(
         "--patchdir",
-        help="Just make a patch folder")
+        help="Patch files to this directory. Defaults to steamapps/common/Homestuck Pesterquest")
+    ap.add_argument(
+        "--lite", action="store_true",
+        help="Lite mode: Creates a working lite version, if it doesn't exist, and sets --patchdir to it.")
     ap.add_argument(
         '--volumes', nargs="+", default=[],
         help="If set, only look at custom volumes with these IDs."
     )
 
     args = (ap.parse_args(argstr) if argstr else ap.parse_args())
+
+    if args.lite:
+        litedir = os.path.join("..", "litedist")
+        if not os.path.isdir(litedir) or True:
+            from dist_standalone import copyLiteWithSkin
+            copyLiteWithSkin(litedir)
+        args.patchdir = os.path.normpath(litedir)
 
     if args.patchdir:
         global gamedir_root
