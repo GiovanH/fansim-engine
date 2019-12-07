@@ -27,9 +27,13 @@ or, "this is easier than documentation." AMA!
 
 
 
+Q: Why should I use this instead of just editing up the rpy files--
+
+A: **please do not do that.** When you edit screens.rpy, script.rpy, etc from the base game, you risk breaking things. PQMS helps you add anything you need without breaking the base game or other mods. Also, it provides a lot of powerful modding features that help greatly with the writing process, so there's a lot you don't need to worry about if you don't want to.
+
 Q: What's a "recent version of python"?
 
-A: 3.6 or above
+A: 3.6 or above. Recommended use is to execute the scripts from console while in the `src` folder, but just launching the scripts *should* work in most cases for the patcher and launcher.
 
 Q: Can I package a mod as a standalone distributable that people who don't own pesterquest can play?
 
@@ -37,7 +41,7 @@ A: Yes, actually! Use `dist_standalone.py`. [Read this document for more details
 
 Q: I packaged my mod as a standalone distributable but I get an error when I run it!
 
-A: You're probably referencing assets that are present in the base game. In a standalone distribution, you won't have access to the pesterquest characters, images, or audio: you'll need to manually add those if you want them, or simply distribute the mod normally.
+A: You're probably referencing assets that are present in the base game. In a standalone distribution, you won't have access to the pesterquest characters, images, or audio: you'll need to manually add those if you want them, or simply distribute the mod normally. Any assets you use will need to have been explicitly provided by a mod. Because of this, **it's really best not to distribute fanroutes standalone unless your project is very large.**
 
 ## Guide for developers:
 
@@ -85,9 +89,12 @@ TLDR:
 1. Create a new volume in `custom_volumes`. You can use the example volumes as a template.
 2. Edit `meta.json`. `package_id` should be a unique identifier for the package, while each volume (route, selectable from the menu) should have a unique `volume_id`. Try not to pick ids other people might use.
 3. Rename your volume select icon in `assets` to `volumeselect_{volume_id}_idle.png` and `volumeselect_{volume_id}_small.png`, and design them as desired.
-4. In any RPA file in your new volume folder, define a `
+4. In any RPY file in your new volume folder, define a `
 label {{package_entrypoint}}_sandbox:`, replacing `sandbox` with your volume ID. This is where your volume will start when people select your volume. 
-5. Write!
+5. Write! 
+   - You can write whatever you want in your rpy files, including transformations, labels, menus, etc. 
+   - It doesn't matter how your files are organized; you can split them up into multiple files if you want. (Not *quite* true: read about [init offset](https://www.renpy.org/doc/html/python.html?highlight=init%20offset) for more on this.)
+   - Be sure to only edit the files in your mod folder; don't go editing anything in a  `game` directory, or anything in the `sys` package. 
 6. Run `launcher.py` to test and run your mod. You can use command line arguments to control game launch and other features. 
 7. To see your changes live, run `launcher.py --nolaunch` and then press `Shift+R` while in-game to automatically reload.
 

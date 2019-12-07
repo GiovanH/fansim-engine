@@ -1,11 +1,12 @@
-"""
-Galleries:
-    Freshjamz, the music player
-    A renpy gallery that attempts to load every image
-    A character browser that loads images matching a character prefix
+python:
+    """
+    Galleries:
+        Freshjamz, the music player
+        A renpy gallery that attempts to load every image
+        A character browser that loads images matching a character prefix
 
-Access using the devbox by invoking trickster mode at the main menu
-"""
+    Access using the devbox by invoking trickster mode at the main menu
+    """
 
 
 init offset = 1

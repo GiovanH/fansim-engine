@@ -1,50 +1,50 @@
 ../src/sys/fx.rpy:
 
-Graphical effects:
-    Toast notifications
-    Toast music boxes
+    Graphical effects:
+        Toast notifications
+        Toast music boxes
+        
     
-
 ../src/sys/gallery.rpy:
 
-Galleries:
-    Freshjamz, the music player
-    A renpy gallery that attempts to load every image
-    A character browser that loads images matching a character prefix
+    Galleries:
+        Freshjamz, the music player
+        A renpy gallery that attempts to load every image
+        A character browser that loads images matching a character prefix
 
-Access using the devbox by invoking trickster mode at the main menu
-
+    Access using the devbox by invoking trickster mode at the main menu
+    
 ../src/sys/hemospectrum.rpy:
 
-Hemospectrum tools
+    Hemospectrum tools
 
-These allow you to automatically manage blood coloring
-and textboxes.
+    These allow you to automatically manage blood coloring
+    and textboxes.
 
-Examples:
+    Examples:
 
-define __p__.vr = Character(
-    name="arachnidsGrip", kind=trollian, 
-    show_blood="cerulean", image="vriska")
-define __p__.bo = Character(
-    name="BOLDIR", kind=hiveswap, 
-    image="boldir", show_blood="olive")
+    define __p__.vr = Character(
+        name="arachnidsGrip", kind=trollian, 
+        show_blood="cerulean", image="vriska")
+    define __p__.bo = Character(
+        name="BOLDIR", kind=hiveswap, 
+        image="boldir", show_blood="olive")
 
-You can use _hemospectrum["colorname"] = {"hex": "#000000"} in your code
-to define new blood colors. 
+    You can use _hemospectrum["colorname"] = {"hex": "#000000"} in your code
+    to define new blood colors. 
 
-The predefined PQMS templates (trolian, hiveswap, openbound, etc)
-use show_blood to color the textbox and dialogue.
+    The predefined PQMS templates (trolian, hiveswap, openbound, etc)
+    use show_blood to color the textbox and dialogue.
 
-hemospectrum(color) where color is the name of a blood color
-returns the hexadecimal color code for that color.
+    hemospectrum(color) where color is the name of a blood color
+    returns the hexadecimal color code for that color.
 
-doTint(displayable, color, cap) where color is the name of a blood color
-will tint all channels of a displayable (the color white) to the blood color given.
-This is how textboxes are colored.
+    doTint(displayable, color, cap) where color is the name of a blood color
+    will tint all channels of a displayable (the color white) to the blood color given.
+    This is how textboxes are colored.
 
-hex_to_rgb may be useful to advanced users, and is publicly exposed.
-
+    hex_to_rgb may be useful to advanced users, and is publicly exposed.
+    
 ../src/sys/hemospectrum.rpy:
 Tints a white displayable to the color given, where cap controls the intensity of the color
         This is used to create blood and text color based graphics and effects.
@@ -53,118 +53,118 @@ Tints a white displayable to the color given, where cap controls the intensity o
         
 ../src/sys/namebox.rpy:
 
-Namebox code.
+    Namebox code.
 
-The PQMS nameboxes provide an alternative to the way WP handles nameboxes,
-drastically simplifying the process of defining and using characters.
+    The PQMS nameboxes provide an alternative to the way WP handles nameboxes,
+    drastically simplifying the process of defining and using characters.
 
-Here are some example characters using these templates.
-
-
-
-define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
-Pesterchum takes a chumhandle, a text color, and a standard character image prefix.
-
-define __p__.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
-define __p__.bo = Character(name="BOLDIR", kind=hiveswap, show_blood="olive", image="boldir")
-Trolls use the hemospectrum blood system by default.
-Trolls take a name (or handle), a blood color, and a standard image prefix.
-
-For all the above templates, you can use show_big to hide the namebox, 
-allowing for more text on the screen at once.
-__p__.jo "Hi! I'm john"
-__p__.jo "Hi! I'm john" (show_big=True)
-
-define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openbound, image="ob_meulin")
-define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
-Two different openbound systems. The latter uses keyword arguments to override the default style.
-Openbound characters can use hashtags:  
-__p___meu2 idle "!!"
-__p___meu2 laugh "!!!" (show_hashtags="#hashtag1")
-Openbound characters can be posessed by chucklevoodoos:
-__p___meu2 hypno "HONK" (show_chuckle=True)
-Openbound characters can do both at once:
-__p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
+    Here are some example characters using these templates.
 
 
 
+    define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
+    Pesterchum takes a chumhandle, a text color, and a standard character image prefix.
 
+    define __p__.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
+    define __p__.bo = Character(name="BOLDIR", kind=hiveswap, show_blood="olive", image="boldir")
+    Trolls use the hemospectrum blood system by default.
+    Trolls take a name (or handle), a blood color, and a standard image prefix.
+
+    For all the above templates, you can use show_big to hide the namebox, 
+    allowing for more text on the screen at once.
+    __p__.jo "Hi! I'm john"
+    __p__.jo "Hi! I'm john" (show_big=True)
+
+    define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openbound, image="ob_meulin")
+    define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
+    Two different openbound systems. The latter uses keyword arguments to override the default style.
+    Openbound characters can use hashtags:  
+    __p___meu2 idle "!!"
+    __p___meu2 laugh "!!!" (show_hashtags="#hashtag1")
+    Openbound characters can be posessed by chucklevoodoos:
+    __p___meu2 hypno "HONK" (show_chuckle=True)
+    Openbound characters can do both at once:
+    __p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
+
+
+
+    
 ../src/sys/overrides.rpy:
 
-Overrides
+    Overrides
 
-These are the few areas we intentionally override names.
-We have to replace the main menu.
-We also switch around a few key bindings.
+    These are the few areas we intentionally override names.
+    We have to replace the main menu.
+    We also switch around a few key bindings.
 
-
+    
 ../src/sys/quirk.rpy:
 
-Automatic quirk translation subsystem
+    Automatic quirk translation subsystem
 
-This provides functions to help you with quirks!
+    This provides functions to help you with quirks!
 
-Using quirks:
-# Approach 1: Call quirksay
-# Arguments are sayer (character), quirk name, text
-$ quirkSay(gam, "gamzee", "Quirk formatting 1")
+    Using quirks:
+    # Approach 1: Call quirksay
+    # Arguments are sayer (character), quirk name, text
+    $ quirkSay(gam, "gamzee", "Quirk formatting 1")
 
-# Approach 2: Define a new sayer
-# Define a new character, given an existing character and a quirk
-# New sayer is reusable!
-$ __p__gamq = quirkSayer(gam, "gamzee")
-__p__gamq "Quirk formatting 2"
-__p__gamq "Quirk formatting 2 forever"
+    # Approach 2: Define a new sayer
+    # Define a new character, given an existing character and a quirk
+    # New sayer is reusable!
+    $ __p__gamq = quirkSayer(gam, "gamzee")
+    __p__gamq "Quirk formatting 2"
+    __p__gamq "Quirk formatting 2 forever"
 
-# Approach 3
-# You can quirk format text without saying it directly
-$ gam(quirkSub("gamzee", "Quirk formatting 3") + " and I guess other stuff")
+    # Approach 3
+    # You can quirk format text without saying it directly
+    $ gam(quirkSub("gamzee", "Quirk formatting 3") + " and I guess other stuff")
+        
+
+    Writing quirks:
+
+    Each quirk has a name (key) and a series of regex rules (value).
+    When the quirk is applied to a string, each regex replacement is applied.
+    The regex replacements are in the form (pattern, repl) as tuples.
+    In python regex, \g<1> in a replacement substitues matching grouup 1, etc.
+
+    To add a quirk, set a quirk value in a python block.
+
+    init python:
+        quirks["amisia"] = [("u", "uu")]
+
+    init python:
+        quirks["diemen"] = [("(.+)", "(| \g<1> |)")]
+
+    You can also use inline python, if you wish. 
+
+        $ quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]
+
     
-
-Writing quirks:
-
-Each quirk has a name (key) and a series of regex rules (value).
-When the quirk is applied to a string, each regex replacement is applied.
-The regex replacements are in the form (pattern, repl) as tuples.
-In python regex, \g<1> in a replacement substitues matching grouup 1, etc.
-
-To add a quirk, set a quirk value in a python block.
-
-init python:
-    quirks["amisia"] = [("u", "uu")]
-
-init python:
-    quirks["diemen"] = [("(.+)", "(| \g<1> |)")]
-
-You can also use inline python, if you wish. 
-
-    $ quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]
-
-
 ../src/sys/sayers.rpy:
 
-Non-template generic sayers we make availible.
-
+    Non-template generic sayers we make availible.
+    
 ../src/sys/screens.rpy:
 
-Custom screens:
-    Developer mode menu
-    Mouse utilities
-    Volume select styling
-    Developer boxes for main menu and ingame
-    Watcher
-
+    Custom screens:
+        Developer mode menu
+        Mouse utilities
+        Volume select styling
+        Developer boxes for main menu and ingame
+        Watcher
+    
 ../src/sys/supplemental.rpy:
 
-Misc additional functionality.
+    Misc additional functionality.
 
-$ debug_dump_character(sayer)
-This causes a sayer to iterate through all their poses, and is a helpful tool.
-This is also used in the developer tools.
+    $ debug_dump_character(sayer)
+    This causes a sayer to iterate through all their poses, and is a helpful tool.
+    This is also used in the developer tools.
 
-This file also includes the helper label that transitions to the 
-custom volume select screen.
+    This file also includes the helper label that transitions to the 
+    custom volume select screen.
 
-Various generic transformations are also here
+    Various generic transformations are also here
 
-
+    

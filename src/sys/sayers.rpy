@@ -1,6 +1,7 @@
-"""
-Non-template generic sayers we make availible.
-"""
+python:
+    """
+    Non-template generic sayers we make availible.
+    """
 
 
 # Load after script.rpy so narrator is defined

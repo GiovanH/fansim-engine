@@ -1,9 +1,10 @@
-"""
-Graphical effects:
-    Toast notifications
-    Toast music boxes
-    
-"""
+python:
+    """
+    Graphical effects:
+        Toast notifications
+        Toast music boxes
+        
+    """
 
 
 init offset = 0

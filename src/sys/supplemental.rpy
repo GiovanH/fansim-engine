@@ -1,16 +1,17 @@
-"""
-Misc additional functionality.
+python:
+    """
+    Misc additional functionality.
 
-$ debug_dump_character(sayer)
-This causes a sayer to iterate through all their poses, and is a helpful tool.
-This is also used in the developer tools.
+    $ debug_dump_character(sayer)
+    This causes a sayer to iterate through all their poses, and is a helpful tool.
+    This is also used in the developer tools.
 
-This file also includes the helper label that transitions to the 
-custom volume select screen.
+    This file also includes the helper label that transitions to the 
+    custom volume select screen.
 
-Various generic transformations are also here
+    Various generic transformations are also here
 
-"""
+    """
 
 
 init offset = 0
