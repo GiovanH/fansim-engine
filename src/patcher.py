@@ -115,6 +115,9 @@ def processPackages(only_volumes=[], quiet=False):
     filtering_volumes = (only_volumes != [])
     only_volumes.append("sys")
 
+    os.makedirs(os.path.join("../custom_volumes"))
+    os.makedirs(os.path.join("../custom_volumes_other"))
+
     sysdir = os.path.join(".", "sys/")
     for subdir in [sysdir] + glob.glob(os.path.join("../custom_volumes", "*/")):
         print()
