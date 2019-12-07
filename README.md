@@ -15,6 +15,8 @@ This is written by me, Gio, and it's a labor of love.
 
 If you have any comments, suggestions, complaints, or contributions, you're welcome to reach me on twitter [@giovan_h](https://twitter.com/giovan_h), make an issue here on the [issues](https://github.com/GiovanH/pesterquest-modsuite/issues) page, or even make a pull request if you want to add something new.
 
+**For demo mods and asset packs, see [pqms-extras](https://github.com/GiovanH/pqms-extras)**
+
 ## Guide for users:
 
 1. Download this repository. You can use git or simply download the current version as a zip file.
