@@ -44,7 +44,7 @@ A: On Windows 10:
 - Navigate to the `src` directory
 - `Shift+Right Click` somewhere in the folder, like you would if you were making a new folder.
 - In that menu, you'll either see "Open PowerShell Window Here" or "Open Command Prompt Here". Click that.
-  - If you opened a powershell window, type `cmd` and press enter. You are now in a command prompt window.
+  - If you opened a powershell window, type `start cmd` and press enter. You are now in a command prompt window.
 - Type your python command (like `python launcher.py --quiet`) and press enter.
   - A python 3.x installation may install as `python3`. If you have errors, try `python3 launcher.py --quiet`.
   - If python is not in your PATH, you still won't be able to launch python. You should [add python to your path](https://duckduckgo.com/?q=add+python+3+to+path&t=vivaldi&ia=web). 
