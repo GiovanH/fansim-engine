@@ -230,9 +230,8 @@ def runGame():
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
-def main(argstr=None):
+def makeArgParser():
     import argparse
-
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--nolaunch", action="store_true",
@@ -259,6 +258,12 @@ def main(argstr=None):
         '--volumes', nargs="+", default=[],
         help="If set, only look at custom volumes with these IDs."
     )
+    return ap
+
+
+def main(argstr=None):
+
+    ap = makeArgParser()
 
     args = (ap.parse_args(argstr) if argstr else ap.parse_args())
 
