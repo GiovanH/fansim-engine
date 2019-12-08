@@ -196,8 +196,8 @@ If you define characters, styles, or transforms in a separate file from your scr
 
 In general your scripts should start with `init offset = 2`.
 
-0: Reserved for system and library definitions that depend on the base game.
-1: Require the base game and PQMS supplemental assets to be loaded first.
+0: Reserved for system and library definitions that depend on the base game.  
+1: Require the base game and PQMS supplemental assets to be loaded first.  
 2: Require all assets to be loaded first.
 
 ## Examples
