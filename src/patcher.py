@@ -253,7 +253,7 @@ def main(argstr=None):
         "--lite", action="store_true",
         help="Lite mode: Creates a working lite version, if it doesn't exist, and sets --patchdir to it.")
     ap.add_argument(
-        "--liteskin",
+        "--liteskins", nargs="+", default=[],
         help="If using lite, use this distribution skin. NOT RECOMMENDED.")
     ap.add_argument(
         '--volumes', nargs="+", default=[],
@@ -265,11 +265,9 @@ def main(argstr=None):
     if args.lite:
         litedir = os.path.join("..", "litedist")
         if not os.path.isdir(litedir) or True:
-            from dist_standalone import copyLiteWithSkin
-            if args.liteskin:
-                copyLiteWithSkin(litedir, args.liteskin)
-            else:
-                copyLiteWithSkin(litedir)
+            if args.liteskins:
+                from dist_standalone import copyLiteWithSkins
+                copyLiteWithSkins(litedir, args.liteskins)
         args.patchdir = os.path.normpath(litedir)
 
     if args.patchdir:

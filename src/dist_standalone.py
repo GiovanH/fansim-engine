@@ -11,7 +11,6 @@ litedir = "lite"
 litearch = "lite.zip"
 distdir = "../dist"
 skinbase = "liteskins"
-skindir_default = os.path.join(skinbase, "default")
 
 
 def crcFile(fileName):
@@ -21,7 +20,7 @@ def crcFile(fileName):
     return "%X" % (prev & 0xFFFFFFFF)
 
 
-def copyLiteWithSkin(destdir, skindir=skindir_default):
+def copyLiteWithSkins(destdir, skins=["default"]):
     print("Copying PQ lite")
 
     needs_extract = True
@@ -46,32 +45,29 @@ def copyLiteWithSkin(destdir, skindir=skindir_default):
     copy_tree(litedir, destdir, update=True)
 
     print("Patching skin")
-    copy_tree(skindir_default, destdir, update=True)
-    if skindir != skindir_default:
+    for skin in ["default"] + skins:
+        skindir = os.path.join(skinbase, skin)
+        if not os.path.isdir(skindir):
+            print("Skin not found:", skin)
+            print("Should be located at", skindir)
+            raise FileNotFoundError(skindir)
         copy_tree(skindir, destdir, update=True)
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
-        "--skin", default="default")
+        "--skin", nargs="+", default=["default"],)
     ap.add_argument(
         '--volumes', nargs="+", default=[],
         help="If set, only look at custom volumes with these IDs."
     )
     args = ap.parse_args()
 
-    skin = args.skin
-    skindir = os.path.join(skinbase, skin)
-    if not os.path.isdir(skindir):
-        print("Skin not found:", skin)
-        print("Should be located at", skindir)
-        raise FileNotFoundError(skindir)
-
     # print("Clearing dist")
     # subprocess.run(["rm", "-rv", os.path.join(distdir, "game")])
 
-    copyLiteWithSkin(distdir, skindir)
+    copyLiteWithSkins(distdir, args.skins)
 
     print("Patching mods")
     run_patcher(args.volumes)
