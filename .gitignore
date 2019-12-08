@@ -1,0 +1,12 @@
+# Specify filepatterns you want git to ignore.
+
+src/__pycache__/*
+src/latest.log
+dist/
+litedist/
+patch/
+src/report_*.txt
+
+extras/
+custom_volumes/*
+custom_volumes_other/*
