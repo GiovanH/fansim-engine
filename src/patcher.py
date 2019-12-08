@@ -115,8 +115,8 @@ def processPackages(only_volumes=[], quiet=False):
     filtering_volumes = (only_volumes != [])
     only_volumes.append("sys")
 
-    os.makedirs(os.path.join("../custom_volumes"))
-    os.makedirs(os.path.join("../custom_volumes_other"))
+    os.makedirs(os.path.join("../custom_volumes"), exist_ok=True)
+    os.makedirs(os.path.join("../custom_volumes_other"), exist_ok=True)
 
     sysdir = os.path.join(".", "sys/")
     for subdir in [sysdir] + glob.glob(os.path.join("../custom_volumes", "*/")):
@@ -253,6 +253,9 @@ def main(argstr=None):
         "--lite", action="store_true",
         help="Lite mode: Creates a working lite version, if it doesn't exist, and sets --patchdir to it.")
     ap.add_argument(
+        "--liteskin",
+        help="If using lite, use this distribution skin. NOT RECOMMENDED.")
+    ap.add_argument(
         '--volumes', nargs="+", default=[],
         help="If set, only look at custom volumes with these IDs."
     )
@@ -263,7 +266,10 @@ def main(argstr=None):
         litedir = os.path.join("..", "litedist")
         if not os.path.isdir(litedir) or True:
             from dist_standalone import copyLiteWithSkin
-            copyLiteWithSkin(litedir)
+            if args.liteskin:
+                copyLiteWithSkin(litedir, args.liteskin)
+            else:
+                copyLiteWithSkin(litedir)
         args.patchdir = os.path.normpath(litedir)
 
     if args.patchdir:
