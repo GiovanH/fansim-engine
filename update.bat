@@ -1,7 +1,7 @@
 @echo off
 
 echo Checking for updates...
-git fetch
-git pull
+"C:\Program Files\Git\mingw64\bin\git.exe" fetch origin master
+"C:\Program Files\Git\mingw64\bin\git.exe" pull origin master
 
 pause
