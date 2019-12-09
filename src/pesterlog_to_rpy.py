@@ -28,7 +28,12 @@ all_names = set()
 
 
 def dialogEscape(text):
-    return text.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "")
+    return (
+        text.replace("\\", "\\\\")
+        .replace("\"", "\\\"")
+        .replace("\n", "")
+        .replace("[", "[[")
+    )
 
 
 def aliasGetN(match, key):
