@@ -37,51 +37,21 @@ init offset = 0
 
 init python:
     _hemospectrum = {
-        'gray': {
-            "hex": "#646464"
-        },
-        'candyred': {
-            "hex": "#FF0000"
-        },
-        'test': {
-            "hex": "#f00"
-        },
-        'burgandy': {
-            "hex": '#a20000'
-        },
-        'bronze': {
-            "hex": '#bb6405'
-        },
-        'gold': {
-            "hex": '#a1a100'
-        },
-        'lime': {
-            "hex": '#84A224'
-        },
-        'olive': {
-            "hex": '#416600'
-        },
-        'jade': {
-            "hex": '#008342'
-        },
-        'teal': {
-            "hex": '#008282'
-        },
-        'cerulean': {
-            "hex": '#005682'
-        },
-        'indigo': {
-            "hex": '#0021cb'
-        },
-        'purple': {
-            "hex": '#2b0057'
-        },
-        'violet': {
-            "hex": '#6a006a'
-        },
-        'fuchsia': {
-            "hex": '#77003c'
-        },
+        'gray': "#646464",
+        'candyred': "#FF0000",
+        'test': "#f00",
+        'burgandy': '#a20000',
+        'bronze': '#bb6405',
+        'gold': '#a1a100',
+        'lime': '#84A224',
+        'olive': '#416600',
+        'jade': '#008342',
+        'teal': '#008282',
+        'cerulean': '#005682',
+        'indigo': '#0021cb',
+        'purple': '#2b0057',
+        'violet': '#6a006a',
+        'fuchsia': '#77003c',
     }
     hemoalias = {
         "grey": "gray",  # i HATE
@@ -101,6 +71,8 @@ init python:
         )
     
     def hemospectrum(color):
+        if color[0] == "#":
+            return color
         try:
             return _hemospectrum[color]
         except KeyError:
