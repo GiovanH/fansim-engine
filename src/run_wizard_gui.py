@@ -39,7 +39,8 @@ class MainWindow(tk.Tk):
             else:
                 print("Unknown type", type(action))
 
-        self.argstr = tk.StringVar()
+        self.argstr_vis = tk.StringVar()
+        self.argstr = []
 
         self.initwindow()
 
@@ -70,7 +71,7 @@ class MainWindow(tk.Tk):
             row += 1
         argframe.pack()
 
-        tk.Label(self, textvariable=self.argstr, bg="black", fg="white", font=("Courier", 12)).pack(fill="x")
+        tk.Label(self, textvariable=self.argstr_vis, bg="black", fg="white", font=("Courier", 12)).pack(fill="x")
 
         self.btn_go = ttk.Button(self, text="Go!", command=self.run)
         self.btn_go.pack()
@@ -78,16 +79,16 @@ class MainWindow(tk.Tk):
         self.updateArgStr()
 
     def updateArgStr(self, event=None):
-        argstr = []
+        self.argstr = []
         for arg in self.checkboxargs:
             if arg.var.get():
-                argstr.append("--" + arg.dest)
+                self.argstr.append("--" + arg.dest)
         for arg in self.valueargs:
             if arg.var.get():
-                argstr.append("--" + arg.dest)
+                self.argstr.append("--" + arg.dest)
                 for string in arg.var.get().split(" "):
-                    argstr.append(string)
-        self.argstr.set("python run_wizard.py " + " ".join(argstr))
+                    self.argstr.append(string)
+        self.argstr_vis.set("python run_wizard.py " + " ".join(self.argstr))
 
     def run(self):
         pqms_patcher.main(self.argstr)
