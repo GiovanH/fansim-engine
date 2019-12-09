@@ -235,28 +235,28 @@ def makeArgParser():
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--nolaunch", action="store_true",
-        help="Don't launch the game")
+        help="Don't launch the game, only patch the assets. Useful during development for real-time reloading.")
     ap.add_argument(
         "--quiet", action="store_true",
-        help="Print less output about successful operations")
+        help="Print less output about successful operations.")
     ap.add_argument(
         "--pause", action="store_true",
-        help="Pause before launching the game OR pause when script is complete")
+        help="Pause before launching the game OR pause when script is complete.")
     ap.add_argument(
         "--clean", action="store_true",
-        help="Delete old custom assets")
+        help="Delete old custom assets, including any old mods. Skipped by default for performance.")
     ap.add_argument(
         "--patchdir",
-        help="Patch files to this directory. Defaults to steamapps/common/Homestuck Pesterquest")
+        help="Patch files to this directory. Defaults to your system's equivalent of steamapps/common/Homestuck Pesterquest'")
     ap.add_argument(
         "--lite", action="store_true",
-        help="Lite mode: Creates a working lite version, if it doesn't exist, and sets --patchdir to it")
+        help="Lite mode: Installs a working version of PQLite, if it doesn't exist, and sets --patchdir to it. Much faster on subsequent runs.")
     ap.add_argument(
         "--liteskins", nargs="+", default=["default"],
-        help="If using lite, use this distribution skin. NOT RECOMMENDED")
+        help="If using lite, use these distribution skins. NOT RECOMMENDED: Always test your mod without skins before distribution!")
     ap.add_argument(
-        '--volumes', nargs="+", default=[],
-        help="If set, only look at custom volumes with these IDs"
+        '--packages', nargs="+", default=[],
+        help="If set, only look at custom packages with these IDs. By default, all mods in 'custom_volumes' are included, but if this option is set, the patcher only includes the packages specified."
     )
     return ap
 

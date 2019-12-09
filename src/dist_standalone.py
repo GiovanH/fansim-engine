@@ -57,15 +57,25 @@ def copyLiteWithSkins(destdir, skins=["default"]):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
-        "--skin", nargs="+", default=["default"],)
+        "--skins", nargs="+", default=["default"],
+        help="Pack the mod with these skins, in order. The default skin is always included. For example, '--skins hiveswap befriendus' will use the hiveswap skin, but replace any assets that conflict with the befriendus skin with the befriendus version.")
     ap.add_argument(
         '--volumes', nargs="+", default=[],
-        help="If set, only look at custom volumes with these IDs."
+        help="If set, only package thecustom volumes with these IDs. For example, '--volumes openbound mymod' will package both the openbound and mymod packages, allowing mymod to use assets openbound provides. Order is not sensitive."
     )
     args = ap.parse_args()
 
-    # print("Clearing dist")
-    # subprocess.run(["rm", "-rv", os.path.join(distdir, "game")])
+    print("READ THIS:")
+    print()
+    print("Distributing your PQMS mod standalone is generally not recommended.")
+    print("Please only use this feature for large projects where standalone distribution is required.")
+    print()
+    print("Further, if you do use this feature, always distribute a mod-only version as an option,")
+    print("  so people aren't forced to use the standalone version. For more details, see the readme.")
+    print("By using this tool, you agree that you have read and understand this, and will not distribute")
+    print("  a standalone version of the game without providing the option to download the mod by itself.")
+    print()
+    input("Press enter if you agree. Otherwise, press Ctrl+C or close this window.\n")
 
     copyLiteWithSkins(distdir, args.skins)
 
