@@ -36,6 +36,27 @@ def checkMeta(searchnormal, searchother):
             print(f"[WARNING]\tPackage {package_id} is in incorrectly named folder {dirname}")
 
 
+def checkStructure(searchnormal, searchother):
+    subdirs = []
+    if searchnormal:
+        subdirs += glob.glob(os.path.join("../custom_volumes", "*/"))
+    if searchother:
+        subdirs += glob.glob(os.path.join("../custom_volumes_other", "*/"))
+    for subdir in subdirs:
+        loose_assets = sum([
+            glob.glob(os.path.join(subdir, "*.png")),
+            glob.glob(os.path.join(subdir, "*.jpg")),
+            glob.glob(os.path.join(subdir, "*.mp3")),
+            glob.glob(os.path.join(subdir, "*.wav")),
+        ], [])
+        for asset in loose_assets:
+            print(f"[WARNING]\tAsset file {asset} is not in an assets folder! It cannot be accessed.")
+
+        for rpyc in glob.glob(os.path.join(subdir, "*.rpyc")):
+            print(f"[WARNING]\tSource file file {asset} is in compiled rpyc form, not rpy, and canont be used.")
+
+
+
 def findNames(rpy):            
     pattern = r"(\n|^)(\s*)(define|style|transform|image|label)\s+([^=:]+\s*) *(=|:)"
     with open(rpy, "r", encoding="utf-8") as rpyfp:
@@ -165,6 +186,7 @@ def main():
     add_bool_arg(ap, 'autofix', help="Attempt to fix errors and warnings", default=False)
     add_bool_arg(ap, 'checkmeta', help="Verify metadata")
     add_bool_arg(ap, 'checknames', help="Verify names")
+    add_bool_arg(ap, 'checkstruct', help="Check folder structure")
     add_bool_arg(ap, 'checkglobals', help="Detect global names")
     add_bool_arg(ap, 'namereport', help="Write summary of names")
     args = ap.parse_args()
@@ -199,6 +221,8 @@ def main():
 
     if args.checkmeta:
         checkMeta(args.searchnormal, args.searchother)
+    if args.checkstruct:
+        checkStructure(args.searchnormal, args.searchother)
     if args.checknames:
         checkNameConflicts()
     if args.checkglobals:
