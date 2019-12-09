@@ -75,6 +75,7 @@ Recommended use is to execute the scripts from console while in the `src` folder
 - [Open a terminal window](#opening-a-terminal) in your PQMS folder
 - Type your python command (like `python run_wizard.py --quiet`) and press enter.
   - A python 3.x installation may install as `python3`. If you have errors, try `python3 run_wizard.py --quiet`.
+  - There are a few different ways python can install. Try substituting `python` with: `python3`, `py`, `py -3`, or `"C:\Program Files\PythonXX\python.exe"` (where XX is your version, e.g. `37`, `38`)
   - If python is not in your PATH, you still won't be able to launch python. You should [add python to your path](https://duckduckgo.com/?q=add+python+3+to+path&t=vivaldi&ia=web). 
 
 **Q:** Can I package a mod as a standalone distributable that people who don't own pesterquest can play?
