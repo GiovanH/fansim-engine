@@ -108,13 +108,19 @@ Using git is to keep your version of PQMS up-to-date is recommended so you have 
    1. Starting after step 2.2, run `git clone https://github.com/GiovanH/pqms-extras`
    2. Congratulations! Extras are installed at `Documents/pesterquest-modsuite`
 
-On windows, if you get an error about `'git' is not recognized as an internal or external command, operable program or batch file.` it means git isn't in your PATH. You can reboot, or just run commands in the form of `"C:\Program Files\Git\bin\git" clone https://github.com/GiovanH/pesterquest-modsuite` instead.
+I have two video tutorials that walk you through step 3 up through installing and running mods:
 
-Why use git? Because it makes updating extremely easy.
+[Version 1: Using terminal commands](https://youtu.be/tMxyXuX_DIA)
+
+[Version 2: Using GUIS](https://youtu.be/qcYgbOkllpE) (if you're uncomfortable with terminals)
+
+On windows, if you get an error about `'git' is not recognized as an internal or external command, operable program or batch file.` it means git isn't in your PATH. You can reboot, or just run commands in the form of `"C:\Program Files\Git\bin\git" clone https://github.com/GiovanH/pesterquest-modsuite` instead.
 
 Included in PQMS and PQMS-extras are updater files. On windows, launch `update.bat`, or on osx, launch `update.sh`, and PQMS will automatically update itself without deleting any mods or your other files.
 
 Developers can also use standard git commands to update the repository.
+
+Why use git instead of downloading the repository as a zip? Because it makes updating extremely easy, especially compared to manual management.
 
 For more on git, try http://rogerdudler.github.io/git-guide/
 
