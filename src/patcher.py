@@ -284,6 +284,9 @@ def main(argstr=None):
         gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
         os.makedirs(gamedir, exist_ok=True)
 
+    if args.packages:
+        args.clean = True
+
     try:
         print("\nClearing old scripts")
         for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
