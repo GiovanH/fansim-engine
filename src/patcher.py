@@ -235,13 +235,13 @@ def makeArgParser():
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--nolaunch", action="store_true",
-        help="Don't launch the game.")
+        help="Don't launch the game")
     ap.add_argument(
         "--quiet", action="store_true",
         help="Print less output about successful operations")
     ap.add_argument(
         "--pause", action="store_true",
-        help="Pause before launching the game OR pause when script is complete.")
+        help="Pause before launching the game OR pause when script is complete")
     ap.add_argument(
         "--clean", action="store_true",
         help="Delete old custom assets")
@@ -250,13 +250,13 @@ def makeArgParser():
         help="Patch files to this directory. Defaults to steamapps/common/Homestuck Pesterquest")
     ap.add_argument(
         "--lite", action="store_true",
-        help="Lite mode: Creates a working lite version, if it doesn't exist, and sets --patchdir to it.")
+        help="Lite mode: Creates a working lite version, if it doesn't exist, and sets --patchdir to it")
     ap.add_argument(
-        "--liteskins", nargs="+", default=[],
-        help="If using lite, use this distribution skin. NOT RECOMMENDED.")
+        "--liteskins", nargs="+", default=["default"],
+        help="If using lite, use this distribution skin. NOT RECOMMENDED")
     ap.add_argument(
         '--volumes', nargs="+", default=[],
-        help="If set, only look at custom volumes with these IDs."
+        help="If set, only look at custom volumes with these IDs"
     )
     return ap
 
@@ -269,10 +269,8 @@ def main(argstr=None):
 
     if args.lite:
         litedir = os.path.join("..", "litedist")
-        if not os.path.isdir(litedir) or True:
-            if args.liteskins:
-                from dist_standalone import copyLiteWithSkins
-                copyLiteWithSkins(litedir, args.liteskins)
+        from dist_standalone import copyLiteWithSkins
+        copyLiteWithSkins(litedir, args.liteskins)
         args.patchdir = os.path.normpath(litedir)
 
     if args.patchdir:
