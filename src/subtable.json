@@ -1,9 +1,10 @@
 [
-    ["{{assets}}", "custom_assets_{package_id}"],
-    ["{{assets_common}}", "custom_assets"],
-    ["{{package_id}}", "{package_id}"],
-    ["{{p}}", "__p__"],
-    ["__p__", "{package_id}_"],
-    ["{{package_entrypoint}}", "__package_entrypoint__"],
-    ["__package_entrypoint__", "custom_entry_{package_id}"]
+    ["S", "{{assets}}", "custom_assets_{package_id}"],
+    ["S", "{{assets_common}}", "custom_assets"],
+    ["S", "{{package_id}}", "{package_id}"],
+    ["S", "{{p}}", "__p__"],
+    ["R", "(^ *((define|style|transform|image|label) ){0,1})!", "\\g<1>__p__"],
+    ["S", "__p__", "{package_id}_"],
+    ["S", "{{package_entrypoint}}", "__package_entrypoint__"],
+    ["S", "__package_entrypoint__", "custom_entry_{package_id}"]
 ]

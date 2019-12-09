@@ -10,6 +10,7 @@ import json
 from pprint import pprint
 import traceback
 import shutil
+import re
 import textwrap
 
 platform = os.name
@@ -77,13 +78,16 @@ def mergeDirIntoDir(src, dst, quiet=False):
 
 
 def subtableReplace(textdata, fstrings=dummy_package, subtable=rpy_sub_table):
-    for pattern, repl in subtable:
-        try:
-            if pattern in textdata:
-                textdata = textdata.replace(pattern, repl.format(**fstrings))
-        except KeyError:
-            print("Availible keys:", fstrings.keys())
-            raise
+    for rtype, pattern, repl in subtable:
+        if rtype == "R":
+            textdata = re.sub(pattern, repl, textdata, flags=re.MULTILINE)
+        elif rtype == "S":
+            try:
+                if pattern in textdata:
+                    textdata = textdata.replace(pattern, repl.format(**fstrings))
+            except KeyError:
+                print("Availible keys:", fstrings.keys())
+                raise
     return textdata
 
 
