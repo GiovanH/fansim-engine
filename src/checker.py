@@ -125,12 +125,12 @@ def checkNameNamespace():
                     pattern = r"\b(as|at|behind|onlayer|zorder|show|expression|scene|hide|with|window|call|jump|stop|pause|play|menu) " + fname + r"\b"
                     contents = re.sub(
                         pattern,
-                        r"\g<1> __p__" + fname, contents
+                        r"\g<1> !" + fname, contents
                     )
                 if type == "define":
                     pattern = r"(\n\s+)" + fname + r"(\s+)"
                     contents = re.sub(
-                        pattern, r"\g<1>__p__" + fname + r"\g<2>", contents
+                        pattern, r"\g<1>!\." + fname + r"\g<2>", contents
                     )
                 if type == "label":
                     pattern = r"(Jump\([\"'])(" + fname + r")([\"']\))"

@@ -246,7 +246,7 @@ define openround = Character(
 # Grype UI for hiveswap
 
 image grype_alpha = "{{assets_common}}/grype_alpha.png"
-image grype_avatar_alpha = "{{assets_common}}/grype_avatar_alpha.png"
+image !grype_avatar_alpha = "{{assets_common}}/grype_avatar_alpha.png"
 
 style grype_namelabel is hiveswap_namelabel
 style grype_namelabel:
@@ -263,7 +263,7 @@ init python:
     def GrypeMasked(displayable):
         return AlphaMask(displayable, "grype_alpha")
 
-    def GrypeFrame(blood, handle, avatar="grype_avatar_alpha"):
+    def GrypeFrame(blood, handle, avatar="__p__grype_avatar_alpha"):
         
         # the worst thing ever: anchor is broke on At()
         handledisp = Text(handle, color='#FFF', font="Berlin Sans FB Demi Bold.ttf", outlines=[(4, hemospectrum(blood))])
@@ -273,7 +273,7 @@ init python:
         return Composite(
             (1280, 720),
             (957, 25), AlphaMask(
-                avatar, "grype_avatar_alpha"
+                avatar, "__p__grype_avatar_alpha"
             ),
             (0, 0), doTint(
                 "{{assets_common}}/grype.png", hemospectrum(blood), 200.0

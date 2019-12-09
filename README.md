@@ -140,6 +140,7 @@ In order to help you avoid namespace conflicts, the patcher runs a text preproce
 - `{{assets}}`: Points to the package-level assets folder. Use this as your `assets` folder, the folder containing assets unique to your package.
 - `{{asssets_commmon}}`: Points to the common assets folder identified by `assets_common`. Use this sparingly and remember to namespace any assets you put here.
 - `{{p}}` and `__p__`: Interchangeable. These are a package-specific prefix: define names starting with these to avoid namespace conflicts. The latter version is provided for ease in syntax highlighting. 
+- `!` is shorthand for `__p__`, and is recommended for names that can be namespace with dots, like characters. However, in order to avoid accidental substitutions of dialogue, it can only be used in name definitions and start-of-line character calls.
 - `{{package_id}}`: This is the unique ID of your package, for use in other areas. Be careful: this is not guaranteed to have any relation to the package-specific prefix!
 - `{{package_entrypoint}}`: This is the the first part of your entry label. PQMS will direct players to the label `{{package_entrypoint}}_{route_id}` when they start your route. Note that `{route_id}` is *not* a preprocessor substitution; you will need to fill this in manually.
 
@@ -148,6 +149,22 @@ TLDR:
 - All your custom names (labels, defines, characters, transforms, image ids, etc) should have `__p__` somewhere in the name so pqms can prevent conflicts for you
 - The package entrypoint must conform exactly to either ``{{package_entrypoint}}_{route_id}`` or ``__package_entrypoint___{route_id}``. (Two, one, three underscores.)
 - You might be tempted to ignore all of this. If you do, things may work at first. ***Please do not do this.*** See [Why PQMS?](#why-pqms)
+
+
+
+Substitution examples, with a demo package sandbox:
+
+| Your file           | Renpy sees                   |
+| ------------------- | ---------------------------- |
+| `image !avatar =`   | `image sandbox_avatar =`     |
+| `"!avatar"`         | `"!avatar"` (No replacement) |
+| `"__p__avatar"`     | `"sandbox_avatar"`           |
+| `define __p__.jo =` | `define sandbox_.jo`         |
+| `define !.jo =`     | `define sandbox_.jo`         |
+| `define __p__jo =`  | `define sandbox_jo`          |
+| `define !jo =`      | `define sandbox_jo`          |
+
+
 
 ### What's in the box:
 
