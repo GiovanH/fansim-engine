@@ -296,7 +296,7 @@ def main(argstr=None):
                     shutil.rmtree(cfile)
 
         print("\nCopying user scripts")
-        (all_volumes, warn,) = processPackages(only_volumes=args.volumes, quiet=args.quiet)
+        (all_volumes, warn,) = processPackages(only_volumes=args.packages, quiet=args.quiet)
 
         print("\nCompiling volumes")
         processVolumes(all_volumes, quiet=args.quiet)
