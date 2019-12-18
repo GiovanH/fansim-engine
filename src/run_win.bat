@@ -1,2 +1,2 @@
-launcher.py
+py -3 launcher.py
 pause
