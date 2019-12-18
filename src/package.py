@@ -28,8 +28,9 @@ for package_id in sys.argv[1:]:
     os.makedirs(pysubdir_new, exist_ok=True)
 
     shutil.copy2(f"{pysubdir}meta.json", f"{pysubdir_new}meta.json")
+    shutil.copy2(f"{pysubdir}credits.yml", f"{pysubdir_new}credits.yml")
 
-    merged = ""
+    merged = "init offset = 1\n\n"
     for rpy in glob.glob(os.path.join(pysubdir, "*.rpy")):
         with open(rpy, "r") as rpyfp:
             merged += f"# {rpy}\n{rpyfp.read()}\n"

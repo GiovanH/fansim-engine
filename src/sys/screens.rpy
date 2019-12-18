@@ -90,6 +90,7 @@ screen mainmenu_devbox:
             textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
             textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
             textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
+            textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("dlc_credits")
             null height 12
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
@@ -158,3 +159,5 @@ screen choice_scrollable(items):
         vbox:
             for i in items:
                 textbutton i.caption action i.action
+
+

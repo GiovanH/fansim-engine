@@ -12,6 +12,7 @@ import traceback
 import shutil
 import re
 import textwrap
+import collections
 
 platform = os.name
 
@@ -42,6 +43,12 @@ dummy_package = {
         }
     ]
 }
+
+
+CUSTOM_SCRIPTS_DIR = os.path.join(gamedir, "custom_scripts")
+SYSDIR = os.path.join(".", "sys/")
+COMMON_ASSETS_DIR = os.path.join(gamedir, f"custom_assets")
+
 
 def print_tree(startpath):
     for root, dirs, files in os.walk(startpath):
@@ -75,6 +82,17 @@ def mergeDirIntoDir(src, dst, quiet=False):
         if not quiet:
             print("{} -x> {}".format(src, dst))
         raise
+
+
+def dict_merge(dct, merge_dct):
+    for k, v in merge_dct.items():
+        if k in dct: 
+            if isinstance(dct[k], dict) and isinstance(merge_dct[k], collections.Mapping):
+                dict_merge(dct[k], merge_dct[k])
+            elif isinstance(dct[k], list) and isinstance(merge_dct[k], list):
+                dct[k] = list(set(dct[k]).union(merge_dct[k]))
+        else:
+            dct[k] = merge_dct[k]
 
 
 def subtableReplace(textdata, fstrings=dummy_package, subtable=rpy_sub_table):
@@ -113,108 +131,152 @@ def copyAndSubRpy(src, dst, metadata, quiet=False):
 
 
 def processPackages(only_volumes=[], quiet=False):
-    all_volumes = []
+    from pqms_mod import Package
+
+    all_packages = []
     warn = False
 
     filtering_volumes = (only_volumes != [])
     only_volumes.append("sys")
 
-    os.makedirs(os.path.join("../custom_volumes"), exist_ok=True)
-    os.makedirs(os.path.join("../custom_volumes_other"), exist_ok=True)
-
-    sysdir = os.path.join(".", "sys/")
-    for subdir in [sysdir] + glob.glob(os.path.join("../custom_volumes", "*/")):
-        print()
-        # Load metadata from json file
+    for subdir in [SYSDIR] + glob.glob(os.path.join("../custom_volumes", "*/")):
         try:
-            # Load raw json from file
-            meta_filepath = os.path.join(subdir, "meta.json")
-            with open(meta_filepath, "r") as fp:
-                meta = json.load(fp)
+            package = Package(subdir)
 
-            # Grab metadata id
-            package_id = meta["package_id"]
-            if filtering_volumes and package_id not in only_volumes:
+            if filtering_volumes and package.id not in only_volumes:
                 continue
 
-            # Backreference containing package and add to volume list
-            for volume in meta["volumes"]:
-                volume["package_id"] = meta["package_id"]
-                all_volumes.append(volume)
+            all_packages.append(package)
 
-        except FileNotFoundError:
-            print(f"[ERROR]\tMissing configuration file {meta_filepath}, required!")
-            warn = True
-            continue
-        except KeyError as e:
-            print(f"[ERROR]\t{meta_filepath} missing required key '{e.args[0]}'!")
+        except FileNotFoundError as e:
+            print(f"[ERROR]\tMissing configuration file {e}, required!")
             warn = True
             continue
 
-        # Identify system vs volume packages.
+    for package in all_packages:
+        print(f"Detected package {package.id} at {package.root}")
 
-        print(f"Detected package {package_id} at {subdir}")
-
-        # custom_rpa_dir = os.path.join(gamedir, "custom_archives")
-        # os.makedirs(custom_rpa_dir, exist_ok=True)
-        for rpa in glob.glob(os.path.join(subdir, "*.rpa")):
+        # Copy precompiled RPA archives
+        for rpa in package.getArchiveFiles():
             __, filename = os.path.split(rpa)
-            destfile = os.path.join(gamedir, (f"ycustom_{package_id}_{filename}"))
-            # destfile = os.path.join(gamedir, (f"{os.path.splitext(filename)[0]}_custom_.rpa" if (subdir == sysdir) else f"ycustom_{package_id}_{filename}"))
+            destfile = os.path.join(gamedir, (f"ycustom_{package.id}_{filename}"))
             copy2(rpa, destfile, quiet=quiet)
 
         # Parse and copy rpy files
-        custom_scripts_dir = os.path.join(gamedir, "custom_scripts")
-        os.makedirs(custom_scripts_dir, exist_ok=True)
-        for rpy in glob.glob(os.path.join(subdir, "*.rpy")):
+        for rpy in package.getScriptFiles():
             __, filename = os.path.split(rpy)
-            destfile = os.path.join(custom_scripts_dir, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == sysdir) else f"zcustom_{package_id}_{filename}"))
-            copyAndSubRpy(rpy, destfile, meta, quiet=quiet)
+            destfile = os.path.join(CUSTOM_SCRIPTS_DIR, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == SYSDIR) else f"zcustom_{package.id}_{filename}"))
+            copyAndSubRpy(rpy, destfile, package.metadata, quiet=quiet)
 
         # Copy namespaced assets
-        assets_dir = os.path.join(subdir, "assets")
-        if os.path.isdir(assets_dir):
-            destdir = os.path.join(gamedir, f"custom_assets_{package_id}")
-            mergeDirIntoDir(assets_dir, destdir, quiet=quiet)
+        if os.path.isdir(package.assets_dir):
+            destdir = os.path.join(gamedir, f"custom_assets_{package.id}")
+            os.makedirs(destdir, exist_ok=True)
+            mergeDirIntoDir(package.assets_dir, destdir, quiet=quiet)
 
         # Copy common assets
-        assets_common_dir = os.path.join(subdir, "assets_common")
-        if os.path.isdir(assets_common_dir):
-            destdir = os.path.join(gamedir, f"custom_assets")
-            mergeDirIntoDir(assets_common_dir, destdir, quiet=quiet)
+        if os.path.isdir(package.assets_common_dir):
+            mergeDirIntoDir(package.assets_common_dir, COMMON_ASSETS_DIR, quiet=quiet)
 
-    return (all_volumes, warn,)
+    return (all_packages, warn,)
+
+
+def reEscapeString(str_):
+    return str_.replace('"', '\\"')
 
 
 def jsonReEscape(table1):
     return {
-        k: v.replace('"', '\\"')
+        k: (reEscapeString(v) if type(v) is str else v)
         for k, v in
         table1.items()
     }
 
 
-def processVolumes(all_volumes, quiet=False):
-    with open(os.path.join("templates", "vol_select_custom_template.rpy"), "r") as fp:
+def patchCreditsTemplate(all_packages, quiet=False):
+    # Credits
+    with open(os.path.join("templates", "credits_custom_template.rpy"), "r") as fp:
         template_data = fp.read()
 
-    template_data = template_data.replace("{{num_custom_volumes}}", str(len(all_volumes)))
+    with open(os.path.join("templates", "credits_header_custom_template.rpy"), "r") as fp:
+        template_data_header = fp.read()
 
-    for volume in sorted(all_volumes, key=lambda v: v["author"]):
+    with open(os.path.join("templates", "credits_listitem_custom_template.rpy"), "r") as fp:
+        template_data_listitem = fp.read()
+
+    with open(os.path.join("templates", "credits_keyitem_custom_template.rpy"), "r") as fp:
+        template_data_keyitem = fp.read()
+
+    with open(os.path.join("templates", "credits_postscript_custom_template.rpy"), "r") as fp:
+        template_data_postscript = fp.read()
+
+    all_credits = {}
+
+    for package in all_packages:
+        if package.credits:
+            dict_merge(all_credits, package.credits)
+
+    # pprint(all_credits)
+
+    for role, list_ in all_credits.get("LIST", {}).items():
+        template_data = template_data.replace(
+            "{{credits}}",
+            textwrap.indent(
+                template_data_header.format(name=reEscapeString(role)),
+                "    " * 3
+            ) + "\n{{credits}}")
+        for name in list_:
+            template_data = template_data.replace(
+                "{{credits}}",
+                textwrap.indent(
+                    template_data_listitem.format(name=reEscapeString(name)),
+                    "    " * 3
+                ) + "\n{{credits}}")
+
+    for role, person_credits in all_credits.get("DICT", {}).items():
+        template_data = template_data.replace(
+            "{{credits}}",
+            textwrap.indent(
+                template_data_header.format(name=reEscapeString(role)),
+                "    " * 3
+            ) + "\n{{credits}}")
+        for name, list_ in person_credits.items():
+            template_data = template_data.replace(
+                "{{credits}}",
+                textwrap.indent(
+                    template_data_keyitem.format(
+                        name=reEscapeString(name), 
+                        credits=reEscapeString(", ".join(list_))
+                    ),
+                    "    " * 3
+                ) + "\n{{credits}}")
+
+    for text in all_credits.get("POSTSCRIPT", []):
+        template_data = template_data.replace(
+            "{{postscript}}",
+            textwrap.indent(
+                template_data_postscript.format(text=reEscapeString(text)),
+                "    " * 3
+            ) + "\n{{postscript}}")
+
+    with open(os.path.join(gamedir, "custom_credits.rpy"), 'w', encoding="utf-8") as fp:
+        fp.write(template_data.replace("{{credits}}", "").replace("{{postscript}}", ""))
+
+
+def patchVolSelectTemplate(all_packages, quiet=False):
+    # Volume select screen
+
+    all_volumes = sum((p.volumes for p in all_packages), [])
+
+    with open(os.path.join("templates", "vol_select_custom_template.rpy"), "r") as fp:
+        template_data = fp.read()
+        template_data = template_data.replace("{{num_custom_volumes}}", str(len(all_volumes)))
+
+    volumes_by_author = sorted(all_volumes, key=lambda v: v["author"])
+    for volume in volumes_by_author:
         if not quiet:
             pprint(volume)
         volume["entrypoint"] = subtableReplace("{{package_entrypoint}}_", volume) + volume["volume_id"]
-
-        # Doesn't work with rpa archives.
-
-        # volume_id = volume["volume_id"]
-        # required_files = [
-        #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png"),
-        #     os.path.join(gamedir, f"custom_assets_{volume['package_id']}", f"volumeselect_{volume_id}.png")
-        # ]
-        # for expected_file in required_files:
-        #     if not os.path.isfile(expected_file):
-        #         raise FileNotFoundError(expected_file)
 
         print("Inserting at", volume["entrypoint"])
 
@@ -222,7 +284,7 @@ def processVolumes(all_volumes, quiet=False):
             new_entry = fp.read().format(**jsonReEscape(volume))
 
         template_data = template_data.replace(
-            "{{volumes}}", 
+            "{{volumes}}",
             textwrap.indent(new_entry, "    " * 5) + "\n{{volumes}}")
 
     template_data = template_data.replace("{{volumes}}", "")
@@ -231,6 +293,7 @@ def processVolumes(all_volumes, quiet=False):
 
 
 def runGame():
+    print(f"Starting {executable}")
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
@@ -288,13 +351,14 @@ def main(argstr=None):
         args.clean = True
 
     try:
+
         print("\nClearing old scripts")
         for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
             if not args.quiet:
                 print(f"{rpy} --> [X]")
             os.unlink(rpy)
-        if args.clean:
 
+        if args.clean:
             print("\nCleaning out old assets")
             for cfile in glob.glob(os.path.join(gamedir, "custom_*/")) + glob.glob(os.path.join(gamedir, "*custom_*")):
                 if not args.quiet:
@@ -302,11 +366,18 @@ def main(argstr=None):
                 if os.path.isdir(cfile):
                     shutil.rmtree(cfile)
 
-        print("\nCopying user scripts")
-        (all_volumes, warn,) = processPackages(only_volumes=args.packages, quiet=args.quiet)
+        print("Initializing")
+        os.makedirs(os.path.join("../custom_volumes"), exist_ok=True)
+        os.makedirs(os.path.join("../custom_volumes_other"), exist_ok=True)
+        os.makedirs(CUSTOM_SCRIPTS_DIR, exist_ok=True)
 
-        print("\nCompiling volumes")
-        processVolumes(all_volumes, quiet=args.quiet)
+        print("\nCopying user scripts")
+        (all_packages, warn,) = processPackages(only_volumes=args.packages, quiet=args.quiet)
+
+        print("\nPatching volume select template")
+        patchVolSelectTemplate(all_packages, quiet=args.quiet)
+        print("\nPatching credits template")
+        patchCreditsTemplate(all_packages, quiet=args.quiet)
 
         if warn:
             print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured!")
@@ -316,7 +387,6 @@ def main(argstr=None):
             input()
 
         if not args.nolaunch:
-            print(f"Starting {executable}")
             runGame()
     except Exception:
         traceback.print_exc()
