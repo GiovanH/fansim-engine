@@ -137,3 +137,24 @@ screen ingame_devbox_loader:
     if config.developer and not pqms_block_devbox:
         key "trickster" action getMousePosition, ShowMenu('ingame_devbox')
 
+
+# Extended choice screen allowing more choices if possible
+# https://www.renpy.org/doc/html/screen_special.html#choice
+
+screen choice_scrollable(items):
+    style_prefix "choice"
+    viewport:
+        xsize 820
+        ysize 600
+        xalign 0.5
+
+        mousewheel True
+        scrollbars ("vertical" if len(items) > 8 else None)
+
+        side_yfill True
+
+        style_prefix "choice"
+
+        vbox:
+            for i in items:
+                textbutton i.caption action i.action
