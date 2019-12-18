@@ -9,7 +9,12 @@ exec_targets=\
 	run_wizard.exe \
 	run_wizard_gui.exe 
 
-all: doc exe
+mod_release_targets=\
+	hiveswap \
+	openbound \
+	pq_betas 
+
+all: doc exe mods
 
 clean:
 	$(RM) -r __pycache__
@@ -32,4 +37,11 @@ bin/%.exe: ../src/%.py
 doc:
 	cd ../doc && ./make.sh
 
-.PHONY: all clean exe doc
+mods: $(addsuffix .zip,$(addprefix ../release/,${mod_release_targets}))
+
+../release/%.zip: ../custom_volumes_other/%
+	${PYTHON} package.py $(notdir $<)
+	mkdir -vp ../release
+	zip $@ -8 -r ../custom_volumes/$(notdir $<)_min/
+
+.PHONY: all clean exe doc mods
