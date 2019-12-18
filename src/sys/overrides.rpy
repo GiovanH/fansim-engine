@@ -20,19 +20,18 @@ init python:
     config.keymap['trickster'].append('shift_K_t')
 
 screen main_menu():
-    ## This ensures that any other menu screen is replaced.
     tag menu
 
     style_prefix "main_menu"
 
     add "titlesky"
 
+    # Pesterquest originally used an animation here, but now
+    # uses a prerendered video file. 
 
     #add "gui/sun2.png" at titlesun
     #add "gui/lensflare.png" at titleflare
     #add "gui/clouds.png" at titleclouds
-
-
     add "gui/title_noglitch" pos(5, 5) at title
 
     #imagebutton auto "gui/title_%s.png" action NullAction() pos (5, 5)
@@ -47,4 +46,3 @@ screen main_menu():
 
     # use mainmenu_devbox
     key "trickster" action getMousePosition, ShowMenu('mainmenu_devbox')
-
