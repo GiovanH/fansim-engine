@@ -145,4 +145,6 @@ class MainWindow(tk.Tk):
 
 
 if __name__ == "__main__":
-    MainWindow()
+    from stream import std_redirected
+    with std_redirected("latest.log", tee=True):
+        MainWindow()
