@@ -123,12 +123,12 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
     # if os.path.isfile(dst):
     #     raise FileExistsError(dst)
 
-    with open(src, "r") as fp:
+    with open(src, "r", encoding="utf-8") as fp:
         rpy_data = fp.read()
 
     try:
         rpy_data = subtableReplace(rpy_data, metadata)
-        with open(dst, 'w') as fp:
+        with open(dst, 'w', encoding="utf-8") as fp:
             fp.write(rpy_data)
         if verbose:
             print("{} --> {}".format(src, dst))
