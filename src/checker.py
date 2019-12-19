@@ -4,14 +4,16 @@ from pprint import pprint
 import json
 import re
 import textwrap
-
-from patcher import subtableReplace
 import shutil
+
+import renpylang
+from patcher import subtableReplace
 
 
 platform = os.name
 
 autofix = False
+
 
 def listmapglob(p):
     return list(map(os.path.normpath, glob.glob(p, recursive=True)))
@@ -56,30 +58,17 @@ def checkStructure(searchnormal, searchother):
             print(f"[WARNING]\tSource file file {asset} is in compiled rpyc form, not rpy, and canont be used.")
 
 
-
-def findNames(rpy):            
-    pattern = r"(\n|^)(\s*)(define|style|transform|image|label)\s+([^=:]+\s*) *(=|:)"
-    with open(rpy, "r", encoding="utf-8") as rpyfp:
-        lineno = 0
-        for line in rpyfp.readlines():
-            lineno += 1
-            for match in re.finditer(pattern, line):
-                __, space, type, name, __ = match.groups()
-                yield (type, name, lineno, line)
-
-
 def checkNameConflicts():
     global names
     names = {}
 
     def checkGlobalNames(rpy, ignore=False):
-        for type, name, lineno, line in findNames(rpy):
+        for type, name, lineno, line in renpylang.findNameDefs(rpy):
             key = (type, name)
             shortline = textwrap.shorten(line[:-1], width=75)
 
             if names.get(key) and not ignore:
-                conflict = names.get(key)
-                (cfile, clineno, cline) = conflict
+                (cfile, clineno, cline) = names.get(key)
                 print(f"[ERROR]\t[{rpy}:{lineno}] '{shortline}'\n\t{type} '{name}' already defined at \n\t[{cfile}:{clineno}] '{cline}'")
             else:
                 names[key] = (rpy, lineno, shortline)
@@ -94,7 +83,7 @@ def checkNameConflicts():
 def checkNameNamespace():
     for rpy in rpy_files_custom_vols:
         global_names = []
-        for type, name, lineno, line in findNames(rpy):
+        for type, name, lineno, line in renpylang.findNameDefs(rpy):
             if subtableReplace(name) == name:
                 global_names.append((type, name, lineno, line,))
                 shortline = textwrap.shorten(line[:-1], width=75)
@@ -112,30 +101,28 @@ def checkNameNamespace():
 
             for type, name, lineno, line in global_names:
                 contents = re.sub(
-                    r"(\n|^)(\s*)(define|style|transform|image|label)\s+(" + name + ") *(=|:)",
+                    renpylang.regexDefines(name),
                     r"\g<1>\g<2>\g<3> __p__" + name + r"\g<5>", contents
                 )
                 fname = name.split(" ")[0]
                 if type == "image":
                     contents = re.sub(
-                        r"(Character\(.+image=[\"'])(" + fname + r")([\"'].+)",
+                        renpylang.regexImageKwarg(fname),
                         r"\g<1>__p__" + fname + r"\g<3>", contents
                     )
-                if type == "image" or type == "transform":                    
-                    pattern = r"\b(as|at|behind|onlayer|zorder|show|expression|scene|hide|with|window|call|jump|stop|pause|play|menu) " + fname + r"\b"
+                if type == "image" or type == "transform":  
                     contents = re.sub(
-                        pattern,
+                        renpylang.regexTransform(fname),
                         r"\g<1> !" + fname, contents
                     )
                 if type == "define":
-                    pattern = r"(\n\s+)" + fname + r"(\s+)"
                     contents = re.sub(
-                        pattern, r"\g<1>!\." + fname + r"\g<2>", contents
+                        renpylang.regexDefinedName(fname), 
+                        r"\g<1>!\." + fname + r"\g<2>", contents
                     )
                 if type == "label":
-                    pattern = r"(Jump\([\"'])(" + fname + r")([\"']\))"
                     contents = re.sub(
-                        pattern,
+                        renpylang.regexLabel(fname),
                         r"\g<1>__p__" + fname + r"\g<3>", contents
                     )
 
@@ -153,7 +140,7 @@ def checkNameNamespace():
 def writeNameReport():
     with open("report_names.txt", "w", encoding="utf-8") as outfp:
         for rpy in rpy_files:
-            for type, name, lineno, line in sorted(findNames(rpy)):
+            for type, name, lineno, line in sorted(renpylang.findNameDefs(rpy)):
                 outfp.write(f"{type} {name}\t[{rpy}:{lineno}]\t{line}")
 
 
@@ -172,7 +159,8 @@ def main():
         help="If set, only look at custom volumes with these IDs."
     )
 
-    ap.add_argument("-d", "--decompiled-at", default="../../pesterquest",
+    ap.add_argument(
+        "-d", "--decompiled-at", default="../../pesterquest",
         help="Location of decompiled pesterquest resources (game)")
 
     # ap.add_argument("-o", "--overwrite", action="store_true",
