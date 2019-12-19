@@ -45,9 +45,9 @@ dummy_package = {
 }
 
 
-CUSTOM_SCRIPTS_DIR = os.path.join(gamedir, "custom_scripts")
 SYSDIR = os.path.join(".", "sys/")
-COMMON_ASSETS_DIR = os.path.join(gamedir, f"custom_assets")
+CUSTOM_SCRIPTS_DIR = os.path.join(gamedir, "custom_scripts")
+COMMON_ASSETS_DIR = os.path.join(gamedir, "custom_assets")
 
 
 def print_tree(startpath):
@@ -343,9 +343,13 @@ def main(argstr=None):
     if args.patchdir:
         global gamedir_root
         global gamedir
+        global CUSTOM_SCRIPTS_DIR
+        global COMMON_ASSETS_DIR
         gamedir_root = args.patchdir
         gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
         os.makedirs(gamedir, exist_ok=True)
+        CUSTOM_SCRIPTS_DIR = os.path.join(gamedir, "custom_scripts")
+        COMMON_ASSETS_DIR = os.path.join(gamedir, "custom_assets")
 
     if args.packages:
         args.clean = True
