@@ -208,35 +208,8 @@ def processPackages(only_volumes=[], verbose=False):
     return (all_packages, warn,)
 
 
-def reEscapeString(str_):
-    return str_.replace('"', '\\"')
-
-
-def jsonReEscape(table1):
-    return {
-        k: (reEscapeString(v) if type(v) is str else v)
-        for k, v in
-        table1.items()
-    }
-
-
-def patchCreditsTemplate(all_packages, verbose=False):
+def patchCreditsData(all_packages, verbose=False):
     # Credits
-    with open(os.path.join("templates", "credits_custom_template.rpy"), "r") as fp:
-        template_data = fp.read()
-
-    with open(os.path.join("templates", "credits_header_custom_template.rpy"), "r") as fp:
-        template_data_header = fp.read()
-
-    with open(os.path.join("templates", "credits_listitem_custom_template.rpy"), "r") as fp:
-        template_data_listitem = fp.read()
-
-    with open(os.path.join("templates", "credits_keyitem_custom_template.rpy"), "r") as fp:
-        template_data_keyitem = fp.read()
-
-    with open(os.path.join("templates", "credits_postscript_custom_template.rpy"), "r") as fp:
-        template_data_postscript = fp.read()
-
     all_credits = {}
 
     for package in all_packages:
@@ -245,78 +218,33 @@ def patchCreditsTemplate(all_packages, verbose=False):
 
     # pprint(all_credits)
 
-    for role, list_ in all_credits.get("LIST", {}).items():
-        template_data = template_data.replace(
-            "{{credits}}",
-            textwrap.indent(
-                template_data_header.format(name=reEscapeString(role)),
-                "    " * 3
-            ) + "\n{{credits}}")
-        for name in list_:
-            template_data = template_data.replace(
-                "{{credits}}",
-                textwrap.indent(
-                    template_data_listitem.format(name=reEscapeString(name)),
-                    "    " * 3
-                ) + "\n{{credits}}")
-
-    for role, person_credits in all_credits.get("DICT", {}).items():
-        template_data = template_data.replace(
-            "{{credits}}",
-            textwrap.indent(
-                template_data_header.format(name=reEscapeString(role)),
-                "    " * 3
-            ) + "\n{{credits}}")
-        for name, list_ in person_credits.items():
-            template_data = template_data.replace(
-                "{{credits}}",
-                textwrap.indent(
-                    template_data_keyitem.format(
-                        name=reEscapeString(name),
-                        credits=reEscapeString(", ".join(list_))
-                    ),
-                    "    " * 3
-                ) + "\n{{credits}}")
-
-    for text in all_credits.get("POSTSCRIPT", []):
-        template_data = template_data.replace(
-            "{{postscript}}",
-            textwrap.indent(
-                template_data_postscript.format(text=reEscapeString(text)),
-                "    " * 3
-            ) + "\n{{postscript}}")
-
     with open(os.path.join(gamedir, "custom_credits.rpy"), 'w', encoding="utf-8") as fp:
-        fp.write(template_data.replace("{{credits}}", "").replace("{{postscript}}", ""))
+        fp.write("init offset = 1\n\n")
+        fp.write("define dlc_credits_data = ")
+        fp.write(json.dumps(all_credits, indent=4))
 
 
-def patchVolSelectTemplate(all_packages, verbose=False):
+def patchVolumeData(all_packages, verbose=False):
     # Volume select screen
 
     all_volumes = sum((p.volumes for p in all_packages), [])
 
-    with open(os.path.join("templates", "vol_select_custom_template.rpy"), "r") as fp:
-        template_data = fp.read()
-        template_data = template_data.replace("{{num_custom_volumes}}", str(len(all_volumes)))
+    with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w', encoding="utf-8") as fp:
+        fp.write("init offset = 1\n\n")
+        fp.write("define dlc_volumes_data = ")
+        fp.write(json.dumps(all_volumes, indent=4))
 
-    volumes_by_author = sorted(all_volumes, key=lambda v: v["author"])
-    for volume in volumes_by_author:
-        if verbose:
-            pprint(volume)
-        volume["entrypoint"] = subtableReplace("{{package_entrypoint}}_", volume) + volume["volume_id"]
 
-        print("Inserting at", volume["entrypoint"])
+def patchWarningData(all_packages, verbose=False):
+    # Volume select screen
 
-        with open(os.path.join("templates", "vol_select_entry_template.rpy"), "r") as fp:
-            new_entry = fp.read().format(**jsonReEscape(volume))
+    all_volumes = sum((p.volumes for p in all_packages), [])
+    all_warnings = {v["title"]: v["warnings"] for v in all_volumes if v.get("warnings")}
 
-        template_data = template_data.replace(
-            "{{volumes}}",
-            textwrap.indent(new_entry, "    " * 5) + "\n{{volumes}}")
-
-    template_data = template_data.replace("{{volumes}}", "")
-    with open(os.path.join(gamedir, "custom_volumeselect.rpy"), 'w') as fp:
-        fp.write(template_data)
+    with open(os.path.join(gamedir, "custom_warnings.rpy"), 'w', encoding="utf-8") as fp:
+        fp.write("init offset = 1\n\n")
+        fp.write("define dlc_warning_data = ")
+        fp.write(json.dumps(all_warnings, indent=4))
 
 
 def runGame():
@@ -401,10 +329,12 @@ def main(argstr=None):
         print("\nCopying user scripts")
         (all_packages, warn,) = processPackages(only_volumes=args.packages, verbose=args.verbose)
 
-        print("\nPatching volume select template")
-        patchVolSelectTemplate(all_packages, verbose=args.verbose)
-        print("\nPatching credits template")
-        patchCreditsTemplate(all_packages, verbose=args.verbose)
+        print("\nPatching volume select data")
+        patchVolumeData(all_packages, verbose=args.verbose)
+        print("\nPatching credits data")
+        patchCreditsData(all_packages, verbose=args.verbose)
+        print("\nPatching warning data")
+        patchWarningData(all_packages, verbose=args.verbose)
 
         if warn:
             print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")

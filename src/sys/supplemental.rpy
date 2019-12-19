@@ -34,6 +34,16 @@ init python:
             get_all_images()
         )
 
+    def reEscapeString(str_):
+        return str_.replace('"', '\\"')
+
+    def jsonReEscape(table1):
+        return {
+            k: (reEscapeString(v) if type(v) is str else v)
+            for k, v in
+            table1.items()
+        }
+
 label debug_dump_character(sayer):
 
     # This is basically a whole convolution in order to keep rollback working
