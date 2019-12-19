@@ -1,6 +1,7 @@
-init offset = 1
+init offset = 2
 
 # Main menu for default liteskin
+# Offset = 2 to override SYS overrides
 
 image titlesky = "gui/game_menu.png"
 define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
