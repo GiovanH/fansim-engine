@@ -162,12 +162,32 @@ screen choice_scrollable(items):
                 textbutton i.caption action i.action
 
 
-screen spoiler_box(label, content, warningoffset=42):
-    default spoiltext = ""
-    hbox:
-        textbutton label action ToggleLocalVariable("spoiltext", content, "")
+style __p__spoiler_button_show:
+    background "#E5E5E5" 
+    hover_background "#C7C9CB"
 
-    text spoiltext xoffset warningoffset
+style __p__spoiler_text_show:
+    color "#32363B"
+
+style __p__spoiler_button_hide:
+    background "#B9BBBE" 
+    hover_background "#C7C9CB"
+
+style __p__spoiler_text_hide:
+    color "#B9BBBE"
+    hover_color "#C7C9CB"
+
+screen spoiler_box(label, content, warningoffset=42):
+    default spoil_style_state_text = "__p__spoiler_text_hide"
+    default spoil_style_state_button = "__p__spoiler_button_hide"
+    hbox:
+        text label + ": "
+        textbutton content style spoil_style_state_button text_style spoil_style_state_text action [
+            ToggleLocalVariable("spoil_style_state_button", "__p__spoiler_button_hide", "__p__spoiler_button_show"),
+            ToggleLocalVariable("spoil_style_state_text", "__p__spoiler_text_hide", "__p__spoiler_text_show"),
+        ]
+            
+
 
 define dlc_volumes_data = []
 screen vol_select_custom():
@@ -228,7 +248,7 @@ screen vol_select_custom():
 define dlc_credits_data = {}  # Overwritten in custom_credits.rpy
 screen dlc_credits():
     tag menu
-    use game_menu(_("Credits"), scroll="viewport"):
+    use game_menu(_("Credits (DLC)"), scroll="viewport"):
         style_prefix "about"
         vbox:
             spacing 14
@@ -256,7 +276,7 @@ screen dlc_credits():
 define dlc_warning_data = {}  # Overwritten in custom_warnings.rpy
 screen dlc_warnings():
     tag menu
-    use game_menu(_("Help"), scroll="viewport"):
+    use game_menu(_("Warnings (DLC)"), scroll="viewport"):
         hbox:
             text "As a general rule, Pesterquest contains adult language, violence, and innuendo. Content warnings for specific routes can be accessed by clicking on the route title."
 
