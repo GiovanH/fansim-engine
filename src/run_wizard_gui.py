@@ -142,6 +142,7 @@ class MainWindow(tk.Tk):
 
     def run(self):
         pqms_patcher.main(self.argstr)
+        print("Done!")
 
 
 if __name__ == "__main__":

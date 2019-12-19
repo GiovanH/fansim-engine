@@ -60,26 +60,26 @@ def print_tree(startpath):
             print('{}{}'.format(subindent, f))
 
 
-def copy2(src, dst, quiet=False):
+def copy2(src, dst, verbose=False):
     try:
         shutil.copy2(src, dst)
-        if not quiet:
+        if verbose:
             print("{} --> {}".format(src, dst))
     except Exception:
-        if not quiet:
+        if verbose:
             print("{} -x> {}".format(src, dst))
         raise
 
 
-def mergeDirIntoDir(src, dst, quiet=False):
+def mergeDirIntoDir(src, dst, verbose=False):
     try:
-        copy_tree(src, dst, update=True)
-        if not quiet:
+        copy_tree(src, dst, update=True, verbose=verbose)
+        if verbose:
             print("{} --> {}".format(src, dst))
-        if not quiet:
-            print_tree(src)
+        # if verbose:
+        #     print_tree(src)
     except Exception:
-        if not quiet:
+        if verbose:
             print("{} -x> {}".format(src, dst))
         raise
 
@@ -109,7 +109,7 @@ def subtableReplace(textdata, fstrings=dummy_package, subtable=rpy_sub_table):
     return textdata
 
 
-def copyAndSubRpy(src, dst, metadata, quiet=False):
+def copyAndSubRpy(src, dst, metadata, verbose=False):
     if not os.path.isfile(src):
         raise FileNotFoundError(src)
     # if os.path.isfile(dst):
@@ -122,15 +122,15 @@ def copyAndSubRpy(src, dst, metadata, quiet=False):
         rpy_data = subtableReplace(rpy_data, metadata)
         with open(dst, 'w') as fp:
             fp.write(rpy_data)
-        if not quiet:
+        if verbose:
             print("{} --> {}".format(src, dst))
     except Exception:
-        if not quiet:
+        if verbose:
             print("{} -x> {}".format(src, dst))
         raise
 
 
-def processPackages(only_volumes=[], quiet=False):
+def processPackages(only_volumes=[], verbose=False):
     from pqms_mod import Package
 
     all_packages = []
@@ -142,6 +142,7 @@ def processPackages(only_volumes=[], quiet=False):
     for subdir in [SYSDIR] + glob.glob(os.path.join("../custom_volumes", "*/")):
         try:
             package = Package(subdir)
+            print(f"Detected package {package.id} at {package.root}")
 
             if filtering_volumes and package.id not in only_volumes:
                 continue
@@ -154,29 +155,29 @@ def processPackages(only_volumes=[], quiet=False):
             continue
 
     for package in all_packages:
-        print(f"Detected package {package.id} at {package.root}")
+        print(f"Patching {package.id}")
 
         # Copy precompiled RPA archives
         for rpa in package.getArchiveFiles():
             __, filename = os.path.split(rpa)
             destfile = os.path.join(gamedir, (f"ycustom_{package.id}_{filename}"))
-            copy2(rpa, destfile, quiet=quiet)
+            copy2(rpa, destfile, verbose=verbose)
 
         # Parse and copy rpy files
         for rpy in package.getScriptFiles():
             __, filename = os.path.split(rpy)
             destfile = os.path.join(CUSTOM_SCRIPTS_DIR, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == SYSDIR) else f"zcustom_{package.id}_{filename}"))
-            copyAndSubRpy(rpy, destfile, package.metadata, quiet=quiet)
+            copyAndSubRpy(rpy, destfile, package.metadata, verbose=verbose)
 
         # Copy namespaced assets
         if os.path.isdir(package.assets_dir):
             destdir = os.path.join(gamedir, f"custom_assets_{package.id}")
-            os.makedirs(destdir, exist_ok=True)
-            mergeDirIntoDir(package.assets_dir, destdir, quiet=quiet)
+            # os.makedirs(destdir, exist_ok=True)
+            mergeDirIntoDir(package.assets_dir, destdir, verbose=verbose)
 
         # Copy common assets
         if os.path.isdir(package.assets_common_dir):
-            mergeDirIntoDir(package.assets_common_dir, COMMON_ASSETS_DIR, quiet=quiet)
+            mergeDirIntoDir(package.assets_common_dir, COMMON_ASSETS_DIR, verbose=verbose)
 
     return (all_packages, warn,)
 
@@ -193,7 +194,7 @@ def jsonReEscape(table1):
     }
 
 
-def patchCreditsTemplate(all_packages, quiet=False):
+def patchCreditsTemplate(all_packages, verbose=False):
     # Credits
     with open(os.path.join("templates", "credits_custom_template.rpy"), "r") as fp:
         template_data = fp.read()
@@ -263,7 +264,7 @@ def patchCreditsTemplate(all_packages, quiet=False):
         fp.write(template_data.replace("{{credits}}", "").replace("{{postscript}}", ""))
 
 
-def patchVolSelectTemplate(all_packages, quiet=False):
+def patchVolSelectTemplate(all_packages, verbose=False):
     # Volume select screen
 
     all_volumes = sum((p.volumes for p in all_packages), [])
@@ -274,7 +275,7 @@ def patchVolSelectTemplate(all_packages, quiet=False):
 
     volumes_by_author = sorted(all_volumes, key=lambda v: v["author"])
     for volume in volumes_by_author:
-        if not quiet:
+        if verbose:
             pprint(volume)
         volume["entrypoint"] = subtableReplace("{{package_entrypoint}}_", volume) + volume["volume_id"]
 
@@ -304,8 +305,8 @@ def makeArgParser():
         "--nolaunch", action="store_true",
         help="Don't launch the game, only patch the assets. Useful during development for real-time reloading.")
     ap.add_argument(
-        "--quiet", action="store_true",
-        help="Print less output about successful operations.")
+        "--verbose", action="store_true",
+        help="Print more output about successful operations.")
     ap.add_argument(
         "--pause", action="store_true",
         help="Pause before launching the game OR pause when script is complete.")
@@ -358,14 +359,14 @@ def main(argstr=None):
 
         print("\nClearing old scripts")
         for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
-            if not args.quiet:
+            if args.verbose:
                 print(f"{rpy} --> [X]")
             os.unlink(rpy)
 
         if args.clean:
             print("\nCleaning out old assets")
             for cfile in glob.glob(os.path.join(gamedir, "custom_*/")) + glob.glob(os.path.join(gamedir, "*custom_*")):
-                if not args.quiet:
+                if args.verbose:
                     print(f"{cfile} --> [X]")
                 if os.path.isdir(cfile):
                     shutil.rmtree(cfile)
@@ -376,12 +377,12 @@ def main(argstr=None):
         os.makedirs(CUSTOM_SCRIPTS_DIR, exist_ok=True)
 
         print("\nCopying user scripts")
-        (all_packages, warn,) = processPackages(only_volumes=args.packages, quiet=args.quiet)
+        (all_packages, warn,) = processPackages(only_volumes=args.packages, verbose=args.verbose)
 
         print("\nPatching volume select template")
-        patchVolSelectTemplate(all_packages, quiet=args.quiet)
+        patchVolSelectTemplate(all_packages, verbose=args.verbose)
         print("\nPatching credits template")
-        patchCreditsTemplate(all_packages, quiet=args.quiet)
+        patchCreditsTemplate(all_packages, verbose=args.verbose)
 
         if warn:
             print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured!")
