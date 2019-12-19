@@ -157,6 +157,14 @@ def processPackages(only_volumes=[], verbose=False):
             print(f"In order to run this mod, move {mod_dir} directly to 'custom_volumes'.\n")
             warn = True
 
+    for archive in (
+        glob.glob(os.path.join("../custom_volumes", "*.zip")) +
+        glob.glob(os.path.join("../custom_volumes", "*.rar")) +
+        glob.glob(os.path.join("../custom_volumes", "*.7z"))
+    ):
+        print(f"[WARN]\tFound archive '{os.path.split(mod_dir)[1].lower()}'. Extract archives such that 'meta.json' is in a mod folder that is in 'custom_volumes'.")
+        warn = True
+
     for subdir in [SYSDIR] + glob.glob(os.path.join("../custom_volumes", "*/")):
         try:
             package = Package(subdir)
