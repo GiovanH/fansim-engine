@@ -46,8 +46,16 @@ dummy_package = {
 
 
 SYSDIR = os.path.join(".", "sys/")
-CUSTOM_SCRIPTS_DIR = os.path.join(gamedir, "custom_scripts")
-COMMON_ASSETS_DIR = os.path.join(gamedir, "custom_assets")
+
+# Properties, dependent on the current gamedir
+
+
+def getCustomScriptsDir():
+    return os.path.join(gamedir, "custom_scripts")
+
+
+def getCommonAssetsDir():
+    return os.path.join(gamedir, "custom_assets")
 
 
 def print_tree(startpath):
@@ -166,7 +174,7 @@ def processPackages(only_volumes=[], verbose=False):
         # Parse and copy rpy files
         for rpy in package.getScriptFiles():
             __, filename = os.path.split(rpy)
-            destfile = os.path.join(CUSTOM_SCRIPTS_DIR, (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == SYSDIR) else f"zcustom_{package.id}_{filename}"))
+            destfile = os.path.join(getCustomScriptsDir(), (f"{os.path.splitext(filename)[0]}_custom_.rpy" if (subdir == SYSDIR) else f"zcustom_{package.id}_{filename}"))
             copyAndSubRpy(rpy, destfile, package.metadata, verbose=verbose)
 
         # Copy namespaced assets
@@ -177,7 +185,7 @@ def processPackages(only_volumes=[], verbose=False):
 
         # Copy common assets
         if os.path.isdir(package.assets_common_dir):
-            mergeDirIntoDir(package.assets_common_dir, COMMON_ASSETS_DIR, verbose=verbose)
+            mergeDirIntoDir(package.assets_common_dir, getCommonAssetsDir(), verbose=verbose)
 
     return (all_packages, warn,)
 
@@ -344,13 +352,9 @@ def main(argstr=None):
     if args.patchdir:
         global gamedir_root
         global gamedir
-        global CUSTOM_SCRIPTS_DIR
-        global COMMON_ASSETS_DIR
         gamedir_root = args.patchdir
         gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
         os.makedirs(gamedir, exist_ok=True)
-        CUSTOM_SCRIPTS_DIR = os.path.join(gamedir, "custom_scripts")
-        COMMON_ASSETS_DIR = os.path.join(gamedir, "custom_assets")
 
     if args.packages:
         args.clean = True
@@ -374,7 +378,7 @@ def main(argstr=None):
         print("Initializing")
         os.makedirs(os.path.join("../custom_volumes"), exist_ok=True)
         os.makedirs(os.path.join("../custom_volumes_other"), exist_ok=True)
-        os.makedirs(CUSTOM_SCRIPTS_DIR, exist_ok=True)
+        os.makedirs(getCustomScriptsDir(), exist_ok=True)
 
         print("\nCopying user scripts")
         (all_packages, warn,) = processPackages(only_volumes=args.packages, verbose=args.verbose)
