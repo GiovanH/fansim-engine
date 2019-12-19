@@ -147,6 +147,16 @@ def processPackages(only_volumes=[], verbose=False):
     filtering_volumes = (only_volumes != [])
     only_volumes.append("sys")
 
+    # Detect misplaced mods
+    meta_files = glob.glob(os.path.join("../custom_volumes", "**", "meta.json"), recursive=True)
+    for meta_file in meta_files:
+        mod_dir = os.path.dirname(meta_file)
+        containing_dir = os.path.dirname(mod_dir)
+        if os.path.split(containing_dir)[1].lower() != "custom_volumes":
+            print(f"[WARN]\tMod folder '{os.path.split(mod_dir)[1].lower()}' is in {containing_dir}, not 'custom_volumes'.")
+            print(f"In order to run this mod, move {mod_dir} directly to 'custom_volumes'.\n")
+            warn = True
+
     for subdir in [SYSDIR] + glob.glob(os.path.join("../custom_volumes", "*/")):
         try:
             package = Package(subdir)
@@ -389,7 +399,8 @@ def main(argstr=None):
         patchCreditsTemplate(all_packages, verbose=args.verbose)
 
         if warn:
-            print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured!")
+            print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")
+            print("If this was launched from run_wizard.py or run_wizard_gui.py, a full logfile is availible at 'latest.log'")
 
         if warn or args.pause:
             print("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
