@@ -94,7 +94,7 @@ def mergeDirIntoDir(src, dst, verbose=False):
 
 def dict_merge(dct, merge_dct):
     for k, v in merge_dct.items():
-        if k in dct: 
+        if k in dct:
             if isinstance(dct[k], dict) and isinstance(merge_dct[k], collections.Mapping):
                 dict_merge(dct[k], merge_dct[k])
             elif isinstance(dct[k], list) and isinstance(merge_dct[k], list):
@@ -272,7 +272,7 @@ def patchCreditsTemplate(all_packages, verbose=False):
                 "{{credits}}",
                 textwrap.indent(
                     template_data_keyitem.format(
-                        name=reEscapeString(name), 
+                        name=reEscapeString(name),
                         credits=reEscapeString(", ".join(list_))
                     ),
                     "    " * 3
