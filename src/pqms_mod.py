@@ -19,6 +19,14 @@ class Package(object):
         return self.metadata["package_id"]
 
     @property
+    def public(self):
+        return self.metadata.get("public", False)
+
+    @property
+    def private(self):
+        return not self.public
+
+    @property
     def volumes(self):
         return self.metadata["volumes"]
 
