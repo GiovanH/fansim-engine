@@ -72,12 +72,10 @@ style mainmenu_devbox_button_text:
 style mainmenu_devbox_text is mainmenu_devbox_button_text
 
 screen mainmenu_devbox:
-
-    # on "show" action getMousePosition
-
     key "trickster" action ToggleDevModeMenu
-    key "game_menu" action Return()
-    key "hide_windows" action Return()
+    key "game_menu" action Hide("mainmenu_devbox")
+    key "hide_windows" action Hide("mainmenu_devbox")
+
     modal True
     add "gui/overlay/confirm.png"
     frame:
@@ -96,14 +94,6 @@ screen mainmenu_devbox:
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
             textbutton "Developer Tools" action ToggleDevModeMenu
-    # frame:
-    #     style_prefix "mainmenu_devbox"
-    #     vbox:
-    #         textbutton "Developer Tools" action ToggleDevModeMenu
-            # if config.developer:
-            #     textbutton "Mode: Normal" action ToggleDevMode
-            # else:
-            #     textbutton "Mode: Dev" action ToggleDevMode
 
 label __p__NewWatchAction:
     $ __p__expr = renpy.input(prompt="Expression to watch")
@@ -227,7 +217,7 @@ screen vol_select_custom():
                     spacing 10
 
                     for volume in volumes_by_author:
-                        imagebutton idle "custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume)) action Jump("custom_entry_{package_id}".format(**jsonReEscape(volume))) hovered[
+                        imagebutton idle "custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume)) action Jump("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))) hovered[
                             SetScreenVariable("icon", "custom_assets_{package_id}/volumeselect_{volume_id}.png".format(**jsonReEscape(volume))), 
                             SetScreenVariable("title", volume.get("title", "")), 
                             SetScreenVariable("subtitle", volume.get("subtitle", "")),
