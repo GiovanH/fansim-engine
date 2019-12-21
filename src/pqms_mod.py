@@ -11,6 +11,9 @@ class Package(object):
         super().__init__()
         self.root = package_dir
 
+        self._scriptfiles = []
+        self._archivefiles = []
+
         self.loadMetadata()
         self.loadCredits()
 
@@ -55,11 +58,15 @@ class Package(object):
             self.credits = None
 
     def getScriptFiles(self):
-        for rpy in glob.glob(os.path.join(self.root, "*.rpy")):
+        if not self._scriptfiles:
+            self._scriptfiles = glob.glob(os.path.join(self.root, "*.rpy"))
+        for rpy in self._scriptfiles:
             yield rpy
 
     def getArchiveFiles(self):
-        for rpa in glob.glob(os.path.join(self.root, "*.rpa")):
+        if not self._archivefiles:
+            self._archivefiles = glob.glob(os.path.join(self.root, "*.rpa"))
+        for rpa in self._archivefiles:
             yield rpa
 
 
