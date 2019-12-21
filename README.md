@@ -102,6 +102,10 @@ a partial list
 
 **Error recovery** - Fix broken folders and errors, and automatically run safe file cleanup
 
+**Code checking**
+
+**Transcript generation**
+
 **Preprocessor substitution**
 
 In order to help you avoid namespace conflicts, the patcher runs a text preprocessor on your files. The following substitutions are available:

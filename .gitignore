@@ -16,3 +16,4 @@ bin/*.exe
 extras/
 custom_volumes/*
 custom_volumes_other/*
+transcripts/*/

@@ -8,6 +8,7 @@ import shutil
 
 import renpylang
 from patcher import subtableReplace
+from pqms_mod import Package
 
 
 platform = os.name
@@ -62,10 +63,15 @@ def checkNameConflicts():
     global names
     names = {}
 
+    known_undefined_names = set()
+
     def checkGlobalNames(rpy, ignore=False):
         for type, name, lineno, line in renpylang.findNameDefs(rpy):
             key = (type, name)
             shortline = textwrap.shorten(line[:-1], width=75)
+
+            if name != subtableReplace(name):
+                continue
 
             if names.get(key) and not ignore:
                 (cfile, clineno, cline) = names.get(key)
@@ -73,21 +79,34 @@ def checkNameConflicts():
             else:
                 names[key] = (rpy, lineno, shortline)
 
+    def checkUndefinedNames(rpy):
+        pass
+        # for type, name, lineno, line in renpylang.findNameUses(rpy):
+        #     key = (type, name)
+        #     shortline = textwrap.shorten(line[:-1], width=75)
+        #     if key not in known_undefined_names:
+        #         print(f"[ERROR]\t[{rpy}:{lineno}] '{shortline}'\n\t{type} '{name}' is never defined!")
+        #         known_undefined_names.add(key)
+            
     for rpy in rpy_files_vanilla:
         checkGlobalNames(rpy, ignore=True)
+        checkUndefinedNames(rpy)
 
-    for rpy in rpy_files_custom:
-        checkGlobalNames(rpy)
+    for package in packages:
+        for rpy in package.getScriptFiles():
+            if package.private:
+                checkGlobalNames(rpy)
+            checkUndefinedNames(rpy)
 
 
 def checkNameNamespace():
-    for rpy in rpy_files_custom_vols:
+    for rpy in sum((list(p.getScriptFiles()) for p in packages if p.private), []):
         global_names = []
         for type, name, lineno, line in renpylang.findNameDefs(rpy):
-            if subtableReplace(name) == name:
+            if subtableReplace(line) == line:
                 global_names.append((type, name, lineno, line,))
                 shortline = textwrap.shorten(line[:-1], width=75)
-                print(f"[WARNING]\t[{rpy}:{lineno}] '{shortline}'\n\t\t{type} '{name}' is not namespaced! Please include a substitution " + r"('{{p}}') to prevent conflicts.")
+                print(f"[WARNING]\t[{rpy}:{lineno}] '{shortline}'\n\t\t{type} '{name}' is not namespaced! Please include a substitution " + r"('{{p}}', '__p__', '!') to prevent conflicts.")
         if autofix:
             i = 1
             bakfilepath = rpy + f".bak"
@@ -133,15 +152,121 @@ def checkNameNamespace():
                 import subprocess
                 out = subprocess.run(['diff', rpy, bakfilepath], capture_output=True)
                 print(out.stdout.decode())
-            except:
+            except FileNotFoundError:
                 pass
 
 
 def writeNameReport():
     with open("report_names.txt", "w", encoding="utf-8") as outfp:
-        for rpy in rpy_files:
+        for rpy in sum((list(p.getScriptFiles()) for p in packages), []):
             for type, name, lineno, line in sorted(renpylang.findNameDefs(rpy)):
                 outfp.write(f"{type} {name}\t[{rpy}:{lineno}]\t{line}")
+
+
+def writeTranscriptions():
+    lbrack = "{"
+    rbrack = "}"
+    char_to_color = {}
+    char_to_name = {}
+    with open("../transcripts/dynamic_colors.css", "w") as cssfp:
+        for rpy in all_rpy_files:
+            print(rpy)
+            for name, image, color in renpylang.getColoredCharacters(rpy):
+                if not (image and color):
+                    continue
+
+                for package in packages:
+                    if rpy in package.getScriptFiles():
+                        name = subtableReplace(name, package.metadata)
+                        image = subtableReplace(image, package.metadata)
+
+                if name in char_to_color.keys():
+                    continue
+
+                cssfp.write(f"span.{name} {lbrack}\n    color: {color};\n{rbrack}\n")
+                char_to_color[name] = color
+                char_to_name[name] = image
+
+    def getNameCaption(sayer):
+        return char_to_name.get(sayer, sayer).upper()
+
+    for rpy in all_rpy_files:
+        dest_dir = os.path.join("../transcripts", os.path.split(os.path.dirname(rpy))[1])
+        outpath_base = os.path.join(dest_dir, os.path.basename(rpy))
+        print(outpath_base)
+
+        os.makedirs(os.path.join(dest_dir), exist_ok=True)
+        txtfp = open(outpath_base + ".txt", "w", encoding="utf-8")
+        htmlfp = open(outpath_base + ".htm", "w", encoding="utf-8")
+        last_sayer = None
+        try:
+            txtfp.write(f"# {os.path.basename(rpy)}\n")
+            htmlfp.write(f"<link rel='stylesheet' href='../transcript.css' type='text/css'>\n")
+            htmlfp.write(f"<link rel='stylesheet' href='../dynamic_colors.css' type='text/css'>\n")
+            htmlfp.write(f"<h1>{os.path.basename(rpy)}</h1>\n")
+
+            in_paragraph = False
+
+            for dialogue_line in renpylang.getDialogueLines(rpy):
+                indent_level = len(dialogue_line.get("indent")) // 4
+
+                label = dialogue_line.get("label")
+                if label:
+                    txtfp.write(f"## {label}\n")
+
+                    if in_paragraph:
+                        htmlfp.write("</p>")
+                        in_paragraph = False
+                    htmlfp.write(f"<h3 id='{label}'>{renpylang.dialogueToHtml(label)}</h3>\n")
+                    continue
+
+                jumplabel = dialogue_line.get("jumplabel")
+                if jumplabel:
+                    txtfp.write(f"[Go to {jumplabel}]\n")
+                    htmlfp.write(f"<a class='line' href='#{jumplabel}'>Jump to {jumplabel}</a>\n")
+                    if in_paragraph:
+                        htmlfp.write("</p>")
+                        in_paragraph = False
+                    continue
+
+                ending = dialogue_line.get("endcard")
+                if ending:
+                    end_kind = "GOOD END" if dialogue_line.get("win") == "True" else "BAD END"
+                    txtfp.write(end_kind + "\n")
+                    if in_paragraph:
+                        htmlfp.write("</p>")
+                        in_paragraph = False
+                    htmlfp.write(f"<h3 class='line'>{end_kind}</h3><hr>")
+                    continue
+
+                sayer = dialogue_line.get("sayer")
+                text = dialogue_line.get("text")
+                if sayer != last_sayer:
+                    txtfp.write("\n")
+                    htmlfp.write("\n")
+                    if in_paragraph:
+                        htmlfp.write("</p>\n<p>")
+                    else:
+                        htmlfp.write("<p>")
+                        in_paragraph = True
+                if sayer:
+                    for package in packages:
+                        if rpy in package.getScriptFiles():
+                            sayer = subtableReplace(sayer, package.metadata)
+                    txtfp.write(f"{getNameCaption(sayer)}: {text}\n")
+                    htmlfp.write(f"<span class='line'><span class='sayer_label {sayer}'>{getNameCaption(sayer)}: </span><span class='{sayer} dialogue'>{renpylang.dialogueToHtml(text)}</span></span>\n")
+                else:
+                    txtfp.write(f"{text}\n")
+                    htmlfp.write(f"<span class='nosayer dialogue line'>{renpylang.dialogueToHtml(text)}</span>\n")
+                last_sayer = sayer
+
+            if in_paragraph:
+                htmlfp.write("</p>")
+                in_paragraph = False
+
+        finally:
+            txtfp.close()
+            htmlfp.close()
 
 
 def main():
@@ -149,8 +274,8 @@ def main():
 
     def add_bool_arg(parser, name, default=True, help=None):
         group = parser.add_mutually_exclusive_group(required=False)
-        group.add_argument('--' + name, dest=name, action='store_true', help=help)
-        group.add_argument('--no-' + name, dest=name, action='store_false', help=help)
+        group.add_argument('--' + name, dest=name, action='store_true', help=help + f" (Default: {default})")
+        group.add_argument('--no-' + name, dest=name, action='store_false', help=help + f" (Default: {default})")
         parser.set_defaults(**{name: default})
 
     ap = argparse.ArgumentParser()
@@ -160,7 +285,7 @@ def main():
     )
 
     ap.add_argument(
-        "-d", "--decompiled-at", default="../../pesterquest",
+        "-d", "--decompiled-at", default="../../pesterquest/",
         help="Location of decompiled pesterquest resources (game)")
 
     # ap.add_argument("-o", "--overwrite", action="store_true",
@@ -177,6 +302,7 @@ def main():
     add_bool_arg(ap, 'checkstruct', help="Check folder structure")
     add_bool_arg(ap, 'checkglobals', help="Detect global names")
     add_bool_arg(ap, 'namereport', help="Write summary of names")
+    add_bool_arg(ap, 'transcribe', help="Write dialog transcriptions")
     args = ap.parse_args()
 
     print(args)
@@ -187,25 +313,23 @@ def main():
     # global overwrite
     # overwrite = args.overwrite
 
-    global rpy_files_custom_vols, rpy_files_custom_sys, rpy_files_vanilla
-    global rpy_files_custom, rpy_files
+    global packages, rpy_files_vanilla, all_rpy_files
+    packages = []
 
-    rpy_files_custom_vols = []
     if args.searchnormal:
-        rpy_files_custom_vols += listmapglob("../custom_volumes/**/*.rpy")
+        packages += [Package(p) for p in glob.glob("../custom_volumes/*/")]
     if args.searchother:
-        rpy_files_custom_vols += listmapglob("../custom_volumes_other/**/*.rpy")
-    rpy_files_custom_sys = listmapglob("sys/**/*.rpy") if args.searchsys else []
-    rpy_files_vanilla = listmapglob(os.path.join(args.decompiled_at, "**", "*.rpy")) if args.searchvanilla else []
+        packages += [Package(p) for p in glob.glob("../custom_volumes_other/*/")]
+
+    rpy_files_vanilla = glob.glob(os.path.join(args.decompiled_at, "**", "*.rpy"), recursive=True) if args.searchvanilla else []
 
     if args.volumes:
-        rpy_files_custom_vols = list(filter(
-            lambda f: any(f"{os.path.sep}{v}{os.path.sep}" in f for v in args.volumes),
-            rpy_files_custom_vols
+        packages = list(filter(
+            lambda p: p.id in args.volumes,
+            packages
         ))
 
-    rpy_files_custom = rpy_files_custom_vols + rpy_files_custom_sys
-    rpy_files = rpy_files_custom + rpy_files_vanilla
+    all_rpy_files = sum((list(p.getScriptFiles()) for p in packages), rpy_files_vanilla)
 
     if args.checkmeta:
         checkMeta(args.searchnormal, args.searchother)
@@ -217,6 +341,8 @@ def main():
         checkNameNamespace()
     if args.namereport:
         writeNameReport()
+    if args.transcribe:
+        writeTranscriptions()
 
 
 if __name__ == "__main__":
