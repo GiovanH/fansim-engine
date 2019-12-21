@@ -4,7 +4,8 @@
 
 Using git is to keep your version of PQMS up-to-date is recommended so you have access to all the latest features and development updates.
 
-1. Install a recent version of python (3.6+) if you don't have it installed already. During setup, make sure to "Add python to your PATH" and install Tkinter, if prompted.
+1. Install a recent version of python (3.6+) if you don't have it installed already. 
+   - During setup, make sure to "Add python to your PATH" and install Tkinter, if prompted.
 2. Install git for [windows](http://msysgit.github.io/) or [osx](http://git-scm.com/download/mac)
    - When you install git, use the default settings. 
 3. Download PQMS
