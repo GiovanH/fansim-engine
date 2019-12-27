@@ -19,7 +19,7 @@ If you have any comments, suggestions, complaints, or contributions, you're welc
 
 <!-- MarkdownTOC -->
 
-- [Quickstart for players:](#quickstart-for-players)
+- [Quickstart for players](#quickstart-for-players)
 - [Why PQMS?](#why-pqms)
 - [Why not PQMS?](#why-not-pqms)
 - [FAQ](#faq)
@@ -34,12 +34,11 @@ If you have any comments, suggestions, complaints, or contributions, you're welc
 
 <!-- /MarkdownTOC -->
 
-
-## Quickstart for players:
+## Quickstart for players
 
 1. Download this repository. You can use git or simply download the current version as a zip file. See [Installation](doc/installation.md) for an in-depth, newbie-friendly guide.
 2. Put the fan volumes (folders with `meta.json` in them) you want to use in the `custom_volumes` folder.
-3. Run `src/run_wizard.py` or `src/run_wizard_gui.py` with a recent version of Python.
+3. Run `src/run_wizard.py` or `src/run_wizard_gui.py` with a recent version of Python (3.6+).
 
 ## Why PQMS?
 
@@ -79,10 +78,6 @@ or, "this is easier than documentation." AMA!
 **Q:** Why should I use this instead of just editing up the rpy files that came with the game--
 
 **A:** *please do not do that.* See [Why PQMS?](#why-pqms)
-
-**Q:** What's a "recent version of python"?
-
-**A:** 3.6 or above. [You should download the latest stable version for windows](https://www.python.org/downloads/) and add python to your PATH during installation. 
 
 Recommended use is to execute the scripts from console while in the `src` folder, but just launching the scripts *should* work in most cases for the patcher and launcher.
 
