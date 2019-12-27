@@ -180,6 +180,13 @@ def processPackages(only_volumes=[], verbose=False):
             warn = True
             continue
 
+    if filtering_volumes:
+        for package_id in only_volumes:
+            if not any(p.id == package_id for p in all_packages):
+                print(f"[WARNING]\tIncluded package {package_id} not found!")
+                warn = True
+
+
     for package in all_packages:
         print(f"Patching {package.id}")
 
@@ -309,7 +316,7 @@ def main(argstr=None):
 
         print("\nClearing old scripts")
         shutil.rmtree(getCustomScriptsDir())
-        
+
         # Legacy:
         for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
             if args.verbose:
