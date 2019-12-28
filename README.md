@@ -62,6 +62,23 @@ If you already have work done, you can easily convert it into package format eit
 
 **In my opinion, at the end of the day, you should definitely use FSE.**
 
+## Features
+
+a partial list
+
+**Hemospectrum tools** - Don't worry about color codes again!
+
+**Automatic quirk formatting** - You don't have to type gamzee's quirk by hand if you don't want to.
+
+**Dialog tools** - Easily write characters with beautiful nameboxes
+
+**Error recovery** - Fix broken folders and errors, and automatically run safe file cleanup
+
+**Code checking**
+
+**Transcript generation**
+
+**Preprocessor substitution**
 
 ## Documentation
 

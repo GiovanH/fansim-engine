@@ -10,23 +10,7 @@ The system data is loaded first, so any custom volume content can replace it. Yo
 
 patcher.py is a preprocessor that, among other features, runs a simple substitution based on subtable.json *on your whole script*. 
 
-## Features
-
-a partial list
-
-**Hemospectrum tools** - Don't worry about color codes again!
-
-**Automatic quirk formatting** - You don't have to type gamzee's quirk by hand if you don't want to.
-
-**Dialog tools** - Easily write characters with beautiful nameboxes
-
-**Error recovery** - Fix broken folders and errors, and automatically run safe file cleanup
-
-**Code checking**
-
-**Transcript generation**
-
-**Preprocessor substitution**
+## Preprocessor substitution guide
 
 In order to help you avoid namespace conflicts, the patcher runs a text preprocessor on your files. The following substitutions are available:
 
