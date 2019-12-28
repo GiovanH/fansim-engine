@@ -5,19 +5,19 @@ define config.name = "PQLite Friendsim"
 # PQMS Overrides
 
 init 1:
-    style pqms_volume_select_title:
+    style fse_volume_select_title:
         font "verdana.ttf" 
         size 48 
         xalign 0.5 
         color "#b4b4b5"
 
-    style pqms_volume_select_subtitle:
+    style fse_volume_select_subtitle:
         font "verdana.ttf" 
         size 38 
         xalign 0.5 
         color "#66cc00"
 
-    style pqms_volume_select_author:
+    style fse_volume_select_author:
         font "verdana.ttf" 
         size 12 
         xalign 1.0 

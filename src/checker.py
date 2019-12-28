@@ -8,7 +8,7 @@ import shutil
 
 import renpylang
 from patcher import subtableReplace
-from pqms_mod import Package
+from fse_mod import Package
 
 
 platform = os.name
@@ -294,7 +294,7 @@ def main():
     add_bool_arg(ap, "searchnormal", default=True, help="Search in custom_volumes")
     add_bool_arg(ap, "searchother", default=False, help="Search in custom_volumes_other")
     add_bool_arg(ap, "searchvanilla", default=True, help="Search in vanilla pesterquest")
-    add_bool_arg(ap, "searchsys", default=True, help="Search in pqms system")
+    add_bool_arg(ap, "searchsys", default=True, help="Search in fse system")
 
     add_bool_arg(ap, 'autofix', help="Attempt to fix errors and warnings", default=False)
     add_bool_arg(ap, 'checkmeta', help="Verify metadata")

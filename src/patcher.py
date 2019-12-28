@@ -139,7 +139,7 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
 
 
 def processPackages(only_volumes=[], verbose=False):
-    from pqms_mod import Package
+    from fse_mod import Package
 
     all_packages = []
     warn = False

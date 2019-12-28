@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import patcher as pqms_patcher
+import patcher as fse_patcher
 import argparse
 
 
@@ -60,7 +60,7 @@ class MainWindow(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        argparser = pqms_patcher.makeArgParser()
+        argparser = fse_patcher.makeArgParser()
 
         self.checkboxargs = []
         self.valueargs = []
@@ -141,7 +141,7 @@ class MainWindow(tk.Tk):
         self.argstr_vis.set("python run_wizard.py " + " ".join(self.argstr))
 
     def run(self):
-        pqms_patcher.main(self.argstr)
+        fse_patcher.main(self.argstr)
         print("Done!")
 
 

@@ -80,7 +80,7 @@ label start_custom:
     window hide
     scene black with Dissolve(0.5)
     $ main_menu = True
-    $ pqms_block_devbox = False
+    $ fse_block_devbox = False
     call screen vol_select_custom() with Dissolve(0.5)
     return
 

@@ -38,19 +38,19 @@ init python:
 
 # Styles and other for menu, defined in overrides
 
-style pqms_volume_select_title:
+style fse_volume_select_title:
     font "verdana.ttf" 
     size 48 
     xalign 0.5 
     color "#b4b4b5"
 
-style pqms_volume_select_subtitle:
+style fse_volume_select_subtitle:
     font "verdana.ttf" 
     size 38 
     xalign 0.5 
     color "#00baff"
 
-style pqms_volume_select_author:
+style fse_volume_select_author:
     font "verdana.ttf" 
     size 12 
     xalign 1.0 
@@ -124,9 +124,9 @@ screen ingame_devbox:
             textbutton "Developer Tools" action ToggleDevModeMenu
             
 
-define pqms_block_devbox = False
+define fse_block_devbox = False
 screen ingame_devbox_loader:
-    if config.developer and not pqms_block_devbox:
+    if config.developer and not fse_block_devbox:
         key "trickster" action getMousePosition, ShowMenu('ingame_devbox')
 
 
@@ -188,7 +188,7 @@ screen vol_select_custom():
         default title = "Volume Select"
 
         default subtitle = "Hover over an icon for info!"
-        default author = "Pesterquest Modsuite"
+        default author = "Fansim Engine"
 
         default num_cols = 8
 
@@ -199,9 +199,9 @@ screen vol_select_custom():
             xpos 10
             image "gui/volumeselect_background.png" xpos 30
             image icon xpos 50 ypos 15
-            text title xpos 526 ypos 32 style "pqms_volume_select_title"
-            text subtitle xpos 526 ypos 90  style "pqms_volume_select_subtitle"
-            text author xpos 860 ypos 160 style "pqms_volume_select_author"
+            text title xpos 526 ypos 32 style "fse_volume_select_title"
+            text subtitle xpos 526 ypos 90  style "fse_volume_select_subtitle"
+            text author xpos 860 ypos 160 style "fse_volume_select_author"
 
         viewport:
             mousewheel True
