@@ -6,13 +6,13 @@ litedist/
 patch/
 
 build/
-src/__pycache__/*
-src/yaml/__pycache__/*
-src/latest.log
 src/build
-src/report_*.txt
-
 bin/*.exe
+src/__pycache__/
+src/yaml/__pycache__/
+
+src/latest.log
+src/report_*.txt
 
 extras/
 custom_volumes/*
