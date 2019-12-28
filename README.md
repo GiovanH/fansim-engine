@@ -23,7 +23,7 @@ If you have any comments, suggestions, complaints, or contributions, you're welc
 
 - [Quickstart for players](#quickstart-for-players)
 - [Why FSE?](#why-fse)
-- [Why not FSE?](#why-not-fse)
+    - [Why not FSE?](#why-not-fse)
 - [FAQ](#faq)
 - [Features](#features)
     - [What's in the box](#whats-in-the-box)
@@ -54,7 +54,7 @@ Further, packages are better for users: You don't want to force people to downlo
 
 You want to edit your MOD, not the game, whenever possible. The more you edit distribution files, the less good FSE is able to do for you. **Don't worry**: You can still do everything you want, including changing the GUI (using litemods).
 
-## Why not FSE?
+### Why not FSE?
 
 There are only a few points where FSE is less convenient than simply editing a renpy game:
 
@@ -63,7 +63,7 @@ There are only a few points where FSE is less convenient than simply editing a r
 
 If you already have work done, you can easily convert it into package format either by hand (just changing a few names) or using the automated features in `checker.py`.
 
-**You should definitely use FSE.**
+**In my opinion, at the end of the day, you should definitely use FSE.**
 
 
 
@@ -82,6 +82,10 @@ or, "this is easier than documentation." AMA!
 **A:** *please do not do that.* See [Why FSE?](#why-fse)
 
 Recommended use is to execute the scripts from console while in the `src` folder, but just launching the scripts *should* work in most cases for the patcher and launcher.
+
+**Q:** Can this make hiveswap friendsim style routes too, or just pesterquest routes?
+
+**A:** While the tool is based around pesterquest, *yes*, you can use hiveswap styles, including the hiveswap characters (using the hiveswap package in fse-extras) and the grype gui
 
 **Q:** My folder is called pesterquest-modsuite, but it's supposed to be called friendsim-engine now?
 
@@ -108,6 +112,8 @@ Recommended use is to execute the scripts from console while in the `src` folder
 **Q:** Is there any more documentation, besides the online ren'py documentation?
 
 **A:** Browse [the `docs/` folder](https://github.com/GiovanH/pesterquest-modsuite/tree/master/doc) to see supplemental documentation and tutorials as they're added.
+
+If your question isn't answered here, skim this document and the resources in the `docs/` folder, and if you still have questions, just let me know.
 
 ## Features
 
