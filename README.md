@@ -73,7 +73,7 @@ or, "this is easier than documentation." AMA!
 
 **Q:** I want it! Gimmie it!
 
-**A:** Great! See [Installation](doc/installation.md)
+**A:** Great! See [Installation](doc/Installation.md)
 
 **Q:** Why should I use this instead of just editing up the rpy files that came with the game--
 
