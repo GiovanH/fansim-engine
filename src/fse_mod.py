@@ -5,6 +5,7 @@ import yaml
 
 from patcher import subtableReplace
 
+
 class Package(object):
 
     def __init__(self, package_dir):
@@ -68,6 +69,56 @@ class Package(object):
             self._archivefiles = glob.glob(os.path.join(self.root, "*.rpa"))
         for rpa in self._archivefiles:
             yield rpa
+
+
+def getAllPackages(fse_base, only_volumes=False):
+    all_packages = []
+    warn = False
+
+    filtering_volumes = (only_volumes != [])
+    only_volumes.append("sys")
+
+    # Detect misplaced mods
+    meta_files = glob.glob(os.path.join(fse_base, "custom_volumes", "**", "meta.json"), recursive=True)
+    for meta_file in meta_files:
+        mod_dir = os.path.dirname(meta_file)
+        containing_dir = os.path.dirname(mod_dir)
+        if os.path.split(containing_dir)[1].lower() != "custom_volumes":
+            print(f"[WARN]\tMod folder '{os.path.split(mod_dir)[1].lower()}' is in {containing_dir}, not 'custom_volumes'.")
+            print(f"In order to run this mod, move {mod_dir} directly to 'custom_volumes'.\n")
+            warn = True
+
+    for archive in (
+        glob.glob(os.path.join(fse_base, "custom_volumes", "*.zip")) +
+        glob.glob(os.path.join(fse_base, "custom_volumes", "*.rar")) +
+        glob.glob(os.path.join(fse_base, "custom_volumes", "*.7z"))
+    ):
+        print(f"[WARN]\tFound archive '{os.path.split(mod_dir)[1].lower()}'. Extract archives such that 'meta.json' is in a mod folder that is in 'custom_volumes'.")
+        warn = True
+
+    SYSDIR = os.path.join(fse_base, "src", "sys/")
+    for subdir in [SYSDIR] + glob.glob(os.path.join(fse_base, "custom_volumes", "*/")):
+        try:
+            package = Package(subdir)
+            print(f"Detected package {package.id} at {package.root}")
+
+            if filtering_volumes and package.id not in only_volumes:
+                continue
+
+            all_packages.append(package)
+
+        except FileNotFoundError as e:
+            print(f"[ERROR]\tMissing configuration file {e}, required!")
+            warn = True
+            continue
+
+    if filtering_volumes:
+        for package_id in only_volumes:
+            if not any(p.id == package_id for p in all_packages):
+                print(f"[WARNING]\tIncluded package {package_id} not found!")
+                warn = True
+
+    return all_packages, warn
 
 
 if __name__ == "__main__":
