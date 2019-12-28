@@ -10,7 +10,7 @@
 5. Write! 
    - You can write whatever you want in your rpy files, including transformations, labels, menus, etc. 
    - It doesn't matter how your files are organized; you can split them up into multiple files if you want. (Not *quite* true: read about [init offset](https://www.renpy.org/doc/html/python.html?highlight=init%20offset) for more on this.)
-   - **Be sure to only edit the files in your mod folder; don't go editing anything in a `litedist`, `dist`, or `game` directory, or anything in the `sys` package.** See: [Why PQMS](#why-pqms)?
+   - **Be sure to only edit the files in your mod folder; don't go editing anything in a `litedist`, `dist`, or `game` directory, or anything in the `sys` package.** See: [Why FSE](#why-fse)?
 6. Run `run_wizard.py` to test and run your mod. You can use command line arguments to control game launch and other features. 
 7. To see your changes live, run `run_wizard.py --nolaunch` and then press `Shift+R` while in-game to automatically reload.
 8. When you're ready to distribute your mod, you can zip and distribute your mod folder (`custom_volumes/xxx`). You can also package your mod as a standalone game using `dist_standalone.py`, but this is not recommended for general use.

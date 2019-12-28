@@ -2,7 +2,7 @@ init offset = -1
 
 define config.name = "PQLite Friendsim"
 
-# PQMS Overrides
+# FSE Overrides
 
 init 1:
     style fse_volume_select_title:

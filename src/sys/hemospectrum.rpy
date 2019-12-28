@@ -17,7 +17,7 @@ python:
     You can use _hemospectrum["colorname"] = {"hex": "#000000"} in your code
     to define new blood colors. 
 
-    The predefined PQMS templates (trolian, hiveswap, openbound, etc)
+    The predefined FSE templates (trolian, hiveswap, openbound, etc)
     use show_blood to color the textbox and dialogue.
 
     hemospectrum(color) where color is the name of a blood color

@@ -67,7 +67,7 @@ def main():
 
     print("READ THIS:")
     print()
-    print("Distributing your PQMS mod standalone is generally not recommended.")
+    print("Distributing your FSE mod standalone is generally not recommended.")
     print("Please only use this feature for large projects where standalone distribution is required.")
     print()
     print("Further, if you do use this feature, always distribute a mod-only version as an option,")

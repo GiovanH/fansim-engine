@@ -2,11 +2,10 @@ python:
     """
     Namebox code.
 
-    The PQMS nameboxes provide an alternative to the way WP handles nameboxes,
+    The FSE nameboxes provide an alternative to the way WP handles nameboxes,
     drastically simplifying the process of defining and using characters.
 
     Here are some example characters using these templates.
-
 
 
     # define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")

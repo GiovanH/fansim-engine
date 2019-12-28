@@ -84,7 +84,7 @@ class MainWindow(tk.Tk):
 
     def initwindow(self):
         # self.geometry("950x800")
-        self.infobox = tk.Label(self, text="PQMS Wizard", font=("Default", 24))
+        self.infobox = tk.Label(self, text="FSE Wizard", font=("Default", 24))
         self.infobox.pack()
 
         row = 1
