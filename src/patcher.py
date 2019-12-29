@@ -267,7 +267,10 @@ def main(argstr=None):
     try:
 
         print("\nClearing old scripts")
-        shutil.rmtree(getCustomScriptsDir())
+        try:
+            shutil.rmtree(getCustomScriptsDir())
+        except FileNotFoundError:
+            pass
 
         # Legacy:
         for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
