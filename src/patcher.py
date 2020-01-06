@@ -7,11 +7,9 @@ import os
 import glob
 from distutils.dir_util import copy_tree
 import json
-from pprint import pprint
 import traceback
 import shutil
 import re
-import textwrap
 import collections
 
 platform = os.name
