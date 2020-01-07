@@ -7,12 +7,16 @@ import os
 import glob
 from distutils.dir_util import copy_tree
 import json
-import traceback
 import shutil
 import re
 import collections
+import _logging
+
+logger = _logging.getLogger(__name__)
 
 platform = os.name
+
+logger.debug("Running on platfom " + platform)
 
 if platform == "nt":
     gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
@@ -57,33 +61,31 @@ def print_tree(startpath):
     for root, dirs, files in os.walk(startpath):
         level = root.replace(startpath, '').count(os.sep)
         indent = ' ' * 4 * (level)
-        print('{}{}/'.format(indent, os.path.basename(root)))
+        logger.info('{}{}/'.format(indent, os.path.basename(root)))
         subindent = ' ' * 4 * (level + 1)
         for f in files:
-            print('{}{}'.format(subindent, f))
+            logger.info('{}{}'.format(subindent, f))
 
 
 def copy2(src, dst, verbose=False):
+    printer = logger.info if verbose else logger.debug
     try:
         shutil.copy2(src, dst)
-        if verbose:
-            print("{} --> {}".format(src, dst))
+        printer("{} --> {}".format(src, dst))
     except Exception:
-        if verbose:
-            print("{} -x> {}".format(src, dst))
+        printer("{} -x> {}".format(src, dst))
         raise
 
 
 def mergeDirIntoDir(src, dst, verbose=False):
+    printer = logger.info if verbose else logger.debug
     try:
         copy_tree(src, dst, update=True, verbose=verbose)
-        if verbose:
-            print("{} --> {}".format(src, dst))
+        printer("{} --> {}".format(src, dst))
         # if verbose:
         #     print_tree(src)
     except Exception:
-        if verbose:
-            print("{} -x> {}".format(src, dst))
+        printer("{} -x> {}".format(src, dst))
         raise
 
 
@@ -107,12 +109,14 @@ def subtableReplace(textdata, fstrings=dummy_package, subtable=rpy_sub_table):
                 if pattern in textdata:
                     textdata = textdata.replace(pattern, repl.format(**fstrings))
             except KeyError:
-                print("Availible keys:", fstrings.keys())
+                logger.error("Availible keys:", fstrings.keys(), exc_info=True)
                 raise
     return textdata
 
 
 def copyAndSubRpy(src, dst, metadata, verbose=False):
+    printer = logger.info if verbose else logger.debug
+
     if not os.path.isfile(src):
         raise FileNotFoundError(src)
     # if os.path.isfile(dst):
@@ -125,11 +129,9 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
         rpy_data = subtableReplace(rpy_data, metadata)
         with open(dst, 'w', encoding="utf-8") as fp:
             fp.write(rpy_data)
-        if verbose:
-            print("{} --> {}".format(src, dst))
+        printer("{} --> {}".format(src, dst))
     except Exception:
-        if verbose:
-            print("{} -x> {}".format(src, dst))
+        printer("{} -x> {}".format(src, dst))
         raise
 
 
@@ -138,7 +140,7 @@ def processPackages(only_volumes=[], verbose=False):
 
     all_packages, warn = getAllPackages("..", only_volumes)
     for package in all_packages:
-        print(f"Patching {package.id}")
+        logger.info(f"Patching {package.id}")
 
         # Copy precompiled RPA archives
         for rpa in package.getArchiveFiles():
@@ -205,7 +207,7 @@ def patchWarningData(all_packages, verbose=False):
 
 
 def runGame():
-    print(f"Starting {executable}")
+    logger.info(f"Starting {executable}")
     subprocess.run(os.path.join(gamedir_root, executable))
 
 
@@ -245,6 +247,8 @@ def main(argstr=None):
     ap = makeArgParser()
 
     args = (ap.parse_args(argstr) if argstr else ap.parse_args())
+    logger.debug(argstr)
+    logger.debug(args)
 
     if args.lite:
         litedir = os.path.join("..", "litedist")
@@ -262,9 +266,11 @@ def main(argstr=None):
     if args.packages:
         args.clean = True
 
+    verbosePrinter = logger.info if args.verbose else logger.debug
+
     try:
 
-        print("\nClearing old scripts")
+        logger.info("Clearing old scripts")
         try:
             shutil.rmtree(getCustomScriptsDir())
         except FileNotFoundError:
@@ -272,42 +278,41 @@ def main(argstr=None):
 
         # Legacy:
         for rpy in glob.glob(os.path.join(gamedir, "*custom_*.rpy*")):
-            if args.verbose:
-                print(f"{rpy} --> [X]")
+            verbosePrinter(f"{rpy} --> [X]")
             os.unlink(rpy)
 
         if args.clean:
-            print("\nCleaning out old assets")
+            logger.info("Cleaning out old assets")
             for assets_dir in glob.glob(os.path.join(gamedir, "custom_assets_*/")):
                 shutil.rmtree(assets_dir)
 
-        print("Initializing")
+        logger.info("Initializing")
         os.makedirs(os.path.join("../custom_volumes"), exist_ok=True)
         os.makedirs(os.path.join("../custom_volumes_other"), exist_ok=True)
         os.makedirs(getCustomScriptsDir(), exist_ok=True)
 
-        print("\nCopying user scripts")
+        logger.info("Copying user scripts")
         (all_packages, warn,) = processPackages(only_volumes=args.packages, verbose=args.verbose)
 
-        print("\nPatching volume select data")
+        logger.info("Patching volume select data")
         patchVolumeData(all_packages, verbose=args.verbose)
-        print("\nPatching credits data")
+        logger.info("Patching credits data")
         patchCreditsData(all_packages, verbose=args.verbose)
-        print("\nPatching warning data")
+        logger.info("Patching warning data")
         patchWarningData(all_packages, verbose=args.verbose)
 
         if warn:
-            print("\n!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")
-            print("If this was launched from run_wizard.py or run_wizard_gui.py, a full logfile is availible at 'latest.log'")
+            logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")
+            logger.warn("If this was launched from run_wizard.py or run_wizard_gui.py, a full logfile is availible at 'latest.log'")
 
         if warn or args.pause:
-            print("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+            logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
             input()
 
         if not args.nolaunch:
             runGame()
     except Exception:
-        traceback.print_exc()
+        logger.error("Root exception", exc_info=True)
         raise
 
 

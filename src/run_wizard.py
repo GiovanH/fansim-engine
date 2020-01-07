@@ -10,8 +10,6 @@ except (AssertionError, AttributeError):
     raw_input()
     exit()
 
-from patcher import *  # never do this
-from stream import std_redirected
+import patcher
 
-with std_redirected("latest.log", tee=True):
-    main()
+patcher.main()

@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import patcher as fse_patcher
 import argparse
+import _logging
 
 
 def formatHelp(helpstr):
@@ -62,6 +63,8 @@ class MainWindow(tk.Tk):
 
         argparser = fse_patcher.makeArgParser()
 
+        self.logger = _logging.getLogger(__name__)
+
         self.checkboxargs = []
         self.valueargs = []
 
@@ -73,7 +76,7 @@ class MainWindow(tk.Tk):
             elif isinstance(action, argparse._StoreAction):
                 self.valueargs.append(ValueArg(self, action.dest, action.help, action.nargs))
             else:
-                print("Unknown type", type(action))
+                self.logger.error("Unknown type", type(action))
 
         self.argstr_vis = tk.StringVar()
         self.argstr = []
@@ -142,10 +145,8 @@ class MainWindow(tk.Tk):
 
     def run(self):
         fse_patcher.main(self.argstr)
-        print("Done!")
+        self.logger.info("Done!")
 
 
 if __name__ == "__main__":
-    from stream import std_redirected
-    with std_redirected("latest.log", tee=True):
-        MainWindow()
+    MainWindow()
