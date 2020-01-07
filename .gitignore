@@ -11,7 +11,7 @@ bin/*.exe
 src/__pycache__/
 src/yaml/__pycache__/
 
-src/latest.log
+src/*.log
 src/report_*.txt
 
 extras/
