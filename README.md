@@ -4,11 +4,17 @@ formerly Pesterquest Modsuite (PQMS)
 
 Tools for modifying and extending pesterquest, and adding your own routes. WIP tools for adding your own routes to pesterquest without breaking the base game or needing a standalone engine!
 
+What's included:
+
+- **Package manager**: Write volumes with metadata (credits, warnings, etc) that get intelligently managed. Your volumes won't conflict with other mods *or* other packages written by your team! *This means you can have different people writing different routes at the same time without risk of conflicts.*
+- **Homestuck API**: When writing, have loads of convenience functions available! Quirks, dialog boxes, grype, and more.
+
 Design goals:
 
 - Cross-platform (Win/Mac/Linux)
 - Easy to write and distribute fan volumes
-- Hyper-simple for users to play fan volumes
+- Simple for users to play fan volumes
+- Maximally accessible
 - Mix-and-match: Put all the fan volumes you want and play routes without conflicts!
 
 
