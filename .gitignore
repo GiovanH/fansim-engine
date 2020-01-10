@@ -5,6 +5,8 @@ dist/
 litedist/
 patch/
 
+Mods.zip
+Standalone.zip
 build/
 src/build
 bin/*.exe
@@ -18,3 +20,4 @@ extras/
 custom_volumes/*
 custom_volumes_other/*
 transcripts/*/
+transcripts/dynamic_colors.css

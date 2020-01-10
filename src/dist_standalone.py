@@ -11,6 +11,7 @@ litedir = "lite"
 litearch = "lite.zip"
 distdir = "../dist"
 skinbase = "liteskins"
+fse_root = ".."
 
 
 def crcFile(fileName):
@@ -60,7 +61,7 @@ def main():
         "--skins", nargs="+", default=["default"],
         help="Pack the mod with these skins, in order. The default skin is always included. For example, '--skins hiveswap befriendus' will use the hiveswap skin, but replace any assets that conflict with the befriendus skin with the befriendus version.")
     ap.add_argument(
-        '--volumes', nargs="+", default=[],
+        '--packages', nargs="+", default=[],
         help="If set, only package thecustom volumes with these IDs. For example, '--volumes openbound mymod' will package both the openbound and mymod packages, allowing mymod to use assets openbound provides. Order is not sensitive."
     )
     args = ap.parse_args()
@@ -80,13 +81,30 @@ def main():
     copyLiteWithSkins(distdir, args.skins)
 
     print("Patching mods")
-    run_patcher(args.volumes)
+    run_patcher(args.packages)
+
+    print("Making distribution archives")
+    print("(If you want to skip this step, don't use this script)")
+
+    with zipfile.ZipFile("../Standalone.zip", "w") as fp:
+        for folderName, subfolders, filenames in os.walk(distdir):
+            for filename in filenames:
+                target = os.path.join(folderName, filename)
+                fp.write(target, arcname=os.path.relpath(target, start=fse_root))
+
+    cvroot = f"{fse_root}/custom_volumes"
+    with zipfile.ZipFile("../Mods.zip", "w") as fp:
+        for moddir in [f"{cvroot}/{id}" for id in args.packages]:
+            for folderName, subfolders, filenames in os.walk(moddir):
+                for filename in filenames:
+                    target = os.path.join(folderName, filename)
+                    fp.write(target, arcname=os.path.relpath(target, start=cvroot))
 
 
 def run_patcher(volumes=[]):
     from patcher import main as patch
     if volumes != []:
-        patch(["--patchdir", distdir, "--clean", "--nolaunch", "--volumes", *volumes])
+        patch(["--patchdir", distdir, "--clean", "--nolaunch", "--packages", *volumes])
     else:
         patch(["--patchdir", distdir, "--clean", "--nolaunch"])
 
