@@ -7,6 +7,14 @@ ATL_KEYWORDS = [
     "as", "at", "behind", "onlayer", "zorder", "show", "expression", "scene", "hide", "with", "window", "call", "jump", "stop", "pause", "play", "menu"
 ]
 
+def dialogEscape(text):
+    return (
+        text.replace("\\", "\\\\")
+        .replace("\"", "\\\"")
+        .replace("\n", "")
+        .replace("[", "[[")
+    )
+
 
 def tokenizeString(string):
     import tokenize

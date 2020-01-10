@@ -13,6 +13,8 @@ bin/*.exe
 src/__pycache__/
 src/yaml/__pycache__/
 
+src/scripts/Openbound
+
 src/*.log
 src/report_*.txt
 
