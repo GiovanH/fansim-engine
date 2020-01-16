@@ -198,7 +198,7 @@ screen __p__music_room:
                         background Frame(
                             im.Crop(
                                 "{{assets_common}}/openbound_hashbox_round.png",
-                                (243, 0, 793, 55)
+                                (0, 0, 550, 55)
                             ),
                             left=21, top=21)
                         vbox:

@@ -33,6 +33,8 @@ python:
     __p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
 
 
+    The following magic ids are allowed:
+        "show", "cb", "what", "window", "who", "namebox", "say_dialogue"
 
     """
 
@@ -75,7 +77,7 @@ define pesterchum = Character(
 
 # Trollean
 style trollian_namebox is namebox:
-    xpos 272
+    xpos 24
     xanchor 0
 
 style trollian_namelabel is say_label:
@@ -83,14 +85,18 @@ style trollian_namelabel is say_label:
     xalign 0.0
     size 17
 
+style trollian_dialogue is say_dialogue:
+    xpos 44
+
 screen trollian_say:
     style_prefix "say"
     default blood = "gray"
     default big = False
     window:
         id "window"
+        xsize 793
         background Composite(
-            (1280, 194),
+            (793, 194),
             (0, 0), "{{assets_common}}/trollian_bg_" + ("large" if big else "small") + ".png",
             (0, 0), doTint(
                 "{{assets_common}}/trollian_" + ("large" if big else "small") + "_rim.png",
@@ -108,27 +114,27 @@ screen trollian_say:
             text what id "what" ypos 65 color hemospectrum(blood)
 
 define trollian = Character(
-    color='#FFFFFF', who_style="trollian_namelabel", screen="trollian_say",
+    color='#FFFFFF', who_style="trollian_namelabel", screen="trollian_say", what_style="trollian_dialogue",
     # Characters will need to set these attributes manually:
     name="trollTag", image="", show_blood="gray"
 )
 
 # Hiveswap
 style hiveswap_namebox is namebox:
-    xpos 248
-    xanchor 0
-    ypos -58
+    xalign 0.0
+    xpos 71
+    ypos -56
 
 style hiveswap_namelabel is say_label:
     # yalign 0.5
     xalign 0.0
+    yalign 1.0
     size 42
-    yalign 1
 
 style hiveswap_dialogue is say_dialogue:
     size 26
-    xpos 300
-    ypos 26
+    xpos 123
+    ypos 28
     xmaximum 720
 
 screen hiveswap_say:
@@ -136,7 +142,11 @@ screen hiveswap_say:
     default blood = "gray"
     window:
         id "window"
-        ypos 744
+        yalign 1.0
+        xsize 926
+        ysize 175
+        # ypos 744
+
         background doTint(
             "{{assets_common}}/hiveswap_textbox_base.png",
             hemospectrum(blood), 200.0
@@ -160,7 +170,7 @@ define hiveswap = Character(
 # Openbound
 
 style openbound_namebox is namebox:
-    xpos 248
+    xpos 0
     xanchor 0
     ypos -52
 
@@ -174,11 +184,12 @@ style openbound_namelabel is say_label:
 
 style openbound_dialogue is say_dialogue:
     size 26
-    xpos 292
+    xpos 44
     ypos 30
     xmaximum 720
 
 screen openbound_say:
+    # See sandbox for examples
     style_prefix "say"
     default blood = "gray"
     default hashtags = ""
@@ -186,16 +197,27 @@ screen openbound_say:
     default chuckle = False
     default use_nameframe = False
 
-    default purple = "#6600DA"
+    $ purple = "#6600DA"
 
-    default chucklefix = ("_chuckle" if chuckle else "")
+    $ chucklefix = ("_chuckle" if chuckle else "")
+    $ textbox = "{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png"
+    $ hashbox = "{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png"
+    $ who_color = purple if chuckle else hemospectrum(blood)
+    $ who_outlines = [(0 if use_nameframe else 4, "#FFF")] 
 
     window:
         id "ob"
-        background Null()
+        style "default"
+        xalign 0.5
+        yalign 1.0
+
+        xsize 793
+
         window:
             id "say_dialogue"
-            background "{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png"
+            yalign 1.0
+            xfill True
+            background textbox
             if chuckle:
                 text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
             else:
@@ -206,21 +228,24 @@ screen openbound_say:
                     style "openbound_namebox"
                     if use_nameframe:
                         padding (24, 8)
-                        background Frame(
-                            im.Crop(
-                                "{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png",
-                                (243, 0, 793, 55)
-                            ),
-                            left=21, top=21)
-                    text who id "who" color (purple if chuckle else hemospectrum(blood)) outlines [(0 if use_nameframe else 4, "#FFF")] 
+                        background Frame(hashbox, left=21, top=21)
+                    text who id "who" color who_color outlines who_outlines
 
         if hashtags:
-            vbox:
-                image "{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png":
-                    pos(0, 142)
+            window:
+                id "tagbox"
+                style "default"
+                yalign 1.0
+
+                xfill True
+                ysize 55
+                 
+                background hashbox 
 
                 text "[hashtags]": #tags:
-                    pos(292, 106)
+                    style "default"
+                    yalign 0.5
+                    pos (44, 0)
                     color (purple if chuckle else hemospectrum(blood))
                     line_spacing 0
                     size 18

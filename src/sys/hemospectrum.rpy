@@ -40,22 +40,25 @@ init python:
         'gray': "#646464",
         'candyred': "#FF0000",
         'test': "#f00",
-        'burgandy': '#a20000',
+        'burgundy': '#a20000',
+        'burgundy_hs': '#6f210e',
         'bronze': '#bb6405',
+        'bronze_hs': '#a25200',
         'gold': '#a1a100',
         'lime': '#84A224',
         'olive': '#416600',
         'jade': '#008342',
         'teal': '#008282',
         'cerulean': '#005682',
-        'indigo': '#0021cb',
+        'indigo': '#0021CB',
+        'indigo_hs': '#000058',
         'purple': '#2b0057',
         'violet': '#6a006a',
         'fuchsia': '#77003c',
     }
     hemoalias = {
         "grey": "gray",  # i HATE
-        "rust": "burgandy",
+        "rust": "burgundy",
         "blue": "indigo",
         "cobalt": "cerulean"
     }
