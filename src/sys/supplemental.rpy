@@ -44,6 +44,12 @@ init python:
             table1.items()
         }
 
+    def scaleBestFit(image, tw, th):
+        mw, mh = im.image(image).load().get_size()
+        mh, mw, th, tw = map(float, [mh, mw, th, tw])
+        factor = min(tw / mh, th / mh)
+        return im.FactorScale(image, factor)
+
 label debug_dump_character(sayer):
 
     # This is basically a whole convolution in order to keep rollback working

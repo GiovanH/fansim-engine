@@ -260,7 +260,10 @@ define openround = Character(
 
 screen chan_say:
     style_prefix "say"
-    default blood = "gray"
+    default blood = "#000"
+    default attachment = None
+    default who = "Anonymous"
+
     window:
         id "window"
         background Frame(
@@ -268,15 +271,28 @@ screen chan_say:
             left=28, top=28
         )
         xsize 796
-        if who is not None:
-            window:
-                id "namebox"
-                style "default"
-                xpos 30
-                ypos 6
-                # xanchor 0
-                text who color "#117743" id "who"
-        text what id "what" ypos 30 xpos 6 color hemospectrum(blood)
+        text who id "who" xpos 70 ypos 18 color "#117743" 
+        hbox:
+            xpos 10
+            ypos 30
+            spacing 20
+            if attachment is not None:
+                button:
+                    image scaleBestFit(attachment, 180, 150) xpos 0 ypos 0
+                    action NullAction()
+                    tooltip scaleBestFit(attachment, 750, 550)
+            text what id "what" xpos 0 ypos 0 xsize 700 color hemospectrum(blood)
+
+    $ tooltip = GetTooltip()
+
+    if tooltip:
+        $ getMousePosition()
+        frame:
+            xpos mousex 
+            ypos mousey 
+            yanchor 1.0 
+            background Solid("D6DAF0")
+            image tooltip 
 
 # Grype UI for hiveswap
 
@@ -306,8 +322,8 @@ init python:
 
         return Composite(
             (1280, 720),
-            (957, 25), AlphaMask(
-                avatar, "__p__grype_avatar_alpha"
+            (956, 23), AlphaMask(
+                im.Scale(avatar, 112, 112), "__p__grype_avatar_alpha"
             ),
             (0, 0), doTint(
                 "{{assets_common}}/grype.png", hemospectrum(blood), 200.0

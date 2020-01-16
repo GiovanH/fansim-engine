@@ -54,12 +54,13 @@ init python:
         "gamzee": [("([a-zA-Z])([a-zA-Z]?)", lambda m: m.group(1).lower() + m.group(2).upper())],
         "kankri": [("[Bb]", "6"), ("[Oo]", "9")],
         "lower": [("(.+)", lambda m: m.group(1).lower())],
-        "upper": [("(.+)", lambda m: m.group(1).upper())]
+        "upper": [("(.+)", lambda m: m.group(1).upper())],
+        "greentext": [(r"((?<=^)|(?<=\n))(>.+)(?=$|\n)", "{color=#789922}\g<2>{/color}")]
     }
 
     def quirkSayer(who, quirk):
         def _sayer(what, amt=0, stmt=None, **kwargs):
-            return quirkSay(who, quirk, what)
+            return quirkSay(who, quirk, what, **kwargs)
         return _sayer
 
     def quirkSay(who, quirk, what, **kwargs):
