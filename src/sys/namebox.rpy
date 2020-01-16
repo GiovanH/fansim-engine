@@ -74,20 +74,18 @@ define pesterchum = Character(
 
 
 # Trollean
-style trollian_namebox is namebox
-style trollian_namebox:
+style trollian_namebox is namebox:
     xpos 272
     xanchor 0
 
-style trollian_namelabel is say_label
-style trollian_namelabel:
+style trollian_namelabel is say_label:
     ypos 16
     xalign 0.0
     size 17
 
 screen trollian_say:
     style_prefix "say"
-    default blood = hemospectrum(blood)
+    default blood = "gray"
     default big = False
     window:
         id "window"
@@ -116,21 +114,18 @@ define trollian = Character(
 )
 
 # Hiveswap
-style hiveswap_namebox is namebox
-style hiveswap_namebox:
+style hiveswap_namebox is namebox:
     xpos 248
     xanchor 0
     ypos -58
 
-style hiveswap_namelabel is say_label
-style hiveswap_namelabel:
+style hiveswap_namelabel is say_label:
     # yalign 0.5
     xalign 0.0
     size 42
     yalign 1
 
-style hiveswap_dialogue is say_dialogue
-style hiveswap_dialogue:
+style hiveswap_dialogue is say_dialogue:
     size 26
     xpos 300
     ypos 26
@@ -164,14 +159,12 @@ define hiveswap = Character(
 
 # Openbound
 
-style openbound_namebox is namebox
-style openbound_namebox:
+style openbound_namebox is namebox:
     xpos 248
     xanchor 0
     ypos -52
 
-style openbound_namelabel is say_label
-style openbound_namelabel:
+style openbound_namelabel is say_label:
     # yalign 0.5
     xalign 0.0
     size 42
@@ -179,8 +172,7 @@ style openbound_namelabel:
     ypos 2
     
 
-style openbound_dialogue is say_dialogue
-style openbound_dialogue:
+style openbound_dialogue is say_dialogue:
     size 26
     xpos 292
     ypos 30
@@ -241,14 +233,32 @@ define openround = Character(
     show_obstyle="round"
 )
 
+screen chan_say:
+    style_prefix "say"
+    default blood = "gray"
+    window:
+        id "window"
+        background Frame(
+            "{{assets_common}}/4chan_textbox.gif",
+            left=28, top=28
+        )
+        xsize 796
+        if who is not None:
+            window:
+                id "namebox"
+                style "default"
+                xpos 30
+                ypos 6
+                # xanchor 0
+                text who color "#117743" id "who"
+        text what id "what" ypos 30 xpos 6 color hemospectrum(blood)
 
 # Grype UI for hiveswap
 
 image grype_alpha = "{{assets_common}}/grype_alpha.png"
 image !grype_avatar_alpha = "{{assets_common}}/grype_avatar_alpha.png"
 
-style grype_namelabel is hiveswap_namelabel
-style grype_namelabel:
+style grype_namelabel is hiveswap_namelabel:
     xanchor 0.5
     yanchor 1.0
 
