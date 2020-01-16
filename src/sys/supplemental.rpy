@@ -84,8 +84,6 @@ label start_custom:
     call screen vol_select_custom() with Dissolve(0.5)
     return
 
-define config.autoreload = False
-
 # Various hiveswap transforms
 
 transform floaties3:

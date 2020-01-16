@@ -19,6 +19,8 @@ init python:
     config.keymap['trickster'].append('alt_K_t')
     config.keymap['trickster'].append('shift_K_t')
 
+define config.autoreload = False
+
 screen main_menu():
     tag menu
 
