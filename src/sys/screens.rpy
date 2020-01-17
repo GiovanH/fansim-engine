@@ -138,6 +138,12 @@ screen ingame_devbox_loader:
 # https://www.renpy.org/doc/html/screen_special.html#choice
 
 screen choice_scrollable(items):
+    ### A scrollable choice menu for very long selections.
+    ### Invoke with
+    ### >>> menu (screen="choice_scrollable"):
+    ### >>>     "[pick] option":
+    ### >>>     ...
+
     style_prefix "choice"
     viewport:
         xsize 820
