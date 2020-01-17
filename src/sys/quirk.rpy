@@ -31,14 +31,14 @@ python:
     To add a quirk, set a quirk value in a python block.
 
     init python:
-        quirks["amisia"] = [("u", "uu")]
+        QuirkStore["amisia"] = [("u", "uu")]
 
     init python:
-        quirks["diemen"] = [("(.+)", "(| \g<1> |)")]
+        QuirkStore["diemen"] = [("(.+)", "(| \g<1> |)")]
 
     You can also use inline python, if you wish. 
 
-        $ quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]
+        $ QuirkStore["azdaja"] = [("(.+)", "||| \g<1> |||")]
 
     """
 
@@ -61,14 +61,42 @@ init python:
     quirks = QuirkStore
 
     def quirkSayer(who, quirklist):
+        """Returns a sayer that wraps another sayer and applies quirks.
+        Args:
+            who (sayer)
+            quirklist: Quirk name, or ordered list of quirk names, to apply. 
+        """
         def _sayer(what, **kwargs):
             return quirkSay(who, quirklist, what, **kwargs)
         return _sayer
 
     def quirkSay(who, quirklist, what, **kwargs):
+        """Say a line of dialogue, but postprocess it first.
+
+        Args:
+            who (sayer)
+            quirklist: Quirk name, or ordered list of quirk names, to apply.
+            what: Line of dialogue
+
+        kwargs:
+            [pass through to say]
+        """
         return who(quirkSub(quirklist, what), **kwargs)
 
     def quirkSub(quirklist, what):
+        """Returns the input as a quirk-formatted string.
+
+        Args:
+            quirklist: Quirk name, or ordered list of quirk names, to apply.
+            what: Line of dialogue
+
+        >>> quirkSub("mituna", "lorem ipsum")
+        "L0R3M 1P5UM"
+
+        >>> quirkSub(["mituna", "lower"], "lorem ipsum")
+        "l0r3m 1p5um"
+
+        """
         if type(quirklist) is type(""):
             # Automatically fix single-element strings
             quirklist = [quirklist]

@@ -1,11 +1,13 @@
 python:
     """
     Custom screens:
+        Custom volume select
+        Custom warnings
+        Custom credits
         Developer mode menu
         Mouse utilities
-        Volume select styling
-        Developer boxes for main menu and ingame
-        Watcher
+        Developer boxes, both main menu and ingame
+        Variable watcher
     """
 
 
@@ -25,12 +27,14 @@ init python:
         )()
 
     def ToggleDevMode():
+        """Toggles developer mode and then reloads the game."""
         config.developer = not config.developer
         SetField(persistent, 'developer', config.developer)()
         _reload_game()
 
     store.mousex, store.mousey = 200, 200
     def getMousePosition():
+        """Stores the current mouse position at store.mousex, store.mousey."""
         store.mousex, store.mousey = renpy.get_mouse_pos()
 
     # Add devbox

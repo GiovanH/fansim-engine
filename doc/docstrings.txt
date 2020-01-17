@@ -1,21 +1,40 @@
-../src/sys/fx.rpy:
-
+./src/sys/fx.rpy:python:
+    """
     Graphical effects:
         Toast notifications
         Toast music boxes
         
-    
-../src/sys/gallery.rpy:
-
+    """
+./src/sys/fx.rpy:
+screen MusicToast:
+    ### A toast notification to indicate a new music track.
+    ### This is only a visual. This does not change the music.
+    ### Strings support format tags, including links.
+    ### Recommended usage is to set tf to toast_down if you want it to be interactable.
+    ### 
+    ### Args:
+    ###     tf (transformation): The animation used
+    ###     albumart (displayable): Displayable album art
+    ###     title (string): Song title
+    ###     artist (string): Song artist
+    ###     album (string): Song album name
+    ### Advanced
+    ###     ttitle (string): Template format strings for title
+    ###     tartist = Template format strings for artist
+    ###     talbum = Template format strings for album
+./src/sys/gallery.rpy:python:
+    """
     Galleries:
         Freshjamz, the music player
         A renpy gallery that attempts to load every image
         A character browser that loads images matching a character prefix
 
-    Access using the devbox by invoking trickster mode at the main menu
-    
-../src/sys/hemospectrum.rpy:
+    Access using the devbox by invoking trickster mode at the main menu.
 
+    The music player scans all files for music and adds songs based on their position in the file tree.
+    """
+./src/sys/hemospectrum.rpy:python:
+    """
     Hemospectrum tools
 
     These allow you to automatically manage blood coloring
@@ -30,7 +49,7 @@
         name="BOLDIR", kind=hiveswap, 
         image="boldir", show_blood="olive")
 
-    You can use _hemospectrum["colorname"] = {"hex": "#000000"} in your code
+    You can use HemospectrumStore["colorname"] = {"hex": "#000000"} in your code
     to define new blood colors. 
 
     The predefined FSE templates (trolian, hiveswap, openbound, etc)
@@ -42,63 +61,146 @@
     doTint(displayable, color, cap) where color is the name of a blood color
     will tint all channels of a displayable (the color white) to the blood color given.
     This is how textboxes are colored.
-
-    hex_to_rgb may be useful to advanced users, and is publicly exposed.
-    
-../src/sys/hemospectrum.rpy:
-Tints a white displayable to the color given, where cap controls the intensity of the color
+    """
+./src/sys/hemospectrum.rpy:
+    def hemospectrum(color):
+        """Returns the hexadecimal color code for the color passed.
+        If color is a hexadecimal color code, it is returned unmodified.
+        Otherwise, if the color is the name of a blood hue registered in 
+        HemospectrumStore, that color code is returned.
+        """
+./src/sys/hemospectrum.rpy:
+    def doTint(displayable, hex, cap=255):
+        """Returns a tinted version of the displayable.
+        Tints a white displayable to the color given, where cap controls the intensity of the color
         This is used to create blood and text color based graphics and effects.
         
         example: doTint(displayable, "#AA0000", 200) will map the color white with an intensity of 200 to AA0000, with other colors being adjusted proportionately.
-        
-../src/sys/namebox.rpy:
-
+        """
+./src/sys/namebox.rpy:python:
+    """
     Namebox code.
 
     The FSE nameboxes provide an alternative to the way WP handles nameboxes,
     drastically simplifying the process of defining and using characters.
 
-    Here are some example characters using these templates.
+    This also provides helper functions for constructing and displaying
+    the grype interface. A reusable example is provided here:
+
+    >>> image !vriska grype neutral = GrypeMasked("vriska neutral1")
+    >>> image !vriska grype pose2 = GrypeMasked("vriska pose2")
+    >>> image grype_frame __p__vriska = GrypeFrame(
+    >>>         handle="arachnidsGrip",
+    >>>         blood="cerulean", 
+    >>>         avatar="{{assets}}/vriskagrype.png"
+    >>>     )
+    >>> 
+    >>> label script:
+    >>>     show grype_frame __p__vriska
+    >>>     show !vriska grype neutral 
+    >>>     !.vr "Dialogue"
+    >>>     show !vriska grype pose2 
+    >>>     !.vr "Dialogue"
+    >>>     hide !vriska 
+    >>>     hide grype_frame
 
 
-    # define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
-    Pesterchum takes a chumhandle, a text color, and a standard character image prefix.
+    The following magic ids for styling are allowed:
+        "show", "cb", "what", "window", "who", "namebox", "say_dialogue"
 
-    # define __p__.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
-    # define __p__.bo = Character(name="BOLDIR", kind=hiveswap, show_blood="olive", image="boldir")
-    Trolls use the hemospectrum blood system by default.
-    Trolls take a name (or handle), a blood color, and a standard image prefix.
-
-    For all the above templates, you can use show_big to hide the namebox, 
-    allowing for more text on the screen at once.
-    # __p__.jo "Hi! I'm john"
-    # __p__.jo "Hi! I'm john" (show_big=True)
-
-    # define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openbound, image="ob_meulin")
-    # define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
-    Two different openbound systems. The latter uses keyword arguments to override the default style.
-    Openbound characters can use hashtags:  
-    __p___meu2 idle "!!"
-    __p___meu2 laugh "!!!" (show_hashtags="#hashtag1")
-    # Openbound characters can be posessed by chucklevoodoos:
-    __p___meu2 hypno "HONK" (show_chuckle=True)
-    # Openbound characters can do both at once:
-    __p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
-
-
-
-    
-../src/sys/overrides.rpy:
-
+    """
+./src/sys/namebox.rpy:
+define pesterchum = Character(
+    ### A standard human, using the yellow pesterchum template.
+    ### The chumhandle is automatically formatted ":: [name] ::"
+    ###
+    ### Args:
+    ###     name (string): chumhandle, i.e. "arachnidsGrip"
+    ###     image (string): Base image name for character poses
+    ###     what_color (html color): Hexadecimal color code.
+    ### Extra args:
+    ###     big (boolean): Hide the name label to provide more space for text.
+    ###     >>> !john "Dialogue" (show_big=True)
+./src/sys/namebox.rpy:
+define trollian = Character(
+    ### A standard troll, using the red "trollian" template.
+    ### The trolltag is automatically formatted "trolling: [name]"
+    ### The decorations are colored based on the show_blood argument. 
+    ###
+    ### Args:
+    ###     name (string): Trolltag, i.e. "arachnidsGrip"
+    ###     image (string): Base image name for character poses
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code.
+    ### Extra args:
+    ###     big (boolean): Hide the name label to provide more space for text.
+    ###     >>> !vriska "Dialogue" (show_big=True)
+./src/sys/namebox.rpy:
+define hiveswap = Character(
+    ### A standard troll, using the hexagonal "hiveswap" template.
+    ### The textbox and outlines are colored based on the show_blood argument.
+    ### n.b. Hiveswap uses alternate versions of some background colors for readability.
+    ### These are availible as burgundy_fs, bronze_fs, and indigo_fs.
+    ###
+    ### Args:
+    ###     name (string): Trolltag, i.e. "arachnidsGrip"
+    ###     image (string): Base image name for character poses
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code.
+./src/sys/namebox.rpy:
+define openbound = Character(
+    ### A character who speaks with an openbound-style textbox.
+    ### Elements can be restyled and repositioned using the standard what, namebox, and say_dialogue tags.
+    ###
+    ### Args:
+    ###     name (string): Character name, i.e. "Vriska"
+    ###     image (string): Base image name for character poses
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code.
+    ### Extra args:
+    ###     hashtags (string): Hashtags to show.
+    ###     Unlike openbound, the tag bar is only shown when `hashtags` is not empty.
+    ###     To simulate an empty bar, set the default hashtag value to " " using show_hashtags=" " in the character definition.
+    ###     >>> !vriska "Dialogue" (show_hashtags="#;;;;)")
+    ###     
+    ###     chuckle (boolean): Use chucklevoodoo mode.
+    ###     When this is set, textboxes will have purple and black coloring, and the font will be in large bones.
+    ###     >>> !vriska "Dialogue" (show_chuckle=True)
+./src/sys/namebox.rpy:
+define openround = Character(
+    ### Interface is the same as openbound.
+    ### This is a shortcut that only changes the show_obstyle parameter.
+./src/sys/namebox.rpy:
+screen chan_say:
+    ### 4chan-style textbox, based on mituna's from openbound. Supports attachments.
+    ### Unlike other characters, this is not a "kind", but a screen.
+    ### Use this with Character("Mituna", screen="chan_say")
+    ### For automatic greentext, wrap this in a quirksayer: quirkSayer(Character("Mituna", screen="chan_say"), "greentext")
+    ###
+    ### Args:
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code. Defaults to black text.
+    ###     attachment (displayable, optional): Shows a zoomable attachment as part of the "post"
+./src/sys/namebox.rpy:
+    def GrypeMasked(displayable):
+        """Returns a displayable masked for grype.
+        >>> image !vriska grype neutral = GrypeMasked("vriska neutral1")
+        """
+./src/sys/namebox.rpy:
+    def GrypeFrame(blood, handle, avatar="__p__grype_avatar_alpha"):
+        """Creates a dynamic grype frame for a character.
+        Args:
+            blood (hemospectrum): Blood color
+            handle (string): The displayed grype handle
+            avatar (displayable): The avatar image. See grype_avatar_alpha for a template.
+        """
+./src/sys/overrides.rpy:python:
+    """
     Overrides
 
     These are the few areas we intentionally override names.
     We have to replace the main menu.
     We also switch around a few key bindings.
 
-    
-../src/sys/quirk.rpy:
-
+    """
+./src/sys/quirk.rpy:python:
+    """
     Automatic quirk translation subsystem
 
     This provides functions to help you with quirks!
@@ -130,40 +232,114 @@ Tints a white displayable to the color given, where cap controls the intensity o
     To add a quirk, set a quirk value in a python block.
 
     init python:
-        quirks["amisia"] = [("u", "uu")]
+        QuirkStore["amisia"] = [("u", "uu")]
 
     init python:
-        quirks["diemen"] = [("(.+)", "(| \g<1> |)")]
+        QuirkStore["diemen"] = [("(.+)", "(| \g<1> |)")]
 
     You can also use inline python, if you wish. 
 
-        $ quirks["azdaja"] = [("(.+)", "||| \g<1> |||")]
+        $ QuirkStore["azdaja"] = [("(.+)", "||| \g<1> |||")]
 
-    
-../src/sys/sayers.rpy:
+    """
+./src/sys/quirk.rpy:
+    def quirkSayer(who, quirklist):
+        """Returns a sayer that wraps another sayer and applies quirks.
+        Args:
+            who (sayer)
+            quirklist: Quirk name, or ordered list of quirk names, to apply. 
+        """
+./src/sys/quirk.rpy:
+    def quirkSay(who, quirklist, what, **kwargs):
+        """Say a line of dialogue, but postprocess it first.
 
+        Args:
+            who (sayer)
+            quirklist: Quirk name, or ordered list of quirk names, to apply.
+            what: Line of dialogue
+
+        kwargs:
+            [pass through to say]
+        """
+./src/sys/quirk.rpy:
+    def quirkSub(quirklist, what):
+        """Returns the input as a quirk-formatted string.
+
+        Args:
+            quirklist: Quirk name, or ordered list of quirk names, to apply.
+            what: Line of dialogue
+
+        >>> quirkSub("mituna", "lorem ipsum")
+        "L0R3M 1P5UM"
+
+        >>> quirkSub(["mituna", "lower"], "lorem ipsum")
+        "l0r3m 1p5um"
+
+        """
+./src/sys/sayers.rpy:python:
+    """
     Non-template generic sayers we make availible.
-    
-../src/sys/screens.rpy:
 
+    Current availible names:
+        narrator_dirk
+        narrator_calliope
+        narrator_prattle
+    """
+./src/sys/screens.rpy:python:
+    """
     Custom screens:
+        Custom volume select
+        Custom warnings
+        Custom credits
         Developer mode menu
         Mouse utilities
-        Volume select styling
-        Developer boxes for main menu and ingame
-        Watcher
-    
-../src/sys/supplemental.rpy:
-
+        Developer boxes, both main menu and ingame
+        Variable watcher
+    """
+./src/sys/screens.rpy:
+    def ToggleDevMode():
+        """Toggles developer mode and then reloads the game."""
+./src/sys/screens.rpy:
+    def getMousePosition():
+        """Stores the current mouse position at store.mousex, store.mousey."""
+./src/sys/supplemental.rpy:python:
+    """
     Misc additional functionality.
-
-    $ debug_dump_character(sayer)
-    This causes a sayer to iterate through all their poses, and is a helpful tool.
-    This is also used in the developer tools.
 
     This file also includes the helper label that transitions to the 
     custom volume select screen.
 
     Various generic transformations are also here
 
-    
+    """
+./src/sys/supplemental.rpy:
+    def get_all_sayers(store_=store):
+        """Return all the "sayers" in the global store."""
+./src/sys/supplemental.rpy:
+    def get_all_images():
+        """Returns all the images in the global store."""
+./src/sys/supplemental.rpy:
+    def get_images_from_sayer(sayer):
+        """Returns all the images belonging to a given sayer."""
+./src/sys/supplemental.rpy:
+    def reEscapeString(str_):
+        """Escapes quotes in string"""
+./src/sys/supplemental.rpy:
+    def jsonReEscape(table1):
+        """Escapes quotes in all strings in a given dictionary"""
+./src/sys/supplemental.rpy:
+    def scaleBestFit(image, tw, th):
+        """Returns a scaled version of a displayable, preserving the aspect ratio.
+        Args:
+            image (displayable): Input image
+            tw (int): Maximum target height
+            th (int): Maximum target width
+        """
+./src/sys/supplemental.rpy:
+    def hex_to_rgb(hex):
+        """Returns a RGB tuple equivilant to the given hexadecimal color code."""
+./src/sys/supplemental.rpy:
+label debug_dump_character(sayer):
+    ### This causes a sayer to iterate through all their poses, and is a helpful tool.
+    ### This is also used in the developer tools.
+    ### This is basically a whole convolution in order to keep rollback working

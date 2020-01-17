@@ -14,7 +14,7 @@ python:
         name="BOLDIR", kind=hiveswap, 
         image="boldir", show_blood="olive")
 
-    You can use _hemospectrum["colorname"] = {"hex": "#000000"} in your code
+    You can use HemospectrumStore["colorname"] = {"hex": "#000000"} in your code
     to define new blood colors. 
 
     The predefined FSE templates (trolian, hiveswap, openbound, etc)
@@ -26,8 +26,6 @@ python:
     doTint(displayable, color, cap) where color is the name of a blood color
     will tint all channels of a displayable (the color white) to the blood color given.
     This is how textboxes are colored.
-
-    hex_to_rgb may be useful to advanced users, and is publicly exposed.
     """
 
 
@@ -36,7 +34,7 @@ init offset = 0
 # Blood helper
 
 init python:
-    _hemospectrum = {
+    HemospectrumStore = {
         'gray': "#646464",
         'candyred': "#FF0000",
         'test': "#f00",
@@ -62,27 +60,23 @@ init python:
         "blue": "indigo",
         "cobalt": "cerulean"
     }
-
-    def hex_to_rgb(hex):
-        hex = hex.lstrip('#')
-        if len(hex) == 3:
-            hex = "".join(c + c for c in hex)
-        hlen = len(hex)
-        return tuple(
-            int(hex[i:i+hlen/3], 16)
-            for i in range(0, hlen, hlen/3)
-        )
     
     def hemospectrum(color):
+        """Returns the hexadecimal color code for the color passed.
+        If color is a hexadecimal color code, it is returned unmodified.
+        Otherwise, if the color is the name of a blood hue registered in 
+        HemospectrumStore, that color code is returned.
+        """
         if color[0] == "#":
             return color
         try:
-            return _hemospectrum[color]
+            return HemospectrumStore[color]
         except KeyError:
-            return _hemospectrum[hemoalias[color]]
+            return HemospectrumStore[hemoalias[color]]
 
     def doTint(displayable, hex, cap=255):
-        """Tints a white displayable to the color given, where cap controls the intensity of the color
+        """Returns a tinted version of the displayable.
+        Tints a white displayable to the color given, where cap controls the intensity of the color
         This is used to create blood and text color based graphics and effects.
         
         example: doTint(displayable, "#AA0000", 200) will map the color white with an intensity of 200 to AA0000, with other colors being adjusted proportionately.

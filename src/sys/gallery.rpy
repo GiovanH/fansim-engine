@@ -5,7 +5,9 @@ python:
         A renpy gallery that attempts to load every image
         A character browser that loads images matching a character prefix
 
-    Access using the devbox by invoking trickster mode at the main menu
+    Access using the devbox by invoking trickster mode at the main menu.
+
+    The music player scans all files for music and adds songs based on their position in the file tree.
     """
 
 
@@ -29,11 +31,6 @@ init 900 python:
 
 # Override
 screen _gallery:
-    # $ print(locked)
-    # $ print(displayables)
-    # $ print(index)
-    # $ print(count)
-    # $ print(gallery)
     frame:
         xfill True
         yfill True

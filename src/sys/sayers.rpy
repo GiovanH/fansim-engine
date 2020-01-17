@@ -1,6 +1,11 @@
 python:
     """
     Non-template generic sayers we make availible.
+
+    Current availible names:
+        narrator_dirk
+        narrator_calliope
+        narrator_prattle
     """
 
 

@@ -1,8 +1,9 @@
 #!/bin/bash
 
-
-grep -Pzo "(?s)\"\"\".+?\"\"\"" ../src/sys/**.rpy |\
-    sed -E "s/\"\"\"(\x00){0,1}/\n/g" > docstrings.txt &
+pushd ..
+grep -Pzo "(?s)(\n|^)[^\n]+?\n((\s+\"\"\".+?\"\"\")|((\s+###[^\n]+)+))" ./src/sys/**.rpy |\
+     sed -E "s/\x00/\n/g" > ./doc/docstrings.txt &
+popd
 
 rm readme.md
 

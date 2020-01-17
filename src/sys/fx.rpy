@@ -69,6 +69,22 @@ style music_toast_artist:
 style music_toast_album is music_toast_artist
 
 screen MusicToast:
+    ### A toast notification to indicate a new music track.
+    ### This is only a visual. This does not change the music.
+    ### Strings support format tags, including links.
+    ### Recommended usage is to set tf to toast_down if you want it to be interactable.
+    ### 
+    ### Args:
+    ###     tf (transformation): The animation used
+    ###     albumart (displayable): Displayable album art
+    ###     title (string): Song title
+    ###     artist (string): Song artist
+    ###     album (string): Song album name
+    ### Advanced
+    ###     ttitle (string): Template format strings for title
+    ###     tartist = Template format strings for artist
+    ###     talbum = Template format strings for album
+
     default tf = toast_peek_down
     default style = "music_toast"
 
@@ -85,7 +101,7 @@ screen MusicToast:
     frame:
         style_prefix style
         hbox:
-            add albumart size albumartsize
+            add scaleBestFit(albumart, 96, 96) size albumartsize
             null width 6
             vbox:
                 text ttitle style_suffix "title"

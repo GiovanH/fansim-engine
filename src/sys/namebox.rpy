@@ -5,35 +5,28 @@ python:
     The FSE nameboxes provide an alternative to the way WP handles nameboxes,
     drastically simplifying the process of defining and using characters.
 
-    Here are some example characters using these templates.
+    This also provides helper functions for constructing and displaying
+    the grype interface. A reusable example is provided here:
+
+    >>> image !vriska grype neutral = GrypeMasked("vriska neutral1")
+    >>> image !vriska grype pose2 = GrypeMasked("vriska pose2")
+    >>> image grype_frame __p__vriska = GrypeFrame(
+    >>>         handle="arachnidsGrip",
+    >>>         blood="cerulean", 
+    >>>         avatar="{{assets}}/vriskagrype.png"
+    >>>     )
+    >>> 
+    >>> label script:
+    >>>     show grype_frame __p__vriska
+    >>>     show !vriska grype neutral 
+    >>>     !.vr "Dialogue"
+    >>>     show !vriska grype pose2 
+    >>>     !.vr "Dialogue"
+    >>>     hide !vriska 
+    >>>     hide grype_frame
 
 
-    # define __p__.jo = Character(name="ectoBiologist", kind=pesterchum, what_color='#0715cd', image="john")
-    Pesterchum takes a chumhandle, a text color, and a standard character image prefix.
-
-    # define __p__.vr = Character(name="arachnidsGrip", kind=trollian, show_blood="cerulean", image="vriska")
-    # define __p__.bo = Character(name="BOLDIR", kind=hiveswap, show_blood="olive", image="boldir")
-    Trolls use the hemospectrum blood system by default.
-    Trolls take a name (or handle), a blood color, and a standard image prefix.
-
-    For all the above templates, you can use show_big to hide the namebox, 
-    allowing for more text on the screen at once.
-    # __p__.jo "Hi! I'm john"
-    # __p__.jo "Hi! I'm john" (show_big=True)
-
-    # define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openbound, image="ob_meulin")
-    # define __p___meu2 = Character(name="MEULIN", show_blood="olive", kind=openround, image="ob_meulin", namebox_xanchor=0.5, who_ypos=3, show_use_nameframe=True)
-    Two different openbound systems. The latter uses keyword arguments to override the default style.
-    Openbound characters can use hashtags:  
-    __p___meu2 idle "!!"
-    __p___meu2 laugh "!!!" (show_hashtags="#hashtag1")
-    # Openbound characters can be posessed by chucklevoodoos:
-    __p___meu2 hypno "HONK" (show_chuckle=True)
-    # Openbound characters can do both at once:
-    __p___meu2 hypno "spoop" (show_chuckle=True, show_hashtags="#HONK")
-
-
-    The following magic ids are allowed:
+    The following magic ids for styling are allowed:
         "show", "cb", "what", "window", "who", "namebox", "say_dialogue"
 
     """
@@ -41,13 +34,11 @@ python:
 
 
 init offset = 0
+
 # Pesterchum
 style pesterchum_namelabel is say_label
 # style pesterchum_namelabel:
 #     pass
-
-
-
 
 screen pesterchum_say:
     style_prefix "say"
@@ -69,6 +60,16 @@ screen pesterchum_say:
             text what id "what" ypos 65
 
 define pesterchum = Character(
+    ### A standard human, using the yellow pesterchum template.
+    ### The chumhandle is automatically formatted ":: [name] ::"
+    ###
+    ### Args:
+    ###     name (string): chumhandle, i.e. "arachnidsGrip"
+    ###     image (string): Base image name for character poses
+    ###     what_color (html color): Hexadecimal color code.
+    ### Extra args:
+    ###     big (boolean): Hide the name label to provide more space for text.
+    ###     >>> !john "Dialogue" (show_big=True)
     screen="pesterchum_say", who_style="pesterchum_namelabel",
     # Characters will need to set these attributes manually:
     name="chumHandle", what_color='#e00707', image="john"
@@ -114,6 +115,17 @@ screen trollian_say:
             text what id "what" ypos 65 color hemospectrum(blood)
 
 define trollian = Character(
+    ### A standard troll, using the red "trollian" template.
+    ### The trolltag is automatically formatted "trolling: [name]"
+    ### The decorations are colored based on the show_blood argument. 
+    ###
+    ### Args:
+    ###     name (string): Trolltag, i.e. "arachnidsGrip"
+    ###     image (string): Base image name for character poses
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code.
+    ### Extra args:
+    ###     big (boolean): Hide the name label to provide more space for text.
+    ###     >>> !vriska "Dialogue" (show_big=True)
     color='#FFFFFF', who_style="trollian_namelabel", screen="trollian_say", what_style="trollian_dialogue",
     # Characters will need to set these attributes manually:
     name="trollTag", image="", show_blood="gray"
@@ -160,6 +172,15 @@ screen hiveswap_say:
         text what id "what" color '#FFF' font "Berlin Sans FB Regular.ttf"
 
 define hiveswap = Character(
+    ### A standard troll, using the hexagonal "hiveswap" template.
+    ### The textbox and outlines are colored based on the show_blood argument.
+    ### n.b. Hiveswap uses alternate versions of some background colors for readability.
+    ### These are availible as burgundy_fs, bronze_fs, and indigo_fs.
+    ###
+    ### Args:
+    ###     name (string): Trolltag, i.e. "arachnidsGrip"
+    ###     image (string): Base image name for character poses
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code.
     color='#FFFFFF', screen="hiveswap_say",
     who_style="hiveswap_namelabel", 
     what_style="hiveswap_dialogue",
@@ -251,14 +272,40 @@ screen openbound_say:
                     size 18
 
 define openbound = Character(
+    ### A character who speaks with an openbound-style textbox.
+    ### Elements can be restyled and repositioned using the standard what, namebox, and say_dialogue tags.
+    ###
+    ### Args:
+    ###     name (string): Character name, i.e. "Vriska"
+    ###     image (string): Base image name for character poses
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code.
+    ### Extra args:
+    ###     hashtags (string): Hashtags to show.
+    ###     Unlike openbound, the tag bar is only shown when `hashtags` is not empty.
+    ###     To simulate an empty bar, set the default hashtag value to " " using show_hashtags=" " in the character definition.
+    ###     >>> !vriska "Dialogue" (show_hashtags="#;;;;)")
+    ###     
+    ###     chuckle (boolean): Use chucklevoodoo mode.
+    ###     When this is set, textboxes will have purple and black coloring, and the font will be in large bones.
+    ###     >>> !vriska "Dialogue" (show_chuckle=True)
     screen="openbound_say", what_style="openbound_dialogue", who_style="openbound_namelabel"
 )
 define openround = Character(
-    screen="openbound_say", what_style="openbound_dialogue", who_style="openbound_namelabel",
-    show_obstyle="round"
+    ### Interface is the same as openbound.
+    ### This is a shortcut that only changes the show_obstyle parameter.
+    kind=openbound, show_obstyle="round"
 )
 
 screen chan_say:
+    ### 4chan-style textbox, based on mituna's from openbound. Supports attachments.
+    ### Unlike other characters, this is not a "kind", but a screen.
+    ### Use this with Character("Mituna", screen="chan_say")
+    ### For automatic greentext, wrap this in a quirksayer: quirkSayer(Character("Mituna", screen="chan_say"), "greentext")
+    ###
+    ### Args:
+    ###     show_blood (blood name): Blood hue name OR hexadecimal color code. Defaults to black text.
+    ###     attachment (displayable, optional): Shows a zoomable attachment as part of the "post"
+    
     style_prefix "say"
     default blood = "#000"
     default attachment = None
@@ -311,9 +358,18 @@ transform grype_namelabel_pos:
 
 init python:
     def GrypeMasked(displayable):
+        """Returns a displayable masked for grype.
+        >>> image !vriska grype neutral = GrypeMasked("vriska neutral1")
+        """
         return AlphaMask(displayable, "grype_alpha")
 
     def GrypeFrame(blood, handle, avatar="__p__grype_avatar_alpha"):
+        """Creates a dynamic grype frame for a character.
+        Args:
+            blood (hemospectrum): Blood color
+            handle (string): The displayed grype handle
+            avatar (displayable): The avatar image. See grype_avatar_alpha for a template.
+        """
         
         # the worst thing ever: anchor is broke on At()
         handledisp = Text(handle, color='#FFF', font="Berlin Sans FB Demi Bold.ttf", outlines=[(4, hemospectrum(blood))])
