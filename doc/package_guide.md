@@ -38,6 +38,8 @@ The `package_id` field is the id of the package. It should be unique, and does n
 
 `volumes` is a list of zero or more volumes the package contains. Each volume has a `volume_id`, which should be unique *within* the package, and other metadata used on the volume select screen.
 
+Volumes also have an **optional** field, "warnings". This should be a string detailing content warnings for the volume, if applicable.
+
 Please note that any quote characters used in `meta.json` need to be escaped with a backslash.
 
 Here is a complete, working example of a `meta.json` file.

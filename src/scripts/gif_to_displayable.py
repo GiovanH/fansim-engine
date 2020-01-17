@@ -25,21 +25,32 @@ def makeGifDef(gif_path):
     name, __ = os.path.splitext(gifname)
 
     _assets_ = r"{{assets}}"
+    os.makedirs(name, exist_ok=True)
 
     with open(f"{name}.rpy", "w") as fp:
         fp.write(f"image !{name}:\n")
+        last_frame_data = None
+        duration = 0
+
         try:
             while True:
-                frame = im.tell() 
-                duration = im.info['duration']
+                frame = im.tell()
+                this_frame_data = list(im.getdata())
+                
+                if last_frame_data != this_frame_data:
+                    im.save(os.path.join(name, f"{frame}.png"))
+                    if duration:
+                        fp.write(f"    pause {duration/1000}\n")
+                    fp.write(f'    Image("' + _assets_ + f'/gifs/{name}/{frame}.png")\n')
+                    duration = 0
 
-                fp.write(f'\tImage("' + _assets_ + f'/gifs/{name}/{frame}.png")\n')
-                fp.write(f"\tpause {duration/1000}\n")
+                duration += im.info['duration']
+                last_frame_data = this_frame_data
 
                 im.seek(frame + 1)
         except EOFError:
-            pass
-        fp.write("\trepeat\n\n")
+            fp.write(f"    pause {duration/1000}\n")
+        fp.write("    repeat\n\n")
     return
 
 
@@ -51,7 +62,7 @@ def main():
         help="Input file")
     args = ap.parse_args()
 
-    explodeGif(args.gif)
+    # explodeGif(args.gif)
     makeGifDef(args.gif)
 
 
