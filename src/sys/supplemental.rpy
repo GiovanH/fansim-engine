@@ -47,8 +47,9 @@ init python:
     def scaleBestFit(image, tw, th):
         mw, mh = im.image(image).load().get_size()
         mh, mw, th, tw = map(float, [mh, mw, th, tw])
-        factor = min(tw / mh, th / mh)
-        return im.FactorScale(image, factor)
+        factor = min(tw / mw, th / mh)
+        print(mw, mh, tw, th, factor, factor*mw, factor*mh)
+        return im.FactorScale(image, width=factor, height=factor)
 
 label debug_dump_character(sayer):
 

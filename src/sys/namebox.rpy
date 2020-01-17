@@ -271,6 +271,7 @@ screen chan_say:
             left=28, top=28
         )
         xsize 796
+        right_padding 20 
         text who id "who" xpos 70 ypos 18 color "#117743" 
         hbox:
             xpos 10
@@ -278,18 +279,17 @@ screen chan_say:
             spacing 20
             if attachment is not None:
                 button:
-                    image scaleBestFit(attachment, 180, 150) xpos 0 ypos 0
+                    image scaleBestFit(attachment, 150, 150) xpos 0 ypos 0
                     action NullAction()
-                    tooltip scaleBestFit(attachment, 750, 550)
-            text what id "what" xpos 0 ypos 0 xsize 700 color hemospectrum(blood)
+                    tooltip scaleBestFit(attachment, 700, 500)
+            text what id "what" xpos 0 ypos 0 xsize 800 color hemospectrum(blood)
 
     $ tooltip = GetTooltip()
 
     if tooltip:
-        $ getMousePosition()
         frame:
-            xpos mousex 
-            ypos mousey 
+            xpos 300 
+            ypos 550 
             yanchor 1.0 
             background Solid("D6DAF0")
             image tooltip 
