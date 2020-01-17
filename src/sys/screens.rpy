@@ -69,8 +69,8 @@ style mainmenu_devbox_frame:
 style mainmenu_devbox_button:
     xalign 1.0 
 
-style mainmenu_devbox_button_text:
-    idle_color "#000" 
+style mainmenu_devbox_button_text is confirm_prompt_text:
+    idle_color gui.idle_color
     text_align 1.0
 
 style mainmenu_devbox_text is mainmenu_devbox_button_text
@@ -92,8 +92,8 @@ screen mainmenu_devbox:
             textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
             textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
             textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
-            textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("dlc_credits")
-            textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
+            # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("dlc_credits")
+            # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
             null height 12
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
