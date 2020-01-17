@@ -21,5 +21,6 @@ src/report_*.txt
 extras/
 custom_volumes/*
 custom_volumes_other/*
+liteskins/*
 transcripts/*/
 transcripts/dynamic_colors.css
