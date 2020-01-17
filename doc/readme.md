@@ -1,3 +1,19 @@
+| ![loose/fse_gifimport1.webm](loose/fse_gifimport1.webm)  |
+| -------------------- |
+| [loose/fse_gifimport1.webm](loose/fse_gifimport1.webm)   |
+
+| ![loose/fse_filler.gif](loose/fse_filler.gif)  |
+| -------------------- |
+| [loose/fse_filler.gif](loose/fse_filler.gif)   |
+
+| ![loose/fse_4chan.gif](loose/fse_4chan.gif)  |
+| -------------------- |
+| [loose/fse_4chan.gif](loose/fse_4chan.gif)   |
+
+| ![loose/fse_4chan2.gif](loose/fse_4chan2.gif)  |
+| -------------------- |
+| [loose/fse_4chan2.gif](loose/fse_4chan2.gif)   |
+
 | ![loose/screenshot0011.png](loose/screenshot0011.png)  |
 | -------------------- |
 | [loose/screenshot0011.png](loose/screenshot0011.png)   |

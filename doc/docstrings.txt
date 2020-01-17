@@ -302,6 +302,13 @@ screen chan_say:
 ./src/sys/screens.rpy:
     def getMousePosition():
         """Stores the current mouse position at store.mousex, store.mousey."""
+./src/sys/screens.rpy:
+screen choice_scrollable(items):
+    ### A scrollable choice menu for very long selections.
+    ### Invoke with
+    ### >>> menu (screen="choice_scrollable"):
+    ### >>>     "[pick] option":
+    ### >>>     ...
 ./src/sys/supplemental.rpy:python:
     """
     Misc additional functionality.
