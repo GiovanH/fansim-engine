@@ -50,28 +50,34 @@ init offset = 0
 init python:
     import re
 
-    quirks = {
+    QuirkStore = {
         "gamzee": [("([a-zA-Z])([a-zA-Z]?)", lambda m: m.group(1).lower() + m.group(2).upper())],
         "kankri": [("[Bb]", "6"), ("[Oo]", "9")],
         "lower": [("(.+)", lambda m: m.group(1).lower())],
         "upper": [("(.+)", lambda m: m.group(1).upper())],
+        "mituna": [("(.+)", lambda m: m.group(1).upper())] + [(c, "4831057"[i]) for i, c in enumerate("ABEIOST")],
         "greentext": [(r"((?<=^)|(?<=\n))(>.+)(?=$|\n)", "{color=#789922}\g<2>{/color}")]
     }
+    quirks = QuirkStore
 
-    def quirkSayer(who, quirk):
-        def _sayer(what, amt=0, stmt=None, **kwargs):
-            return quirkSay(who, quirk, what, **kwargs)
+    def quirkSayer(who, quirklist):
+        def _sayer(what, **kwargs):
+            return quirkSay(who, quirklist, what, **kwargs)
         return _sayer
 
-    def quirkSay(who, quirk, what, **kwargs):
-        return who(quirkSub(quirk, what), **kwargs)
+    def quirkSay(who, quirklist, what, **kwargs):
+        return who(quirkSub(quirklist, what), **kwargs)
 
-    def quirkSub(quirk, what):
-        quirksubs = quirks.get(quirk.lower(), None)
-        if not quirksubs:
-            if renpy.config.developer:
-                raise Exception("ERROR: No such quirk {}".format(quirk))
-            return what
-        for (pattern, repl) in quirksubs:
-            what = re.sub(pattern, repl, what)
+    def quirkSub(quirklist, what):
+        if type(quirklist) is type(""):
+            # Automatically fix single-element strings
+            quirklist = [quirklist]
+        for quirkname in quirklist:
+            quirksubs = QuirkStore.get(quirkname.lower(), None)
+            if not quirksubs:
+                if renpy.config.developer:
+                    raise Exception("ERROR: No such quirk {}".format(quirkname))
+                return what
+            for (pattern, repl) in quirksubs:
+                what = re.sub(pattern, repl, what)
         return what
