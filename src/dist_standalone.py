@@ -10,7 +10,7 @@ import zlib
 litedir = "lite"
 litearch = "lite.zip"
 distdir = "../dist"
-skinbase = "liteskins"
+skinbase = "../liteskins"
 fse_root = ".."
 
 
