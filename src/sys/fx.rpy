@@ -101,7 +101,7 @@ screen MusicToast:
     frame:
         style_prefix style
         hbox:
-            add scaleBestFit(albumart, 96, 96) size albumartsize
+            add albumart size albumartsize
             null width 6
             vbox:
                 text ttitle style_suffix "title"
