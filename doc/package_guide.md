@@ -36,9 +36,21 @@ The `meta.json` file contains basic metadata about your package and defines the 
 
 The `package_id` field is the id of the package. It should be unique, and does not need to be concise, as you only needs to use it here.
 
-`volumes` is a list of zero or more volumes the package contains. Each volume has a `volume_id`, which should be unique *within* the package, and other metadata used on the volume select screen.
+`volumes` is a list of zero or more volumes the package contains. 
 
-Volumes also have an **optional** field, "warnings". This should be a string detailing content warnings for the volume, if applicable.
+- Each volume has a `volume_id`, which should be unique *within* the package.
+- `title` is the title shown on the volume select screen
+- `subtitle` is the pull quote shown on the volume select screen.
+- Volumes also have an **optional** field, "warnings". This should be a string detailing content warnings for the volume, if applicable.
+
+`achievements` are an optional package feature. `achievements` should be a list of items with the following fields:
+
+- `id_suffix` is the id of the achievement, unique within the package. If `id_suffix` is `test`, then to unlock the achievement, call `$ achievement.grant("__p__test")`.
+- `img_locked` is the subpath of the image displayed when the achievement is locked. It should be 64x64, and placed in the `assets` folder. If `img_locked` is `ach/ach_yes.png`, you should have a file `assets/ach/ach_yes.png` .
+- `img_unlocked` is the image displayed when the achievement is unlocked, with the same properties as the above.
+- `name` is the name of the achievement, and is shown regardless of its locked/unlocked status.
+- `hint` is the description shown when the achievement is still locked.
+- `desc` is the description shown when the achievement is unlocked.
 
 Please note that any quote characters used in `meta.json` need to be escaped with a backslash.
 
@@ -59,6 +71,16 @@ Here is a complete, working example of a `meta.json` file.
             "title": "Neprezi",
             "subtitle": "\"K1SS3S FOR M1L3S\"",
             "author": "Gio, Andrew Hussie"
+        }
+    ],
+    "achievements": [
+        {
+            "id_suffix": "test",
+            "img_locked": "ach_no.png",
+            "img_unlocked": "ach_yes.png",
+            "name": "Test",
+            "desc": "You played the sandbox",
+            "hint": "Play the sandbox"
         }
     ]
 }

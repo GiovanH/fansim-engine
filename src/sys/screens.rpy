@@ -94,6 +94,11 @@ screen mainmenu_devbox:
             textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
             # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("dlc_credits")
             # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
+            textbutton "Clear achievements" action Hide("mainmenu_devbox"), ShowMenu(
+                "confirm", "Are you sure you want to clear all your achievements?", 
+                (Hide("confirm"), achievement.clear_all), 
+                (Hide("confirm"))
+            )
             null height 12
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
@@ -310,3 +315,19 @@ screen dlc_warnings():
 
         for title, warning in dlc_warning_data.items():
             use spoiler_box(title, warning)
+
+
+screen dlc_achievements():
+    tag menu
+    use game_menu(_("Achievements"), scroll="viewport"):
+        style_prefix "about"
+        vpgrid:
+            cols 10
+            xspacing 20
+            yspacing 20
+
+            for ach in dlc_achievements_data:
+                if achievement.has(ach.get("_id")):
+                    imagebutton idle ach.get("_img_unlocked") action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc")) unhovered Hide("ach_desc")
+                else:
+                    imagebutton idle ach.get("_img_locked") action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) unhovered Hide("ach_desc")

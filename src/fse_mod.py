@@ -22,6 +22,10 @@ class Package(object):
         self.loadCredits()
 
     @property
+    def achievements(self):
+        return self.metadata["achievements"]
+
+    @property
     def id(self):
         return self.metadata["package_id"]
 
@@ -52,6 +56,13 @@ class Package(object):
 
         for volume in self.metadata["volumes"]:
             volume["package_id"] = self.id
+
+        self.metadata["achievements"] = self.metadata.get("achievements", [])
+        for achievement in self.metadata["achievements"]:
+            achievement["package_id"] = self.id
+            achievement["_id"] = f"{self.id}_{achievement['id_suffix']}"
+            achievement["_img_locked"] = subtableReplace("{{assets}}/" + achievement["img_locked"], self.metadata)
+            achievement["_img_unlocked"] = subtableReplace("{{assets}}/" + achievement["img_unlocked"], self.metadata)
 
     def loadCredits(self):
         credits_filepath = os.path.join(self.root, "credits.yml")

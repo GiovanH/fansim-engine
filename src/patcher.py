@@ -206,6 +206,17 @@ def patchWarningData(all_packages, verbose=False):
         fp.write(json.dumps(all_warnings, indent=4))
 
 
+def patchAchievementsData(all_packages, verbose=False):
+    # Volume select screen
+
+    all_achievements = sum((p.achievements for p in all_packages), [])
+
+    with open(os.path.join(getCustomScriptsDir(), "custom_achievement_data.rpy"), 'w', encoding="utf-8") as fp:
+        fp.write("init offset = 1\n\n")
+        fp.write("define dlc_achievements_data = ")
+        fp.write(json.dumps(all_achievements, indent=4))
+
+
 def runGame():
     logger.info(f"Starting {executable}")
     subprocess.run(os.path.join(gamedir_root, executable))
@@ -300,6 +311,8 @@ def main(argstr=None):
         patchCreditsData(all_packages, verbose=args.verbose)
         logger.info("Patching warning data")
         patchWarningData(all_packages, verbose=args.verbose)
+        logger.info("Patching achievements data")
+        patchAchievementsData(all_packages, verbose=args.verbose)
 
         if warn:
             logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")

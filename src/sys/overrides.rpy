@@ -83,6 +83,7 @@ screen navigation():
         elif not main_menu:
             textbutton _("Main Menu") action MainMenu()
         textbutton _("Chumroll") action ShowMenu("achievements")
+        textbutton _("Achievements (DLC)") action ShowMenu("dlc_achievements")
         textbutton _("Credits (PQ)") action ShowMenu("about")
         textbutton _("Credits (DLC)") action ShowMenu("dlc_credits")
         textbutton _("Warnings (PQ)") action ShowMenu("content_warnings")
