@@ -187,7 +187,34 @@ screen spoiler_box(label, content, warningoffset=42):
             ToggleLocalVariable("spoil_style_state_text", "__p__spoiler_text_hide", "__p__spoiler_text_show"),
         ]
             
-
+define dlc_volumes_icons = {}
+init python:
+    def getDlcVolumeIcons(volume):
+        key = (volume["package_id"], volume["volume_id"])
+        cached = dlc_volumes_icons.get(key)
+        if cached:
+            return cached
+        try:
+            img_small = "custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume))
+            renpy.file(img_small)
+        except:
+            img_small = Composite(
+                (103, 103),
+                (0, 0), "{{assets}}/volumeselect_fallback_small.png",
+                (0, 0), Text("assets/\nvolumeselect_\n{volume_id}_\nsmall.png".format(**jsonReEscape(volume)), xsize=103)
+            )
+        try:
+            img_norm = "custom_assets_{package_id}/volumeselect_{volume_id}.png".format(**jsonReEscape(volume))
+            renpy.file(img_norm)
+        except:
+            img_norm = Composite(
+                (153, 149),
+                (0, 0), "{{assets}}/volumeselect_fallback.png",
+                (0, 0), Text("assets/\nvolumeselect_\n{volume_id}.png".format(**jsonReEscape(volume)), xsize=103)
+            )
+        tup = (img_small, img_norm,)
+        dlc_volumes_icons[key] = tup
+        return tup
 
 define dlc_volumes_data = []
 screen vol_select_custom():
@@ -227,8 +254,9 @@ screen vol_select_custom():
                     spacing 10
 
                     for volume in volumes_by_author:
-                        imagebutton idle "custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume)) action Jump("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))) hovered[
-                            SetScreenVariable("icon", "custom_assets_{package_id}/volumeselect_{volume_id}.png".format(**jsonReEscape(volume))), 
+                        $ img_small, img_norm = getDlcVolumeIcons(volume)
+                        imagebutton idle img_small action Jump("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))) hovered[
+                            SetScreenVariable("icon", img_norm), 
                             SetScreenVariable("title", volume.get("title", "")), 
                             SetScreenVariable("subtitle", volume.get("subtitle", "")),
                             SetScreenVariable("author", volume.get("author", ""))
