@@ -158,7 +158,7 @@ def checkNameNamespace():
 
 def writeNameReport():
     with open("report_names.txt", "w", encoding="utf-8") as outfp:
-        for rpy in sum((list(p.getScriptFiles()) for p in packages), []):
+        for rpy in sum((list(p.getScriptFiles()) for p in packages), rpy_files_vanilla):
             for type, name, lineno, line in sorted(renpylang.findNameDefs(rpy)):
                 outfp.write(f"{type} {name}\t[{rpy}:{lineno}]\t{line}")
 
@@ -302,7 +302,7 @@ def main():
     add_bool_arg(ap, 'checkstruct', help="Check folder structure")
     add_bool_arg(ap, 'checkglobals', help="Detect global names")
     add_bool_arg(ap, 'namereport', help="Write summary of names")
-    add_bool_arg(ap, 'transcribe', help="Write dialog transcriptions")
+    add_bool_arg(ap, 'transcribe', default=False, help="Write dialog transcriptions")
     args = ap.parse_args()
 
     print(args)
