@@ -188,7 +188,7 @@ def patchVolumeData(all_packages, verbose=False):
 
     all_volumes = sum((p.volumes for p in all_packages), [])
 
-    with open(os.path.join(getCustomScriptsDir(), "custom_volumeselect.rpy"), 'w', encoding="utf-8") as fp:
+    with open(os.path.join(getCustomScriptsDir(), "custom_volumes_data.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
         fp.write("define dlc_volumes_data = ")
         fp.write(json.dumps(all_volumes, indent=4))
@@ -200,7 +200,7 @@ def patchWarningData(all_packages, verbose=False):
     all_volumes = sum((p.volumes for p in all_packages), [])
     all_warnings = {v["title"]: v["warnings"] for v in all_volumes if v.get("warnings")}
 
-    with open(os.path.join(getCustomScriptsDir(), "custom_warnings.rpy"), 'w', encoding="utf-8") as fp:
+    with open(os.path.join(getCustomScriptsDir(), "custom_warning_data.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
         fp.write("define dlc_warning_data = ")
         fp.write(json.dumps(all_warnings, indent=4))
