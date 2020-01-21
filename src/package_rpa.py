@@ -20,8 +20,8 @@ import subprocess
 import glob
 import shutil
 
-fse_root = "../.."
-rpatool = "../rpatool.py"
+fse_root = ".."
+rpatool = "rpatool.py"
 
 for package_id in sys.argv[1:]:
     pysubdir = os.path.join(fse_root, f"custom_volumes_other/{package_id}/")
@@ -31,7 +31,10 @@ for package_id in sys.argv[1:]:
     os.makedirs(pysubdir_new, exist_ok=True)
 
     shutil.copy2(f"{pysubdir}meta.json", f"{pysubdir_new}meta.json")
-    shutil.copy2(f"{pysubdir}credits.yml", f"{pysubdir_new}credits.yml")
+    try:
+        shutil.copy2(f"{pysubdir}credits.yml", f"{pysubdir_new}credits.yml")
+    except FileNotFoundError:
+        pass
 
     merged = "init offset = 1\n\n"
     for rpy in glob.glob(os.path.join(pysubdir, "*.rpy")):

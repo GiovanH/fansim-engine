@@ -6,10 +6,6 @@
 | -------------------- |
 | [loose/fse_filler.gif](loose/fse_filler.gif)   |
 
-| ![loose/fse_4chan.gif](loose/fse_4chan.gif)  |
-| -------------------- |
-| [loose/fse_4chan.gif](loose/fse_4chan.gif)   |
-
 | ![loose/fse_4chan2.gif](loose/fse_4chan2.gif)  |
 | -------------------- |
 | [loose/fse_4chan2.gif](loose/fse_4chan2.gif)   |
