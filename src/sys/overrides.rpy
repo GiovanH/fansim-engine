@@ -27,6 +27,9 @@ init python:
 
 define config.autoreload = False
 
+transform menustill:
+    xpos 20
+
 screen main_menu():
     tag menu
 
@@ -49,16 +52,20 @@ screen main_menu():
         xanchor 0
         yalign 1.0
 
-        imagebutton auto "{{assets}}/start_canon_%s.png" ysize 60 action Start("start") at menumove
+        imagebutton auto "gui/start_%s.png" ysize 60 action Start("start") at menumove
         imagebutton auto "{{assets}}/start_fanon_%s.png" ysize 60 action Start("start_custom") alternate (lambda: renpy.play("music/honk_short.wav")) at menumove
         imagebutton auto "gui/load_%s.png" ysize 60 action ShowMenu('load') at menumove
         imagebutton auto "gui/options_%s.png" ysize 60 action ShowMenu('preferences') at menumove
-        imagebutton auto "gui/friends_%s.png" ysize 60 action ShowMenu('achievements') at menumove
-        imagebutton auto "gui/credits_%s.png" ysize 60 action ShowMenu('dlc_credits') at menumove
+        hbox:
+            imagebutton auto "gui/friends_%s.png" ysize 60 action ShowMenu("achievements") at menustill
+            imagebutton auto "{{assets}}/dlc_superscript_%s.png" ysize 60 action ShowMenu("dlc_achievements") at menustill
+        hbox:
+            imagebutton auto "gui/credits_%s.png" ysize 60 action ShowMenu("about") at menustill
+            imagebutton auto "{{assets}}/dlc_superscript_%s.png" ysize 60 action ShowMenu("dlc_credits") at menustill
         imagebutton auto "gui/exit_%s.png" ysize 60 action Quit(confirm=not main_menu) at menumove
 
     # use mainmenu_devbox
-    key "trickster" action getMousePosition, ShowMenu('mainmenu_devbox')
+    key "trickster" action getMousePosition, ShowMenu("mainmenu_devbox")
 
 
 ## Navigation screen ###########################################################

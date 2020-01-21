@@ -94,12 +94,12 @@ screen mainmenu_devbox:
             textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
             # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("dlc_credits")
             # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
+            null height 12
             textbutton "Clear achievements" action Hide("mainmenu_devbox"), ShowMenu(
                 "confirm", "Are you sure you want to clear all your achievements?", 
                 (Hide("confirm"), achievement.clear_all), 
                 (Hide("confirm"))
             )
-            null height 12
             if config.developer:
                 textbutton "Reload (Ctrl+R)" action _reload_game
             textbutton "Developer Tools" action ToggleDevModeMenu
@@ -232,7 +232,7 @@ screen vol_select_custom():
         default subtitle = "Hover over an icon for info!"
         default author = "Fansim Engine"
 
-        default num_cols = 8
+        $ num_cols = 8
 
         $ volumes_by_author = sorted(dlc_volumes_data, key=lambda v: v["author"])
                     
