@@ -316,7 +316,7 @@ def main(argstr=None):
 
         if warn:
             logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")
-            logger.warn("If this was launched from run_wizard.py or run_wizard_gui.py, a full logfile is availible at 'latest.log'")
+            logger.warn("A full logfile should be availible at 'latest_debug.log'")
 
         if warn or args.pause:
             logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
@@ -326,7 +326,10 @@ def main(argstr=None):
             runGame()
     except Exception:
         logger.error("Root exception", exc_info=True)
-        raise
+        logger.warn("A full logfile should be availible at 'latest_debug.log'")
+        logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+        input()
+        return
 
 
 if __name__ == "__main__":

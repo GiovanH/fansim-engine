@@ -50,8 +50,8 @@ class Package(object):
         return os.path.join(self.root, "assets_common")
 
     def loadMetadata(self):
-        meta_filepath = os.path.join(self.root, "meta.json")
-        with open(meta_filepath, "r", encoding="utf-8") as fp:
+        self.meta_filepath = os.path.join(self.root, "meta.json")
+        with open(self.meta_filepath, "r", encoding="utf-8") as fp:
             self.metadata = json.load(fp)
 
         for volume in self.metadata["volumes"]:
@@ -123,6 +123,11 @@ def getAllPackages(fse_base, only_volumes=False):
 
         except FileNotFoundError as e:
             logger.error(f"[ERROR]\tMissing configuration file {e}, required!")
+            warn = True
+            continue
+        except json.decoder.JSONDecodeError:
+            logger.error("Invalid json file at '%s'", package.meta_filepath)
+            logger.error("Ensure that this file is valid JSON; try an online json linter/validator if issues persist.")
             warn = True
             continue
 
