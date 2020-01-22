@@ -11,6 +11,8 @@ import shutil
 import re
 import collections
 import _logging
+import environment
+import fse_mod
 
 logger = _logging.getLogger(__name__)
 
@@ -18,15 +20,8 @@ platform = os.name
 
 logger.debug("Running on platfom " + platform)
 
-if platform == "nt":
-    gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
-    executable = "pesterquest.exe"
-elif platform == "posix":
-    # If you're on linux, change this path to your steam install directory.
-    gamedir_root = os.environ["HOME"] + "/Library/Application Support" + "/Steam/steamapps/common/Homestuck Pesterquest"
-    executable = "pesterquest"
-else:
-    raise Exception("Unknown platform " + platform)
+gamedir_root = environment.getGamedirRoot()
+executable = environment.getExecutableName()
 
 gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
 
@@ -34,17 +29,7 @@ with open("subtable.json", "r") as fp:
     rpy_sub_table = json.load(fp)
 
 
-dummy_package = {
-    "package_id": "pid",
-    "volumes": [
-        {
-            "volume_id": "vid",
-            "title": "title",
-            "subtitle": "pull quote",
-            "author": "author"
-        }
-    ]
-}
+dummy_package = fse_mod.DummyPackage()
 
 # Properties, dependent on the current gamedir
 
@@ -136,9 +121,7 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
 
 
 def processPackages(only_volumes=[], verbose=False):
-    from fse_mod import getAllPackages
-
-    all_packages, warn = getAllPackages("..", only_volumes)
+    all_packages, warn = fse_mod.getAllPackages("..", only_volumes)
     for package in all_packages:
         logger.info(f"Patching {package.id}")
 

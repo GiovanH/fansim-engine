@@ -53,7 +53,9 @@ class Package(object):
         self.meta_filepath = os.path.join(self.root, "meta.json")
         with open(self.meta_filepath, "r", encoding="utf-8") as fp:
             self.metadata = json.load(fp)
+        self.correctMetadata()
 
+    def correctMetadata(self):
         for volume in self.metadata["volumes"]:
             volume["package_id"] = self.id
 
@@ -84,6 +86,23 @@ class Package(object):
         for rpa in self._archivefiles:
             yield rpa
 
+
+class DummyPackage(Package):
+
+    def loadMetadata(self):
+        self.metadata = {
+            "package_id": "pid",
+            "volumes": [
+                {
+                    "volume_id": "vid",
+                    "title": "title",
+                    "subtitle": "pull quote",
+                    "author": "author"
+                }
+            ]
+        }
+        self.correctMetadata()
+        
 
 def getAllPackages(fse_base, only_volumes=False):
     all_packages = []
