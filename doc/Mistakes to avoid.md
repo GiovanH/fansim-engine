@@ -50,7 +50,7 @@ Here's how to fix this.
 
 ```python
 ara talk "this is not the first{nw}"
-ara waggle "this is not the first{fast} {cps=4}{i}time{/i}{nw}"
+ara waggle "this is not the first{fast} {cps=4}{i}time{/i}{/cps}{nw}"
 ara talk "this is not the first {i}time{/i}{fast} we have met"
 ```
 
@@ -59,6 +59,18 @@ In line 1, aradia says the line "this is not the first", but then the `{nw}` tag
 In line 2, aradia skips past "this is not the first", so the text doesn't have to animate over again. The `{cps}` tag now slows down the word "time" to 4 characters a second, letting the animation linger on the "waggle" animation for a full second. Again, this goes to the next line without confirmation.
 
 In line 3, we skip to after the word "time" and continue dialogue as normal.
+
+When actually writing code, instead of writing all that out, you should use the `extend` shorthand:
+
+```python
+ara talk "this is not the first{nw}"
+show ara waggle
+extend " {cps=4}{i}time{/i}{/cps}{nw}"
+show ara talk
+extend " we have met"
+```
+
+This code has the same function as the previous code block.
 
 Here's how that all looks put together:
 

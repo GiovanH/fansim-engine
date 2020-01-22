@@ -23,7 +23,9 @@ This is written by me, Gio, and it's a labor of love.
 
 If you have any comments, suggestions, complaints, or contributions, you're welcome to reach me on twitter [@giovan_h](https://twitter.com/giovan_h), make an issue here on the [issues](https://github.com/GiovanH/pesterquest-modsuite/issues) page, or even make a pull request if you want to add something new.
 
-**For demo mods and asset packs, see [fse-extras](https://github.com/GiovanH/fse-extras)**
+**For demo mods and asset packs, see [fse-extras.](https://github.com/GiovanH/fse-extras)**
+
+**For documentation, browse the guides in [the `docs/` folder.](./doc/)**
 
 <!-- MarkdownTOC -->
 
@@ -157,6 +159,8 @@ Please see the example volumes from [fse-extras](https://github.com/GiovanH/fse-
 ## Credits
 
 The Befriendus Dev Team (and alienoid) for the "openround" rounded dialog box style as well as the befriendus litestyle.
+
+Alienoid for some documentation contributions, including the `extend` trick in `Mistakes to Avoid`
 
 Gio for everything else here
 
