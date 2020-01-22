@@ -177,8 +177,8 @@ def writeTranscriptions():
 
                 for package in packages:
                     if rpy in package.getScriptFiles():
-                        name = subtableReplace(name, package.metadata)
-                        image = subtableReplace(image, package.metadata)
+                        name = package.subtableReplace(name)
+                        image = package.subtableReplace(image)
 
                 if name in char_to_color.keys():
                     continue
@@ -252,7 +252,7 @@ def writeTranscriptions():
                 if sayer:
                     for package in packages:
                         if rpy in package.getScriptFiles():
-                            sayer = subtableReplace(sayer, package.metadata)
+                            sayer = package.subtableReplace(sayer)
                     txtfp.write(f"{getNameCaption(sayer)}: {text}\n")
                     htmlfp.write(f"<span class='line'><span class='sayer_label {sayer}'>{getNameCaption(sayer)}: </span><span class='{sayer} dialogue'>{renpylang.dialogueToHtml(text)}</span></span>\n")
                 else:

@@ -3,10 +3,12 @@ import json
 import glob
 import yaml
 import _logging
-
-from patcher import subtableReplace
+import re
 
 logger = _logging.getLogger(__name__)
+
+with open("subtable.json", "r") as fp:
+    rpy_sub_table = json.load(fp)
 
 
 class Package(object):
@@ -63,14 +65,14 @@ class Package(object):
         for achievement in self.metadata["achievements"]:
             achievement["package_id"] = self.id
             achievement["_id"] = f"{self.id}_{achievement['id_suffix']}"
-            achievement["_img_locked"] = subtableReplace("{{assets}}/" + achievement["img_locked"], self.metadata)
-            achievement["_img_unlocked"] = subtableReplace("{{assets}}/" + achievement["img_unlocked"], self.metadata)
+            achievement["_img_locked"] = self.subtableReplace("{{assets}}/" + achievement["img_locked"])
+            achievement["_img_unlocked"] = self.subtableReplace("{{assets}}/" + achievement["img_unlocked"])
 
     def loadCredits(self):
         credits_filepath = os.path.join(self.root, "credits.yml")
         if os.path.isfile(credits_filepath):
             with open(credits_filepath, "r", encoding="utf-8") as fp:
-                self.credits = yaml.safe_load(subtableReplace(fp.read(), self.metadata))
+                self.credits = yaml.safe_load(self.subtableReplace(fp.read()))
         else:
             self.credits = None
 
@@ -85,6 +87,9 @@ class Package(object):
             self._archivefiles = glob.glob(os.path.join(self.root, "*.rpa"))
         for rpa in self._archivefiles:
             yield rpa
+
+    def subtableReplace(self, textdata, subtable=rpy_sub_table):
+        return subtableReplace(textdata, self.metadata, subtable=subtable)
 
 
 class DummyPackage(Package):
@@ -102,7 +107,27 @@ class DummyPackage(Package):
             ]
         }
         self.correctMetadata()
-        
+
+    def loadCredits(self):
+        self.credits = None
+
+
+dummy_package = DummyPackage(None)
+
+
+def subtableReplace(textdata, fstrings=dummy_package.metadata, subtable=rpy_sub_table):
+    for rtype, pattern, repl in subtable:
+        if rtype == "R":
+            textdata = re.sub(pattern, repl, textdata, flags=re.MULTILINE)
+        elif rtype == "S":
+            try:
+                if pattern in textdata:
+                    textdata = textdata.replace(pattern, repl.format(**fstrings))
+            except KeyError:
+                logger.error("Availible keys:", fstrings.keys(), exc_info=True)
+                raise
+    return textdata
+
 
 def getAllPackages(fse_base, only_volumes=False):
     all_packages = []

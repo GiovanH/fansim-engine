@@ -8,7 +8,6 @@ import glob
 from distutils.dir_util import copy_tree
 import json
 import shutil
-import re
 import collections
 import _logging
 import environment
@@ -24,12 +23,6 @@ gamedir_root = environment.getGamedirRoot()
 executable = environment.getExecutableName()
 
 gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
-
-with open("subtable.json", "r") as fp:
-    rpy_sub_table = json.load(fp)
-
-
-dummy_package = fse_mod.DummyPackage()
 
 # Properties, dependent on the current gamedir
 
@@ -85,20 +78,6 @@ def dict_merge(dct, merge_dct):
             dct[k] = merge_dct[k]
 
 
-def subtableReplace(textdata, fstrings=dummy_package, subtable=rpy_sub_table):
-    for rtype, pattern, repl in subtable:
-        if rtype == "R":
-            textdata = re.sub(pattern, repl, textdata, flags=re.MULTILINE)
-        elif rtype == "S":
-            try:
-                if pattern in textdata:
-                    textdata = textdata.replace(pattern, repl.format(**fstrings))
-            except KeyError:
-                logger.error("Availible keys:", fstrings.keys(), exc_info=True)
-                raise
-    return textdata
-
-
 def copyAndSubRpy(src, dst, metadata, verbose=False):
     printer = logger.info if verbose else logger.debug
 
@@ -111,7 +90,7 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
         rpy_data = fp.read()
 
     try:
-        rpy_data = subtableReplace(rpy_data, metadata)
+        rpy_data = fse_mod.subtableReplace(rpy_data, metadata)
         with open(dst, 'w', encoding="utf-8") as fp:
             fp.write(rpy_data)
         printer("{} --> {}".format(src, dst))
