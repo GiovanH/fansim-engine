@@ -1,4 +1,4 @@
-#!/bin/python3
+#! python3
 
 # This is the main script that patches custom resources into the main game.
 
@@ -16,8 +16,6 @@ import fse_mod
 logger = _logging.getLogger(__name__)
 
 platform = os.name
-
-logger.debug("Running on platfom " + platform)
 
 gamedir_root = environment.getGamedirRoot()
 executable = environment.getExecutableName()

@@ -1,13 +1,12 @@
 import os
 import glob
-from pprint import pprint
 import json
 import re
 import textwrap
 import shutil
 
 import renpylang
-from patcher import subtableReplace
+from fse_mod import subtableReplace
 from fse_mod import Package
 
 

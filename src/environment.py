@@ -1,10 +1,32 @@
 import _logging
 import os
+import shutil
+import sys
 
 logger = _logging.getLogger(__name__)
 
 
+def sanitizePath(string):
+    subs = [
+        (os.environ["USER"], "USER"),
+        (os.environ["USERDOMAIN"], "DOMAIN")
+    ]
+    string2 = string
+    for pat, repl in subs:
+        string2 = string2.replace(pat, repl)
+    return string2
+
+
+logger.debug("Running script %s", sys.argv)
+logger.debug("Running python '%s'", sys.version)
+logger.debug("from '%s' ('%s')", sanitizePath(sys.executable), sanitizePath(os.environ.get("_")))
+
+
 platform = os.name
+platform_long = os.environ.get("OS")
+logger.debug("Platform: %s (%s), terminal '%s'", platform, platform_long, os.environ.get("TERM"))
+logger.debug("PWD '%s'", sanitizePath(os.environ.get("PWD")))
+
 
 
 def isWindows():
@@ -26,11 +48,48 @@ def getGamedirRoot():
     return gamedir_root
 
 
-def getExecutableName():
+def getExecutablePostfix():
     if isWindows():
-        executable = "pesterquest.exe"
+        return ".exe"
     elif isPosix():
-        executable = "pesterquest"
+        return ""
     else:
         raise Exception("Unknown platform " + platform)
-    return executable
+
+
+def getExecutableName():
+    return "pesterquest" + getExecutablePostfix()
+
+
+def where(target, extradirs=[]):
+    
+    which = shutil.which(target)
+
+    if not which and extradirs:
+        paths = ";".join(extradirs)
+        which = shutil.which(target, paths)
+
+    return which
+
+
+def getGitPath():
+    gitpaths = []
+    return where("git", gitpaths)
+
+
+def getPython3Path():
+    for name in ["py", "py3", "python3", "python"]:
+        py = where(name)
+        if py:
+            return py 
+
+
+def tellBestPy3Cmd():
+    best_py3_cmd = getPython3Path()
+    a, b = os.path.split(best_py3_cmd)
+    if a in sys.path:
+        best_py3_cmd = os.path.splitext(b)[0]
+    logger.debug("Best python3 command: '%s'", best_py3_cmd)
+
+tellBestPy3Cmd()
+
