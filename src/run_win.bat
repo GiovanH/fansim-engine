@@ -1,2 +1,2 @@
-py -3 launcher.py
+py -3 run_wizard_gui.py
 pause

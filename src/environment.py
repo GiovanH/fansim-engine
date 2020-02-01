@@ -7,9 +7,12 @@ logger = _logging.getLogger(__name__)
 
 
 def sanitizePath(string):
+    if not isinstance(string, str):
+        logger.warning("'%s' is '%s', not str!", string, type(string))
+        return string
     subs = [
-        (os.environ["USER"], "USER"),
-        (os.environ["USERDOMAIN"], "DOMAIN")
+        (os.environ.get("USER", "USER"), "USER"),
+        (os.environ.get("USERDOMAIN", "USERDOMAIN"), "DOMAIN")
     ]
     string2 = string
     for pat, repl in subs:
@@ -17,16 +20,17 @@ def sanitizePath(string):
     return string2
 
 
-logger.debug("Running script %s", sys.argv)
-logger.debug("Running python '%s'", sys.version)
-logger.debug("from '%s' ('%s')", sanitizePath(sys.executable), sanitizePath(os.environ.get("_")))
-
-
 platform = os.name
 platform_long = os.environ.get("OS")
-logger.debug("Platform: %s (%s), terminal '%s'", platform, platform_long, os.environ.get("TERM"))
-logger.debug("PWD '%s'", sanitizePath(os.environ.get("PWD")))
 
+try:
+    logger.debug("Running script %s", sys.argv)
+    logger.debug("Running python '%s'", sys.version)
+    logger.debug("from '%s' ('%s')", sanitizePath(sys.executable), sanitizePath(os.environ.get("_")))
+    logger.debug("Platform: %s (%s), terminal '%s'", platform, platform_long, os.environ.get("TERM"))
+    logger.debug("PWD '%s'", sanitizePath(os.environ.get("PWD")))
+except:
+    logger.error("Environment error!", exc_info=True)
 
 
 def isWindows():
@@ -91,5 +95,5 @@ def tellBestPy3Cmd():
         best_py3_cmd = os.path.splitext(b)[0]
     logger.debug("Best python3 command: '%s'", best_py3_cmd)
 
-tellBestPy3Cmd()
 
+tellBestPy3Cmd()
