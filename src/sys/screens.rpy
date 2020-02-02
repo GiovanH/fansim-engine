@@ -101,7 +101,7 @@ screen mainmenu_devbox:
                 (Hide("confirm"))
             )
             if config.developer:
-                textbutton "Reload (Ctrl+R)" action _reload_game
+                textbutton "Reload (Shift+R)" action _reload_game
             textbutton "Developer Tools" action ToggleDevModeMenu
 
 label __p__NewWatchAction:
