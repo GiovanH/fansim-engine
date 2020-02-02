@@ -1,5 +1,11 @@
 ## Developer Quickstart
 
+A video tutorial for a very basic FSE editing workflow is available here:
+
+https://youtu.be/PhfP1YjF3wY
+
+Note: This uses the lite version. Normal developers would do the same thing, but without the `--lite` switch.
+
 ### A basic workflow
 
 1. Create a new volume in `custom_volumes`. You can use the example volumes as a template.
