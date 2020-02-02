@@ -5,13 +5,13 @@
 import subprocess
 import os
 import glob
-from distutils.dir_util import copy_tree
 import json
 import shutil
 import collections
 import _logging
 import environment
 import fse_mod
+from util import copyTreeLazy
 
 logger = _logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ def copy2(src, dst, verbose=False):
 def mergeDirIntoDir(src, dst, verbose=False):
     printer = logger.info if verbose else logger.debug
     try:
-        copy_tree(src, dst, update=True, verbose=verbose)
+        copyTreeLazy(src, dst)
         printer("{} --> {}".format(src, dst))
         # if verbose:
         #     print_tree(src)

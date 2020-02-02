@@ -1,10 +1,11 @@
-from distutils.dir_util import copy_tree
 # import sys
 import os
 # import subprocess
 import argparse
 import zipfile
 import zlib
+import shutil
+from util import copyTreeLazy
 
 
 litedir = "lite"
@@ -43,7 +44,7 @@ def copyLiteWithSkins(destdir, skins=["default"]):
         with open(zipcrc_path, "w") as fp:
             fp.write(real_crc)
 
-    copy_tree(litedir, destdir, update=True)
+    copyTreeLazy(litedir, destdir)
 
     print("Patching skin")
     for skin in ["default"] + skins:
@@ -52,7 +53,7 @@ def copyLiteWithSkins(destdir, skins=["default"]):
             print("Skin not found:", skin)
             print("Should be located at", skindir)
             raise FileNotFoundError(skindir)
-        copy_tree(skindir, destdir, update=True)
+        copyTreeLazy(skindir, destdir)
 
 
 def main():
