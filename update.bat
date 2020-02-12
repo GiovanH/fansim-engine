@@ -1,7 +1,10 @@
 @echo off
 
+rem Hack, in case you installed git but the path is incorrect
+set PATH=%PATH%;C:\Program Files\Git\mingw64\bin\
+
 echo Checking for updates...
-"C:\Program Files\Git\mingw64\bin\git.exe" fetch origin master
-"C:\Program Files\Git\mingw64\bin\git.exe" pull origin master
+git fetch origin master
+git pull origin master
 
 pause
