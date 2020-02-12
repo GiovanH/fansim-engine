@@ -234,7 +234,21 @@ def main(argstr=None):
         gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
         os.makedirs(gamedir, exist_ok=True)
 
+    logger.debug(f"Working gamedir_root: '{gamedir_root}'")
+
+    # Ensure gamedir_root exists.
+    # This can fail if --patchdir is set incorrectly
+    # OR if environment failed to detect the right steam library path.
+    if not os.path.isdir(gamedir_root):
+        logger.error("gamedir_root '%s' not found!", gamedir_root)
+        logger.error("Pesterquest may not be installed, or may be in another location.")
+        logger.error("Please adjust --patchdir as needed, or use --lite if you do not own pesterquest.")
+
     if args.packages:
+        # Temporary: if we're working with a reduced subset of packages, 
+        # clean out old packages to be safe.
+        # Specifying limited packages and seeing old versions in the game
+        # is confusing and unexpected behavior.
         args.clean = True
 
     verbosePrinter = logger.info if args.verbose else logger.debug

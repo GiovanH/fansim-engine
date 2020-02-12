@@ -26,9 +26,9 @@ platform_long = os.environ.get("OS")
 try:
     logger.debug("Running script %s", sys.argv)
     logger.debug("Running python '%s'", sys.version)
-    logger.debug("from '%s' ('%s')", sanitizePath(sys.executable), sanitizePath(os.environ.get("_")))
-    logger.debug("Platform: %s (%s), terminal '%s'", platform, platform_long, os.environ.get("TERM"))
-    logger.debug("PWD '%s'", sanitizePath(os.environ.get("PWD")))
+    logger.debug("from '%s' ('%s')", sanitizePath(sys.executable), sanitizePath(os.environ.get("_", "!no_")))
+    logger.debug("Platform: %s (%s), terminal '%s'", platform, platform_long, os.environ.get("TERM", "!noterm"))
+    logger.debug("PWD '%s'", sanitizePath(os.environ.get("PWD", "!nopwd")))
 except:
     logger.error("Environment error!", exc_info=True)
 
@@ -42,6 +42,7 @@ def isPosix():
 
 
 def getGamedirRoot():
+    # Todo: find pesterquest in non-default locations
     if isWindows():
         gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
     elif isPosix():
@@ -49,6 +50,7 @@ def getGamedirRoot():
         gamedir_root = os.environ["HOME"] + "/Library/Application Support" + "/Steam/steamapps/common/Homestuck Pesterquest"
     else:
         raise Exception("Unknown platform " + platform)
+
     return gamedir_root
 
 

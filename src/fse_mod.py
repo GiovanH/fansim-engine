@@ -142,7 +142,7 @@ def getAllPackages(fse_base, only_volumes=False):
         mod_dir = os.path.dirname(meta_file)
         containing_dir = os.path.dirname(mod_dir)
         if os.path.split(containing_dir)[1].lower() != "custom_volumes":
-            logger.warn(f"[WARN]\tMod folder '{os.path.split(mod_dir)[1].lower()}' is in {containing_dir}, not 'custom_volumes'.")
+            logger.warn(f"Mod folder '{os.path.split(mod_dir)[1].lower()}' is in {containing_dir}, not 'custom_volumes'.")
             logger.warn(f"In order to run this mod, move {mod_dir} directly to 'custom_volumes'.\n")
             warn = True
 
@@ -151,7 +151,10 @@ def getAllPackages(fse_base, only_volumes=False):
         glob.glob(os.path.join(fse_base, "custom_volumes", "*.rar")) +
         glob.glob(os.path.join(fse_base, "custom_volumes", "*.7z"))
     ):
-        logger.warn(f"[WARN]\tFound archive '{os.path.split(mod_dir)[1].lower()}'. Extract archives such that 'meta.json' is in a mod folder that is in 'custom_volumes'.")
+        archive_name = os.path.split(archive)[1]
+        archive_name_plain = os.path.splitext(archive_name)[0]
+        logger.warn(f"Found unextracted archive '{archive_name}'.")
+        logger.warn(f"Extract archives such that 'meta.json' is in a mod folder that is in 'custom_volumes', i.e. 'custom_volumes/{archive_name_plain}/meta.json'.")
         warn = True
 
     SYSDIR = os.path.join(fse_base, "src", "sys/")
@@ -166,11 +169,11 @@ def getAllPackages(fse_base, only_volumes=False):
             all_packages.append(package)
 
         except FileNotFoundError as e:
-            logger.error(f"[ERROR]\tMissing configuration file {e}, required!")
+            logger.error(f"Missing configuration file {e}, required!")
             warn = True
             continue
         except json.decoder.JSONDecodeError:
-            logger.error("Invalid json file at '%s'", package.meta_filepath)
+            logger.error("Invalid json file at '%s'", os.path.join(subdir, "meta.json"))
             logger.error("Ensure that this file is valid JSON; try an online json linter/validator if issues persist.")
             warn = True
             continue

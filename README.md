@@ -32,6 +32,7 @@ If you have any comments, suggestions, complaints, or contributions, you're welc
 - [Quickstart for players](#quickstart-for-players)
 - [Why FSE?](#why-fse)
     - [Why not FSE?](#why-not-fse)
+- [Features](#features)
 - [Documentation](#documentation)
 - [FAQ](#faq)
 - [Examples](#examples)
@@ -63,7 +64,7 @@ You want to edit your MOD, not the game, whenever possible. The more you edit di
 
 There are only a few points where FSE is less convenient than simply editing a renpy game:
 
-- Namespacing: FSE encourages you to namespace your names whenever possible by including `__p__` in the name. For instance, `define jo = Character(...` becomes `define __p__jo = Character(...` or `define jo__p__ = Character(...`. When FSE runs the patcher, these names are replaced, so two packages can both use the same shortname without conflict.
+- Namespacing: FSE encourages you to namespace your names whenever possible by including `__p__` or `!` in the name. For instance, `define jo = Character(...` becomes `define !jo = Character(...` . When FSE runs the patcher, these names are replaced, so two packages can both use the same shortname without conflict.
 - The patcher: You need to run `patcher.py` (or `run_wizard.py`, which just launches patcher.py while saving a debug log) to apply changes in your mod files to the game. You *don't* need to run patcher every time you launch the game, or even when pesterquest updates, only when you change modfiles. 
 
 If you already have work done, you can easily convert it into package format either by hand (just changing a few names) or using the automated features in `checker.py`.
@@ -112,11 +113,15 @@ Recommended use is to execute the scripts from console while in the `src` folder
 
 **Q:** Can this make hiveswap friendsim style routes too, or just pesterquest routes?
 
-**A:** While the tool is based around pesterquest, *yes*, you can use hiveswap styles, including the hiveswap characters (using the hiveswap package in fse-extras) and the grype gui
+**A:** While the tool is based around pesterquest, *yes*, you can use hiveswap styles, including the hiveswap characters (using the hiveswap package in fse-extras) and the grype gui.
 
 **Q:** My folder is called pesterquest-modsuite, but it's supposed to be called friendsim-engine now?
 
 **A:** This tool used to be called Pesterquest Modsuite, but was renamed. Unless you're getting errors when you update, it should be fine to have old legacy directories that use the old name.
+
+**Q:** Where do I put my music assets?
+
+**A:** FSE does not add any special requirements for the asset types, so put any assets you need to access (music, pictures, etc) in your mod's `assets` folder. For instance, you can have `custom_volumes/xxx/assets/song.mp3` and play it with `play music "{{assets}}/song.mp3"`. It's just as valid to do `custom_volumes/xxx/assets/music/song.mp3` and play it with `play music "{{assets}}/music/song.mp3"`; FSE does not place requirements on your assets' organizational structure.
 
 **Q:** How do I run a python script in a terminal on windows?
 
