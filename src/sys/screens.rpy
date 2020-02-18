@@ -297,7 +297,9 @@ screen dlc_credits():
                 for name, list_ in person_credits.items():
                     hbox:
                         text name text_align 0.0 min_width 440
-                        text ", ".join(list_) text_align 1.0
+                        vbox:
+                            for item in list_:
+                                text item text_align 1.0
 
 
             text "\n\n" text_align 1.0
