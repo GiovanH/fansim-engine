@@ -269,7 +269,7 @@ def main(argstr=None):
         if args.clean:
             logger.info("Cleaning out old assets")
             for assets_dir in glob.glob(os.path.join(gamedir, "custom_assets_*/")):
-                shutil.rmtree(assets_dir)
+                shutil.rmtree(assets_dir, ignore_errors=True)
 
         logger.info("Initializing")
         os.makedirs(os.path.join("../custom_volumes"), exist_ok=True)
