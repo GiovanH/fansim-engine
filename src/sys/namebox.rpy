@@ -176,6 +176,7 @@ define hiveswap = Character(
     ### The textbox and outlines are colored based on the show_blood argument.
     ### n.b. Hiveswap uses alternate versions of some background colors for readability.
     ### These are availible as burgundy_fs, bronze_fs, and indigo_fs.
+    ### Use this with kind=hiveswap
     ###
     ### Args:
     ###     name (string): Trolltag, i.e. "arachnidsGrip"

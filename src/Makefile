@@ -14,6 +14,7 @@ mod_release_targets=\
 	pq_trolls \
 	intro \
 	sandbox \
+	sbb \
 	variants
 
 all: doc exe mods

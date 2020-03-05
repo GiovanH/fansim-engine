@@ -7,12 +7,12 @@ def explodeGif(gif_path):
     __, gifname = os.path.split(gif_path)
     name, __ = os.path.splitext(gifname)
 
-    os.makedirs(name, exist_ok=True)
+    os.makedirs(os.path.join("gifs", name), exist_ok=True)
 
     try:
         while True:
             frame = im.tell() 
-            outpath = os.path.join(name, f"{frame}.png")
+            outpath = os.path.join("gifs", name, f"{frame}.png")
             im.save(outpath)
             im.seek(frame + 1)
     except EOFError:
