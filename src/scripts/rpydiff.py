@@ -273,7 +273,7 @@ def rpyDefineComposite(char_name, base_pose, updated_pose, patch):
         TYPE: Description
     """
     return f"""
-image {char_name} {patch.expression} = Composite(
+image !{char_name} {patch.expression} = Composite(
     {base_pose.getImage().size},
     (0, 0), "{spriteLocation(char_name)}{base_pose.file_orig}",
     ({patch.x}, {patch.y}), "{spriteLocation(char_name)}{patch.filename}"
@@ -296,12 +296,12 @@ def rpyDefinePassthrough(char_name, base_pose, updated_pose, patch):
     if updated_pose:
         shutil.copy2(updated_pose.file, outdir)
         return f"""
-image {char_name} {patch.expression} = "{spriteLocation(char_name)}{updated_pose.file_orig}"
+image !{char_name} {patch.expression} = "{spriteLocation(char_name)}{updated_pose.file_orig}"
 """
     else:
         shutil.copy2(base_pose.file, outdir)
         return f"""
-image {char_name} {base_pose.expression} = "{spriteLocation(char_name)}{base_pose.file_orig}"
+image !{char_name} {base_pose.expression} = "{spriteLocation(char_name)}{base_pose.file_orig}"
 """
 
 
@@ -318,7 +318,7 @@ def rpyDefineNodiff(char_name, base_pose, updated_pose, patch):
         TYPE: Description
     """
     return f"""
-image {char_name} {updated_pose.expression} = "{spriteLocation(char_name)}{base_pose.file_orig}"
+image !{char_name} {updated_pose.expression} = "{spriteLocation(char_name)}{base_pose.file_orig}"
 """
 
 

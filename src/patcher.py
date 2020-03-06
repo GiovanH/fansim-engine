@@ -259,7 +259,7 @@ def main(argstr=None):
                     logger.info("Some packages removed")
                     args.clean = True
                 else:
-                    logger.error("Package selections unchanged")
+                    logger.info("Package selections unchanged")
                     args.clean = False or args.clean
             except json.decoder.JSONDecodeError:
                 logger.error("Can't read old packagelist")
@@ -267,7 +267,7 @@ def main(argstr=None):
         else:
             logger.error("Missing old packagelist")
             args.clean = True
-        
+
         with open(packagelist_path, "w") as fp:
             json.dump(new_packagelist, fp)
         
