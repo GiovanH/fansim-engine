@@ -249,12 +249,28 @@ def main(argstr=None):
         logger.error("Please adjust --patchdir as needed, or use --lite if you do not own pesterquest.")
 
     if args.packages:
-        # Temporary: if we're working with a reduced subset of packages, 
-        # clean out old packages to be safe.
-        # Specifying limited packages and seeing old versions in the game
-        # is confusing and unexpected behavior.
-        args.clean = True
-
+        packagelist_path = os.path.join(gamedir, "fse_packagelist.json")
+        new_packagelist = list(args.packages)
+        if os.path.isfile(packagelist_path):
+            try:
+                with open(packagelist_path, "r") as fp:
+                    old_packagelist = json.load(fp)
+                if any(p not in new_packagelist for p in old_packagelist):
+                    logger.info("Some packages removed")
+                    args.clean = True
+                else:
+                    logger.error("Package selections unchanged")
+                    args.clean = False or args.clean
+            except json.decoder.JSONDecodeError:
+                logger.error("Can't read old packagelist")
+                args.clean = True
+        else:
+            logger.error("Missing old packagelist")
+            args.clean = True
+        
+        with open(packagelist_path, "w") as fp:
+            json.dump(new_packagelist, fp)
+        
     verbosePrinter = logger.info if args.verbose else logger.debug
 
     try:
