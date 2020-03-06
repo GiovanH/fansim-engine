@@ -27,6 +27,7 @@ def copyTreeLazy(src, dst, **kwargs):
     :param dst: Destination folder where new folders and files are created and new files are added
     :return: !=0 in case of errors
     '''
+    logger.info(f"Patching '{src}' to '{dst}'")
     if not os.path.exists(src):
         return 1
     ok = 0

@@ -9,6 +9,7 @@ Mods.zip
 Standalone.zip
 build/
 src/build
+src/lite/
 src/scripts/rpydiff_*/
 bin/*.exe
 src/__pycache__/

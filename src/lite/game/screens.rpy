@@ -193,14 +193,6 @@ screen vol_icon(icon):
 
     image icon
 
-
-## Main Menu screen ############################################################
-##
-## Used to display the main menu when Ren'Py starts.
-##
-## https://www.renpy.org/doc/html/screen_special.html#main-menu
-
-
 ## Game Menu screen ############################################################
 ##
 ## This lays out the basic common structure of a game menu screen. It's called
@@ -341,38 +333,6 @@ screen game_menu_volumes(title, scroll=None, yinitial=0.0):
             style "return_button"
             action Quit(confirm=not main_menu)
 
-
-
-## Achievements screen ~CHANGES EACH VOLUME~ ################################################################
-##
-## Displays achievements
-
-screen achievements():
-
-    tag menu
-
-    use game_menu(_("Chumroll"), scroll="none"):
-
-        style_prefix "about"
-
-        vpgrid:
-
-            cols 10
-            xspacing 20
-            yspacing 20
-
-screen ach_desc(ach_name, ach_description):
-
-    vbox:
-
-        xpos 320 ypos 465
-
-        text ach_name
-        text ach_description
-
-        
-## This is redefined in options.rpy to add text to the about screen.
-define gui.about = ""
 
 
 ## Load and Save screens #######################################################
@@ -766,95 +726,6 @@ screen gamepad_help():
 
     textbutton _("Calibrate") action GamepadCalibrate()
 
-
-
-################################################################################
-## Additional screens
-################################################################################
-
-## DLC Purchase Screen ##############################################################
-##
-## Wanna buy some volumes???
-## This screen handles the pop-up asking users if they want to buy DLC,
-## and then sends them to the proper area if so.
-##
-## Might need some modification for iOS support, but otherwise doesn't need to be touched.
-
-screen dlc(link, product):
-
-    modal True
-
-    zorder 200
-
-    style_prefix "confirm"
-
-    add "gui/overlay/confirm.png"
-
-    frame:
-
-        vbox:
-            xalign .5
-            yalign .5
-            spacing 30
-
-            if renpy.mobile or renpy.variant("mobile"):
-
-                label _("Looks like you don't own this volume! Would you like to purchase it?"):
-                    style "confirm_prompt"
-                    xalign 0.5
-
-            else:
-
-                 label _("Looks like you don't own this volume! Would you like to purchase it on Steam?"):
-                    style "confirm_prompt"
-                    xalign 0.5
-
-            hbox:
-                xalign 0.5
-                spacing 100
-
-                if renpy.mobile or renpy.variant("mobile"):
-
-                    textbutton _("Yes") action iap.Purchase(product, success=(Hide("dlc"), Jump("start"))), Hide("dlc")
-                    textbutton _("No") action Hide("dlc")
-
-                else:
-
-                    textbutton _("Yes") action OpenURL(link), Show("dlc2")
-                    textbutton _("No") action Hide("dlc")
-
-    ## Right-click and escape answer "no".
-    key "game_menu" action Hide("dlc")
-
-screen dlc2():
-
-    modal True
-
-    zorder 200
-
-    style_prefix "confirm"
-
-    add "gui/overlay/confirm.png"
-
-    frame:
-
-        vbox:
-            xalign .5
-            yalign .5
-            spacing 30
-
-            label _("Thanks for your support!\nOnce you've made your purchase, please allow it to download and then reload the game."):
-                style "confirm_prompt"
-                xalign 0.5
-
-            hbox:
-                xalign 0.5
-                spacing 100
-
-                textbutton _("Okay") action Hide("dlc"), Hide("dlc2")
-
-    ## Right-click and escape answer "no".
-    key "game_menu" action Hide("dlc"), Hide("dlc2")
 
 
 ## Confirm screen ##############################################################

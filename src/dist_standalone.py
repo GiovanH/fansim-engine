@@ -4,9 +4,12 @@ import os
 import argparse
 import zipfile
 import zlib
-import shutil
+# import shutil
+import json
 from util import copyTreeLazy
 
+import _logging
+logger = _logging.getLogger(__name__)
 
 litedir = "lite"
 litearch = "lite.zip"
@@ -22,38 +25,59 @@ def crcFile(fileName):
     return "%X" % (prev & 0xFFFFFFFF)
 
 
-def copyLiteWithSkins(destdir, skins=["default"]):
-    print("Copying PQ lite")
-
+def ensureLiteAvailable(litedir):
     needs_extract = True
-    zipcrc_path = os.path.join(destdir, ".zipcrc")
+    zipcrc_path = os.path.join(litedir, ".litecrc")
     real_crc = crcFile(litearch)
     if os.path.isfile(zipcrc_path):
         with open(zipcrc_path, "r") as fp:
             cache_crc = fp.read()
         if real_crc == cache_crc:
             needs_extract = False
-            print("Skipping extraction: CRC match")
+            logger.info(f"Skipping extraction: CRC match at '{zipcrc_path}'")
+        else:
+            logger.info(f"Bad CRC cache found at '{zipcrc_path}'")
     else:
-        print("No CRC cache")
+        logger.info(f"No CRC cache found at '{zipcrc_path}'")
 
     if needs_extract:
-        print("Extracting...")
+        logger.info(f"Extracting '{litearch}' to '{litedir}'")
         with zipfile.ZipFile(litearch, "r") as z:
-            z.extractall(destdir)
+            z.extractall(litedir)
         with open(zipcrc_path, "w") as fp:
             fp.write(real_crc)
 
+
+def copyLiteWithSkins(destdir, skins=[]):
+    logger.info("Copying PQ lite")
+    lite_metadata_path = os.path.join(destdir, "fse_lite_meta.json")
+
+    ensureLiteAvailable(litedir)
+
+    expected_metadata = skins
+    if os.path.isfile(lite_metadata_path):
+        try:
+            with open(lite_metadata_path, "r") as fp:
+                real_metadata = json.load(fp)
+            if expected_metadata == real_metadata:
+                logger.info("Skin settings unchanged.")
+                return
+        except json.decoder.JSONDecodeError:
+            logger.error("Metadata cache corrupted")
+
     copyTreeLazy(litedir, destdir)
 
-    print("Patching skin")
+    logger.info("Patching skins")
     for skin in ["default"] + skins:
         skindir = os.path.join(skinbase, skin)
         if not os.path.isdir(skindir):
-            print("Skin not found:", skin)
-            print("Should be located at", skindir)
+            logger.error("Skin not found:", skin)
+            logger.error("Should be located at", skindir)
             raise FileNotFoundError(skindir)
         copyTreeLazy(skindir, destdir)
+
+    with open(lite_metadata_path, "w") as fp:
+        json.dump(expected_metadata, fp)
 
 
 def main():
@@ -67,25 +91,25 @@ def main():
     )
     args = ap.parse_args()
 
-    print("READ THIS:")
-    print()
-    print("Distributing your FSE mod standalone is generally not recommended.")
-    print("Please only use this feature for large projects where standalone distribution is required.")
-    print()
-    print("Further, if you do use this feature, always distribute a mod-only version as an option,")
-    print("  so people aren't forced to use the standalone version. For more details, see the readme.")
-    print("By using this tool, you agree that you have read and understand this, and will not distribute")
-    print("  a standalone version of the game without providing the option to download the mod by itself.")
-    print()
-    input("Press enter if you agree. Otherwise, press Ctrl+C or close this window.\n")
+    # print("READ THIS:")
+    # print()
+    # print("Distributing your FSE mod standalone is generally not recommended.")
+    # print("Please only use this feature for large projects where standalone distribution is required.")
+    # print()
+    # print("Further, if you do use this feature, always distribute a mod-only version as an option,")
+    # print("  so people aren't forced to use the standalone version. For more details, see the readme.")
+    # print("By using this tool, you agree that you have read and understand this, and will not distribute")
+    # print("  a standalone version of the game without providing the option to download the mod by itself.")
+    # print()
+    # input("Press enter if you agree. Otherwise, press Ctrl+C or close this window.\n")
 
     copyLiteWithSkins(distdir, args.skins)
 
-    print("Patching mods")
+    logger.info("Patching mods")
     run_patcher(args.packages)
 
-    print("Making distribution archives")
-    print("(If you want to skip this step, don't use this script)")
+    logger.info("Making distribution archives")
+    logger.info("(If you want to skip this step, don't use this script)")
 
     with zipfile.ZipFile("../Standalone.zip", "w") as fp:
         for folderName, subfolders, filenames in os.walk(distdir):

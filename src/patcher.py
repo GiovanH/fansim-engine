@@ -17,7 +17,7 @@ logger = _logging.getLogger(__name__)
 
 platform = os.name
 
-gamedir_root = environment.getGamedirRoot()
+gamedir_root = os.path.normpath(os.path.join("..", "litedist"))
 executable = environment.getExecutableName()
 
 gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
@@ -178,8 +178,9 @@ def patchAchievementsData(all_packages, verbose=False):
 
 
 def runGame():
-    logger.info(f"Starting {executable}")
-    subprocess.run(os.path.join(gamedir_root, executable))
+    executable_path = os.path.join(gamedir_root, executable)
+    logger.info(f"Starting {executable_path}")
+    subprocess.run(executable_path)
 
 
 def makeArgParser():
@@ -199,10 +200,10 @@ def makeArgParser():
         help="Delete old custom assets, including any old mods. Skipped by default for performance.")
     ap.add_argument(
         "--patchdir",
-        help="Patch files to this directory. Defaults to your system's equivalent of steamapps/common/Homestuck Pesterquest'")
-    ap.add_argument(
-        "--lite", action="store_true",
-        help="Lite mode: Installs a working version of PQLite, if it doesn't exist, and sets --patchdir to it. Much faster on subsequent runs.")
+        help="Patch files to this directory, instead of using a standalone installation.'")
+    # ap.add_argument(
+    #     "--lite", action="store_true",
+    #     help="Lite mode: Installs a working version of PQLite, if it doesn't exist, and sets --patchdir to it. Much faster on subsequent runs.")
     ap.add_argument(
         "--liteskins", nargs="+", default=["default"],
         help="If using lite, use these distribution skins. NOT RECOMMENDED: Always test your mod without skins before distribution!")
@@ -221,18 +222,21 @@ def main(argstr=None):
     logger.debug(argstr)
     logger.debug(args)
 
-    if args.lite:
-        litedir = os.path.join("..", "litedist")
-        from dist_standalone import copyLiteWithSkins
-        copyLiteWithSkins(litedir, args.liteskins)
-        args.patchdir = os.path.normpath(litedir)
+    # By default, use litemode.
+    # If lite isn't ready, copy and extract
 
     if args.patchdir:
+        # Patch to manual folder
         global gamedir_root
         global gamedir
         gamedir_root = args.patchdir
         gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
         os.makedirs(gamedir, exist_ok=True)
+    else:
+        # Lite installation
+        os.makedirs(gamedir_root, exist_ok=True)
+        from dist_standalone import copyLiteWithSkins
+        copyLiteWithSkins(gamedir_root, args.liteskins)
 
     logger.debug(f"Working gamedir_root: '{gamedir_root}'")
 

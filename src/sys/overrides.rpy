@@ -30,6 +30,7 @@ define config.autoreload = False
 transform menustill:
     xpos 20
 
+# This doesn't really get used now, because main_menu from the liteskin takes over
 screen main_menu():
     tag menu
 

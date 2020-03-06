@@ -19,11 +19,16 @@ mod_release_targets=\
 
 all: doc exe mods
 
+lite.zip: lite/*
+	rm -v lite.zip
+	pushd lite; zip ../lite.zip -8 -r *.* */; popd
+
 clean:
 	$(RM) -r __pycache__
-	$(RM) -r build
+	$(RM) -r build/
 	$(RM) -r dist/
-	$(RM) -r litedist/
+	$(RM) -r lite/
+	$(RM) -r ../litedist/
 
 exe: $(addprefix bin/,${exec_targets})
 
