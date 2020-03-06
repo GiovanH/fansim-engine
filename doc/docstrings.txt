@@ -1,27 +1,3 @@
-./src/sys/fx.rpy:python:
-    """
-    Graphical effects:
-        Toast notifications
-        Toast music boxes
-        
-    """
-./src/sys/fx.rpy:
-screen MusicToast:
-    ### A toast notification to indicate a new music track.
-    ### This is only a visual. This does not change the music.
-    ### Strings support format tags, including links.
-    ### Recommended usage is to set tf to toast_down if you want it to be interactable.
-    ### 
-    ### Args:
-    ###     tf (transformation): The animation used
-    ###     albumart (displayable): Displayable album art
-    ###     title (string): Song title
-    ###     artist (string): Song artist
-    ###     album (string): Song album name
-    ### Advanced
-    ###     ttitle (string): Template format strings for title
-    ###     tartist = Template format strings for artist
-    ###     talbum = Template format strings for album
 ./src/sys/gallery.rpy:python:
     """
     Galleries:
@@ -33,6 +9,47 @@ screen MusicToast:
 
     The music player scans all files for music and adds songs based on their position in the file tree.
     """
+./src/sys/general_transforms.rpy:
+transform sitting:
+    ### Lower position
+./src/sys/general_transforms.rpy:
+transform leftsitting:
+    ### Lower left position
+./src/sys/general_transforms.rpy:
+transform rightsitting:
+    ### Lower right position
+./src/sys/general_transforms.rpy:
+transform shoveright:
+    ### Quickly push sprite to right side of screen
+./src/sys/general_transforms.rpy:
+transform shoveleft:
+    ### Quickly push sprite to left side of screen
+./src/sys/general_transforms.rpy:
+transform shoveoffleft:
+    ### Quickly push sprite off left side of screen
+./src/sys/general_transforms.rpy:
+transform shoveup:
+    ### Quickly push sprite to default position, from offscreen bottom
+./src/sys/general_transforms.rpy:
+transform bounce(height=12, pause=0.2, repeat=0):
+    ### Small bounce up, then immeditately reset.
+    ### Negative numbers bounce down.
+./src/sys/general_transforms.rpy:
+transform nod(height=12, delay=0.0, speed=0.12, pause=0.2, repeat=0):
+    ### Small nod down, delay, then reset.
+    ### Negative numbers nod up.
+./src/sys/general_transforms.rpy:
+transform driving:
+    ### Slow bounce, as if from a car, repeating
+./src/sys/general_transforms.rpy:
+transform shuddering:
+    ### X-shaking, looped
+./src/sys/general_transforms.rpy:
+transform sigh:
+    ### Small vertical breath
+./src/sys/general_transforms.rpy:
+transform breathe:
+    ### Deep breath, vertical.
 ./src/sys/hemospectrum.rpy:python:
     """
     Hemospectrum tools
@@ -140,6 +157,7 @@ define hiveswap = Character(
     ### The textbox and outlines are colored based on the show_blood argument.
     ### n.b. Hiveswap uses alternate versions of some background colors for readability.
     ### These are availible as burgundy_fs, bronze_fs, and indigo_fs.
+    ### Use this with kind=hiveswap
     ###
     ### Args:
     ###     name (string): Trolltag, i.e. "arachnidsGrip"
@@ -350,3 +368,42 @@ label debug_dump_character(sayer):
     ### This causes a sayer to iterate through all their poses, and is a helpful tool.
     ### This is also used in the developer tools.
     ### This is basically a whole convolution in order to keep rollback working
+./src/sys/toast.rpy:python:
+    """
+    Graphical effects:
+        Toast notifications
+        Toast music boxes
+        
+    """
+./src/sys/toast.rpy:
+transform toast_down(l=0.3):
+    ### Push up, sticks until hidden.
+./src/sys/toast.rpy:
+transform toast_up(l=0.3):
+    ### Push up, sticks until hidden
+./src/sys/toast.rpy:
+transform toast_peek_down(p=2.0, l=0.3):
+    ### Push down, hides itself after p seconds.
+./src/sys/toast.rpy:
+transform toast_peek_up(p=2.0, l=0.3):
+    ### Push down, hides itself after p seconds.
+./src/sys/toast.rpy:
+transform toast_flyby:
+    ### An elaborate "fly by" style animation
+./src/sys/toast.rpy:
+screen MusicToast:
+    ### A toast notification to indicate a new music track.
+    ### This is only a visual. This does not change the music.
+    ### Strings support format tags, including links.
+    ### Recommended usage is to set tf to toast_down if you want it to be interactable.
+    ### 
+    ### Args:
+    ###     tf (transformation): The animation used
+    ###     albumart (displayable): Displayable album art
+    ###     title (string): Song title
+    ###     artist (string): Song artist
+    ###     album (string): Song album name
+    ### Advanced
+    ###     ttitle (string): Template format strings for title
+    ###     tartist = Template format strings for artist
+    ###     talbum = Template format strings for album
