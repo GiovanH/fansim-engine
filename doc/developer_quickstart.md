@@ -19,7 +19,7 @@ Note: This uses the lite version. Normal developers would do the same thing, but
    - **Be sure to only edit the files in your mod folder; don't go editing anything in a `litedist`, `dist`, or `game` directory, or anything in the `sys` package.** See: [Why FSE](#why-fse)?
 6. Run `run_wizard.py` to test and run your mod. You can use command line arguments to control game launch and other features. 
 7. To see your changes live, run `run_wizard.py --nolaunch` and then press `Shift+R` while in-game to automatically reload.
-8. When you're ready to distribute your mod, you can zip and distribute your mod folder (`custom_volumes/xxx`). You can also package your mod as a standalone game using `dist_standalone.py`, but this is not recommended for general use.
+8. When you're ready to distribute your mod, you can package your mod as a standalone game using `dist_standalone.py`, or just share your `litedist` folder directly, if you want. More advanced users can also share the mod folder with other developers.
 
 
 Developing with this basically the same as extending ren'py using the base game, with a few exceptions for the package manager:

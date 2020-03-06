@@ -2,7 +2,7 @@
 
 formerly Pesterquest Modsuite (PQMS)
 
-Tools for modifying and extending pesterquest, and adding your own routes. WIP tools for adding your own routes to pesterquest without breaking the base game or needing a standalone engine!
+Tools for writing your own homestuck-style friendsim games in ren'py.
 
 What's included:
 
@@ -15,7 +15,7 @@ Design goals:
 - Easy to write and distribute fan volumes
 - Simple for users to play fan volumes
 - Maximally accessible
-- Mix-and-match: Put all the fan volumes you want and play routes without conflicts!
+- Mix-and-match: Multiple people can write simultaneously without worrying about naming conflicts
 
 
 
@@ -29,7 +29,6 @@ If you have any comments, suggestions, complaints, or contributions, you're welc
 
 <!-- MarkdownTOC -->
 
-- [Quickstart for players](#quickstart-for-players)
 - [Why FSE?](#why-fse)
     - [Why not FSE?](#why-not-fse)
 - [Features](#features)
@@ -41,12 +40,6 @@ If you have any comments, suggestions, complaints, or contributions, you're welc
 - [Credits](#credits)
 
 <!-- /MarkdownTOC -->
-
-## Quickstart for players
-
-1. Download this repository. You can use git or simply download the current version as a zip file. See [Installation](doc/installation.md) for an in-depth, newbie-friendly guide.
-2. Put the fan volumes (folders with `meta.json` in them) you want to use in the `custom_volumes` folder.
-3. Run `src/run_wizard.py` or `src/run_wizard_gui.py` with a recent version of Python (3.6+).
 
 ## Why FSE?
 
