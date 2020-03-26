@@ -333,3 +333,12 @@ screen dlc_achievements():
                     imagebutton idle ach.get("_img_unlocked") action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc")) unhovered Hide("ach_desc")
                 else:
                     imagebutton idle ach.get("_img_locked") action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) unhovered Hide("ach_desc")
+
+screen ach_desc(ach_name, ach_description):
+
+    vbox:
+
+        xpos 320 ypos 465
+
+        text ach_name
+        text ach_description
