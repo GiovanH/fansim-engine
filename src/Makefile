@@ -20,7 +20,7 @@ mod_release_targets=\
 all: doc exe mods
 
 lite.zip: lite/*
-	rm -v lite.zip
+	-rm -v lite.zip
 	pushd lite; zip ../lite.zip -8 -r *.* */; popd
 
 clean:
