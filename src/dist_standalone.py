@@ -59,9 +59,9 @@ def copyLiteWithSkins(destdir, skins=[]):
         try:
             with open(lite_metadata_path, "r") as fp:
                 real_metadata = json.load(fp)
-            if expected_metadata == real_metadata:
-                logger.info("Skin settings unchanged.")
-                return
+            # if expected_metadata == real_metadata:
+            #     logger.info("Skin settings unchanged.")
+            #     return
         except json.decoder.JSONDecodeError:
             logger.error("Metadata cache corrupted")
 

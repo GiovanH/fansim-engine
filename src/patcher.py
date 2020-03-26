@@ -205,8 +205,8 @@ def makeArgParser():
     #     "--lite", action="store_true",
     #     help="Lite mode: Installs a working version of PQLite, if it doesn't exist, and sets --patchdir to it. Much faster on subsequent runs.")
     ap.add_argument(
-        "--liteskins", nargs="+", default=["default"],
-        help="If using lite, use these distribution skins. NOT RECOMMENDED: Always test your mod without skins before distribution!")
+        "--skins", nargs="+", default=[],
+        help="Skins, found in liteskins. Loaded in order.")
     ap.add_argument(
         '--packages', nargs="+", default=[],
         help="If set, only look at custom packages with these IDs. By default, all mods in 'custom_volumes' are included, but if this option is set, the patcher only includes the packages specified."
@@ -236,7 +236,7 @@ def main(argstr=None):
         # Lite installation
         os.makedirs(gamedir_root, exist_ok=True)
         from dist_standalone import copyLiteWithSkins
-        copyLiteWithSkins(gamedir_root, args.liteskins)
+        copyLiteWithSkins(gamedir_root, args.skins)
 
     logger.debug(f"Working gamedir_root: '{gamedir_root}'")
 
