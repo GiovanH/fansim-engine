@@ -103,10 +103,10 @@ label start_custom:
 
     show image "gui/main_menu.png"
     window hide
-    scene black with Dissolve(0.5)
+    scene black with config.enter_transition
     $ main_menu = True
     $ fse_block_devbox = False
-    call screen vol_select_custom() with Dissolve(0.5)
+    call screen vol_select_custom() with config.enter_transition
     return
 
 # Various hiveswap transforms

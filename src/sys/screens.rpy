@@ -52,7 +52,7 @@ style fse_volume_select_subtitle:
     font "verdana.ttf" 
     size 38 
     xalign 0.5 
-    color "#00baff"
+    color gui.accent_color
 
 style fse_volume_select_author:
     font "verdana.ttf" 
@@ -281,7 +281,7 @@ screen vol_select_custom():
 define dlc_credits_data = {}  # Overwritten in custom_credits.rpy
 screen dlc_credits():
     tag menu
-    use game_menu(_("Credits (DLC)"), scroll="viewport"):
+    use game_menu(_("Credits"), scroll="viewport"):
         style_prefix "about"
         vbox:
             spacing 14
@@ -311,9 +311,9 @@ screen dlc_credits():
 define dlc_warning_data = {}  # Overwritten in custom_warnings.rpy
 screen dlc_warnings():
     tag menu
-    use game_menu(_("Warnings (DLC)"), scroll="viewport"):
+    use game_menu(_("Warnings"), scroll="viewport"):
         hbox:
-            text "As a general rule, Pesterquest contains adult language, violence, and innuendo. Content warnings for specific routes can be accessed by clicking on the route title."
+            text fse_warnings_prefix
 
         for title, warning in dlc_warning_data.items():
             use spoiler_box(title, warning)
