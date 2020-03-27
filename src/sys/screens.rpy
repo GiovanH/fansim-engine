@@ -269,11 +269,11 @@ screen vol_select_custom():
                             SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
                             SetScreenVariable("title", "Volume Select"), 
                             SetScreenVariable("subtitle", "Hover over an icon!"),
-                            SetScreenVariable("author", "Pesterquest Modsuite")
+                            SetScreenVariable("author", "")
                         ] alt volume.get("subtitle", "")
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 
-        text "do what thou whilst shall be the whole of the law" xalign 0.5 text_align 0.5 ypos 540
+        text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
         # text customVolumeSplash() 
 
 

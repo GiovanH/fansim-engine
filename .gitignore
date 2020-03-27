@@ -20,6 +20,9 @@ src/scripts/Openbound
 src/*.log
 src/report_*.txt
 
+src/scripts/*/
+*.lnk
+
 extras/
 custom_volumes/*
 custom_volumes_other/*
