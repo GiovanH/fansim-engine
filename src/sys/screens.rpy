@@ -230,7 +230,7 @@ screen vol_select_custom():
         default title = "Volume Select"
 
         default subtitle = "Hover over an icon for info!"
-        default author = "Fansim Engine"
+        default author = ""
 
         $ num_cols = 8
 
