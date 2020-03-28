@@ -9,7 +9,9 @@ Mods.zip
 Standalone.zip
 build/
 src/build
-src/lite/
+src/lite/lib
+src/lite/renpy
+src/lite/pesterquest.app
 src/scripts/rpydiff_*/
 bin/*.exe
 src/__pycache__/

@@ -19,6 +19,14 @@ style choice_button_text:
     font "courbd.ttf"
 
 
+# GUI variables
+
+
+define gui.button_text_idle_color = gui.idle_color
+define gui.button_text_hover_color = gui.hover_color
+define gui.button_text_selected_color = gui.selected_color
+define gui.button_text_insensitive_color = gui.insensitive_color
+
 ################################################################################
 ## Styles
 ################################################################################

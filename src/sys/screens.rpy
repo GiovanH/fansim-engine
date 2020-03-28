@@ -229,7 +229,7 @@ screen vol_select_custom():
         default icon = "gui/volumeselect_icon_blank.png"
         default title = "Volume Select"
 
-        default subtitle = "Hover over an icon for info!"
+        default subtitle = "Hover over an icon!"
         default author = ""
 
         $ num_cols = 8
@@ -279,6 +279,11 @@ screen vol_select_custom():
 
 
 define dlc_credits_data = {}  # Overwritten in custom_credits.rpy
+define dlc_credits_sort = {
+    "LIST": [],
+    "DICT": []
+}
+define dlc_credits_sort_ = []  # Temporary variable
 screen dlc_credits():
     tag menu
     use game_menu(_("Credits"), scroll="viewport"):
@@ -286,20 +291,30 @@ screen dlc_credits():
         vbox:
             spacing 14
 
-            for role, list_ in dlc_credits_data.get("LIST", {}).items():
+            # Since renpy native iterators and python don't mix super well, I'm having to do all this on one line.
+            # It's not... pretty?
+            $ dlc_credits_sort_ = [s.lower() for s in dlc_credits_sort.get("LIST", [])] 
+            for role, list_ in sorted(
+                dlc_credits_data.get("LIST", {}).items(), 
+                key=lambda v: (dlc_credits_sort_.index(v[0].lower()) if v[0].lower() in dlc_credits_sort_ else 999)
+            ):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name in list_:
                     hbox:
                         text name text_align 0.0 min_width 440
 
-            for role, person_credits in dlc_credits_data.get("DICT", {}).items():
+            $ dlc_credits_sort_ = [s.lower() for s in dlc_credits_sort.get("DICT", [])] 
+            for role, person_credits in sorted(
+                dlc_credits_data.get("DICT", {}).items(), 
+                key=lambda v: (dlc_credits_sort_.index(v[0].lower()) if v[0].lower() in dlc_credits_sort_ else 999)
+            ):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in person_credits.items():
                     hbox:
                         text name text_align 0.0 min_width 440
                         vbox:
                             for item in list_:
-                                text item text_align 1.0
+                                text item text_align 0.0
 
 
             text "\n\n" text_align 1.0
