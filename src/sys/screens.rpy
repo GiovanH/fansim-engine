@@ -283,7 +283,7 @@ define dlc_credits_sort = {
     "LIST": [],
     "DICT": []
 }
-define dlc_credits_sort_ = []  # Temporary variable
+
 screen dlc_credits():
     tag menu
     use game_menu(_("Credits"), scroll="viewport"):
@@ -291,23 +291,27 @@ screen dlc_credits():
         vbox:
             spacing 14
 
-            # Since renpy native iterators and python don't mix super well, I'm having to do all this on one line.
-            # It's not... pretty?
-            $ dlc_credits_sort_ = [s.lower() for s in dlc_credits_sort.get("LIST", [])] 
-            for role, list_ in sorted(
-                dlc_credits_data.get("LIST", {}).items(), 
-                key=lambda v: (dlc_credits_sort_.index(v[0].lower()) if v[0].lower() in dlc_credits_sort_ else 999)
-            ):
+            # There's no goddamned reason "store" should be required here. I can't puzzle it. Screen side effects?
+            # alienoid says: "Looks like you weren't quite prepared for what was in `store` huh"
+            $ store.dlc_credits_sort_temp = [s.lower() for s in dlc_credits_sort.get("LIST", [])] 
+            $ sorted_credits_list = sorted(
+                dlc_credits_data.get("LIST", {}).items(),
+                key=(lambda (role, _): store.dlc_credits_sort_temp.index(role.lower()) if role.lower() in store.dlc_credits_sort_temp else 999)
+            )
+
+            $ store.dlc_credits_sort_temp = [s.lower() for s in dlc_credits_sort.get("DICT", [])] 
+            $ sorted_credits_dict = sorted(
+                dlc_credits_data.get("DICT", {}).items(),
+                key=(lambda (role, _): store.dlc_credits_sort_temp.index(role.lower()) if role.lower() in store.dlc_credits_sort_temp else 999)
+            )
+
+            for role, list_ in sorted_credits_list:
                 text role text_align 0.5 color gui.accent_color size 30
                 for name in list_:
                     hbox:
                         text name text_align 0.0 min_width 440
 
-            $ dlc_credits_sort_ = [s.lower() for s in dlc_credits_sort.get("DICT", [])] 
-            for role, person_credits in sorted(
-                dlc_credits_data.get("DICT", {}).items(), 
-                key=lambda v: (dlc_credits_sort_.index(v[0].lower()) if v[0].lower() in dlc_credits_sort_ else 999)
-            ):
+            for role, person_credits in sorted_credits_dict:
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in person_credits.items():
                     hbox:
