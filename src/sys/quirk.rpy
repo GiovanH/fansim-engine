@@ -109,3 +109,17 @@ init python:
             for (pattern, repl) in quirksubs:
                 what = re.sub(pattern, repl, what)
         return what
+
+    def texttag_quirk(tag, argument, contents):
+
+        quirklist = [argument]
+        rv = []
+
+        for kind, text in contents:
+            if kind == renpy.TEXT_TEXT:
+                rv += renpy.text.textsupport.tokenize(quirkSub(quirklist, text))
+            else:
+                rv.append((kind, text))
+        return rv
+
+    config.custom_text_tags["quirk"] = texttag_quirk
