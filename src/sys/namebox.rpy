@@ -268,7 +268,7 @@ screen openbound_say:
                     style "default"
                     yalign 0.5
                     pos (44, 0)
-                    color (purple if chuckle else hemospectrum(blood))
+                    color (purple if chuckle else "#000")  # hemospectrum(blood)
                     line_spacing 0
                     size 18
 
