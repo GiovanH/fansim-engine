@@ -293,6 +293,9 @@ screen dlc_credits():
 
             # There's no goddamned reason "store" should be required here. I can't puzzle it. Screen side effects?
             # alienoid says: "Looks like you weren't quite prepared for what was in `store` huh"
+            
+            # We COULD do this processing in advance, but we want to make it
+            # easy to manually override the dlc_credits_sort config variable
             $ store.dlc_credits_sort_temp = [s.lower() for s in dlc_credits_sort.get("LIST", [])] 
             $ sorted_credits_list = sorted(
                 dlc_credits_data.get("LIST", {}).items(),
