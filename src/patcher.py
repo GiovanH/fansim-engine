@@ -10,6 +10,8 @@ import shutil
 import collections
 import _logging
 import environment
+import zipfile
+import zlib
 import fse_mod
 from util import copyTreeLazy
 
@@ -17,11 +19,14 @@ logger = _logging.getLogger(__name__)
 
 platform = os.name
 
-gamedir_root = os.path.normpath(os.path.join("..", "litedist"))
+gamedir_root = os.path.normpath(os.path.join("..", "projects", "work"))
 executable = environment.getExecutableName()
 
 gamedir = os.path.normpath(os.path.join(gamedir_root, "game"))
 
+litearch = "lite.zip"
+litedir = "lite"
+skinbase = "../skins"
 # Properties, dependent on the current gamedir
 
 
@@ -80,6 +85,68 @@ def dict_merge(dct, merge_dct):
             dct[k] = merge_dct[k]
 
 
+def crcFile(fileName):
+    prev = 0
+    for eachLine in open(fileName, "rb"):
+        prev = zlib.crc32(eachLine, prev)
+    return "%X" % (prev & 0xFFFFFFFF)
+
+
+# def ensureLiteAvailable(litedir):
+#     needs_extract = True
+#     zipcrc_path = os.path.join(litedir, ".litecrc")
+#     real_crc = crcFile(litearch)
+#     if os.path.isfile(zipcrc_path):
+#         with open(zipcrc_path, "r") as fp:
+#             cache_crc = fp.read()
+#         if real_crc == cache_crc:
+#             needs_extract = False
+#             logger.info(f"Skipping extraction: CRC match at '{zipcrc_path}'")
+#         else:
+#             logger.info(f"Bad CRC cache found at '{zipcrc_path}'")
+#     else:
+#         logger.info(f"No CRC cache found at '{zipcrc_path}'")
+
+#     if needs_extract:
+#         logger.info(f"Extracting '{litearch}' to '{litedir}'")
+#         with zipfile.ZipFile(litearch, "r") as z:
+#             z.extractall(litedir)
+#         with open(zipcrc_path, "w") as fp:
+#             fp.write(real_crc)
+
+
+def copyLiteWithSkins(destdir, skins=[]):
+    logger.info("Copying PQ lite")
+    lite_metadata_path = os.path.join(destdir, "fse_lite_meta.json")
+
+    # ensureLiteAvailable(litedir)
+
+    expected_metadata = skins
+    # if os.path.isfile(lite_metadata_path):
+    #     try:
+    #         with open(lite_metadata_path, "r") as fp:
+    #             real_metadata = json.load(fp)
+    #         # if expected_metadata == real_metadata:
+    #         #     logger.info("Skin settings unchanged.")
+    #         #     return
+    #     except json.decoder.JSONDecodeError:
+    #         logger.error("Metadata cache corrupted")
+
+    copyTreeLazy(litedir, destdir)
+
+    logger.info("Patching skins")
+    for skin in ["default"] + skins:
+        skindir = os.path.join(skinbase, skin)
+        if not os.path.isdir(skindir):
+            logger.error("Skin not found: %s", skin)
+            logger.error("Should be located at %s", skindir)
+            raise FileNotFoundError(skindir)
+        copyTreeLazy(skindir, destdir)
+
+    with open(lite_metadata_path, "w") as fp:
+        json.dump(expected_metadata, fp)
+
+
 def copyAndSubRpy(src, dst, metadata, verbose=False):
     printer = logger.info if verbose else logger.debug
 
@@ -88,8 +155,12 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
     # if os.path.isfile(dst):
     #     raise FileExistsError(dst)
 
-    with open(src, "r", encoding="utf-8") as fp:
-        rpy_data = fp.read()
+    try:
+        with open(src, "r", encoding="utf-8") as fp:
+            rpy_data = fp.read()
+    except UnicodeDecodeError:
+        logger.error(f"Can't read input file '{src}' as utf-8. Make sure it's saved as a utf-8 compatable format, like utf-8 or ascii.")
+        raise
 
     try:
         rpy_data = fse_mod.subtableReplace(rpy_data, metadata)
@@ -181,18 +252,21 @@ def patchAchievementsData(all_packages, verbose=False):
         fp.write(json.dumps(all_achievements, indent=4))
 
 
-def runGame():
-    executable_path = os.path.join(gamedir_root, executable)
-    logger.info(f"Starting {executable_path}")
-    subprocess.run(executable_path)
+# def runGame():
+#     executable_path = os.path.join(gamedir_root, executable)
+#     logger.info(f"Starting {executable_path}")
+#     try:
+#         subprocess.run(executable_path)
+#     except FileNotFoundError:
+#         logger.error(f"Could not find game at '{executable_path}'")
 
 
 def makeArgParser():
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument(
-        "--nolaunch", action="store_true",
-        help="Don't launch the game, only patch the assets. Useful during development for real-time reloading.")
+    # ap.add_argument(
+    #     "--nolaunch", action="store_true",
+    #     help="Don't launch the game, only patch the assets. Useful during development for real-time reloading.")
     ap.add_argument(
         "--verbose", action="store_true",
         help="Print more output about successful operations.")
@@ -210,7 +284,7 @@ def makeArgParser():
     #     help="Lite mode: Installs a working version of PQLite, if it doesn't exist, and sets --patchdir to it. Much faster on subsequent runs.")
     ap.add_argument(
         "--skins", nargs="+", default=[],
-        help="Skins, found in liteskins. Loaded in order.")
+        help="Skins, found in skins. Loaded in order.")
     ap.add_argument(
         '--packages', nargs="+", default=[],
         help="If set, only look at custom packages with these IDs. By default, all mods in 'custom_volumes' are included, but if this option is set, the patcher only includes the packages specified."
@@ -239,7 +313,6 @@ def main(argstr=None):
     else:
         # Lite installation
         os.makedirs(gamedir_root, exist_ok=True)
-        from dist_standalone import copyLiteWithSkins
         copyLiteWithSkins(gamedir_root, args.skins)
 
     logger.debug(f"Working gamedir_root: '{gamedir_root}'")
@@ -320,8 +393,8 @@ def main(argstr=None):
             logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
             input()
 
-        if not args.nolaunch:
-            runGame()
+        # if not args.nolaunch:
+        #     runGame()
     except Exception:
         logger.error("Root exception", exc_info=True)
         logger.warn("A full logfile should be availible at 'latest_debug.log'")
