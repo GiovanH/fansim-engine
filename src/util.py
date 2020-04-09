@@ -6,11 +6,20 @@ logger = _logging.getLogger(__name__)
 
 
 def isSameFile(source, target):
-    from stat import ST_MTIME
-    mtime1 = os.stat(source)[ST_MTIME]
-    mtime2 = os.stat(target)[ST_MTIME]
+    from stat import ST_MTIME, ST_CTIME, ST_SIZE
 
-    return mtime1 == mtime2
+    s1, s2 = os.stat(source), os.stat(target)
+
+    if s1[ST_MTIME] != s2[ST_MTIME]:
+        return False
+
+    if s1[ST_SIZE] != s2[ST_SIZE]:
+        return False
+
+    if s1[ST_CTIME] != s2[ST_CTIME]:
+        return False
+
+    return True  # Hopefully!
 
 
 def copyLazy(src, dst, **kwargs):
@@ -20,8 +29,8 @@ def copyLazy(src, dst, **kwargs):
             return shutil.copy2(src, dst, **kwargs)
         except PermissionError:
             logger.error(f"{dst} in use!")
-    else:
-        logger.debug(f"{src} === {dst}")
+    # else:
+    #     logger.debug(f"{src} === {dst}")
 
 
 def copyTreeLazy(src, dst, **kwargs):
