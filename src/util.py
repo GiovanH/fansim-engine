@@ -16,7 +16,12 @@ def isSameFile(source, target):
 def copyLazy(src, dst, **kwargs):
     if not (os.path.isfile(src) and os.path.isfile(dst) and isSameFile(src, dst)):
         logger.debug(f"{src} --> {dst}")
-        return shutil.copy2(src, dst, **kwargs)
+        try:
+            return shutil.copy2(src, dst, **kwargs)
+        except PermissionError:
+            logger.error(f"{dst} in use!")
+    else:
+        logger.debug(f"{src} === {dst}")
 
 
 def copyTreeLazy(src, dst, **kwargs):

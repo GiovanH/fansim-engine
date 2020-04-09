@@ -24,7 +24,7 @@ platform = os.name
 platform_long = os.environ.get("OS")
 
 try:
-    logger.debug("Running script %s", sys.argv)
+    logger.debug("Running script %s", [sanitizePath(v) for v in sys.argv])
     logger.debug("Running python '%s'", sys.version)
     logger.debug("from '%s' ('%s')", sanitizePath(sys.executable), sanitizePath(os.environ.get("_", "!no_")))
     logger.debug("Platform: %s (%s), terminal '%s'", platform, platform_long, os.environ.get("TERM", "!noterm"))
