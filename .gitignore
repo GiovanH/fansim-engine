@@ -36,6 +36,6 @@ transcripts/
 
 # skins
 skins/
-!skins/default
-!skins/template
-!skins/hiveswap
+!skins/default/
+!skins/template/
+!skins/hiveswap/
