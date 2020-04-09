@@ -1,0 +1,138 @@
+# import sys
+import os
+# import subprocess
+import argparse
+import zipfile
+import zlib
+# import shutil
+import json
+from util import copyTreeLazy
+
+import _logging
+logger = _logging.getLogger(__name__)
+
+litedir = "lite"
+litearch = "lite.zip"
+distdir = "../dist"
+skinbase = "../liteskins"
+fse_root = ".."
+
+
+def crcFile(fileName):
+    prev = 0
+    for eachLine in open(fileName, "rb"):
+        prev = zlib.crc32(eachLine, prev)
+    return "%X" % (prev & 0xFFFFFFFF)
+
+
+def ensureLiteAvailable(litedir):
+    needs_extract = True
+    zipcrc_path = os.path.join(litedir, ".litecrc")
+    real_crc = crcFile(litearch)
+    if os.path.isfile(zipcrc_path):
+        with open(zipcrc_path, "r") as fp:
+            cache_crc = fp.read()
+        if real_crc == cache_crc:
+            needs_extract = False
+            logger.info(f"Skipping extraction: CRC match at '{zipcrc_path}'")
+        else:
+            logger.info(f"Bad CRC cache found at '{zipcrc_path}'")
+    else:
+        logger.info(f"No CRC cache found at '{zipcrc_path}'")
+
+    if needs_extract:
+        logger.info(f"Extracting '{litearch}' to '{litedir}'")
+        with zipfile.ZipFile(litearch, "r") as z:
+            z.extractall(litedir)
+        with open(zipcrc_path, "w") as fp:
+            fp.write(real_crc)
+
+
+def copyLiteWithSkins(destdir, skins=[]):
+    logger.info("Copying PQ lite")
+    lite_metadata_path = os.path.join(destdir, "fse_lite_meta.json")
+
+    ensureLiteAvailable(litedir)
+
+    expected_metadata = skins
+    if os.path.isfile(lite_metadata_path):
+        try:
+            with open(lite_metadata_path, "r") as fp:
+                real_metadata = json.load(fp)
+            # if expected_metadata == real_metadata:
+            #     logger.info("Skin settings unchanged.")
+            #     return
+        except json.decoder.JSONDecodeError:
+            logger.error("Metadata cache corrupted")
+
+    copyTreeLazy(litedir, destdir)
+
+    logger.info("Patching skins")
+    for skin in ["default"] + skins:
+        skindir = os.path.join(skinbase, skin)
+        if not os.path.isdir(skindir):
+            logger.error("Skin not found:", skin)
+            logger.error("Should be located at", skindir)
+            raise FileNotFoundError(skindir)
+        copyTreeLazy(skindir, destdir)
+
+    with open(lite_metadata_path, "w") as fp:
+        json.dump(expected_metadata, fp)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        "--skins", nargs="+", default=["default"],
+        help="Pack the mod with these skins, in order. The default skin is always included. For example, '--skins hiveswap befriendus' will use the hiveswap skin, but replace any assets that conflict with the befriendus skin with the befriendus version.")
+    ap.add_argument(
+        '--packages', nargs="+", default=[],
+        help="If set, only package thecustom volumes with these IDs. For example, '--volumes openbound mymod' will package both the openbound and mymod packages, allowing mymod to use assets openbound provides. Order is not sensitive."
+    )
+    args = ap.parse_args()
+
+    # print("READ THIS:")
+    # print()
+    # print("Distributing your FSE mod standalone is generally not recommended.")
+    # print("Please only use this feature for large projects where standalone distribution is required.")
+    # print()
+    # print("Further, if you do use this feature, always distribute a mod-only version as an option,")
+    # print("  so people aren't forced to use the standalone version. For more details, see the readme.")
+    # print("By using this tool, you agree that you have read and understand this, and will not distribute")
+    # print("  a standalone version of the game without providing the option to download the mod by itself.")
+    # print()
+    # input("Press enter if you agree. Otherwise, press Ctrl+C or close this window.\n")
+
+    copyLiteWithSkins(distdir, args.skins)
+
+    logger.info("Patching mods")
+    run_patcher(args.packages)
+
+    logger.info("Making distribution archives")
+    logger.info("(If you want to skip this step, don't use this script)")
+
+    with zipfile.ZipFile("../Standalone.zip", "w") as fp:
+        for folderName, subfolders, filenames in os.walk(distdir):
+            for filename in filenames:
+                target = os.path.join(folderName, filename)
+                fp.write(target, arcname=os.path.relpath(target, start=fse_root))
+
+    cvroot = f"{fse_root}/custom_volumes"
+    with zipfile.ZipFile("../Mods.zip", "w") as fp:
+        for moddir in [f"{cvroot}/{id}" for id in args.packages]:
+            for folderName, subfolders, filenames in os.walk(moddir):
+                for filename in filenames:
+                    target = os.path.join(folderName, filename)
+                    fp.write(target, arcname=os.path.relpath(target, start=cvroot))
+
+
+def run_patcher(volumes=[]):
+    from patcher import main as patch
+    if volumes != []:
+        patch(["--patchdir", distdir, "--clean", "--nolaunch", "--packages", *volumes])
+    else:
+        patch(["--patchdir", distdir, "--clean", "--nolaunch"])
+
+
+if __name__ == "__main__":
+    main()

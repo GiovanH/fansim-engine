@@ -1,0 +1,41 @@
+# Specify filepatterns you want git to ignore.
+
+release/
+dist/
+work/
+patch/
+
+# Build stuff
+Mods.zip
+Standalone.zip
+build/
+src/build
+bin/*.exe
+
+# Cache
+src/__pycache__/
+src/yaml/__pycache__/
+
+src/scripts/Openbound
+
+src/*.log
+src/report_*.txt
+
+# Temporary
+src/scripts/*/
+src/scripts/rpydiff_*/
+
+# out of scope
+
+*.lnk
+
+extras/
+custom_volumes/*
+custom_volumes_other/*
+transcripts/
+
+# skins
+skins/
+!skins/default
+!skins/template
+!skins/hiveswap

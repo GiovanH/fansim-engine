@@ -1,0 +1,659 @@
+./pesterquest
+├── AlternateGothicNo1 Regular.ttf
+├── archive.rpa
+├── Berlin Sans FB Demi Bold.ttf
+├── Berlin Sans FB Regular.ttf
+├── cour.ttf
+├── courbd.ttf
+├── courbi.ttf
+├── couri.ttf
+├── flarp.rpy
+├── gui
+│   ├── attribution_sconce_bg.png
+│   ├── bar
+│   │   ├── bottom.png
+│   │   ├── left.png
+│   │   ├── right.png
+│   │   └── top.png
+│   ├── button
+│   │   ├── check_foreground.png
+│   │   ├── check_selected_foreground.png
+│   │   ├── choice_hover_background.png
+│   │   ├── choice_idle_background.png
+│   │   ├── hover_background.png
+│   │   ├── idle_background.png
+│   │   ├── quick_hover_background.png
+│   │   ├── quick_idle_background.png
+│   │   ├── radio_foreground.png
+│   │   ├── radio_selected_foreground.png
+│   │   ├── slot_hover_background.png
+│   │   └── slot_idle_background.png
+│   ├── clouds.png
+│   ├── credits_hover.png
+│   ├── credits_idle.png
+│   ├── epilogue_hover.png
+│   ├── epilogue_idle.png
+│   ├── exit_hover.png
+│   ├── exit_idle.png
+│   ├── frame.png
+│   ├── frame_narration.png
+│   ├── friends_hover.png
+│   ├── friends_idle.png
+│   ├── game_menu.png
+│   ├── lensflare.png
+│   ├── load_hover.png
+│   ├── load_idle.png
+│   ├── logo-glitch1.png
+│   ├── logo-glitch2.png
+│   ├── logo-glitch3.png
+│   ├── logo-glitch4.png
+│   ├── logo-glitch5.png
+│   ├── logo-glitch6.png
+│   ├── logo-noglitch.png
+│   ├── main_menu.png
+│   ├── namebox.png
+│   ├── notify.png
+│   ├── nvl.png
+│   ├── options_hover.png
+│   ├── options_idle.png
+│   ├── overlay
+│   │   ├── confirm.png
+│   │   ├── game_menu.png
+│   │   └── main_menu.png
+│   ├── Pesterquest_App_Icon.png
+│   ├── Pesterquest_App_Icon_2.png
+│   ├── Pesterquest_App_Icon_3.png
+│   ├── phone
+│   │   ├── bar
+│   │   │   ├── bottom.png
+│   │   │   ├── left.png
+│   │   │   ├── right.png
+│   │   │   └── top.png
+│   │   ├── button
+│   │   │   ├── check_foreground.png
+│   │   │   ├── check_selected_foreground.png
+│   │   │   ├── choice_hover_background.png
+│   │   │   ├── choice_idle_background.png
+│   │   │   ├── hover_background.png
+│   │   │   ├── idle_background.png
+│   │   │   ├── radio_foreground.png
+│   │   │   ├── radio_selected_foreground.png
+│   │   │   ├── slot_hover_background.png
+│   │   │   └── slot_idle_background.png
+│   │   ├── nvl.png
+│   │   ├── overlay
+│   │   │   ├── game_menu.png
+│   │   │   └── main_menu.png
+│   │   ├── scrollbar
+│   │   │   ├── horizontal_hover_bar.png
+│   │   │   ├── horizontal_hover_thumb.png
+│   │   │   ├── horizontal_idle_bar.png
+│   │   │   ├── horizontal_idle_thumb.png
+│   │   │   ├── vertical_hover_bar.png
+│   │   │   ├── vertical_hover_thumb.png
+│   │   │   ├── vertical_idle_bar.png
+│   │   │   └── vertical_idle_thumb.png
+│   │   ├── slider
+│   │   │   ├── horizontal_hover_bar.png
+│   │   │   ├── horizontal_hover_thumb.png
+│   │   │   ├── horizontal_idle_bar.png
+│   │   │   ├── horizontal_idle_thumb.png
+│   │   │   ├── vertical_hover_bar.png
+│   │   │   ├── vertical_hover_thumb.png
+│   │   │   ├── vertical_idle_bar.png
+│   │   │   └── vertical_idle_thumb.png
+│   │   └── textbox.png
+│   ├── quick_help_hover.png
+│   ├── quick_help_idle.png
+│   ├── quick_log_hover.png
+│   ├── quick_log_idle.png
+│   ├── quick_menu_hover.png
+│   ├── quick_menu_idle.png
+│   ├── quick_options_hover.png
+│   ├── quick_options_idle.png
+│   ├── quick_save_hover.png
+│   ├── quick_save_idle.png
+│   ├── quick_skip_hover.png
+│   ├── quick_skip_idle.png
+│   ├── rostrum0.png
+│   ├── rostrum1.png
+│   ├── rostrum14.png
+│   ├── rostrum2.png
+│   ├── rostrum3.png
+│   ├── rostrum4.png
+│   ├── rostrum5.png
+│   ├── rostrum6.png
+│   ├── rostrum8.png
+│   ├── rostrum9.png
+│   ├── sconce_confirm_hover.png
+│   ├── sconce_confirm_idle.png
+│   ├── sconce_confirm_insensitive.png
+│   ├── sconce_random_hover.png
+│   ├── sconce_random_idle.png
+│   ├── sconce_reset_hover.png
+│   ├── sconce_reset_idle.png
+│   ├── scrollbar
+│   │   ├── horizontal_hover_bar.png
+│   │   ├── horizontal_hover_thumb.png
+│   │   ├── horizontal_idle_bar.png
+│   │   ├── horizontal_idle_thumb.png
+│   │   ├── vertical_hover_bar.png
+│   │   ├── vertical_hover_thumb.png
+│   │   ├── vertical_idle_bar.png
+│   │   └── vertical_idle_thumb.png
+│   ├── skip.png
+│   ├── sky_anim_2.mpg
+│   ├── slider
+│   │   ├── horizontal_hover_bar.png
+│   │   ├── horizontal_hover_thumb.png
+│   │   ├── horizontal_idle_bar.png
+│   │   ├── horizontal_idle_thumb.png
+│   │   ├── vertical_hover_bar.png
+│   │   ├── vertical_hover_thumb.png
+│   │   ├── vertical_idle_bar.png
+│   │   └── vertical_idle_thumb.png
+│   ├── start_hover.png
+│   ├── start_idle.png
+│   ├── stat_app.png
+│   ├── stat_dex.png
+│   ├── stat_gra.png
+│   ├── stat_grt.png
+│   ├── stat_hub.png
+│   ├── stat_img.png
+│   ├── stat_lvg.png
+│   ├── stat_plc.png
+│   ├── stat_ras.png
+│   ├── stat_vim.png
+│   ├── sun.png
+│   ├── sun2.png
+│   ├── textbox.png
+│   ├── textbox_blank.png
+│   ├── textbox_blue.png
+│   ├── textbox_bronze.png
+│   ├── textbox_cobalt.png
+│   ├── textbox_gold.png
+│   ├── textbox_jade.png
+│   ├── textbox_narration.png
+│   ├── textbox_narration_old.png
+│   ├── textbox_olive.png
+│   ├── textbox_pesterlog.png
+│   ├── textbox_pesterlog_large.png
+│   ├── textbox_purple.png
+│   ├── textbox_rust.png
+│   ├── textbox_teal.png
+│   ├── textbox_trollian_blue.png
+│   ├── textbox_trollian_bronze.png
+│   ├── textbox_trollian_cobalt.png
+│   ├── textbox_trollian_cobalt_large.png
+│   ├── textbox_trollian_fuschia.png
+│   ├── textbox_trollian_gold.png
+│   ├── textbox_trollian_gold_large.png
+│   ├── textbox_trollian_grey.png
+│   ├── textbox_trollian_jade.png
+│   ├── textbox_trollian_olive.png
+│   ├── textbox_trollian_purple.png
+│   ├── textbox_trollian_rust.png
+│   ├── textbox_trollian_teal.png
+│   ├── textbox_trollian_violet.png
+│   ├── title_idle.png
+│   ├── volumeselect_background.png
+│   ├── volumeselect_icon_blank.png
+│   ├── volumeselect_icon1_idle.png
+│   ├── volumeselect_icon2_idle.png
+│   ├── volumeselect_icon3_idle.png
+│   ├── volumeselect_icon4_idle.png
+│   ├── volumeselect_icon5_alt_idle.png
+│   ├── volumeselect_icon5_idle.png
+│   ├── volumeselect_icon6_idle.png
+│   ├── volumeselect_icon7_idle.png
+│   ├── volumeselect_icon8_idle.png
+│   ├── volumeselect_iconsmall1_idle.png
+│   ├── volumeselect_iconsmall2_idle.png
+│   ├── volumeselect_iconsmall3_idle.png
+│   ├── volumeselect_iconsmall4_idle.png
+│   ├── volumeselect_iconsmall5_idle.png
+│   ├── volumeselect_iconsmall6_idle.png
+│   ├── volumeselect_iconsmall7_idle.png
+│   ├── volumeselect_iconsmall8_idle.png
+│   └── window_icon.png
+├── gui.rpy
+├── images
+│   ├── achievements
+│   │   ├── v1r1_a_no.png
+│   │   ├── v1r1_a_yes.jpg
+│   │   ├── v1r1_a_yes_alt.jpg
+│   │   ├── v2_a_no.png
+│   │   ├── v2_a_yes.png
+│   │   ├── v2e_a_no.png
+│   │   ├── v2e_a_yes.png
+│   │   ├── v3_a_no.png
+│   │   ├── v3_a_yes.png
+│   │   ├── v4_a_no.png
+│   │   ├── v4_a_yes.png
+│   │   ├── v5r1_a_no.png
+│   │   ├── v5r1_a_yes.png
+│   │   ├── v5r2_a_no.png
+│   │   ├── v5r2_a_yes.png
+│   │   ├── v6r1_a_no.png
+│   │   ├── v6r1_a_yes.png
+│   │   ├── v6r2_a_no.png
+│   │   ├── v6r2_a_yes.png
+│   │   ├── v6r2e1_a_yes.png
+│   │   └── v6r2e2_a_yes.png
+│   ├── back yard.png
+│   ├── background_spaceship.png
+│   ├── background3.png
+│   ├── bec1.png
+│   ├── bec2.png
+│   ├── bec3.png
+│   ├── bec4.png
+│   ├── bec5.png
+│   ├── bechead.png
+│   ├── bg_kanaya_room_blood.png
+│   ├── BG_karako_dark_carnival.png
+│   ├── bg_karkat_room_blood3.png
+│   ├── bg_outsideday.png
+│   ├── bg_outsidenight.png
+│   ├── bg_undergrowth.png
+│   ├── bite1.png
+│   ├── bite2.png
+│   ├── blackcover.png
+│   ├── boldir_cold.png
+│   ├── boldir_dying.png
+│   ├── boldir_mean.png
+│   ├── boldir_neutral.png
+│   ├── boldir_oof.png
+│   ├── boldir_silhouette.png
+│   ├── boldir_strings1.png
+│   ├── boldir_strings2.png
+│   ├── boldir_strings3.png
+│   ├── boldir_strings4.png
+│   ├── boldir_thoughtful.png
+│   ├── boldir_wideeyed.png
+│   ├── brightlight.png
+│   ├── cal.png
+│   ├── calphase1.png
+│   ├── calphase2.png
+│   ├── Cave.png
+│   ├── complacency1.png
+│   ├── complacency2.png
+│   ├── cool.png
+│   ├── dave bad end1.png
+│   ├── dave bad end2.png
+│   ├── dave good end.png
+│   ├── Dave_cellphone.png
+│   ├── Dave_cellphone2.png
+│   ├── dave_concern.png
+│   ├── Dave_didyoujust.png
+│   ├── Dave_embarrased.png
+│   ├── Dave_juice.png
+│   ├── dave_kitchen.png
+│   ├── dave_living room.png
+│   ├── dave_meh.png
+│   ├── Dave_nervouslaugh.png
+│   ├── dave_neutral.png
+│   ├── dave_olive garden.png
+│   ├── dave_phase.png
+│   ├── Dave_rap1.png
+│   ├── Dave_rap2.png
+│   ├── Dave_reflection.png
+│   ├── dave_roof.png
+│   ├── dave_room.png
+│   ├── dave_s room.png
+│   ├── dave_smile.png
+│   ├── Dave_smooth1.png
+│   ├── Dave_smooth2.png
+│   ├── Dave_supermeh.png
+│   ├── Dave_suspicious.png
+│   ├── dave_talk.png
+│   ├── dave_talk2.png
+│   ├── dave_talk3.png
+│   ├── dave_talk4.png
+│   ├── dave_talk5.png
+│   ├── dave_talk6.png
+│   ├── Dave_webcam.png
+│   ├── Dave_webcam_small.png
+│   ├── dave_webcamcover.png
+│   ├── DS_Annoyed.png
+│   ├── DS_Gesturing.png
+│   ├── DS_Neutral.png
+│   ├── DS_SarcasticExplaining.png
+│   ├── DS_Sigh.png
+│   ├── DS_ToSelf.png
+│   ├── exception.png
+│   ├── eye.png
+│   ├── eye2.png
+│   ├── fangs1.png
+│   ├── fangs2.png
+│   ├── field-2.png
+│   ├── flame_half.png
+│   ├── forest.png
+│   ├── front yard.png
+│   ├── gamzee_bg_living_room.png
+│   ├── gamzee_bg_living_room_cracked.png
+│   ├── gamzee_bg_outsidehive.png
+│   ├── gamzee_bg_unreality1.jpg
+│   ├── gamzee_bg_unreality2.jpg
+│   ├── gamzee_bg_unreality3.jpg
+│   ├── gamzee_bg_unreality4.jpg
+│   ├── gamzee_bg_unreality5.jpg
+│   ├── gamzee_bg_unrealityfinal.jpg
+│   ├── gamzee_endcard_badend1.png
+│   ├── gamzee_endcard_badend2.png
+│   ├── gamzee_endcard_goodend.png
+│   ├── gamzee_neutral_1.png
+│   ├── gamzee_neutral_2.png
+│   ├── gamzee_neutral_3.png
+│   ├── gamzee_neutral_4.png
+│   ├── gamzee_pie_1.png
+│   ├── gamzee_pie_2.png
+│   ├── gamzee_silhouette.png
+│   ├── gamzee_sober_1.png
+│   ├── gamzee_sober_2.png
+│   ├── gamzee_surprised.png
+│   ├── gamzee_talk_1.png
+│   ├── gamzee_talk_2.png
+│   ├── gamzee_talk_3.png
+│   ├── gamzee_talk_4.png
+│   ├── gamzee_think.png
+│   ├── gamzeecloset.png
+│   ├── greencover.png
+│   ├── greenflame.png
+│   ├── greensun.png
+│   ├── high1.png
+│   ├── high2.png
+│   ├── JADE_amazed.png
+│   ├── JADE_amused.png
+│   ├── JADE_annoyed.png
+│   ├── JADE_beaming.png
+│   ├── jade_bg_atrium.png
+│   ├── jade_bg_bedroom.png
+│   ├── jade_bg_bedroom_night.png
+│   ├── jade_bg_derse.png
+│   ├── jade_bg_frog_temple_lotus.png
+│   ├── jade_bg_frog_temple_no_lotus.png
+│   ├── jade_bg_prospit.png
+│   ├── JADE_default.png
+│   ├── JADE_dumbfounded.png
+│   ├── jade_endcard_arasol_game_over.png
+│   ├── jade_endcard_heroic_end.png
+│   ├── jade_endcard_space_junkd.png
+│   ├── jade_endcard_victory.png
+│   ├── JADE_exploding-1.png
+│   ├── JADE_exploding-2.png
+│   ├── JADE_hand-out.png
+│   ├── JADE_hand-out2.png
+│   ├── JADE_holding-gun1.png
+│   ├── JADE_holding-gun2.png
+│   ├── JADE_holding-gun3.png
+│   ├── JADE_holding-gun4.png
+│   ├── JADE_holding-gun5.png
+│   ├── JADE_holding-gun6.png
+│   ├── JADE_holding-gun7.png
+│   ├── JADE_holding-gun8.png
+│   ├── JADE_holding-gun9.png
+│   ├── JADE_holdinghands-amused.png
+│   ├── JADE_holdinghands-dissapointed.png
+│   ├── JADE_holdinghands-sarcastic.png
+│   ├── JADE_huhh.png
+│   ├── Jade_Neutral.png
+│   ├── JADE_sad.png
+│   ├── JADE_Smiling.png
+│   ├── JADE_surprised.png
+│   ├── JADE_thinking.png
+│   ├── JADE_upset-angry.png
+│   ├── JADE_upset-cheering-up.png
+│   ├── JADE_upset-seething.png
+│   ├── JADE_upset-shocked.png
+│   ├── JADE_upset-stressed.png
+│   ├── JADE_upset-tearing-up.png
+│   ├── JADE_weak-smile.png
+│   ├── JADE_wistful.png
+│   ├── JADE-worried.png
+│   ├── John_AwkwardSmile.png
+│   ├── John_BlankStare.png
+│   ├── John_Bleh.png
+│   ├── John_Concern.png
+│   ├── John_CrossedArms.png
+│   ├── john_dad_disapprove.png
+│   ├── John_Defeated.png
+│   ├── John_Disguise.png
+│   ├── John_Displeased.png
+│   ├── John_FacePalm.png
+│   ├── John_Forlorn.png
+│   ├── John_Frown.png
+│   ├── John_Frustrated.png
+│   ├── john_gameover.png
+│   ├── John_Happy.png
+│   ├── john_happyend.png
+│   ├── John_HYPE.png
+│   ├── John_ImNotCrazy.png
+│   ├── John_MildSurprise.png
+│   ├── John_Neutral.png
+│   ├── John_PerkUp.png
+│   ├── John_Questioning.png
+│   ├── john_s room.png
+│   ├── John_Shocked.png
+│   ├── John_Shrug.png
+│   ├── John_Suspicious.png
+│   ├── John_Thinking.png
+│   ├── John_Whatever.png
+│   ├── John_Whoa.png
+│   ├── junkyard_final.png
+│   ├── kanaya bad end1.png
+│   ├── kanaya bad end2.png
+│   ├── kanaya good end.png
+│   ├── kanaya_bg_room.png
+│   ├── Kanaya_bluh.png
+│   ├── Kanaya_chainsaw.png
+│   ├── Kanaya_chainsaw_blood.png
+│   ├── Kanaya_disappointed.png
+│   ├── Kanaya_displease.png
+│   ├── Kanaya_dubious.png
+│   ├── Kanaya_embarrased.png
+│   ├── Kanaya_husktop.png
+│   ├── Kanaya_husktop_angry.png
+│   ├── Kanaya_husktop_cancel.png
+│   ├── Kanaya_husktop_devastated.png
+│   ├── Kanaya_husktop_mad.png
+│   ├── Kanaya_husktop_surprised.png
+│   ├── Kanaya_moirailed.png
+│   ├── Kanaya_neutral.png
+│   ├── Kanaya_pleased.png
+│   ├── Kanaya_sad.png
+│   ├── Kanaya_suffering.png
+│   ├── Kanaya_surprise.png
+│   ├── Kanaya_talk.png
+│   ├── Karako_blank.png
+│   ├── Karako_happy.png
+│   ├── karkat bad end1.png
+│   ├── karkat bad end2.png
+│   ├── karkat good end.png
+│   ├── karkat_bg_closet.png
+│   ├── karkat_bg_hill.png
+│   ├── karkat_bg_hillfire.png
+│   ├── karkat_bg_hillmorning.png
+│   ├── karkat_bg_hillnight.png
+│   ├── karkat_bg_hillruin.png
+│   ├── karkat_bg_room.png
+│   ├── Karkat_blanket.png
+│   ├── Karkat_blanket_fear.png
+│   ├── Karkat_blanket_uneasy.png
+│   ├── Karkat_discuss.png
+│   ├── Karkat_ew.png
+│   ├── Karkat_explaintome.png
+│   ├── Karkat_eyeroll.png
+│   ├── Karkat_freaking_out.png
+│   ├── Karkat_neutral.png
+│   ├── Karkat_shock.png
+│   ├── Karkat_shock_blood.png
+│   ├── Karkat_suspecting.png
+│   ├── Karkat_talk.png
+│   ├── Karkat_talk2.png
+│   ├── Karkat_talk3.png
+│   ├── Karkat_uneasy.png
+│   ├── Karkat_wtfisthis.png
+│   ├── Mom_annoyed.png
+│   ├── Mom_deadpan.png
+│   ├── Mom_mutini.png
+│   ├── Mom_mutini_fade1.png
+│   ├── Mom_smirk.png
+│   ├── MSPAreader_Angry.png
+│   ├── MSPAreader_Confused.png
+│   ├── MSPAreader_Determined.png
+│   ├── MSPAreader_faint.png
+│   ├── MSPAreader_Falter.png
+│   ├── MSPAreader_GetItTogether.png
+│   ├── MSPAreader_Gross.png
+│   ├── MSPAreader_HoodieOver.png
+│   ├── MSPAreader_nakey.png
+│   ├── MSPAreader_nervous.png
+│   ├── MSPAreader_oh.png
+│   ├── MSPAreader_pixelated.png
+│   ├── MSPAreader_SelfConfidence.png
+│   ├── Mutini_Happy.png
+│   ├── Mutini_Normal.png
+│   ├── nightlight.png
+│   ├── panelscape1.png
+│   ├── panelscape2.png
+│   ├── panelscape3.png
+│   ├── prologue_bg_1.png
+│   ├── prologue_bg_2.png
+│   ├── reader_walkin.png
+│   ├── redflame.png
+│   ├── roll1.png
+│   ├── roll2.png
+│   ├── roll3.png
+│   ├── roll4.png
+│   ├── roll5.png
+│   ├── roll6.png
+│   ├── roll7.png
+│   ├── roll8.png
+│   ├── rolltitle.png
+│   ├── ROSE_annoyed.png
+│   ├── rose_bg_bedroom.png
+│   ├── rose_bg_hallway.png
+│   ├── rose_bg_hallway_mom.png
+│   ├── rose_bg_laundry_room.png
+│   ├── rose_bg_moms_room.png
+│   ├── rose_bg_outside_daytime.png
+│   ├── rose_bg_outside_home.png
+│   ├── rose_bg_skaianet_lab.png
+│   ├── ROSE_cellphone.png
+│   ├── ROSE_dejected.png
+│   ├── ROSE_disturbed.png
+│   ├── rose_endcard_game_over.png
+│   ├── rose_endcard_victory.png
+│   ├── rose_endcard_victory_v2.png
+│   ├── ROSE_eyeroll.png
+│   ├── ROSE_frustrated.png
+│   ├── ROSE_hand_out_shocked.png
+│   ├── ROSE_hand_out_skeptical.png
+│   ├── ROSE_handraised.png
+│   ├── ROSE_holding_wine.png
+│   ├── ROSE_mouthcovered_shocked.png
+│   ├── ROSE_neutral.png
+│   ├── ROSE_sheepish.png
+│   ├── ROSE_smile.png
+│   ├── ROSE_spitting.png
+│   ├── ROSE_umbrella_Amused.png
+│   ├── ROSE_umbrella_ArmsCrossed.png
+│   ├── ROSE_umbrella_Skeptical.png
+│   ├── ROSE_umbrella_Surprised.png
+│   ├── ROSE_umbrella_Unamused.png
+│   ├── scapewhite.png
+│   ├── scratch_computer.png
+│   ├── scratch_room.png
+│   ├── sewer.png
+│   ├── sky.png
+│   ├── string_overlay1.png
+│   ├── string_overlay2.png
+│   ├── string_overlay3.png
+│   ├── string_underlay.png
+│   ├── sun.png
+│   ├── tiger.png
+│   ├── toblerone01.png
+│   ├── toblerone02.png
+│   ├── toblerone03.png
+│   ├── tpose_final.png
+│   ├── tpose_glitch.jpg
+│   ├── tpose1.png
+│   ├── tpose2.png
+│   ├── tpose3.png
+│   ├── vriska_bg_alternian_beach.png
+│   ├── vriska_bg_bedroom.png
+│   ├── vriska_bg_ship.png
+│   ├── vriska_bg_spidermom.png
+│   ├── Vriska_Control_1.png
+│   ├── Vriska_Control_2.png
+│   ├── Vriska_Dejected_1.png
+│   ├── Vriska_Dejected_2.png
+│   ├── Vriska_Dejected_3.png
+│   ├── vriska_endcard_badend1.png
+│   ├── vriska_endcard_badend2_v2.png
+│   ├── vriska_endcard_goodend.png
+│   ├── Vriska_Hype_1.png
+│   ├── Vriska_Hype_2.png
+│   ├── Vriska_Neutral_1.png
+│   ├── Vriska_Neutral_2.png
+│   ├── Vriska_Neutral_3.png
+│   ├── Vriska_Neutral_4.png
+│   ├── Vriska_Shout_1.png
+│   ├── Vriska_Shout_2.png
+│   ├── Vriska_Smug_1.png
+│   ├── Vriska_Smug_2.png
+│   ├── Vriska_Talk_1.png
+│   ├── Vriska_Talk_2.png
+│   ├── Vriska_Talk_3.png
+│   ├── Vriska_Upset_1.png
+│   ├── Vriska_Upset_2.png
+│   ├── vriskaroute-flarpoverlay.png
+│   ├── what.png
+│   ├── what2.png
+│   ├── whitecover.png
+│   ├── yourhive.png
+│   └── zap.png
+├── music
+│   ├── DARLINGKANAYA_PQ.wav
+│   ├── DAVE_LOFI_GOODEND.wav
+│   ├── DAVE_PQ.wav
+│   ├── DRONE_PQ.wav
+│   ├── DRONEHOVER_GROSSBUGSOUNDS.wav
+│   ├── DRONES_MUFFLED_PQ.wav
+│   ├── fs_BOLDIR.wav
+│   ├── game_over.mp3
+│   ├── honk_1.wav
+│   ├── honk_2.wav
+│   ├── honk_pitched.wav
+│   ├── honk_short.wav
+│   ├── honk_whisper.wav
+│   ├── JADE_PQ.wav
+│   ├── james_saying_honk.wav
+│   ├── JOHN_PQ.wav
+│   ├── KKPQ(MIX).flac
+│   ├── Midnight_Calliope.mp3
+│   ├── miracles.mp3
+│   ├── multihonk.wav
+│   ├── PQ_PROLOGUE.wav
+│   ├── PQ_TITLE_LOOP.wav
+│   ├── ROSE_PQ.wav
+│   ├── Superego_LOOP.wav
+│   ├── victory_jingle.mp3
+│   └── WORST_END.wav
+├── options.rpy
+├── paths.log
+├── Roboto-Medium.ttf
+├── Roboto-Regular.ttf
+├── screens.rpy
+├── script.rpy
+├── verdana.ttf
+├── verdanab.ttf
+├── verdanai.ttf
+├── verdanaz.ttf
+├── vol2script.rpy
+├── vol3script.rpy
+├── vol4script.rpy
+├── vol5script.rpy
+└── vol6script.rpy
+
+16 directories, 642 files

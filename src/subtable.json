@@ -1,0 +1,11 @@
+[
+    ["S", "{{assets}}", "custom_assets_{package_id}"],
+    ["S", "{{assets_common}}", "custom_assets"],
+    ["S", "{{package_id}}", "{package_id}"],
+    ["S", "{{p}}", "__p__"],
+    ["R", "(^ *((define|style|transform|image|label|screen) ([a-z_0-9]+ )*){0,1})!", "\\g<1>__p__"],
+    ["R", "\\b((show|hideas|at|behind|onlayer|zorder|show|expression|scene|hide|with|window|call|jump|stop|pause|play|menu) ([a-z_0-9]+ )*)!", "\\g<1>__p__"],
+    ["S", "__p__", "{package_id}_"],
+    ["S", "{{package_entrypoint}}", "__package_entrypoint__"],
+    ["S", "__package_entrypoint__", "custom_entry_{package_id}"]
+]
