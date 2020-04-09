@@ -96,7 +96,17 @@ or, "this is easier than documentation." AMA!
 
 **Q:** I want it! Gimmie it!
 
-**A:** Great! See [Installation](doc/Installation.md)
+**A:** Great! See the [Developer Quickstart](doc/developer_quickstart.md)
+
+**Q:** I updated and everything broke!
+
+**A:** If you have a `liteskins` folder:
+
+1. Rename `liteskins` to `skins`
+2. Download and install the ren'py sdk
+3. Set the ren'py projects directory to `fansim-engine/projects`
+
+Worst case scenario, make a backup of your custom_volumes folder, delete fse and reinstall.
 
 **Q:** Why should I use this instead of just editing up the rpy files that came with the game--
 
