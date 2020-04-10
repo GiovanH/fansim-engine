@@ -16,8 +16,8 @@ def isSameFile(source, target):
     if s1[ST_SIZE] != s2[ST_SIZE]:
         return False
 
-    if s1[ST_CTIME] != s2[ST_CTIME]:
-        return False
+    # if s1[ST_CTIME] != s2[ST_CTIME]:
+    #     return False
 
     return True  # Hopefully!
 
