@@ -276,13 +276,24 @@ screen vol_select_custom():
         text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
         # text customVolumeSplash() 
 
-
-
 define dlc_credits_data = {}  # Overwritten in custom_credits.rpy
-define dlc_credits_sort = {
-    "LIST": [],
-    "DICT": []
-}
+
+init python:
+    def sortCreditsList(list_):
+        def _splitSort(string):
+            __, label, realstr = re.search(r"^(\(S([0-9]+)\)){0,1}(.*)", string).groups()
+            return ((label or "999"), realstr)
+        return [r for l, r in sorted(map(_splitSort, list_))]
+
+    def sortCreditsDict(data):
+        def _splitSort(kv):
+            k, v = kv
+            __, label, realstr = re.search(r"^(\(S([0-9]+)\)){0,1}(.*)", k).groups()
+            return ((label or "999"), realstr, v)
+        return [
+            (k, v) for l, k, v 
+            in sorted(map(_splitSort, data.items()))
+        ]
 
 screen dlc_credits():
     tag menu
@@ -296,37 +307,26 @@ screen dlc_credits():
             
             # We COULD do this processing in advance, but we want to make it
             # easy to manually override the dlc_credits_sort config variable
-            $ store.dlc_credits_sort_temp = [s.lower() for s in dlc_credits_sort.get("LIST", [])] 
-            $ sorted_credits_list = sorted(
-                dlc_credits_data.get("LIST", {}).items(),
-                key=(lambda (role, _): store.dlc_credits_sort_temp.index(role.lower()) if role.lower() in store.dlc_credits_sort_temp else 999)
-            )
 
-            $ store.dlc_credits_sort_temp = [s.lower() for s in dlc_credits_sort.get("DICT", [])] 
-            $ sorted_credits_dict = sorted(
-                dlc_credits_data.get("DICT", {}).items(),
-                key=(lambda (role, _): store.dlc_credits_sort_temp.index(role.lower()) if role.lower() in store.dlc_credits_sort_temp else 999)
-            )
-
-            for role, list_ in sorted_credits_list:
+            for role, list_ in sortCreditsDict(dlc_credits_data.get("LIST", [])):
                 text role text_align 0.5 color gui.accent_color size 30
-                for name in list_:
+                for name in sortCreditsList(list_):
                     hbox:
                         text name text_align 0.0 min_width 440
 
-            for role, person_credits in sorted_credits_dict:
+            for role, person_credits in sortCreditsDict(dlc_credits_data.get("DICT", [])):
                 text role text_align 0.5 color gui.accent_color size 30
-                for name, list_ in person_credits.items():
+                for name, list_ in sortCreditsDict(person_credits):
                     hbox:
                         text name text_align 0.0 min_width 440
                         vbox:
-                            for item in list_:
+                            for item in sortCreditsList(list_):
                                 text item text_align 0.0
 
 
             text "\n\n" text_align 1.0
 
-            for text_ in dlc_credits_data.get("POSTSCRIPT", []):
+            for text_ in sortCreditsList(dlc_credits_data.get("POSTSCRIPT", [])):
                 text text_
 
 
