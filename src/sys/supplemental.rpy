@@ -102,7 +102,7 @@ label start_custom:
 
     show image "gui/main_menu.png"
     window hide
-    scene black with config.enter_transition
+    scene black with Dissolve(1.5)
     $ main_menu = True
     $ fse_block_devbox = False
 

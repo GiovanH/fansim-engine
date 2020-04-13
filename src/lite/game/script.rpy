@@ -71,7 +71,7 @@ label start2:
     stop music fadeout 1.5
     show image "gui/main_menu.png"
     window hide
-    scene black with config.enter_transition
+    scene black with Dissolve(1.5)
     $ main_menu = True
     call screen vol_select() with config.enter_transition
     return
