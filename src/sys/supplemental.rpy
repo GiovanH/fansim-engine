@@ -99,13 +99,14 @@ label start_custom:
     $ quick_menu = False
 
     # Stop main menu music, or any other music playing, and transition to volume select.
-    stop music fadeout 1
 
     show image "gui/main_menu.png"
     window hide
     scene black with config.enter_transition
     $ main_menu = True
     $ fse_block_devbox = False
+
+    stop music fadeout 1.0
     call screen vol_select_custom() with config.enter_transition
     return
 

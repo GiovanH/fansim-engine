@@ -49,8 +49,6 @@ define narrator = Character(window_background="gui/textbox_narration.png", what_
 define op = Character(window_background="gui/textbox_blank.png", what_font='courbd.ttf', what_size=28,  color='#FFFFFF', what_color='#FFFFFF', what_xalign=0.5, what_text_align=0.5)
 define fscreen = Character(window_background="gui/textbox_blank.png", what_font='courbd.ttf', what_size=28, color='#FFFFFF', what_color='#FFFFFF', what_xalign=0.5, what_text_align=0.5, what_ypos=-360, what_xsize=1080)
 
-
-
 # Game start
 
 label help:
@@ -62,56 +60,36 @@ label help:
 label start:
 
     $ achievement.sync()
-
     # This is used to easily add a formatted '>' to the start of choices in menus.
     $ pick = "{color=#000000}>{/color}"
-
     $ quick_menu = False
-
     jump start2
 
 label start2:
 
     # Stop main menu music, or any other music playing, and transition to volume select.
     stop music fadeout 1.5
-
     show image "gui/main_menu.png"
-
     window hide
-
-    scene black with Dissolve(1.5)
-
+    scene black with config.enter_transition
     $ main_menu = True
-
-    call screen vol_select() with Dissolve(1.0)
-
+    call screen vol_select() with config.enter_transition
     return
-
 
 label ending(card="blackcover", win=True, fadetoblack=True):
 
     if fadetoblack:
-
-        scene black with Dissolve (0.5)
+        scene black with Dissolve(0.5)
 
     $ renpy.pause(0.5)
-
     $ quick_menu = False
-
     if win:
-
         play music "music/victory_jingle.mp3" fadeout 1.0 noloop
-
     else:
-
         play music "music/game_over.mp3" fadeout 1.0 noloop
 
-    scene expression card with Dissolve(1.0)
-
+    scene expression card with config.enter_transition
     $ renpy.pause()
-
     stop music fadeout 1.0
-
-    scene black with Dissolve(1.0)
-
+    scene black with config.enter_transition
     return
