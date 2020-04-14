@@ -192,34 +192,44 @@ screen spoiler_box(label, content, warningoffset=42):
             ToggleLocalVariable("spoil_style_state_text", "__p__spoiler_text_hide", "__p__spoiler_text_show"),
         ]
             
-define dlc_volumes_icons = {}
+define _getImageOrPlaceholder_cache = {}
 init python:
-    def getDlcVolumeIcons(volume):
-        key = (volume["package_id"], volume["volume_id"])
-        cached = dlc_volumes_icons.get(key)
+
+    def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
+        cached = _getImageOrPlaceholder_cache.get(target)
         if cached:
             return cached
+
+        if not failtext:
+            failtext = failbg
         try:
-            img_small = "custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume))
-            renpy.file(img_small)
+            renpy.file(target)
+            _getImageOrPlaceholder_cache[target] = target
+            return target
         except:
-            img_small = Composite(
-                (103, 103),
-                (0, 0), "{{assets}}/volumeselect_fallback_small.png",
-                (0, 0), Text("assets/\nvolumeselect_\n{volume_id}_\nsmall.png".format(**jsonReEscape(volume)), xsize=103)
+            placeholder = Composite(
+                failsize,
+                (0, 0), failbg,
+                (0, 0), Text(failtext, xsize=failsize[0])
             )
-        try:
-            img_norm = "custom_assets_{package_id}/volumeselect_{volume_id}.png".format(**jsonReEscape(volume))
-            renpy.file(img_norm)
-        except:
-            img_norm = Composite(
-                (153, 149),
-                (0, 0), "{{assets}}/volumeselect_fallback.png",
-                (0, 0), Text("assets/\nvolumeselect_\n{volume_id}.png".format(**jsonReEscape(volume)), xsize=103)
-            )
-        tup = (img_small, img_norm,)
-        dlc_volumes_icons[key] = tup
-        return tup
+            _getImageOrPlaceholder_cache[target] = placeholder
+            return placeholder
+
+    def getDlcVolumeIcons(volume):
+        img_small = getImageOrPlaceholder(
+            target="custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume)),
+            failbg="{{assets}}/volumeselect_fallback_small.png",
+            failsize=(103, 103),
+            failtext="assets/\nvolumeselect_\n{volume_id}_\nsmall.png".format(**jsonReEscape(volume))
+        )
+        img_norm = getImageOrPlaceholder(
+            target="custom_assets_{package_id}/volumeselect_{volume_id}.png".format(**jsonReEscape(volume)),
+            failbg="{{assets}}/volumeselect_fallback.png",
+            failsize=(103, 103),
+            failtext="assets/\nvolumeselect_\n{volume_id}.png".format(**jsonReEscape(volume))
+        )
+
+        return (img_small, img_norm,)
 
 define dlc_volumes_data = []
 screen vol_select_custom():
@@ -352,9 +362,21 @@ screen dlc_achievements():
 
             for ach in dlc_achievements_data:
                 if achievement.has(ach.get("_id")):
-                    imagebutton idle ach.get("_img_unlocked") action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc")) unhovered Hide("ach_desc")
+                    $ _img_unlocked = getImageOrPlaceholder(
+                        target=ach.get("_img_unlocked"),
+                        failbg="{{assets}}/ach_fallback.png",
+                        failsize=(64, 64),
+                        failtext="assets/\n" + ach.get("img_unlocked")
+                    )
+                    imagebutton idle _img_unlocked action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc")) unhovered Hide("ach_desc")
                 else:
-                    imagebutton idle ach.get("_img_locked") action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) unhovered Hide("ach_desc")
+                    $ _img_locked = getImageOrPlaceholder(
+                        target=ach.get("_img_locked"),
+                        failbg="{{assets}}/ach_fallback.png",
+                        failsize=(64, 64),
+                        failtext="assets/\n" + ach.get("img_locked")
+                    )
+                    imagebutton idle _img_locked action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) unhovered Hide("ach_desc")
 
 screen ach_desc(ach_name, ach_description):
 
