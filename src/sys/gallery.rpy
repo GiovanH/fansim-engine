@@ -92,15 +92,16 @@ label __p__sayer_bootstrap2:
     scene whitecover with Dissolve(1.0)
     $ quick_menu = True
 
-    call debug_dump_character(store.__p__sayer)
+    call debug_dump_character(store.__p__sayer, store.__p__sayername)
 
-    call screen __p__sayer_room
+    # call screen __p__sayer_room
     return
 
 
 screen __p__sayer_room:
     tag menu
     $ store.__p__sayer = "s"
+    $ store.__p__sayername = "s"
     use game_menu_volumes(_("Choose a Character")):
         # A grid of buttons.
         vpgrid:
@@ -112,7 +113,7 @@ screen __p__sayer_room:
 
             for sayername, sayer in sorted(get_all_sayers()):
                 if sayername and sayer.image_tag:
-                    textbutton ((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), Start("__p__sayer_bootstrap2") xsize 300 ysize 30 yalign 0 xalign 0 text_style "button_text"
+                    textbutton ((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), SetVariable("store.__p__sayername", sayername), Start("__p__sayer_bootstrap2") xsize 300 ysize 30 yalign 0 xalign 0 text_style "button_text"
 
 init 900 python:
 

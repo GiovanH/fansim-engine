@@ -17,19 +17,24 @@ init python:
     # Script
     def get_all_sayers(store_=store):
         """Return all the "sayers" in the global store."""
+        if not isinstance(store_, dict):
+            store_ = store_.__dict__
         return filter(
             lambda i: isinstance(i[1], ADVCharacter),
-            store_.__dict__.items()
+            store_.items()
         )
 
     def get_all_images():
         """Returns all the images in the global store."""
-        return renpy.display.image.images.items()
+        return filter(
+            lambda i: not isinstance(i[1], renpy.text.extras.ParameterizedText),
+            renpy.display.image.images.items()
+        )
 
-    def get_images_from_sayer(sayer):
+    def get_images_from_sayer(sayer_name):
         """Returns all the images belonging to a given sayer."""
         return filter(
-            lambda i: i[0][0] == sayer.image_tag,
+            lambda i: i[0][0] == sayer_name,
             get_all_images()
         )
 
@@ -68,7 +73,7 @@ init python:
             for i in range(0, hlen, hlen/3)
         )
 
-label debug_dump_character(sayer):
+label debug_dump_character(sayer, sayer_name):
     ### This causes a sayer to iterate through all their poses, and is a helpful tool.
     ### This is also used in the developer tools.
     ### This is basically a whole convolution in order to keep rollback working
@@ -77,7 +82,7 @@ label debug_dump_character(sayer):
 
     $ renpy.choice_for_skipping()
     
-    $ __p__dumpcollection = sorted(get_images_from_sayer(sayer))
+    $ __p__dumpcollection = sorted(get_images_from_sayer(sayer_name))
     $ __p__dumplen = len(__p__dumpcollection)
     $ __p__dumpi = 0
 
