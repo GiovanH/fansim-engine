@@ -86,8 +86,8 @@ define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
 
 ## Entering or exiting the game menu.
 
-define config.enter_transition = Dissolve(1.0)
-define config.exit_transition = Dissolve(1.0)
+define config.enter_transition = dissolve
+define config.exit_transition = dissolve
 
 
 ## Between screens of the game menu.

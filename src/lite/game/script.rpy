@@ -73,7 +73,7 @@ label start2:
     window hide
     scene black with Dissolve(1.5)
     $ main_menu = True
-    call screen vol_select() with config.enter_transition
+    call screen vol_select() with Dissolve(1.0)
     return
 
 label ending(card="blackcover", win=True, fadetoblack=True):

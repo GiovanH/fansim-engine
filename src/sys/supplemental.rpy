@@ -112,7 +112,7 @@ label start_custom:
     $ fse_block_devbox = False
 
     stop music fadeout 1.0
-    call screen vol_select_custom() with config.enter_transition
+    call screen vol_select_custom() with Dissolve(1.0)
     return
 
 # Various hiveswap transforms
