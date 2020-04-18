@@ -60,6 +60,22 @@ init python:
     }
     quirks = QuirkStore
 
+    NotSet = renpy.object.Sentinel("NotSet")
+
+    class QuirkChar(ADVCharacter):
+        def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
+            super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
+            self.quirklist = quirklist
+            self.kind = kind or renpy.store.adv
+            
+            # print(self)
+            # print(type(self))
+            # print(super(type(self), self))
+
+        def __call__(self, what, *args, **kwargs):
+            quirkSay(super(type(self.kind), self), self.quirklist, what, **kwargs)
+
+
     def quirkSayer(who, quirklist):
         """Returns a sayer that wraps another sayer and applies quirks.
         Args:

@@ -272,7 +272,27 @@ screen openbound_say:
                     line_spacing 0
                     size 18
 
-define openbound = Character(
+init python:
+    NotSet = renpy.object.Sentinel("NotSet")
+    class HtagChar(ADVCharacter):
+        def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
+            super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
+            self.quirklist = quirklist
+
+        def __call__(self, what, *args, **kwargs):
+            hashtags = kwargs.get("show_hashtags")
+            if hashtags:
+                k2 = kwargs.copy()
+                k2.pop("show_hashtags")
+
+                super(type(self), self).__call__(quirkSub(self.quirklist, what) + "{nw}", *args, **k2)
+                self.do_extend()
+                super(type(self), self).__call__(quirkSub(self.quirklist, what) + "{fast}", *args, **kwargs)
+                self.do_done(self.name, hashtags)
+            else:
+                super(type(self), self).__call__(quirkSub(self.quirklist, what), *args, **kwargs)
+
+define openbound = HtagChar(
     ### A character who speaks with an openbound-style textbox.
     ### Elements can be restyled and repositioned using the standard what, namebox, and say_dialogue tags.
     ###
