@@ -281,16 +281,17 @@ init python:
 
         def __call__(self, what, *args, **kwargs):
             hashtags = kwargs.get("show_hashtags")
+            what_text = quirkSub(self.quirklist, what)
             if hashtags:
                 k2 = kwargs.copy()
                 k2.pop("show_hashtags")
 
-                super(type(self), self).__call__(quirkSub(self.quirklist, what) + "{nw}", *args, **k2)
+                super(type(self), self).__call__(what_text + "{nw}", *args, **k2)
                 self.do_extend()
-                super(type(self), self).__call__(quirkSub(self.quirklist, what) + "{fast}", *args, **kwargs)
+                super(type(self), self).__call__(what_text + "{fast}", *args, **kwargs)
                 self.do_done(self.name, hashtags)
             else:
-                super(type(self), self).__call__(quirkSub(self.quirklist, what), *args, **kwargs)
+                super(type(self), self).__call__(what_text, *args, **kwargs)
 
 define openbound = HtagChar(
     ### A character who speaks with an openbound-style textbox.
