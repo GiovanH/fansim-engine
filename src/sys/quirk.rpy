@@ -81,7 +81,7 @@ init python:
         kwargs:
             [pass through to say]
         """
-        return who(quirkSub(quirklist, what), **kwargs)
+        return who.__call__(quirkSub(quirklist, what), **kwargs)
 
     def quirkSub(quirklist, what):
         """Returns the input as a quirk-formatted string.

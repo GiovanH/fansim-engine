@@ -297,6 +297,7 @@ define openround = Character(
     kind=openbound, show_obstyle="round"
 )
 
+
 screen chan_say:
     ### 4chan-style textbox, based on mituna's from openbound. Supports attachments.
     ### Unlike other characters, this is not a "kind", but a screen.
@@ -305,7 +306,7 @@ screen chan_say:
     ###
     ### Args:
     ###     show_blood (blood name): Blood hue name OR hexadecimal color code. Defaults to black text.
-    ###     attachment (displayable, optional): Shows a zoomable attachment as part of the "post"
+    ###     show_attachment (displayable, optional): Shows a zoomable attachment as part of the "post"
     
     style_prefix "say"
     default blood = "#000"
@@ -320,7 +321,7 @@ screen chan_say:
         )
         xsize 796
         right_padding 20 
-        text who id "who" xpos 70 ypos 18 color "#117743" 
+        text who id "who" xpos 40 ypos 18 color "#117743" xanchor 0 
         hbox:
             xpos 10
             ypos 30

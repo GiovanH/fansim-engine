@@ -210,3 +210,6 @@ transform stopspeakingtodefault:
         ypos 736
         linear 0.14 ypos 730
 
+# Utility
+transform invisible:
+    alpha 0.0
