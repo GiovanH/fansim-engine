@@ -25,25 +25,6 @@ init -2 python:
         persistent.firstscreen = True
         
 
-    # Used for open/close eyes animation
-
-    def eyewarp(x):
-
-        return x**1.33
-
-    def eyewarpaxe(x):
-
-        return 1.0 - (1.0 - x)**0.15
-
-    # Used for sprite overlay colors e.x. zap effect
-
-    def silhouette_matrix (r,g,b,a=1.0):
-        return im.matrix((0, 0, 0, 0, r,
-                          0, 0, 0, 0, g,
-                          0, 0, 0, 0, b,
-                          0, 0, 0, a, 0,))
-    def silhouette (filename, r,g,b, a = 1.0):
-        return im.MatrixColor (Image (filename), silhouette_matrix (r,g,b,a))
 
 define narrator = Character(window_background="gui/textbox_narration.png", what_font='courbd.ttf', what_size=22,  color='#000000', what_color='#000000', what_ypos=26)#, window_ypos= #window_ypos=741)
 define op = Character(window_background="gui/textbox_blank.png", what_font='courbd.ttf', what_size=28,  color='#FFFFFF', what_color='#FFFFFF', what_xalign=0.5, what_text_align=0.5)

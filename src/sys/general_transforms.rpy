@@ -1,5 +1,32 @@
 ## COMMON TRANSFORMS ##
 
+init python:
+
+    # Used for open/close eyes animation
+    def eyewarp(x):
+
+        return x**1.33
+
+    def eyewarpaxe(x):
+
+        return 1.0 - (1.0 - x)**0.15
+
+    # Used for sprite overlay colors e.x. zap effect
+    def silhouette_matrix (r,g,b,a=1.0):
+        return im.matrix((0, 0, 0, 0, r,
+                          0, 0, 0, 0, g,
+                          0, 0, 0, 0, b,
+                          0, 0, 0, a, 0,))
+    def silhouette (filename, r,g,b, a = 1.0):
+        return im.MatrixColor (Image (filename), silhouette_matrix (r,g,b,a))
+
+# Eye open/close
+
+define closeeyes = ImageDissolve("{{assets}}/fx/eye.png", 0.8, ramplen=128, reverse=True, time_warp=eyewarp)
+# show bg dirktower with openeyes
+define openeyes = ImageDissolve("{{assets}}/fx/eye.png", 0.8, ramplen=64, time_warp=eyewarp)
+# hide blackcover with openeyes
+
 # Basic placement
 
 transform default:
