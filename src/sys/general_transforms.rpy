@@ -147,28 +147,28 @@ transform breathe:
     easeout 1.1 yoffset 0
 
 transform breathein:
-    ypos 730
-    easein 1 ypos 720
+    yoffset 10
+    easein 1 yoffset 0
 
 transform breatheout:
-    ypos 720
-    easeout 1.1 ypos 730
+    yoffset 0
+    easeout 1.1 yoffset 10
 
 transform breathing:
-    easein 1 ypos 720
-    easeout 1.1 ypos 730
+    easein 1 yoffset 0
+    easeout 1.1 yoffset 10
     pause(1.0)
     repeat
 
 transform outofbreath:
-    ypos 730
-    easein 0.4 ypos 724
+    yoffset 10
+    easein 0.4 yoffset 4
     pause(0.1)
-    easeout 0.5 ypos 730
+    easeout 0.5 yoffset 10
     pause(0.5)
-    easein 0.4 ypos 724
+    easein 0.4 yoffset 4
     pause(0.1)
-    easeout 0.5 ypos 730
+    easeout 0.5 yoffset 10
     pause(0.4)
     repeat
 
@@ -192,23 +192,23 @@ transform speaknod:
     parallel:
         easein 0.1 zoom 1.01
     parallel:
-        ypos 730
-        easeout 0.12 ypos 742
-        linear 0.12 ypos 730
+        yoffset 10
+        easeout 0.12 yoffset 22
+        linear 0.12 yoffset 10
 
 transform speakingtodefault:
     parallel:
         easein 0.1 zoom 1.01
     parallel:
-        ypos 736
-        linear 0.14 ypos 730
+        yoffset 16
+        linear 0.14 yoffset 10
 
 transform stopspeakingtodefault:
     parallel:
         easein 0.1 zoom 1
     parallel:
-        ypos 736
-        linear 0.14 ypos 730
+        yoffset 16
+        linear 0.14 yoffset 10
 
 # Utility
 transform invisible:
