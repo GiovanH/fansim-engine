@@ -213,6 +213,8 @@ init python:
                 (0, 0), Text(failtext, xsize=failsize[0])
             )
             _getImageOrPlaceholder_cache[target] = placeholder
+            print("Missing image")
+            print(target)
             return placeholder
 
     def getDlcVolumeIcons(volume):
