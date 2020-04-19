@@ -286,7 +286,7 @@ init python:
                 k2 = kwargs.copy()
                 k2.pop("show_hashtags")
 
-                super(type(self), self).__call__(what_text + "{nw}", *args, **k2)
+                super(type(self), self).__call__(what_text + "{p=0.1}{nw}", *args, **k2)
                 self.do_extend()
                 super(type(self), self).__call__(what_text + "{fast}", *args, **kwargs)
                 self.do_done(self.name, hashtags)
