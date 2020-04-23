@@ -326,7 +326,7 @@ screen dlc_warnings():
         hbox:
             text fse_warnings_prefix
 
-        for title, warning in dlc_warning_data.items():
+        for title, warning in sortCreditsDict(dlc_warning_data):
             use spoiler_box(title, warning)
 
 
