@@ -79,7 +79,6 @@ init python:
         return len(logical_lines) + overflows
 
     def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
-        print("Running giop for %s" % target)
         if not failtext:
             failtext = failbg
         if renpy.exists(target):
