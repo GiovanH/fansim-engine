@@ -363,5 +363,5 @@ screen ach_desc(ach_name, ach_description):
 
         xpos 320 ypos 465
 
-        text ach_name
+        text ach_name style "label_text"
         text ach_description
