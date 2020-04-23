@@ -218,12 +218,25 @@ screen openbound_say:
     default obstyle = "pixel"
     default chuckle = False
     default use_nameframe = False
+    default frame_border_size = 21  # Parameter for the Frame object
+
+    default hashtag_lines = 1
+    default sandwich = False
+    default sandwich_overlap = 0  # How much to overlap the windows in sandwhich mode
+    default hashtag_line_height = 21  # Height of each line of text, in pixels
+    default hashtag_height_offset = -10  # Manual offset to adjust around borders
+
+    default total_ysize = 225
+
+    $ hashbar_ysize = frame_border_size*2 + (hashtag_line_height * hashtag_lines) + hashtag_height_offset
+    $ say_dialogue_ysize = total_ysize - hashbar_ysize if sandwich else total_ysize
+    $ say_dialogue_yoffset = sandwich_overlap - hashbar_ysize if sandwich else 0
 
     $ purple = "#6600DA"
 
     $ chucklefix = ("_chuckle" if chuckle else "")
-    $ textbox = "{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png"
-    $ hashbox = "{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png"
+    $ textbox_bg_frame = Frame("{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png", left=frame_border_size, top=frame_border_size)
+    $ hashbox_bg_frame = Frame("{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png", left=frame_border_size, top=frame_border_size)
     $ who_color = purple if chuckle else hemospectrum(blood)
     $ who_outlines = [(0 if use_nameframe else 4, "#FFF")] 
 
@@ -238,8 +251,10 @@ screen openbound_say:
         window:
             id "say_dialogue"
             yalign 1.0
+            yoffset say_dialogue_yoffset
             xfill True
-            background textbox
+            ysize say_dialogue_ysize
+            background textbox_bg_frame
             if chuckle:
                 text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
             else:
@@ -250,7 +265,7 @@ screen openbound_say:
                     style "openbound_namebox"
                     if use_nameframe:
                         padding (24, 8)
-                        background Frame(hashbox, left=21, top=21)
+                        background hashbox_bg_frame
                     text who id "who" color who_color outlines who_outlines
 
         if hashtags:
@@ -260,9 +275,9 @@ screen openbound_say:
                 yalign 1.0
 
                 xfill True
-                ysize 55
+                ysize hashbar_ysize
                  
-                background hashbox 
+                background hashbox_bg_frame 
 
                 text "[hashtags]": #tags:
                     style "default"
@@ -305,6 +320,8 @@ define openbound = HtagChar(
     ###     hashtags (string): Hashtags to show.
     ###     Unlike openbound, the tag bar is only shown when `hashtags` is not empty.
     ###     To simulate an empty bar, set the default hashtag value to " " using show_hashtags=" " in the character definition.
+    ###     hashtag_lines (int): Number of lines of text to allocate hashtag space for
+    ###     sandwich (bool): (Default False) Show stacked text and hashtags, instead of overlapping.
     ###     >>> !vriska "Dialogue" (show_hashtags="#;;;;)")
     ###     
     ###     chuckle (boolean): Use chucklevoodoo mode.
