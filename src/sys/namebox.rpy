@@ -220,7 +220,8 @@ screen openbound_say:
     default use_nameframe = False
     default frame_border_size = 21  # Parameter for the Frame object
 
-    default hashtag_lines = 1
+    default hashtag_lines = -1
+    default hashtag_line_len = 70
     default sandwich = False
     default sandwich_overlap = 0  # How much to overlap the windows in sandwhich mode
     default hashtag_line_height = 21  # Height of each line of text, in pixels
@@ -239,6 +240,8 @@ screen openbound_say:
     $ hashbox_bg_frame = Frame("{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png", left=frame_border_size, top=frame_border_size)
     $ who_color = purple if chuckle else hemospectrum(blood)
     $ who_outlines = [(0 if use_nameframe else 4, "#FFF")] 
+
+    $ hashtag_lines = calcLineHeight(hashtags, hashtag_line_len) if hashtag_lines == -1 else hashtag_lines
 
     window:
         id "ob"
