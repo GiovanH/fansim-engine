@@ -320,6 +320,7 @@ screen dlc_credits():
 
 
 define dlc_warning_data = {}  # Overwritten in custom_warnings.rpy
+define dlc_warning_data_extra = {}
 screen dlc_warnings():
     tag menu
     use game_menu(_("Warnings"), scroll="viewport"):
@@ -327,8 +328,8 @@ screen dlc_warnings():
             text fse_warnings_prefix
 
         for title, warning in sorted(dlc_warning_data.items()):
-            $ print(title)
-            $ print(warning)
+            use spoiler_box(title, warning)
+        for title, warning in sorted(dlc_warning_data_extra.items()):
             use spoiler_box(title, warning)
 
 
