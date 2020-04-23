@@ -192,31 +192,8 @@ screen spoiler_box(label, content, warningoffset=42):
             ToggleLocalVariable("spoil_style_state_text", "__p__spoiler_text_hide", "__p__spoiler_text_show"),
         ]
             
-define _getImageOrPlaceholder_cache = {}
+
 init python:
-
-    def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
-        cached = _getImageOrPlaceholder_cache.get(target)
-        if cached:
-            return cached
-
-        if not failtext:
-            failtext = failbg
-        try:
-            renpy.file(target)
-            _getImageOrPlaceholder_cache[target] = target
-            return target
-        except:
-            placeholder = Composite(
-                failsize,
-                (0, 0), failbg,
-                (0, 0), Text(failtext, xsize=failsize[0])
-            )
-            _getImageOrPlaceholder_cache[target] = placeholder
-            print("Missing image")
-            print(target)
-            return placeholder
-
     def getDlcVolumeIcons(volume):
         img_small = getImageOrPlaceholder(
             target="custom_assets_{package_id}/volumeselect_{volume_id}_small.png".format(**jsonReEscape(volume)),

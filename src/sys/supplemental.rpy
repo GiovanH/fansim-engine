@@ -73,6 +73,39 @@ init python:
             for i in range(0, hlen, hlen/3)
         )
 
+    def calcLineHeight(text, chars_per_line):
+        logical_lines = text.split("\n")
+        overflows = sum((len(line) / chars_per_line) for line in logical_lines)
+        return len(logical_lines) + overflows
+
+    __p__getImageOrPlaceholder_cache = {}
+    def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
+        cached = __p__getImageOrPlaceholder_cache.get(target)
+        if cached:
+            return cached
+
+        if not failtext:
+            failtext = failbg
+        try:
+            renpy.file(target)
+            __p__getImageOrPlaceholder_cache[target] = target
+            return target
+        except Exception as e:
+            placeholder = Composite(
+                failsize,
+                (0, 0), failbg,
+                (0, 0), Text(failtext, xsize=failsize[0])
+            )
+            print("Missing image")
+            print(target)
+            print(e)
+            print(type(e))
+            if type(e) is not Exception:
+                # Don't cache misses due to predictions
+                __p__getImageOrPlaceholder_cache[target] = placeholder
+            return placeholder
+
+
 label debug_dump_character(sayer, sayer_name):
     ### This causes a sayer to iterate through all their poses, and is a helpful tool.
     ### This is also used in the developer tools.
