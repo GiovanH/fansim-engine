@@ -284,7 +284,7 @@ screen openbound_say:
                 background hashbox_bg_frame 
                 padding (hashtag_line_height, hashtag_line_height)
                 text "[hashtags]": #tags:
-                    pos (22, 0)
+                    pos (16, 0)
                     yalign 0.5
                     color (purple if chuckle else "#000")  # hemospectrum(blood)
                     line_spacing 0
