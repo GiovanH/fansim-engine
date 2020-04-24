@@ -75,7 +75,17 @@ init python:
 
     def calcLineHeight(text, chars_per_line):
         logical_lines = text.split("\n")
-        overflows = sum((len(line) / chars_per_line) for line in logical_lines)
+        overflows = 0
+        for line in logical_lines:
+            used_chars = 0
+            for word in line.split(" "):
+                if used_chars + len(word) + 1 > chars_per_line:
+                    used_chars = 0
+                    overflows += 1
+                used_chars += len(word) + 1
+        # print(text)
+        # print(len(logical_lines), "llines")
+        # print(overflows, "overflows")
         return len(logical_lines) + overflows
 
     def getImageOrPlaceholder(target, failbg, failsize, failtext=None):

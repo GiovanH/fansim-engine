@@ -206,7 +206,7 @@ style openbound_namelabel is say_label:
 
 style openbound_dialogue is say_dialogue:
     size 26
-    xpos 44
+    xpos 41
     ypos 30
     xmaximum 720
 
@@ -224,7 +224,7 @@ screen openbound_say:
     default hashtag_line_len = 70
     default sandwich = False
     default sandwich_overlap = 0  # How much to overlap the windows in sandwhich mode
-    default hashtag_line_height = 21  # Height of each line of text, in pixels
+    default hashtag_line_height = 22  # Height of each line of text, in pixels
     default hashtag_height_offset = -10  # Manual offset to adjust around borders
 
     default total_ysize = 225
@@ -252,12 +252,13 @@ screen openbound_say:
         xsize 793
 
         window:
-            id "say_dialogue"
+            id "openbound_dialogue"
             yalign 1.0
             yoffset say_dialogue_yoffset
             xfill True
             ysize say_dialogue_ysize
             background textbox_bg_frame
+            # padding (hashtag_line_height, hashtag_line_height)
             if chuckle:
                 text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
             else:
@@ -267,8 +268,8 @@ screen openbound_say:
                     id "namebox"
                     style "openbound_namebox"
                     if use_nameframe:
-                        padding (24, 8)
-                        background hashbox_bg_frame
+                        background hashbox_bg_frame 
+                        padding (hashtag_line_height, hashtag_line_height)
                     text who id "who" color who_color outlines who_outlines
 
         if hashtags:
@@ -281,11 +282,10 @@ screen openbound_say:
                 ysize hashbar_ysize
                  
                 background hashbox_bg_frame 
-
+                padding (hashtag_line_height, hashtag_line_height)
                 text "[hashtags]": #tags:
-                    style "default"
+                    pos (22, 0)
                     yalign 0.5
-                    pos (44, 0)
                     color (purple if chuckle else "#000")  # hemospectrum(blood)
                     line_spacing 0
                     size 18
