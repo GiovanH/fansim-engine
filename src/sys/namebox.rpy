@@ -221,7 +221,7 @@ screen openbound_say:
     default frame_border_size = 21  # Parameter for the Frame object
 
     default hashtag_lines = -1
-    default hashtag_line_len = 70
+    default hashtag_line_len = 65
     default sandwich = False
     default sandwich_overlap = 0  # How much to overlap the windows in sandwhich mode
     default hashtag_line_height = 22  # Height of each line of text, in pixels
@@ -269,7 +269,7 @@ screen openbound_say:
                     style "openbound_namebox"
                     if use_nameframe:
                         background hashbox_bg_frame 
-                        padding (hashtag_line_height, hashtag_line_height)
+                        padding (frame_border_size, frame_border_size)
                     text who id "who" color who_color outlines who_outlines
 
         if hashtags:
@@ -282,9 +282,11 @@ screen openbound_say:
                 ysize hashbar_ysize
                  
                 background hashbox_bg_frame 
-                padding (hashtag_line_height, hashtag_line_height)
+                padding (frame_border_size + 16, frame_border_size)
                 text "[hashtags]": #tags:
-                    pos (16, 0)
+
+                    # padding (frame_border_size, frame_border_size)
+                    # pos (16, 0)
                     yalign 0.5
                     color (purple if chuckle else "#000")  # hemospectrum(blood)
                     line_spacing 0

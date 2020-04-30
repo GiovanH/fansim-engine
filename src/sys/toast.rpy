@@ -27,6 +27,23 @@ transform toast_up(l=0.3):
     on hide:
         linear l yanchor 0.0
 
+transform toast_left(l=0.3):
+    ### Push up, sticks until hidden.
+    on show:
+        xanchor 1.0
+        linear l xanchor 0.0
+    on hide:
+        linear l xanchor 1.0
+
+transform toast_right(l=0.3):
+    xpos 1.0
+    ### Push up, sticks until hidden
+    on show:
+        xanchor 0.0
+        linear l xanchor 1.0
+    on hide:
+        linear l xanchor 0.0
+
 transform toast_peek_down(p=2.0, l=0.3):
     ### Push down, hides itself after p seconds.
     yanchor 1.0

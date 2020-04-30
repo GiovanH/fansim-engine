@@ -105,9 +105,12 @@ screen mainmenu_devbox:
             textbutton "Developer Tools" action ToggleDevModeMenu
 
 label __p__NewWatchAction:
-    $ __p__expr = renpy.input(prompt="Expression to watch")
-    $ renpy.watch(__p__expr)
-    $ renpy.show_screen("_trace_screen")
+    python:
+        __p__expr = renpy.input(prompt="Expression to watch")
+        __p__expr.strip()
+        renpy.python.py_compile(__p__expr, 'eval')
+        _console.traced_expressions.append(__p__expr)
+        renpy.show_screen("_trace_screen")
     return 
 
 screen ingame_devbox:
