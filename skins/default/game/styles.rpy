@@ -27,6 +27,8 @@ define gui.button_text_hover_color = gui.hover_color
 define gui.button_text_selected_color = gui.selected_color
 define gui.button_text_insensitive_color = gui.insensitive_color
 
+define gui.frame_tile = True
+
 ################################################################################
 ## Styles
 ################################################################################
