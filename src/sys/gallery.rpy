@@ -119,20 +119,29 @@ init 900 python:
 
     mr = MusicRoom(fadeout=0.0)
 
-    tracks = filter(
+    fse_musicroom_tracks = filter(
         lambda f: f.lower()[-4:] in [".mp3", ".wav", ".ogg", "flac"],
         renpy.list_files(common=False))
 
-    for track in tracks:
-        mr.add(track, always_unlocked=True)
+    for track in fse_musicroom_tracks:
+        mr.add(track)
 
     def formatSongName(filepath):
         # return filepath
-        filename = filepath.split("/")[-1]
-        filesub = filepath.split("/")[0].replace("custom_assets_", "")
-        ext = filename.split(".")[-1]
-        filenamep = ".".join(filename.split(".")[:-1])
-        return "[[{}] {} ({})".format(filesub, filenamep, ext)
+        track_meta = fse_music_data.get(filepath)
+        if track_meta:
+            return "[[{}] {} – {}".format(
+                track_meta.get("album") or track_meta.get("package_id"), 
+                track_meta.get("artist"), 
+                track_meta.get("title"), 
+            )
+        else:
+            print(filepath, "not in track metadata")
+            filename = filepath.split("/")[-1]
+            filesub = filepath.split("/")[0].replace("custom_assets_", "")
+            ext = filename.split(".")[-1]
+            filenamep = ".".join(filename.split(".")[:-1])
+            return "[[{}] {}".format(filesub, filenamep)
 
 transform __p__fruitBounce(bpm=60):
     yanchor 0
@@ -187,10 +196,10 @@ screen __p__music_room:
                     xalign 0.5
                     # yanchor 0.5
                     spacing 18
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-316.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(False, channel='music'))
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-319.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(True, channel='music'))
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-322.png", 2, 2, bilinear=False) action mr.Previous()
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-325.png", 2, 2, bilinear=False) action mr.Next()
+                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-316_idle.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(False, channel='music'))
+                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-319_idle.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(True, channel='music'))
+                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-322_idle.png", 2, 2, bilinear=False) action mr.Previous()
+                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-325_idle.png", 2, 2, bilinear=False) action mr.Next()
                     frame:
                         padding (24, 24)
                         background Frame(
@@ -200,7 +209,7 @@ screen __p__music_room:
                             ),
                             left=21, top=21)
                         vbox:
-                            xsize 220
+                            xsize 221
                             label _("Music Volume") text_color "#D0004F"
                             bar value Preference("music volume")
                     # bar adjustment ui.adjustment(
@@ -223,9 +232,9 @@ screen __p__music_room:
                             # The buttons that play each track.
                             vbox:
                                 ymaximum 5
-                                for track in tracks:
+                                for track in fse_musicroom_tracks:
                                     hbox:
-                                        text "\t"
+                                        # text "\t"
                                         textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
 
             # Critical functionality

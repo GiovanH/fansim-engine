@@ -28,6 +28,10 @@ class Package(object):
         return self.metadata["achievements"]
 
     @property
+    def music(self):
+        return self.metadata["music"]
+
+    @property
     def id(self):
         return self.metadata["package_id"]
 
@@ -67,6 +71,11 @@ class Package(object):
             achievement["_id"] = f"{self.id}_{achievement['id_suffix']}"
             achievement["_img_locked"] = self.subtableReplace("{{assets}}/" + achievement["img_locked"])
             achievement["_img_unlocked"] = self.subtableReplace("{{assets}}/" + achievement["img_unlocked"])
+
+        self.metadata["music"] = self.metadata.get("music", [])
+        for track in self.metadata["music"]:
+            track["package_id"] = self.id
+            track["_file"] = self.subtableReplace(track["file"])
 
     def loadCredits(self):
         credits_filepath = os.path.join(self.root, "credits.yml")

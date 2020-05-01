@@ -100,6 +100,11 @@ screen mainmenu_devbox:
                 (Hide("confirm"), achievement.clear_all), 
                 (Hide("confirm"))
             )
+            textbutton "Clear seen music" action Hide("mainmenu_devbox"), ShowMenu(
+                "confirm", "Are you sure you want to clear your music history?", 
+                (Hide("confirm"), renpy.game.persistent._seen_audio.clear), 
+                (Hide("confirm"))
+            )
             if config.developer:
                 textbutton "Reload (Shift+R)" action _reload_game
             textbutton "Developer Tools" action ToggleDevModeMenu
