@@ -170,7 +170,7 @@ def getAllPackages(fse_base, only_volumes=False):
     for subdir in [SYSDIR] + glob.glob(os.path.join(fse_base, "custom_volumes", "*/")):
         try:
             package = Package(subdir)
-            logger.info(f"Detected package {package.id} at {package.root}")
+            logger.debug(f"Detected package {package.id} at {package.root}")
 
             if filtering_volumes and package.id not in only_volumes:
                 continue

@@ -399,12 +399,12 @@ def main(argstr=None):
         patchMusicData(all_packages, verbose=args.verbose)
 
         if warn:
-            logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors occured! Please review the log above for [WARN] or [ERROR] messages.")
+            logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors/warnings occured! Please review the log above for [WARN] or [ERROR] messages.")
             logger.warn("A full logfile should be availible at 'latest_debug.log'")
 
-        if warn or args.pause:
-            logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
-            input()
+        # if warn or args.pause:
+        #     logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+        #     input()
 
         # if not args.nolaunch:
         #     runGame()
