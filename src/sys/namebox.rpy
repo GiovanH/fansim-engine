@@ -229,7 +229,7 @@ screen openbound_say:
 
     default total_ysize = 225
 
-    $ hashbar_ysize = frame_border_size*2 + (hashtag_line_height * hashtag_lines) + hashtag_height_offset
+    $ hashbar_ysize = frame_border_size*2 + (hashtag_line_height * hashtag_lines) + hashtag_height_offset if hashtags else 0
     $ say_dialogue_ysize = total_ysize - hashbar_ysize if sandwich else total_ysize
     $ say_dialogue_yoffset = sandwich_overlap - hashbar_ysize if sandwich else 0
 

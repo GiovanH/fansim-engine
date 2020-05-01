@@ -212,9 +212,9 @@ def patchCreditsData(all_packages, verbose=False):
 
     # pprint(all_credits)
 
-    with open(os.path.join(getCustomScriptsDir(), "custom_credits.rpy"), 'w', encoding="utf-8") as fp:
+    with open(os.path.join(getCustomScriptsDir(), "fse_credits.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
-        fp.write("define dlc_credits_data = ")
+        fp.write("define fse_credits_data = ")
         fp.write(json.dumps(all_credits, indent=4))
 
 
@@ -223,9 +223,9 @@ def patchVolumeData(all_packages, verbose=False):
 
     all_volumes = sum((p.volumes for p in all_packages), [])
 
-    with open(os.path.join(getCustomScriptsDir(), "custom_volumes_data.rpy"), 'w', encoding="utf-8") as fp:
+    with open(os.path.join(getCustomScriptsDir(), "fse_volumes_data.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
-        fp.write("define dlc_volumes_data = ")
+        fp.write("define fse_volume_data = ")
         fp.write(json.dumps(all_volumes, indent=4))
 
 
@@ -235,9 +235,9 @@ def patchWarningData(all_packages, verbose=False):
     all_volumes = sum((p.volumes for p in all_packages), [])
     all_warnings = {v["title"]: v["warnings"] for v in all_volumes if v.get("warnings")}
 
-    with open(os.path.join(getCustomScriptsDir(), "custom_warning_data.rpy"), 'w', encoding="utf-8") as fp:
+    with open(os.path.join(getCustomScriptsDir(), "fse_warning_data.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
-        fp.write("define dlc_warning_data = ")
+        fp.write("define fse_warning_data = ")
         fp.write(json.dumps(all_warnings, indent=4))
 
 
@@ -250,14 +250,16 @@ def patchMusicData(all_packages, verbose=False):
         fp.write("init offset = 1\n\n")
         fp.write("define fse_music_data = ")
         fp.write(json.dumps(all_music, indent=4))
+
+
 def patchAchievementsData(all_packages, verbose=False):
     # Volume select screen
 
     all_achievements = sum((p.achievements for p in all_packages), [])
 
-    with open(os.path.join(getCustomScriptsDir(), "custom_achievement_data.rpy"), 'w', encoding="utf-8") as fp:
+    with open(os.path.join(getCustomScriptsDir(), "fse_achievement_data.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
-        fp.write("define dlc_achievements_data = ")
+        fp.write("define fse_achievements_data = ")
         fp.write(json.dumps(all_achievements, indent=4))
 
 

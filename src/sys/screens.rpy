@@ -218,7 +218,7 @@ init python:
 
         return (img_small, img_norm,)
 
-define dlc_volumes_data = []
+define fse_volume_data = []
 screen vol_select_custom():
 
     use game_menu_volumes(_("Friend Select")):
@@ -231,7 +231,7 @@ screen vol_select_custom():
 
         $ num_cols = 8
 
-        $ volumes_by_author = sorted(dlc_volumes_data, key=lambda v: v["author"])
+        $ volumes_by_author = sorted(fse_volume_data, key=lambda v: v["author"])
                     
         # fixed area contains overlapping elements
         fixed:
@@ -244,7 +244,7 @@ screen vol_select_custom():
 
         viewport:
             mousewheel True
-            scrollbars ("vertical" if len(dlc_volumes_data) > (num_cols*3) else None)
+            scrollbars ("vertical" if len(fse_volume_data) > (num_cols*3) else None)
             ypos 180
             ysize 350
 
@@ -273,7 +273,7 @@ screen vol_select_custom():
         text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
         # text customVolumeSplash() 
 
-define dlc_credits_data = {}  # Overwritten in custom_credits.rpy
+define fse_credits_data = {}  # Overwritten in custom_credits.rpy
 
 init python:
     def sortCreditsList(list_):
@@ -305,13 +305,13 @@ screen dlc_credits():
             # We COULD do this processing in advance, but we want to make it
             # easy to manually override the dlc_credits_sort config variable
 
-            for role, list_ in sortCreditsDict(dlc_credits_data.get("LIST", [])):
+            for role, list_ in sortCreditsDict(fse_credits_data.get("LIST", [])):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name in sortCreditsList(list_):
                     hbox:
                         text name text_align 0.0 min_width 440
 
-            for role, person_credits in sortCreditsDict(dlc_credits_data.get("DICT", [])):
+            for role, person_credits in sortCreditsDict(fse_credits_data.get("DICT", [])):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in sortCreditsDict(person_credits):
                     hbox:
@@ -323,21 +323,21 @@ screen dlc_credits():
 
             text "\n\n" text_align 1.0
 
-            for text_ in sortCreditsList(dlc_credits_data.get("POSTSCRIPT", [])):
+            for text_ in sortCreditsList(fse_credits_data.get("POSTSCRIPT", [])):
                 text text_
 
 
-define dlc_warning_data = {}  # Overwritten in custom_warnings.rpy
-define dlc_warning_data_extra = {}
+define fse_warning_data = {}  # Overwritten in custom_warnings.rpy
+define fse_warning_data_extra = {}
 screen dlc_warnings():
     tag menu
     use game_menu(_("Warnings"), scroll="viewport"):
         hbox:
             text fse_warnings_prefix
 
-        for title, warning in sorted(dlc_warning_data.items()):
+        for title, warning in sorted(fse_warning_data.items()):
             use spoiler_box(title, warning)
-        for title, warning in sorted(dlc_warning_data_extra.items()):
+        for title, warning in sorted(fse_warning_data_extra.items()):
             use spoiler_box(title, warning)
 
 
@@ -350,7 +350,7 @@ screen dlc_achievements():
             xspacing 20
             yspacing 20
 
-            for ach in dlc_achievements_data:
+            for ach in fse_achievements_data:
                 if achievement.has(ach.get("_id")):
                     $ _img_unlocked = getImageOrPlaceholder(
                         target=ach.get("_img_unlocked"),
@@ -374,5 +374,5 @@ screen ach_desc(ach_name, ach_description):
 
         xpos 320 ypos 465
 
-        text ach_name style "label_text"
-        text ach_description
+        text ach_name style "label_text" xsize 900
+        text ach_description xsize 900
