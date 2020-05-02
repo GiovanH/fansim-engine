@@ -11,9 +11,8 @@ import shutil
 
 logger = _logging.getLogger(__name__)
 
-
 SEP = "_"
-REPLACE_THRESHHOLD = 10 # 0.5  # How much more efficient the patch needs to be than just using the image outright.
+REPLACE_THRESHHOLD = 0.5 # 0.5  # How much more efficient the patch needs to be than just using the image outright.
 
 
 use_threading = False
@@ -169,7 +168,7 @@ class Pose():
     def rpy_definition(self):
         if self.dirty:
             logger.warning(f"Generated rpy_definition for '{self.rpy_qualified_name}' while dirty!")
-        return f'image {self.rpy_qualified_name} = "{self.out_filepath_logical}"\n'
+        return f'image {self.rpy_qualified_name} = Image("{self.out_filepath_logical}")\n'
 
     def __repr__(self):
         return f"<{type(self).__name__} {self.char_name} {' '.join(self.expression_t)} v{self.imver}{'*' if self.dirty else ''} of {self.parent.rpy_qualified_name if self.parent else None}>"
@@ -220,8 +219,8 @@ class PatchPose(Pose):
         #     logger.debug(f"{ddy=} -= {self.parent.y=}")
         #     ddy -= self.parent.y
         #     ddx -= self.parent.x
-            # I'm sure this makes sense. I'm not sure why it does.
-            # Your position is relative to the parent. But isn't it already?
+        # I'm sure this makes sense. I'm not sure why it does.
+        # Your position is relative to the parent. But isn't it already?
 
         self.parent_size = self.parent.getImage().size
         self.x += ddx
@@ -369,7 +368,7 @@ def imageTrim(sprite_image):
     return (sprite_image.crop(bbox_cropped), side_space, top_crop)
 
 
-def getPatch(update_pose, fuzz=255, box_pad=20, make_demo=False):
+def getPatch(update_pose, box_pad=20, make_demo=False):
     logger.info(f"Creating patch of {update_pose}")
     original_pose = update_pose.parent
     update_pose.expandToFit(original_pose)
@@ -411,6 +410,7 @@ def getPatch(update_pose, fuzz=255, box_pad=20, make_demo=False):
 
     bbox = diff.getbbox()
     if not bbox:
+        logger.warn(f"No difference between {update_pose} and {update_pose.parent}")
         return LogicalPose(update_pose.char_name, update_pose.expression_t).withOutFilename(original_pose.out_filename)
 
     # print(diff.size, original.size, bbox != original.size)
@@ -554,7 +554,8 @@ def processPoses(all_poses, trim, patch, rpy_outpath, make_demo=False):
             out_path_demo = pose.out_filepath_real.replace("rpydiff_out", "rpydiff_out_demo")
             ensurePath(out_path_demo)
             logger.debug(f"Saving {pose} demo")
-            pose.getImage().save(out_path_demo)
+            if pose.image:
+                pose.getImage().save(out_path_demo)
 
 
 def poseFromFile(posefilepath):
@@ -634,6 +635,14 @@ def main():
         "--rpy-out", default=None,
         help="Output rpy filename"
     )
+    ap.add_argument(
+        "--fuzz", default=255, type=int,
+        help="Fuzzing amount"
+    )
+    ap.add_argument(
+        "--efficiency-threshhold", dest="efficiency_threshhold", default=0.5, type=float,
+        help="Efficiency threshhold"
+    )
 
     add_bool_arg(ap, "trim", default=False, help="Remove whitespace from around sprites")
     add_bool_arg(ap, "clean", default=True, help="Remove old versions in outdir")
@@ -647,6 +656,10 @@ def main():
 
     global use_threading
     use_threading = args.threaded
+    global fuzz
+    fuzz = args.fuzz
+    global REPLACE_THRESHHOLD
+    REPLACE_THRESHHOLD = args.efficiency_threshhold
     
     for sprite_dir in args.character_dirs:
         all_poses = [
