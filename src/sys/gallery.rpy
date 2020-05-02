@@ -194,7 +194,7 @@ screen __p__music_room:
             background Image("{{assets}}/freshjamz/00830-286.png", xpos=-80)
             vbox:
                 spacing 10
-                image im.FactorScale("{{assets}}/freshjamz/00830-308.png", 2, 2, bilinear=False) xalign 0.5 # yanchor 0.5 
+                image "{{assets}}/freshjamz/00830-308.png" xalign 0.5 xoffset -30 # yanchor 0.5 
                 
                 hbox:
                     xalign 0.5
@@ -212,7 +212,7 @@ screen __p__music_room:
                 # )
                 frame:
                     xpos 80
-                    ypos 30
+                    ypos 20
                     background "{{assets}}/freshjamz/00830-289.png"
                     # background Solid("#0A0")
                     ysize 330
