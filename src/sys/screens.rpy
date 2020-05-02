@@ -256,18 +256,23 @@ screen vol_select_custom():
                     spacing 10
 
                     for volume in volumes_by_author:
-                        $ img_small, img_norm = getDlcVolumeIcons(volume)
-                        imagebutton idle img_small action Jump("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))) hovered[
-                            SetScreenVariable("icon", img_norm), 
-                            SetScreenVariable("title", volume.get("title", "")), 
-                            SetScreenVariable("subtitle", volume.get("subtitle", "")),
-                            SetScreenVariable("author", volume.get("author", ""))
-                        ] unhovered[        
-                            SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
-                            SetScreenVariable("title", "Volume Select"), 
-                            SetScreenVariable("subtitle", "Hover over an icon!"),
-                            SetScreenVariable("author", "")
-                        ] alt volume.get("subtitle", "")
+                        $ unlocked = True
+                        if volume.get("unlocks_on"):
+                            $ unlocks_on = "_".join(volume.get("unlocks_on"))
+                            $ unlocked = achievement.has(unlocks_on)
+                        if unlocked:
+                            $ img_small, img_norm = getDlcVolumeIcons(volume)
+                            imagebutton idle img_small action Jump("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))) hovered[
+                                SetScreenVariable("icon", img_norm), 
+                                SetScreenVariable("title", volume.get("title", "")), 
+                                SetScreenVariable("subtitle", volume.get("subtitle", "")),
+                                SetScreenVariable("author", volume.get("author", ""))
+                            ] unhovered[        
+                                SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
+                                SetScreenVariable("title", "Volume Select"), 
+                                SetScreenVariable("subtitle", "Hover over an icon!"),
+                                SetScreenVariable("author", "")
+                            ] alt volume.get("subtitle", "")
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 
         text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
