@@ -143,6 +143,10 @@ init 900 python:
             filenamep = ".".join(filename.split(".")[:-1])
             return "[[{}] {}".format(filesub, filenamep)
 
+    def formatSongPrefix(filepath):
+        # Stub, override
+        return ""
+
 transform __p__fruitBounce(bpm=60):
     yanchor 0
     pause (60.0/bpm)
@@ -200,18 +204,7 @@ screen __p__music_room:
                     imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-319_idle.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(True, channel='music'))
                     imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-322_idle.png", 2, 2, bilinear=False) action mr.Previous()
                     imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-325_idle.png", 2, 2, bilinear=False) action mr.Next()
-                    frame:
-                        padding (24, 24)
-                        background Frame(
-                            im.Crop(
-                                "{{assets_common}}/openbound_hashbox_round.png",
-                                (0, 0, 550, 55)
-                            ),
-                            left=21, top=21)
-                        vbox:
-                            xsize 221
-                            label _("Music Volume") text_color "#D0004F"
-                            bar value Preference("music volume")
+                    
                     # bar adjustment ui.adjustment(
                 #     range=100,
                 #     value=1,
@@ -219,23 +212,26 @@ screen __p__music_room:
                 # )
                 frame:
                     xpos 80
-                    ypos 0
+                    ypos 30
                     background "{{assets}}/freshjamz/00830-289.png"
                     # background Solid("#0A0")
-                    ysize 320
+                    ysize 330
                     xsize 600
-                    vbox:
-                        viewport:
-                            xpos 20
-                            mousewheel True
-                            scrollbars "vertical"
-                            # The buttons that play each track.
-                            vbox:
-                                ymaximum 5
-                                for track in fse_musicroom_tracks:
-                                    hbox:
-                                        # text "\t"
-                                        textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
+                    right_margin 0
+                    # vbox:
+                    viewport:
+                        xpos 30
+                        mousewheel True
+                        scrollbars "vertical"
+                        # The buttons that play each track.
+                        vbox:
+                            ymaximum 5
+                            # right_padding 16
+                            for track in fse_musicroom_tracks:
+                                hbox:
+                                    text formatSongPrefix(track)
+                                    textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
+
 
             # Critical functionality
             add "__p__green_gear" xpos -200 ypos -20
@@ -245,7 +241,21 @@ screen __p__music_room:
             add im.FactorScale("{{assets}}/freshjamz/00830-298.png", 2, 2, bilinear=False) xpos -260 ypos 540 at __p__fruitBounce(45)
             add im.FactorScale("{{assets}}/freshjamz/00830-301.png", 2, 2, bilinear=False) xpos -220 ypos 560 at __p__fruitBounce(120)
             add im.FactorScale("{{assets}}/freshjamz/00830-304.png", 2, 2, bilinear=False) xpos -280 ypos 560 at __p__fruitBounce(60)
-
+    frame:
+        style_prefix "__p__freshjamz"
+        align (1.0, 1.0)
+        xoffset -20
+        padding (26, 24)
+        background Frame(
+            im.Crop(
+                "{{assets_common}}/openbound_hashbox_round.png",
+                (0, 0, 793, 34)
+            ),
+            left=21, top=21, bottom=1)
+        vbox:
+            xsize 220
+            label _("Music Volume") text_color "#D0004F"
+            bar value Preference("music volume")
     # Start the music playing on entry to the music room.
     on "replace" action renpy.music.stop
     # mr.Play()
