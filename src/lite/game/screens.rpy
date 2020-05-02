@@ -203,14 +203,11 @@ screen vol_icon(icon):
 ## this screen is intended to be used with one or more children, which are
 ## transcluded (placed) inside it.
 
-screen game_menu(title, scroll=None, yinitial=0.0):
+screen game_menu(title, scroll=None, yinitial=0.0, bg=gui.game_menu_background):
 
     style_prefix "game_menu"
 
-    if main_menu:
-        add gui.main_menu_background
-    else:
-        add gui.game_menu_background
+    add bg
 
     frame:
         style "game_menu_outer_frame"
