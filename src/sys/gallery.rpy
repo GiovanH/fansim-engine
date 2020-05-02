@@ -200,10 +200,12 @@ screen __p__music_room:
                     xalign 0.5
                     # yanchor 0.5
                     spacing 18
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-316_idle.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(False, channel='music'))
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-319_idle.png", 2, 2, bilinear=False) action (lambda: renpy.music.set_pause(True, channel='music'))
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-322_idle.png", 2, 2, bilinear=False) action mr.Previous()
-                    imagebutton idle im.FactorScale("{{assets}}/freshjamz/00830-325_idle.png", 2, 2, bilinear=False) action mr.Next()
+                    imagebutton auto "{{assets}}/freshjamz/play_%s.png" action (lambda: renpy.music.set_pause(False, channel='music'))
+                    imagebutton auto "{{assets}}/freshjamz/pause_%s.png" action (lambda: renpy.music.set_pause(True, channel='music'))
+                    imagebutton auto "{{assets}}/freshjamz/prev_%s.png" action mr.Previous()
+                    imagebutton auto "{{assets}}/freshjamz/next_%s.png" action mr.Next()
+                    imagebutton auto "{{assets}}/freshjamz/single_%s.png" action mr.ToggleSingleTrack() selected mr.single_track
+                    imagebutton auto "{{assets}}/freshjamz/shuffle_%s.png" action mr.ToggleShuffle() selected mr.shuffle
                     
                     # bar adjustment ui.adjustment(
                 #     range=100,

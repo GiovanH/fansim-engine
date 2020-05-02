@@ -19,6 +19,7 @@ src/yaml/__pycache__/
 src/scripts/Openbound
 
 src/*.log
+src/*.log.bak
 src/report_*.txt
 
 # Temporary
