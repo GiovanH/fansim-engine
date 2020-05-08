@@ -287,6 +287,7 @@ screen openbound_say:
 
                     # padding (frame_border_size, frame_border_size)
                     # pos (16, 0)
+                    slow_cps True
                     yalign 0.5
                     color (purple if chuckle else "#000")  # hemospectrum(blood)
                     line_spacing 0
@@ -295,6 +296,8 @@ screen openbound_say:
 init python:
     NotSet = renpy.object.Sentinel("NotSet")
     class HtagChar(ADVCharacter):
+        need_click = False
+        need_click_suffix = "" if need_click else "{p=0.1}{nw}"
         def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
             super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
             self.quirklist = quirklist
@@ -303,10 +306,11 @@ init python:
             hashtags = kwargs.get("show_hashtags")
             what_text = quirkSub(self.quirklist, what)
             if hashtags:
+                hashtags = "{slow}" + hashtags
                 k2 = kwargs.copy()
                 k2.pop("show_hashtags")
 
-                super(type(self), self).__call__(what_text + "{p=0.1}{nw}", *args, **k2)
+                super(type(self), self).__call__(what_text + self.need_click_suffix, *args, **k2)
                 self.do_extend()
                 super(type(self), self).__call__(what_text + "{fast}", *args, **kwargs)
                 self.do_done(self.name, hashtags)
