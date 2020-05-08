@@ -303,14 +303,22 @@ init python:
             self.quirklist = quirklist
 
         def __call__(self, what, *args, **kwargs):
-            hashtags = kwargs.get("show_hashtags")
+            clickytags = gui.preference("fse_clickytags", False)  # Heads up: The default preferences doesn't have this
+            need_click_suffix = "" if clickytags else "{p=0.1}{nw}"
+
             what_text = quirkSub(self.quirklist, what)
+            hashtags = kwargs.get("show_hashtags")
             if hashtags:
                 hashtags = "{slow}" + hashtags
+                # if clickytags:
+                #     hashtags = hashtags.replace(" #", "{w} #")
+                # else:
+                #     hashtags = hashtags.replace("{w}", "")
+
                 k2 = kwargs.copy()
                 k2.pop("show_hashtags")
 
-                super(type(self), self).__call__(what_text + self.need_click_suffix, *args, **k2)
+                super(type(self), self).__call__(what_text + need_click_suffix, *args, **k2)
                 self.do_extend()
                 super(type(self), self).__call__(what_text + "{fast}", *args, **kwargs)
                 self.do_done(self.name, hashtags)
