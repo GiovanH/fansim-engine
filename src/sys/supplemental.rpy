@@ -114,7 +114,7 @@ init python:
         if continuous:
             max_items_per = len(iterable) / numlists
             for i, e in enumerate(iterable):
-                if len(ret[index]) >= max_items_per and index != numlists:
+                if len(ret[index]) >= max_items_per and (index + 1) < numlists:
                     index = index + 1 
                 ret[index].append(e)
         else:
