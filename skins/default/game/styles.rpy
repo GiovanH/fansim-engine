@@ -253,7 +253,7 @@ style return_button is navigation_button
 style return_button_text is navigation_button_text
 
 style game_menu_outer_frame:
-    bottom_padding 160
+    bottom_padding 60
     top_padding 120
 
     background "gui/overlay/game_menu.png"
