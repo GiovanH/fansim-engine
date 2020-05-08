@@ -103,6 +103,47 @@ init python:
             )
             return placeholder
 
+    def splitIntoLists(iterable, numlists, continuous=True):
+        ### Utility function: splits an iterable evenly into lists.
+        ### >>> splitIntoLists(range(7), 2, True)
+        ### [[0, 1, 2, 3], [4, 5, 6]]
+        ### >>> splitIntoLists(range(8), 3, False)
+        ### [[0, 3, 6], [1, 4, 7], [2, 5]]
+        ret = [[] for i in range(numlists)]
+        index = 0
+        if continuous:
+            max_items_per = len(iterable) / numlists
+            for i, e in enumerate(iterable):
+                if len(ret[index]) >= max_items_per and index != numlists:
+                    index = index + 1 
+                ret[index].append(e)
+        else:
+            for i, e in enumerate(iterable):
+                index = i%numlists
+                ret[index].append(e)
+        return ret
+
+    import random
+    class Fun(NoRollback):
+        def __init__(self, max_, val=None):
+            """Create a rollback-proof Fun value between 0 and max_ OR preset to val"""
+            self.value = val if val is not None else random.randint(0, max_)
+
+        def check(self, value):
+            """Returns True if value is equal to the stored value, else false."""
+            return (self.value == value)
+
+        def burn(self, target):
+            """Like check, but, if True, resets the value to None, preventing future checks"""
+            if self.value == target:
+                self.value = False
+                return True
+            else:
+                return False
+
+        def __repr__(self):
+            return "fun.value=" + repr(self.value)
+
 
 label debug_dump_character(sayer, sayer_name):
     ### This causes a sayer to iterate through all their poses, and is a helpful tool.

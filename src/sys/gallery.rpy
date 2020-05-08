@@ -14,26 +14,134 @@ python:
 init offset = 1
 
 init 900 python:
+    # Initialize image gallery
+    # TODO: This misses some graphics, like buttons defined inline, and other screen elements like inline factorscales
+
+    try:
+        import json
+        with renpy.file("fse_packagelist.json") as fp:
+            fse_packagelist = json.load(fp)
+    except IOError:
+        print("ERROR: GALLERY: Can't find fse packagelist")
+        fse_packagelist = []
 
     gallery = Gallery()
     gallery.transition = Dissolve(0.1)
     gallery.navigation = True
 
-    gallery_images = get_all_images()
+    debug_image_sort = False
+    dprint = print if debug_image_sort else (lambda *args: 0)
 
-    gallery_buttons = []
-    for name, image in sorted(gallery_images):
-        buttonname = name[0].split("_")[0] # .rstrip('-0123456789')
-        if buttonname not in gallery_buttons:
-            gallery_buttons.append(buttonname)
-            gallery.button(buttonname)
+    __p__gal_cat_buttons = {}
+    __p__gal_buttons = []
+    # __p__images_in_gal = []
+
+    all_sayer_tags = [sayer.image_tag for sayername, sayer in get_all_sayers() if sayername and sayer.image_tag]
+
+    for name, image in sorted(get_all_images()):
+        # if image in __p__images_in_gal:
+        #     continue
+
+        supercat = None
+        subcat = None
+
+        if supercat is None:
+            for package_id in fse_packagelist:
+                if name[0].startswith(package_id):
+                    # If this image is a member of a package
+                    for sayer_prefix in all_sayer_tags:
+                        if name[0].startswith(sayer_prefix):
+                            # If this image is also a member of a character
+                            sayer_name = sayer_prefix.replace(package_id + "_", "")
+                            supercat = sayer_name + " (" + package_id.replace("_" + sayer_name, "") + ")"
+                            subcat = " ".join(name).replace(package_id + "_", "")
+                            break
+                    if supercat is None:
+                        # If this image is not also a member of a character
+                        supercat = package_id
+
+        if supercat is None:
+            # If this image is not a member of a package
+            supercat = name[0].split("_")[0]
+
+        if subcat is None:
+            subcat = " ".join(name).replace(supercat + "_", "")
+
+        # print(supercat, subcat, name)
+
+        if (supercat == subcat and not __p__gal_cat_buttons.get(supercat)) or not subcat.strip():
+            subcat = supercat
+            supercat = "unsorted"
+
+        __p__gal_cat_buttons[supercat] = __p__gal_cat_buttons.get(supercat, []) + [subcat]
+
+        # print(supercat, subcat, name)
+
+        if subcat not in __p__gal_buttons:
+            __p__gal_buttons.append(subcat)
+            gallery.button(subcat)
         gallery.image(image)
+        # __p__images_in_gal.append(image)
+
+style __p__lazy_viewport is viewport:
+    xfill False
+    yfill False
+
+
+screen __p__panel_room:
+    tag menu
+    default active_category = None
+    use game_menu(_("Click the panels!")):
+        # A grid of buttons.
+        vbox:
+            label "Package/Character/Category"
+            viewport:
+                # Better grid, horizontal
+                style "__p__lazy_viewport"
+                mousewheel True
+                scrollbars "horizontal"
+                xfill True
+                hbox:
+                    spacing 10
+                    $ from math import ceil
+                    $ print(len(__p__gal_cat_buttons), int(ceil(len(__p__gal_cat_buttons) / 3.0)))
+                    for l in splitIntoLists(sorted(__p__gal_cat_buttons.keys()), int(ceil(len(__p__gal_cat_buttons) / 3.0))):
+                        vbox:
+                            for cat_btn_name in l:
+                                textbutton "[cat_btn_name]" action SetScreenVariable("active_category", cat_btn_name)
+
+
+            if active_category:
+                label "Displayables"
+                frame:
+                    padding (8, 8, 8, 8)
+                    xfill True
+                    yfill True
+                    ysize 380
+                    viewport:
+                        # Better grid, vertical
+                        mousewheel True
+                        scrollbars "vertical"
+                        xfill True
+                        yfill True
+                        hbox:
+                            spacing 4
+                            for l in splitIntoLists(sorted(__p__gal_cat_buttons[active_category]), 3, continuous=True):
+                                vbox:
+                                    for buttonname in l:
+                                        add gallery.make_button(
+                                            buttonname,
+                                            Text(buttonname, style="button_text"),
+                                            align=(0.0, 0.0), xsize=300
+                                        )
+
 
 # Override
 screen _gallery:
     frame:
         xfill True
         yfill True
+        padding (0, 0, 0, 0)
         background Solid("#222")
 
         key "viewport_leftarrow" action gallery.Previous()
@@ -43,8 +151,10 @@ screen _gallery:
             add "#000"
             text _("Image [index] of [count] locked.") align (0.5, 0.5)
         else:
-            for d in displayables:
-                add d
+            viewport:
+                draggable True
+                for d in displayables:
+                    add d align (0.5, 0.5)
 
         if gallery.slideshow:
             timer gallery.slideshow_delay action Return("next") repeat True
@@ -66,24 +176,6 @@ screen gallery_navigation:
             textbutton _("next") action gallery.Next(unlocked=gallery.unlocked_advance)
             textbutton _("slideshow") action gallery.ToggleSlideshow()
             textbutton _("return") action gallery.Return()
-
-
-
-screen __p__panel_room:
-    tag menu
-    use game_menu(_("Click the panels!")):
-        # A grid of buttons.
-        vpgrid:
-            mousewheel True
-            scrollbars "vertical"
-            cols 3
-            xsize 940
-            ysize 520
-            yfill True
-
-            for buttonname in sorted(gallery_buttons):
-                add gallery.make_button(buttonname, Text(buttonname, style="button_text"), xalign=0.5, yalign=0.0, xsize=300)
-
 
 
 label __p__sayer_bootstrap2:
@@ -200,7 +292,7 @@ screen __p__music_room:
                     xalign 0.5
                     # yanchor 0.5
                     spacing 18
-                    imagebutton auto "{{assets}}/freshjamz/play_%s.png" action (lambda: renpy.music.set_pause(False, channel='music'))
+                    imagebutton auto "{{assets}}/freshjamz/play_%s.png" action (lambda: renpy.music.set_pause(False, channel='music')) 
                     imagebutton auto "{{assets}}/freshjamz/pause_%s.png" action (lambda: renpy.music.set_pause(True, channel='music'))
                     imagebutton auto "{{assets}}/freshjamz/prev_%s.png" action mr.Previous()
                     imagebutton auto "{{assets}}/freshjamz/next_%s.png" action mr.Next()
