@@ -14,7 +14,7 @@ init offset = 0
 
 init python:
 
-    # Script
+    # RenPy store wrappers
     def get_all_sayers(store_=store):
         """Return all the "sayers" in the global store."""
         if not isinstance(store_, dict):
@@ -38,18 +38,7 @@ init python:
             get_all_images()
         )
 
-    def reEscapeString(str_):
-        """Escapes quotes in string"""
-        return str_.replace('"', '\\"')
-
-    def jsonReEscape(table1):
-        """Escapes quotes in all strings in a given dictionary"""
-        return {
-            k: (reEscapeString(v) if type(v) is str else v)
-            for k, v in
-            table1.items()
-        }
-
+    # Image/display helper functions
     def scaleBestFit(image, tw, th):
         """Returns a scaled version of a displayable, preserving the aspect ratio.
         Args:
@@ -61,6 +50,21 @@ init python:
         mh, mw, th, tw = map(float, [mh, mw, th, tw])
         factor = min(tw / mw, th / mh)
         return im.FactorScale(image, width=factor, height=factor)
+
+    def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
+        if not failtext:
+            failtext = failbg
+        if renpy.exists(target):
+            return target
+        else:
+            print("Missing image")
+            print(target)
+            placeholder = Composite(
+                failsize,
+                (0, 0), failbg,
+                (0, 0), Text(failtext, xsize=failsize[0])
+            )
+            return placeholder
 
     def hex_to_rgb(hex):
         """Returns a RGB tuple equivilant to the given hexadecimal color code."""
@@ -88,20 +92,18 @@ init python:
         # print(overflows, "overflows")
         return len(logical_lines) + overflows
 
-    def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
-        if not failtext:
-            failtext = failbg
-        if renpy.exists(target):
-            return target
-        else:
-            print("Missing image")
-            print(target)
-            placeholder = Composite(
-                failsize,
-                (0, 0), failbg,
-                (0, 0), Text(failtext, xsize=failsize[0])
-            )
-            return placeholder
+    # Data utility functions
+    def reEscapeString(str_):
+        """Escapes quotes in string"""
+        return str_.replace('"', '\\"')
+
+    def jsonReEscape(table1):
+        """Escapes quotes in all strings in a given dictionary"""
+        return {
+            k: (reEscapeString(v) if type(v) is str else v)
+            for k, v in
+            table1.items()
+        }
 
     def splitIntoLists(iterable, numlists, continuous=True):
         ### Utility function: splits an iterable evenly into lists.
@@ -123,6 +125,14 @@ init python:
                 ret[index].append(e)
         return ret
 
+    # RenPy control flow helpers
+    def ShowMenuFallback(*screens):
+        for screen in screens:
+            if renpy.has_screen(screen):
+                return ShowMenu(screen)
+        raise Exception("No screens in set {} exist.".format(screens))
+
+    # Dialogue helpers
     import random
     class Fun(NoRollback):
         def __init__(self, max_, val=None):
