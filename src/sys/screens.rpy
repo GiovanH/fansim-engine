@@ -218,9 +218,12 @@ init python:
 
         return (img_small, img_norm,)
 
+    ShowVolSelectAction = ShowMenuPlus(["vol_select_custom", "vol_select"], transition=Fade(1.0, 0.0, 1.0))
+
+
 define fse_volume_data = []  # Overwritten
 screen vol_select_custom():
-
+    tag menu
     use game_menu_volumes(_("Friend Select")):
 
         default icon = "gui/volumeselect_icon_blank.png"
@@ -228,7 +231,7 @@ screen vol_select_custom():
 
         default subtitle = "Hover over an icon!"
         default author = ""
-
+        
         $ num_cols = 8
 
         $ volumes_by_author = sorted(fse_volume_data, key=lambda v: v["author"])
@@ -262,21 +265,26 @@ screen vol_select_custom():
                             $ unlocked = achievement.has(unlocks_on)
                         if unlocked:
                             $ img_small, img_norm = getDlcVolumeIcons(volume)
-                            imagebutton idle img_small action Jump("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))) hovered[
-                                SetScreenVariable("icon", img_norm), 
-                                SetScreenVariable("title", volume.get("title", "")), 
-                                SetScreenVariable("subtitle", volume.get("subtitle", "")),
-                                SetScreenVariable("author", volume.get("author", ""))
-                            ] unhovered[        
-                                SetScreenVariable("icon", "gui/volumeselect_icon_blank.png"), 
-                                SetScreenVariable("title", "Volume Select"), 
-                                SetScreenVariable("subtitle", "Hover over an icon!"),
-                                SetScreenVariable("author", "")
+                            imagebutton idle img_small action [
+                                Stop("music", fadeout=0.5),
+                                Stop("sound", fadeout=0.5),
+                                Stop("voice", fadeout=0.5),
+                                Start("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume)))
+                            ] hovered [
+                                SetLocalVariable("icon", img_norm), 
+                                SetLocalVariable("title", volume.get("title", "")), 
+                                SetLocalVariable("subtitle", volume.get("subtitle", "")),
+                                SetLocalVariable("author", volume.get("author", ""))
+                            ] unhovered [        
+                                SetLocalVariable("icon", "gui/volumeselect_icon_blank.png"), 
+                                SetLocalVariable("title", "Volume Select"), 
+                                SetLocalVariable("subtitle", "Hover over an icon!"),
+                                SetLocalVariable("author", "")
                             ] alt volume.get("subtitle", "")
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 
         text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
-        # text customVolumeSplash() 
+    transclude
 
 define fse_credits_data = {}  # Overwritten in custom_credits.rpy
 
@@ -348,6 +356,7 @@ screen dlc_warnings():
 
 screen dlc_achievements():
     tag menu
+    $ achievement.sync()
     use game_menu(_("Achievements"), scroll="viewport"):
         style_prefix "about"
         vpgrid:

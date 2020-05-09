@@ -41,15 +41,15 @@ screen main_menu():
 
     #imagebutton auto "gui/title_%s.png" action NullAction() pos (5, 5)
 
-    imagebutton auto "gui/start_%s.png" action Start("start_custom") pos (20, 345) at menumove
-    imagebutton auto "gui/load_%s.png" action ShowMenu('load') pos (20, 405) at menumove
-    imagebutton auto "gui/options_%s.png" action ShowMenu('preferences') pos (20, 465) at menumove
-    imagebutton auto "gui/friends_%s.png" action ShowMenu('dlc_achievements') pos (20, 525) at menumove
-    imagebutton auto "gui/credits_%s.png" action ShowMenu('dlc_credits') pos (20, 585) at menumove
-    imagebutton auto "gui/exit_%s.png" action Quit(confirm=not main_menu) pos (20, 645) at menumove
+    imagebutton auto "gui/start_%s.png" action ShowVolSelectAction pos (20, 345) at menumove
+    imagebutton auto "gui/load_%s.png" action ShowMenuFallback('load') pos (20, 405) at menumove
+    imagebutton auto "gui/options_%s.png" action ShowMenuFallback("preferences") pos (20, 465) at menumove
+    imagebutton auto "gui/friends_%s.png" action ShowMenuFallback('dlc_achievements') pos (20, 525) at menumove
+    imagebutton auto "gui/credits_%s.png" action ShowMenuFallback('credits') pos (20, 585) at menumove
+    imagebutton auto "gui/exit_%s.png" action Quit() pos (20, 645) at menumove
 
     # use mainmenu_devbox
-    key "trickster" action getMousePosition, ShowMenu('mainmenu_devbox')
+    key "trickster" action getMousePosition, ShowMenuFallback('mainmenu_devbox')
 
 
 transform title:

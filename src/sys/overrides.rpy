@@ -53,8 +53,8 @@ screen main_menu():
         xanchor 0
         yalign 1.0
 
-        imagebutton auto "gui/start_%s.png" ysize 60 action Start("start") at menumove
-        imagebutton auto "{{assets}}/start_fanon_%s.png" ysize 60 action Start("start_custom") alternate (lambda: renpy.play("music/honk_short.wav")) at menumove
+        imagebutton auto "gui/start_%s.png" ysize 60 action ShowVolSelectAction at menumove
+        imagebutton auto "{{assets}}/start_fanon_%s.png" ysize 60 action ShowMenuFallback("start_custom", "start") alternate (lambda: renpy.play("music/honk_short.wav")) at menumove
         imagebutton auto "gui/load_%s.png" ysize 60 action ShowMenu('load') at menumove
         imagebutton auto "gui/options_%s.png" ysize 60 action ShowMenu('preferences') at menumove
         hbox:
@@ -73,7 +73,6 @@ screen main_menu():
 ##
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
-# This doesn't really get used now, because navigation from the overrides_lite takes over
 
 screen navigation():
     vbox:
@@ -83,25 +82,27 @@ screen navigation():
         spacing gui.navigation_spacing
         
         if not main_menu:
-            textbutton _("History") action ShowMenu("history")
-            textbutton _("Save") action ShowMenu("save")
-        textbutton _("Load") action ShowMenu("load")
-        textbutton _("Options") action ShowMenu("preferences")
+            textbutton _("History") action ShowMenuFallback("history")
+            textbutton _("Save") action ShowMenuFallback("save")
+        textbutton _("Load") action ShowMenuFallback("load")
+        textbutton _("Options") action ShowMenuFallback("preferences")
         if _in_replay:
             textbutton _("End Replay") action EndReplay(confirm=True)
         elif not main_menu:
             textbutton _("Main Menu") action MainMenu()
 
+        textbutton _("Volume Select") action ShowMenuFallback("vol_select_custom", "vol_select")
+
         for label, screen in [
-            ("Achievements", "achievements"),
-            ("Achievements (DLC)", "dlc_achievements"),
+            ("Achievements (PQ)", "achievements"),
+            ("Achievements", "dlc_achievements"),
             ("Credits (PQ)", "about"),
-            ("Credits (DLC)", "credits"),
+            ("Credits", "credits"),
             ("Warnings (PQ)", "content_warnings"),
-            ("Warnings (DLC)", "dlc_warnings"),
+            ("Warnings", "dlc_warnings"),
         ]:
             if renpy.has_screen(screen):
-                textbutton _(label) action ShowMenu(screen)
+                textbutton _(label) action ShowMenuFallback(screen)
 
         textbutton _("Close Menu") action Return()
 

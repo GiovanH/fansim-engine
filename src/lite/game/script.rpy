@@ -39,23 +39,23 @@ label help:
     return
 
 label start:
-
-    $ achievement.sync()
-    # This is used to easily add a formatted '>' to the start of choices in menus.
-    $ pick = "{color=#000000}>{/color}"
-    $ quick_menu = False
-    jump start2
-
-label start2:
-
-    # Stop main menu music, or any other music playing, and transition to volume select.
-    stop music fadeout 1.5
-    show image "gui/main_menu.png"
-    window hide
-    scene black with Dissolve(1.5)
-    $ main_menu = True
-    call screen vol_select_custom() with Dissolve(1.0)
     return
+
+#     $ achievement.sync()
+#     # This is used to easily add a formatted '>' to the start of choices in menus.
+#     $ pick = "{color=#000000}>{/color}"
+#     $ quick_menu = False
+#     jump start2
+
+# label start2:
+
+#     # Stop main menu music, or any other music playing, and transition to volume select.
+#     stop music fadeout 1.5
+#     show image "gui/main_menu.png"
+#     window hide
+#     scene black with Dissolve(1.5)
+#     $ ShowMenuFallback("vol_select_custom", "vol_select_custom", "vol_select")()
+#     return
 
 label ending(card="blackcover", win=True, fadetoblack=True):
 
