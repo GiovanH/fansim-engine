@@ -3,15 +3,10 @@ init offset = 2
 # Splash screen on first load
 
 label splashscreen:
-
     if persistent.firstscreen:
-
         scene black
-
         fscreen "Pesterquest Lite contains spoilers for Homestuck, The Homestuck Epilogues, and Hiveswap: Friendsim. You do not need to have read The Homestuck Epilogues or Hiveswap: Friendsim to enjoy the game, but you may miss occasional references.\n\n\nPesterquest contains flashing lights and similar imagery. You may disable these animations in the options menu.\n\n\nPesterquest contains mature content and sensitive themes. For detailed content warnings, consult the {a=call:dlc_warnings}\"Warnings\"{/a} menu."
-
         $ persistent.firstscreen = False
-
     return
 
 # Main menu for default liteskin
@@ -21,12 +16,10 @@ image titlesky = "gui/game_menu.png"
 define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
 
 transform menumove:
-
     xpos 20
-
     on hover:
         linear .25 xpos 50
-
+        
     on idle:
         linear .25 xpos 20
         

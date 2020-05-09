@@ -8,7 +8,7 @@ init offset = 1
 ## There's nothing special about this screen, and hence it also serves as an
 ## example of how to make a custom screen.
 
-screen about():
+screen credits():
 
     tag menu
 

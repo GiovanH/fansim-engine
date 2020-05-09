@@ -62,7 +62,7 @@ screen main_menu():
             imagebutton auto "{{assets}}/dlc_superscript_%s.png" ysize 60 action ShowMenu("dlc_achievements") at menustill
         hbox:
             imagebutton auto "gui/credits_%s.png" ysize 60 action ShowMenu("about") at menustill
-            imagebutton auto "{{assets}}/dlc_superscript_%s.png" ysize 60 action ShowMenu("dlc_credits") at menustill
+            imagebutton auto "{{assets}}/dlc_superscript_%s.png" ysize 60 action ShowMenu("credits") at menustill
         imagebutton auto "gui/exit_%s.png" ysize 60 action Quit(confirm=not main_menu) at menumove
 
     # use mainmenu_devbox
@@ -73,6 +73,7 @@ screen main_menu():
 ##
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
+# This doesn't really get used now, because navigation from the overrides_lite takes over
 
 screen navigation():
     vbox:
@@ -90,14 +91,19 @@ screen navigation():
             textbutton _("End Replay") action EndReplay(confirm=True)
         elif not main_menu:
             textbutton _("Main Menu") action MainMenu()
-        textbutton _("Chumroll") action ShowMenu("achievements")
-        textbutton _("Achievements (DLC)") action ShowMenu("dlc_achievements")
-        textbutton _("Credits (PQ)") action ShowMenu("about")
-        textbutton _("Credits (DLC)") action ShowMenu("dlc_credits")
-        textbutton _("Warnings (PQ)") action ShowMenu("content_warnings")
-        textbutton _("Warnings (DLC)") action ShowMenu("dlc_warnings")
-        textbutton _("Close Menu"):
-            action Return()
+
+        for label, screen in [
+            ("Achievements", "achievements"),
+            ("Achievements (DLC)", "dlc_achievements"),
+            ("Credits (PQ)", "about"),
+            ("Credits (DLC)", "credits"),
+            ("Warnings (PQ)", "content_warnings"),
+            ("Warnings (DLC)", "dlc_warnings"),
+        ]:
+            if renpy.has_screen(screen):
+                textbutton _(label) action ShowMenu(screen)
+
+        textbutton _("Close Menu") action Return()
 
 
 ## Preferences screen ##########################################################

@@ -92,7 +92,7 @@ screen mainmenu_devbox:
             textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
             textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
             textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
-            # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("dlc_credits")
+            # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("credits")
             # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
             null height 12
             textbutton "Clear achievements" action Hide("mainmenu_devbox"), ShowMenu(
@@ -218,7 +218,7 @@ init python:
 
         return (img_small, img_norm,)
 
-define fse_volume_data = []
+define fse_volume_data = []  # Overwritten
 screen vol_select_custom():
 
     use game_menu_volumes(_("Friend Select")):
@@ -297,7 +297,7 @@ init python:
             in sorted(map(_splitSort, data.items()))
         ]
 
-screen dlc_credits():
+screen credits():
     tag menu
     use game_menu(_("Credits"), scroll="viewport"):
         style_prefix "about"
@@ -308,7 +308,7 @@ screen dlc_credits():
             # alienoid says: "Looks like you weren't quite prepared for what was in `store` huh"
             
             # We COULD do this processing in advance, but we want to make it
-            # easy to manually override the dlc_credits_sort config variable
+            # easy to manually override the credits_sort config variable
 
             for role, list_ in sortCreditsDict(fse_credits_data.get("LIST", {})):
                 text role text_align 0.5 color gui.accent_color size 30

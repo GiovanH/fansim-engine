@@ -1,4 +1,5 @@
 ﻿# Search for '~CHANGES EACH VOLUME~' to find screens that need modification every time a new volume comes out.
+# spoiler: there aren't any, since this is written well
 
 ################################################################################
 ## Initialization
@@ -137,57 +138,57 @@ init python:
 
 default quick_menu = True
 
-################################################################################
-## Main and Game Menu Screens
-################################################################################
+# ################################################################################
+# ## Main and Game Menu Screens
+# ################################################################################
 
-## Navigation screen ###########################################################
-##
-## This screen is included in the main and game menus, and provides navigation
-## to other menus, and to start the game.
+# ## Navigation screen ###########################################################
+# ##
+# ## This screen is included in the main and game menus, and provides navigation
+# ## to other menus, and to start the game.
 
-screen navigation():
+# screen navigation():
 
-    vbox:
-        style_prefix "navigation"
+#     vbox:
+#         style_prefix "navigation"
 
-        xpos gui.navigation_xpos
-        yalign 0.5
+#         xpos gui.navigation_xpos
+#         yalign 0.5
 
-        spacing gui.navigation_spacing
+#         spacing gui.navigation_spacing
 
-        if not main_menu:
+#         if not main_menu:
 
-            textbutton _("History") action ShowMenu("history")
+#             textbutton _("History") action ShowMenu("history")
 
-            textbutton _("Save") action ShowMenu("save")
+#             textbutton _("Save") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+#         textbutton _("Load") action ShowMenu("load")
 
-        textbutton _("Options") action ShowMenu("preferences")
+#         textbutton _("Options") action ShowMenu("preferences")
 
-        if _in_replay:
+#         if _in_replay:
 
-            textbutton _("End Replay") action EndReplay(confirm=True)
+#             textbutton _("End Replay") action EndReplay(confirm=True)
 
-        elif not main_menu:
+#         elif not main_menu:
 
-            textbutton _("Main Menu") action MainMenu()
+#             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("Chumroll") action ShowMenu("achievements")
+#         textbutton _("Chumroll") action ShowMenu("achievements")
 
-        textbutton _("Credits") action ShowMenu("about")
+#         textbutton _("Credits") action ShowMenu("about")
 
-        if renpy.variant("pc"):
+#         if renpy.variant("pc"):
 
-            ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
+#             ## Help isn't necessary or relevant to mobile devices.
+#             textbutton _("Help") action ShowMenu("help")
 
-        textbutton _("Warnings") action ShowMenu("content_warnings")
+#         textbutton _("Warnings") action ShowMenu("content_warnings")
 
-        textbutton _("Close Menu"):
+#         textbutton _("Close Menu"):
 
-            action Return()
+#             action Return()
 
 
 screen vol_icon(icon):
@@ -441,83 +442,83 @@ screen file_slots(title):
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
-screen preferences():
-    tag menu
-    use game_menu(_("Options"), scroll="viewport"):
-        vbox:
-            hbox:
-                box_wrap True
-                if renpy.variant("pc"):
-                    vbox:
-                        style_prefix "radio"
-                        label _("Display")
-                        textbutton _("Window") action Preference("display", "window")
-                        textbutton _("Fullscreen") action Preference("display", "fullscreen")
+# screen preferences():
+#     tag menu
+#     use game_menu(_("Options"), scroll="viewport"):
+#         vbox:
+#             hbox:
+#                 box_wrap True
+#                 if renpy.variant("pc"):
+#                     vbox:
+#                         style_prefix "radio"
+#                         label _("Display")
+#                         textbutton _("Window") action Preference("display", "window")
+#                         textbutton _("Fullscreen") action Preference("display", "fullscreen")
 
-                vbox:
-                    style_prefix "radio"
-                    label _("Rollback Side")
-                    textbutton _("Disable") action Preference("rollback side", "disable")
-                    textbutton _("Left") action Preference("rollback side", "left")
-                    textbutton _("Right") action Preference("rollback side", "right")
+#                 vbox:
+#                     style_prefix "radio"
+#                     label _("Rollback Side")
+#                     textbutton _("Disable") action Preference("rollback side", "disable")
+#                     textbutton _("Left") action Preference("rollback side", "left")
+#                     textbutton _("Right") action Preference("rollback side", "right")
 
-                vbox:
-                    style_prefix "check"
-                    label _("Skip")
-                    textbutton _("Unseen Text") action Preference("skip", "toggle")
-                    textbutton _("After Choices") action Preference("after choices", "toggle")
-                    textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
+#                 vbox:
+#                     style_prefix "check"
+#                     label _("Skip")
+#                     textbutton _("Unseen Text") action Preference("skip", "toggle")
+#                     textbutton _("After Choices") action Preference("after choices", "toggle")
+#                     textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
 
-                vbox:
-                    style_prefix "radio"
-                    label _("Flashing Lights")
-                    textbutton _("Enabled") action SetField(persistent, 'flash', True)
-                    textbutton _("Disabled") action SetField(persistent, 'flash', False)
+#                 vbox:
+#                     style_prefix "radio"
+#                     label _("Flashing Lights")
+#                     textbutton _("Enabled") action SetField(persistent, 'flash', True)
+#                     textbutton _("Disabled") action SetField(persistent, 'flash', False)
 
-            null height (4 * gui.pref_spacing)
-            hbox:
-                box_wrap True
-                ## Additional vboxes of type "radio_pref" or "check_pref" can be
-                ## added here, to add additional creator-defined preferences.
-                transclude
+#             null height (4 * gui.pref_spacing)
+#             hbox:
+#                 box_wrap True
+#                 ## Additional vboxes of type "radio_pref" or "check_pref" can be
+#                 ## added here, to add additional creator-defined preferences.
+#                 transclude
 
-            null height (4 * gui.pref_spacing)
-            hbox:
-                style_prefix "slider"
-                box_wrap True
+#             null height (4 * gui.pref_spacing)
+#             hbox:
+#                 style_prefix "slider"
+#                 box_wrap True
 
-                vbox:
-                    label _("Text Speed")
-                    bar value Preference("text speed")
-                    label _("Auto-Forward Time")
-                    bar value Preference("auto-forward time")
+#                 vbox:
+#                     label _("Text Speed")
+#                     bar value Preference("text speed")
+#                     label _("Auto-Forward Time")
+#                     bar value Preference("auto-forward time")
 
-                vbox:
-                    if config.has_music:
-                        label _("Music Volume")
-                        hbox:
-                            bar value Preference("music volume")
+#                 vbox:
+#                     if config.has_music:
+#                         label _("Music Volume")
+#                         hbox:
+#                             bar value Preference("music volume")
 
-                    if config.has_sound:
-                        label _("Sound Volume")
-                        hbox:
-                            bar value Preference("sound volume")
-                            if config.sample_sound:
-                                textbutton _("Test") action Play("sound", config.sample_sound)
+#                     if config.has_sound:
+#                         label _("Sound Volume")
+#                         hbox:
+#                             bar value Preference("sound volume")
+#                             if config.sample_sound:
+#                                 textbutton _("Test") action Play("sound", config.sample_sound)
 
 
-                    if config.has_voice:
-                        label _("Voice Volume")
-                        hbox:
-                            bar value Preference("voice volume")
-                            if config.sample_voice:
-                                textbutton _("Test") action Play("voice", config.sample_voice)
+#                     if config.has_voice:
+#                         label _("Voice Volume")
+#                         hbox:
+#                             bar value Preference("voice volume")
+#                             if config.sample_voice:
+#                                 textbutton _("Test") action Play("voice", config.sample_voice)
 
-                    if config.has_music or config.has_sound or config.has_voice:
-                        null height gui.pref_spacing
-                        textbutton _("Mute All"):
-                            action Preference("all mute", "toggle")
-                            style "mute_all_button"
+#                     if config.has_music or config.has_sound or config.has_voice:
+#                         null height gui.pref_spacing
+#                         textbutton _("Mute All"):
+#                             action Preference("all mute", "toggle")
+#                             style "mute_all_button"
 
 
 ## History screen ##############################################################
