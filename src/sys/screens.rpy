@@ -310,13 +310,13 @@ screen dlc_credits():
             # We COULD do this processing in advance, but we want to make it
             # easy to manually override the dlc_credits_sort config variable
 
-            for role, list_ in sortCreditsDict(fse_credits_data.get("LIST", [])):
+            for role, list_ in sortCreditsDict(fse_credits_data.get("LIST", {})):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name in sortCreditsList(list_):
                     hbox:
                         text name text_align 0.0 min_width 440
 
-            for role, person_credits in sortCreditsDict(fse_credits_data.get("DICT", [])):
+            for role, person_credits in sortCreditsDict(fse_credits_data.get("DICT", {})):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in sortCreditsDict(person_credits):
                     hbox:
