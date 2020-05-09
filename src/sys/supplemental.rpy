@@ -12,7 +12,7 @@ python:
 
 init offset = 0
 
-init python:
+init -1 python:
 
     # RenPy store wrappers
     def get_all_sayers(store_=store):
@@ -126,11 +126,79 @@ init python:
         return ret
 
     # RenPy control flow helpers
-    def ShowMenuFallback(*screens):
+    def getMenuFallback(*screens):
         for screen in screens:
+            screenmod = screen + "_mod"
+            if renpy.has_screen(screenmod):
+                return screenmod
             if renpy.has_screen(screen):
-                return ShowMenu(screen)
+                return screen
         raise Exception("No screens in set {} exist.".format(screens))
+
+    def ShowMenuFallback(*screens):
+        return ShowMenu(getMenuFallback(*screens))
+
+    @renpy.pure
+    class ShowMenuPlus(ShowMenu):
+        """
+        A menu action.
+        Like ShowMenu, but:
+        Takes a list of screens, which are all tried in order until one exists
+        Allows overriding the intra-menu transition
+        """
+
+        def __init__(self, screens=[], transition=config.intra_transition, *args, **kwargs):
+            self.screen = getMenuFallback(*screens)
+            self.transition = transition
+            self.args = args
+            self.kwargs = kwargs
+
+        def __call__(self):
+            if not self.get_sensitive():
+                return
+
+            orig_screen = screen = self.screen or store._game_menu_screen
+            if not (renpy.has_screen(screen) or renpy.has_label(screen)):
+                screen = screen + "_screen"
+
+            # Ugly. We have different code depending on if we're in the
+            # game menu or not.
+            if renpy.context()._menu:
+                if renpy.has_screen(screen):
+                    renpy.transition(self.transition)
+                    renpy.show_screen(screen, _transient=True, *self.args, **self.kwargs)
+                    renpy.restart_interaction()
+
+                elif renpy.has_label(screen):
+                    renpy.transition(self.transition)
+                    ui.layer("screens")
+                    ui.remove_above(None)
+                    ui.close()
+                    renpy.jump(screen)
+                else:
+                    raise Exception("%r is not a screen or a label." % orig_screen)
+
+            else:
+                renpy.call_in_new_context("_game_menu", *self.args, _game_menu_screen=screen, **self.kwargs)
+
+        def get_selected(self):
+            screen = self.screen or store._game_menu_screen
+
+            if screen is None:
+                return False
+
+            return renpy.get_screen(screen)
+
+        def get_sensitive(self):
+            screen = self.screen or store._game_menu_screen
+
+            if screen is None:
+                return False
+
+            if screen in config.show_menu_enable:
+                return eval(config.show_menu_enable[screen])
+            else:
+                return True
 
     # Dialogue helpers
     import random
