@@ -51,7 +51,10 @@ init -1 python:
     import re
 
     QuirkStore = {
-        "gamzee": [("([a-zA-Z])([a-zA-Z]?)", lambda m: m.group(1).lower() + m.group(2).upper())],
+        "gamzee": [ # List of replacements:
+            # Replace this regex      # With this
+            ("([a-zA-Z])([a-zA-Z]?)", lambda m: m.group(1).lower() + m.group(2).upper())
+        ],
         "kankri": [("[Bb]", "6"), ("[Oo]", "9")],
         "lower": [("(.+)", lambda m: m.group(1).lower())],
         "upper": [("(.+)", lambda m: m.group(1).upper())],
