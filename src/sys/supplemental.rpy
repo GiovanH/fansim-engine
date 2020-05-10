@@ -247,30 +247,20 @@ label debug_dump_character(sayer, sayer_name):
     return 
 
 
-label start_custom:
+# label start_custom:
 
-    # This is used to easily add a formatted '>' to the start of choices in menus.
-    $ pick = "> "
-    $ quick_menu = False
+#     # This is used to easily add a formatted '>' to the start of choices in menus.
+#     $ pick = "> "
+#     $ quick_menu = False
 
-    # Stop main menu music, or any other music playing, and transition to volume select.
+#     # Stop main menu music, or any other music playing, and transition to volume select.
 
-    show image "gui/main_menu.png"
-    window hide
-    scene black with Dissolve(1.5)
-    $ main_menu = True
-    $ fse_block_devbox = False
+#     show image "gui/main_menu.png"
+#     window hide
+#     scene black with Dissolve(1.5)
+#     $ main_menu = True
+#     $ fse_block_devbox = False
 
-    stop music fadeout 1.0
-    call screen vol_select_custom() with Dissolve(1.0)
-    return
-
-# Various hiveswap transforms
-
-transform floaties3:
-    alpha 0.0 xpos 900 ypos 225
-    pause 28
-    parallel:
-        easeout 4 alpha 0.4
-        pause 2
-        easein 4 alpha 0.0
+#     stop music fadeout 1.0
+#     call screen vol_select_custom() with Dissolve(1.0)
+#     return

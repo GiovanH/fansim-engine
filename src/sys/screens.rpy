@@ -220,10 +220,44 @@ init python:
 
     ShowVolSelectAction = ShowMenuPlus(["vol_select_custom", "vol_select"], transition=Fade(1.0, 0.0, 1.0))
 
+label vol_select_bootstrap:
+    # Menu boilerplate: Exit main menu, fade to black
+    $ renpy.block_rollback()
+    $ main_menu = False
+    $ quick_menu = False
+    show image "gui/game_menu.png"
+    window hide
+    stop music fadeout 0.5
+    scene black with Dissolve(1.5)
+    $ quick_menu = True
+
+    call expression store.vol_select_label
+
+    return
+
+
+screen __p__sayer_room:
+    tag menu
+    $ store.__p__sayer = "s"
+    $ store.__p__sayername = "s"
+    use game_menu_volumes(_("Choose a Character")):
+        # A grid of buttons.
+        vpgrid:
+            mousewheel True
+            scrollbars "vertical"
+            cols 3
+            xsize 940
+            yfill True
+
+            for sayername, sayer in sorted(get_all_sayers()):
+                if sayername and sayer.image_tag:
+                    textbutton ((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), SetVariable("store.__p__sayername", sayername), Start("__p__sayer_bootstrap2") xsize 300 ysize 60 yalign 0 xalign 0 text_style "button_text"
+
 
 define fse_volume_data = []  # Overwritten
 screen vol_select_custom():
     tag menu
+    $ store.vol_select_label = "NotSet"
     use game_menu_volumes(_("Friend Select")):
 
         default icon = "gui/volumeselect_icon_blank.png"
@@ -266,10 +300,8 @@ screen vol_select_custom():
                         if unlocked:
                             $ img_small, img_norm = getDlcVolumeIcons(volume)
                             imagebutton idle img_small action [
-                                Stop("music", fadeout=0.5),
-                                Stop("sound", fadeout=0.5),
-                                Stop("voice", fadeout=0.5),
-                                Start("custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume)))
+                                SetVariable("store.vol_select_label", "custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))),
+                                Start("vol_select_bootstrap")
                             ] hovered [
                                 SetLocalVariable("icon", img_norm), 
                                 SetLocalVariable("title", volume.get("title", "")), 
