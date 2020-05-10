@@ -47,7 +47,7 @@ init offset = 0
 
 # Automatic quirk translation
 
-init python:
+init -1 python:
     import re
 
     QuirkStore = {
@@ -82,11 +82,11 @@ init python:
             who (sayer)
             quirklist: Quirk name, or ordered list of quirk names, to apply. 
         """
-        def _sayer(what, **kwargs):
-            return quirkSay(who, quirklist, what, **kwargs)
+        def _sayer(what, *args, **kwargs):
+            return quirkSay(who, quirklist, what, *args, **kwargs)
         return _sayer
 
-    def quirkSay(who, quirklist, what, **kwargs):
+    def quirkSay(who, quirklist, what, *args, **kwargs):
         """Say a line of dialogue, but postprocess it first.
 
         Args:
@@ -97,7 +97,11 @@ init python:
         kwargs:
             [pass through to say]
         """
-        return who.__call__(quirkSub(quirklist, what), **kwargs)
+        print("quirksay what=", what, "and quirklist=", quirklist)
+        for q in quirklist:
+            what = "{quirk=" + q + "}" + what + "{/quirk}"
+        print("new what=", what)
+        return who.__call__(what, *args, **kwargs)
 
     def quirkSub(quirklist, what):
         """Returns the input as a quirk-formatted string.
@@ -113,6 +117,9 @@ init python:
         "l0r3m 1p5um"
 
         """
+        if persistent.fse_disablequirks:
+            return what
+
         if type(quirklist) is type(""):
             # Automatically fix single-element strings
             quirklist = [quirklist]
@@ -125,3 +132,7 @@ init python:
             for (pattern, repl) in quirksubs:
                 what = re.sub(pattern, repl, what)
         return what
+
+    def quirkSubManual(raw_text, quirked_text):
+        return raw_text if persistent.fse_disablequirks else quirked_text
+
