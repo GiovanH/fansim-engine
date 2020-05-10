@@ -60,7 +60,19 @@ init python:
 
     config.self_closing_custom_text_tags["cps_max"] = texttag_cpsmax
 
-    def texttag_hemocolor(tag, argument, contents):
-        return [(renpy.TEXT_TAG, "color=" + hemospectrum(argument),)] + contents + [(renpy.TEXT_TAG, "/color")]
+    # def texttag_hemocolor(tag, argument, contents):
+    #     return [(renpy.TEXT_TAG, "color=" + hemospectrum(argument),)] + contents + [(renpy.TEXT_TAG, "/color")]
 
-    config.custom_text_tags["hemocolor"] = texttag_hemocolor
+    # config.custom_text_tags["hemocolor"] = texttag_hemocolor
+
+    # This is the wrong way to do this, but the engine won't let me auto-close tags, so here we are.
+    # See renpy/text.py:2242
+    def texttag_hemocolor_open(tag, argument):
+        return [(renpy.TEXT_TAG, "color=" + hemospectrum(argument),)]
+
+    config.self_closing_custom_text_tags["hemocolor"] = texttag_hemocolor_open
+
+    def texttag_hemocolor_close(tag, argument):
+        return [(renpy.TEXT_TAG, "/color")]
+
+    config.self_closing_custom_text_tags["/hemocolor"] = texttag_hemocolor_close
