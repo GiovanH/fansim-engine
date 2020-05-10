@@ -61,12 +61,16 @@ init python:
         "cobalt": "cerulean"
     }
     
-    def hemospectrum(color):
+    def hemospectrum(color, high_contrast=None):
         """Returns the hexadecimal color code for the color passed.
         If color is a hexadecimal color code, it is returned unmodified.
         Otherwise, if the color is the name of a blood hue registered in 
         HemospectrumStore, that color code is returned.
         """
+
+        if high_contrast and persistent.fse_highcontrast:
+            return hemospectrum(high_contrast)
+
         if color[0] == "#":
             return color
         try:

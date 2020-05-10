@@ -105,14 +105,14 @@ screen trollian_say:
             )
         )
         if big:
-            text what id "what" ypos 34 line_spacing 2 color hemospectrum(blood)
+            text what id "what" ypos 34 line_spacing 2 color hemospectrum(blood, "#000")
         else:
             if who is not None:
                 window:
                     id "namebox"
                     style "trollian_namebox"
                     text "trolling: " + who id "who"
-            text what id "what" ypos 65 color hemospectrum(blood)
+            text what id "what" ypos 65 color hemospectrum(blood, "#000")
 
 define trollian = Character(
     ### A standard troll, using the red "trollian" template.
@@ -161,14 +161,14 @@ screen hiveswap_say:
 
         background doTint(
             "{{assets_common}}/hiveswap_textbox_base.png",
-            hemospectrum(blood), 200.0
+            hemospectrum(blood, "#000"), 200.0
         )
 
         if who is not None:
             window:
                 id "namebox"
                 style "hiveswap_namebox"
-                text who id "who" color '#FFF' font "Berlin Sans FB Demi Bold.ttf" outlines [(4, hemospectrum(blood))]
+                text who id "who" color '#FFF' font "Berlin Sans FB Demi Bold.ttf" outlines [(4, hemospectrum(blood, "#000"))]
         text what id "what" color '#FFF' font "Berlin Sans FB Regular.ttf"
 
 define hiveswap = Character(
@@ -238,7 +238,7 @@ screen openbound_say:
     $ chucklefix = ("_chuckle" if chuckle else "")
     $ textbox_bg_frame = Frame("{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png", left=frame_border_size, top=frame_border_size)
     $ hashbox_bg_frame = Frame("{{assets_common}}/openbound_hashbox_" + obstyle + chucklefix + ".png", left=frame_border_size, top=frame_border_size)
-    $ who_color = purple if chuckle else hemospectrum(blood)
+    $ who_color = purple if chuckle else hemospectrum(blood, "#000")
     $ who_outlines = [(0 if use_nameframe else 4, "#FFF")] 
 
     $ hashtag_lines = calcLineHeight(hashtags, hashtag_line_len) if hashtag_lines == -1 else hashtag_lines
@@ -262,7 +262,7 @@ screen openbound_say:
             if chuckle:
                 text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
             else:
-                text what id "what" color hemospectrum(blood)
+                text what id "what" color hemospectrum(blood, "#000")
             if who is not None:
                 window:
                     id "namebox"
@@ -301,12 +301,12 @@ init python:
         def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
             super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
             self.quirklist = quirklist
+            self.sayer = quirkSayer(super(type(self), self), self.quirklist)
 
         def __call__(self, what, *args, **kwargs):
-            clickytags = gui.preference("fse_clickytags", False)  # Heads up: The default preferences doesn't have this
+            clickytags = persistent.fse_clickytags
             need_click_suffix = "" if clickytags else "{p=0.1}{nw}"
 
-            what_text = quirkSub(self.quirklist, what)
             hashtags = kwargs.get("show_hashtags")
             if hashtags:
                 hashtags = "{slow}" + hashtags
@@ -318,12 +318,12 @@ init python:
                 k2 = kwargs.copy()
                 k2.pop("show_hashtags")
 
-                super(type(self), self).__call__(what_text + need_click_suffix, *args, **k2)
+                self.sayer.__call__(what + need_click_suffix, *args, **k2)
                 self.do_extend()
-                super(type(self), self).__call__(what_text + "{fast}", *args, **kwargs)
+                self.sayer.__call__(what + "{fast}", *args, **kwargs)
                 self.do_done(self.name, hashtags)
             else:
-                super(type(self), self).__call__(what_text, *args, **kwargs)
+                self.sayer.__call__(what, *args, **kwargs)
 
 define openbound = HtagChar(
     ### A character who speaks with an openbound-style textbox.
@@ -386,7 +386,7 @@ screen chan_say:
                     image scaleBestFit(attachment, 150, 150) xpos 0 ypos 0
                     action NullAction()
                     tooltip scaleBestFit(attachment, 700, 500)
-            text what id "what" xpos 0 ypos 0 xsize 800 color hemospectrum(blood)
+            text what id "what" xpos 0 ypos 0 xsize 800 color hemospectrum(blood, "#000")
 
     $ tooltip = GetTooltip()
 

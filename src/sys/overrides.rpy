@@ -115,7 +115,15 @@ screen navigation():
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
 # Set defaults
-$ gui.preference("fse_clickytags", False)
+init python:
+    if persistent.flash is None:
+        persistent.flash = True
+    if persistent.fse_clickytags is None:
+        persistent.fse_clickytags = False
+    if persistent.fse_highcontrast is None:
+        persistent.fse_highcontrast = False
+    if persistent.fse_disablequirks is None:
+        persistent.fse_disablequirks = False
 
 screen preferences():
     tag menu
@@ -146,9 +154,9 @@ screen preferences():
 
                 vbox:
                     style_prefix "check"
-                    label "Hashtags"
-                    textbutton _("Click to advance") action gui.TogglePreference("fse_clickytags", True, False)
-
+                    label "Add'l text"
+                    textbutton _("Click to advance") action ToggleField(persistent, "fse_clickytags")
+    
             hbox:
                 box_wrap True
                 ## Additional vboxes of type "radio_pref" or "check_pref" can be
@@ -156,12 +164,23 @@ screen preferences():
 
                 vbox:
                     style_prefix "radio"
-                    label _("Flashing Lights")
-                    textbutton _("Enabled") action SetField(persistent, 'flash', True)
-                    textbutton _("Disabled") action SetField(persistent, 'flash', False)
+                    label _("Motion/Flash")
+                    textbutton _("Intended") action SetField(persistent, 'flash', True)
+                    textbutton _("Reduced") action SetField(persistent, 'flash', False)
 
                 # Todo: High contrast text
+                vbox:
+                    style_prefix "radio"
+                    label "Text colors"
+                    textbutton _("Enabled") action SetField(persistent, "fse_highcontrast", False)
+                    textbutton _("Disabled") action SetField(persistent, "fse_highcontrast", True)
+
                 # Todo: Quirks on/off
+                vbox:
+                    style_prefix "radio"
+                    label "Quirks"
+                    textbutton _("Enabled") action SetField(persistent, "fse_disablequirks", False)
+                    textbutton _("Disabled") action SetField(persistent, "fse_disablequirks", True)
                 
 
             null height (4 * gui.pref_spacing)
@@ -190,3 +209,7 @@ screen preferences():
                     textbutton _("Mute All"):
                         action Preference("all mute", "toggle")
                         style "mute_all_button"
+
+        null height (2 * gui.pref_spacing)
+        # Accessibility button
+        text "Press Shift+A for additional accessibility options" color "#646464"
