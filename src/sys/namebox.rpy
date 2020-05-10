@@ -233,7 +233,7 @@ screen openbound_say:
     $ say_dialogue_ysize = total_ysize - hashbar_ysize if sandwich else total_ysize
     $ say_dialogue_yoffset = sandwich_overlap - hashbar_ysize if sandwich else 0
 
-    $ purple = "#6600DA"
+    $ purple = "#6600DA" if not persistent.fse_highcontrast else "#FFF"
 
     $ chucklefix = ("_chuckle" if chuckle else "")
     $ textbox_bg_frame = Frame("{{assets_common}}/openbound_textbox_" + obstyle + chucklefix + ".png", left=frame_border_size, top=frame_border_size)

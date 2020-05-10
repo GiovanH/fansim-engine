@@ -68,8 +68,11 @@ init python:
         HemospectrumStore, that color code is returned.
         """
 
-        if high_contrast and persistent.fse_highcontrast:
-            return hemospectrum(high_contrast)
+        if persistent.fse_highcontrast:
+            if high_contrast:
+                return hemospectrum(high_contrast)
+            else:
+                return "#000"
 
         if color[0] == "#":
             return color

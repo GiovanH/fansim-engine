@@ -25,7 +25,7 @@ init python:
         for kind, text in contents:
             print("tag: kind=", kind, "text=", text)
             if kind == renpy.TEXT_TEXT:
-                rv += renpy.text.textsupport.tokenize(quirkSub(quirklist, text))
+                rv.append((kind, quirkSub(quirklist, text)))
             else:
                 rv.append((kind, text))
         return rv
@@ -61,3 +61,8 @@ init python:
         return [(renpy.TEXT_TAG, "cps=" + str(cps))]
 
     config.self_closing_custom_text_tags["cps_max"] = texttag_cpsmax
+
+    def texttag_hemocolor(tag, argument, contents):
+        return [(renpy.TEXT_TAG, "color=" + hemospectrum(argument),)] + contents + [(renpy.TEXT_TAG, "/color")]
+
+    config.custom_text_tags["hemocolor"] = texttag_hemocolor
