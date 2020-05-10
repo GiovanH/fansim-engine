@@ -309,7 +309,7 @@ init python:
 
             hashtags = kwargs.get("show_hashtags")
             if hashtags:
-                hashtags = "{slow}" + hashtags
+                kwargs["show_hashtags"] = quirkToTags(hashtags, self.quirklist)
                 # if clickytags:
                 #     hashtags = hashtags.replace(" #", "{w} #")
                 # else:

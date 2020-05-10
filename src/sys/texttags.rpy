@@ -20,10 +20,8 @@ init python:
 
         quirklist = [argument]
 
-        print("quirkify=", contents, "with quirklist", quirklist)
         rv = []
         for kind, text in contents:
-            print("tag: kind=", kind, "text=", text)
             if kind == renpy.TEXT_TEXT:
                 rv.append((kind, quirkSub(quirklist, text)))
             else:

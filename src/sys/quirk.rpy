@@ -86,6 +86,11 @@ init -1 python:
             return quirkSay(who, quirklist, what, *args, **kwargs)
         return _sayer
 
+    def quirkToTags(what, quirklist):
+        for q in quirklist:
+            what = "{quirk=" + q + "}" + what + "{/quirk}"
+        return what
+
     def quirkSay(who, quirklist, what, *args, **kwargs):
         """Say a line of dialogue, but postprocess it first.
 
@@ -97,11 +102,7 @@ init -1 python:
         kwargs:
             [pass through to say]
         """
-        print("quirksay what=", what, "and quirklist=", quirklist)
-        for q in quirklist:
-            what = "{quirk=" + q + "}" + what + "{/quirk}"
-        print("new what=", what)
-        return who.__call__(what, *args, **kwargs)
+        return who.__call__(quirkToTags(what, quirklist), *args, **kwargs)
 
     def quirkSub(quirklist, what):
         """Returns the input as a quirk-formatted string.
