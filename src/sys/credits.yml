@@ -1,11 +1,8 @@
 DICT:
   Fansim Engine Contributors:
-    Gio:
+    (S1)Gio (Giovan_H):
       - "Lead developer"
-    Befriendus Dev Team (alienoid):
-      - "\"Openround\" dialogue style"
-      - "Documentation contributions"
+    (S2)Alienoid (AlienoidNovace):
+      - "Additional contributions"
 POSTSCRIPT:
-  - "'Hatch' icons by Carol Liao under a {a=https://creativecommons.org/licenses/by/4.0/}Creative Commons Attribution 4.0 International License.{/a}"
-  - "Sun image captured by NASA, modified under a {a=https://creativecommons.org/licenses/by/2.0/}Creative Commons Attribution 2.0 Generic license.{/a}"
-  - "Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
+  - "(S999)Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"

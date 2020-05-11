@@ -324,6 +324,7 @@ screen vol_select_custom():
 define fse_credits_data = {}  # Overwritten in custom_credits.rpy
 
 init python:
+    import re
     def sortCreditsList(list_):
         def _splitSort(string):
             __, label, realstr = re.search(r"^(\(S([0-9]+)\)){0,1}(.*)", string).groups()
@@ -340,6 +341,9 @@ init python:
             in sorted(map(_splitSort, data.items()))
         ]
 
+    def angleBracketsToSquare(text):
+        return text.replace("<", "[").replace(">", "]")
+
 screen credits():
     tag menu
     use game_menu(_("Credits"), scroll="viewport"):
@@ -353,26 +357,31 @@ screen credits():
             # We COULD do this processing in advance, but we want to make it
             # easy to manually override the credits_sort config variable
 
+            # Set local variables
+            for name, value in fse_credits_data.get("ALIAS", {}).items():
+                $ renpy.current_screen().scope[name] = value
+
             for role, list_ in sortCreditsDict(fse_credits_data.get("LIST", {})):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name in sortCreditsList(list_):
                     hbox:
-                        text name text_align 0.0 min_width 440
+                        text angleBracketsToSquare(name) text_align 0.0 min_width 440
 
             for role, person_credits in sortCreditsDict(fse_credits_data.get("DICT", {})):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in sortCreditsDict(person_credits):
                     hbox:
-                        text name text_align 0.0 min_width 440
+                        text angleBracketsToSquare(name) text_align 0.0 min_width 440
                         vbox:
+                            spacing 12
                             for item in sortCreditsList(list_):
-                                text item text_align 0.0
+                                text angleBracketsToSquare(item) text_align 0.0
 
 
             text "\n\n" text_align 1.0
 
             for text_ in sortCreditsList(fse_credits_data.get("POSTSCRIPT", [])):
-                text text_
+                text angleBracketsToSquare(text_)
 
 
 define fse_warning_data = {}  # Overwritten in custom_warnings.rpy
