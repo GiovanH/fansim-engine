@@ -13,6 +13,7 @@ init offset = 0
 
 transform toast_down(l=0.3):
     ### Push up, sticks until hidden.
+    ypos 0.0
     on show:
         yanchor 1.0
         linear l yanchor 0.0
@@ -21,23 +22,25 @@ transform toast_down(l=0.3):
 
 transform toast_up(l=0.3):
     ### Push up, sticks until hidden
+    ypos 1.0
     on show:
         yanchor 0.0
         linear l yanchor 1.0
     on hide:
         linear l yanchor 0.0
 
-transform toast_left(l=0.3):
-    ### Push up, sticks until hidden.
+transform toast_right(l=0.3):
+    ### Push right, sticks until hidden.
+    xpos 0.0
     on show:
         xanchor 1.0
         linear l xanchor 0.0
     on hide:
         linear l xanchor 1.0
 
-transform toast_right(l=0.3):
+transform toast_left(l=0.3):
+    ### Push left, sticks until hidden
     xpos 1.0
-    ### Push up, sticks until hidden
     on show:
         xanchor 0.0
         linear l xanchor 1.0
@@ -46,6 +49,7 @@ transform toast_right(l=0.3):
 
 transform toast_peek_down(p=2.0, l=0.3):
     ### Push down, hides itself after p seconds.
+    ypos 0.0
     yanchor 1.0
     linear l yanchor 0.0
     pause p
@@ -53,6 +57,7 @@ transform toast_peek_down(p=2.0, l=0.3):
 
 transform toast_peek_up(p=2.0, l=0.3):
     ### Push down, hides itself after p seconds.
+    ypos 1.0
     yanchor 0.0
     linear l yanchor 1.0
     pause p
@@ -124,4 +129,52 @@ screen MusicToast:
                 text ttitle style_suffix "title"
                 text tartist style_suffix "artist"
                 text talbum style_suffix "album"
+        at tf
+
+init python:
+    def fse_achtoast(ach_id):
+        print(ach_id, achievement.has(ach_id))
+        if not achievement.has(ach_id):
+            # _transient=True seems broken here??? see screen.py:1061
+            renpy.show_screen("FseAchToast", _layer="overlay", ach_id=ach_id)
+            achievement.grant(ach_id)
+
+screen FseAchToast(ach_id):
+    default tf = toast_peek_up
+    default style = "music_toast"
+
+    default image_size = (64, 64)
+
+    python:
+
+        ach = None
+        for a in fse_achievements_data:
+            if a.get("_id") == ach_id:
+                ach = a
+                break
+        if not ach:
+            raise Exception("'{}' is not registered with FSE! Check meta.json".format(ach_id))
+
+        img_unlocked = getImageOrPlaceholder(
+            target=ach.get("_img_unlocked"),
+            failbg="{{assets}}/ach_fallback.png",
+            failsize=(64, 64),
+            failtext="assets/\n" + ach.get("img_unlocked")
+        )
+        # img_locked = getImageOrPlaceholder(
+        #     target=ach.get("_img_locked"),
+        #     failbg="{{assets}}/ach_fallback.png",
+        #     failsize=(64, 64),
+        #     failtext="assets/\n" + ach.get("img_locked")
+        # )
+
+    frame:
+        style_prefix style
+        hbox:
+            add img_unlocked size image_size yalign 0.5
+            null width 6
+            vbox:
+                text ach.get("name") style_suffix "title"
+                text ach.get("desc") style_suffix "artist"
+        xalign 1.0
         at tf
