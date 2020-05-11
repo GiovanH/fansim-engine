@@ -501,7 +501,11 @@ def processPoses(all_poses, trim, patch, rpy_outpath, make_demo=False):
                     parent_pose.children.remove(subpose)
                     parent_pose.children.append(new_patch)
                 # Do not loose children!
-                assert len(list(getAllPosesFromTree())) == len(all_poses)
+                try:
+                    assert len(list(getAllPosesFromTree())) == len(all_poses)
+                except AssertionError:
+                    printAllPosesFromTree()
+                    raise
 
         logger.info("Expanding canvases...")
 
@@ -636,7 +640,7 @@ def main():
         help="Output rpy filename"
     )
     ap.add_argument(
-        "--fuzz", default=255, type=int,
+        "--fuzz", default=100, type=int,
         help="Fuzzing amount"
     )
     ap.add_argument(
