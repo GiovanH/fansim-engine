@@ -232,7 +232,7 @@ label debug_dump_character(sayer, sayer_name):
 
     $ renpy.choice_for_skipping()
     
-    $ __p__dumpcollection = sorted(get_images_from_sayer(sayer_name))
+    $ __p__dumpcollection = sorted(get_images_from_sayer(sayer.image_tag))
     $ __p__dumplen = len(__p__dumpcollection)
     $ __p__dumpi = 0
 

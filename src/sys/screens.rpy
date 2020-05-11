@@ -232,9 +232,7 @@ label vol_select_bootstrap:
     $ quick_menu = True
 
     call expression store.vol_select_label
-
     return
-
 
 screen __p__sayer_room:
     tag menu
