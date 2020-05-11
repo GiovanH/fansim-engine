@@ -91,7 +91,7 @@ screen choice(items):
 
     vbox:
         for i in items:
-            textbutton pick + i.caption action i.action
+            textbutton i.caption action i.action
 
 
 ## When this is true, menu captions will be spoken by the narrator. When false,
