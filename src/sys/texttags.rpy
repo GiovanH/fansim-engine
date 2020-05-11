@@ -16,38 +16,6 @@ init python:
 
     config.self_closing_custom_text_tags["nbsp"] = texttag_nobreak_space
 
-    def texttag_quirk(tag, argument, contents):
-
-        quirklist = [argument]
-
-        rv = []
-        for kind, text in contents:
-            if kind == renpy.TEXT_TEXT:
-                rv.append((kind, quirkSub(quirklist, text)))
-            else:
-                rv.append((kind, text))
-        return rv
-
-    config.custom_text_tags["quirk"] = texttag_quirk
-
-    def texttag_quirked(tag, argument, contents):
-
-        quirked_text = argument
-        has_done = False
-
-        rv = []
-        for kind, text in contents:
-            if kind == renpy.TEXT_TEXT:
-                if has_done:
-                    raise Exception("Tag {quirked} cannot contain multiple text segments!")
-                rv.append((kind, quirkSubManual(text, quirked_text)))
-                has_done = True
-            else:
-                rv.append((kind, text))
-        return rv
-
-    config.custom_text_tags["quirked"] = texttag_quirked
-
     def texttag_cpsmax(tag, argument):
         # Text speed will not be faster than argument
         def _underflow(v):

@@ -230,6 +230,7 @@ label vol_select_bootstrap:
     stop music fadeout 0.5
     scene black with Dissolve(1.5)
     $ quick_menu = True
+    $ pick = "> "
 
     call expression store.vol_select_label
     return
@@ -297,20 +298,24 @@ screen vol_select_custom():
                             $ unlocked = achievement.has(unlocks_on)
                         if unlocked:
                             $ img_small, img_norm = getDlcVolumeIcons(volume)
-                            imagebutton idle img_small action [
-                                SetVariable("store.vol_select_label", "custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))),
-                                Start("vol_select_bootstrap")
-                            ] hovered [
-                                SetLocalVariable("icon", img_norm), 
-                                SetLocalVariable("title", volume.get("title", "")), 
-                                SetLocalVariable("subtitle", volume.get("subtitle", "")),
-                                SetLocalVariable("author", volume.get("author", ""))
-                            ] unhovered [        
-                                SetLocalVariable("icon", "gui/volumeselect_icon_blank.png"), 
-                                SetLocalVariable("title", "Volume Select"), 
-                                SetLocalVariable("subtitle", "Hover over an icon!"),
-                                SetLocalVariable("author", "")
-                            ] alt volume.get("subtitle", "")
+                            imagebutton idle img_small:
+                                action [
+                                    SetVariable("store.vol_select_label", "custom_entry_{package_id}_{volume_id}".format(**jsonReEscape(volume))),
+                                    Start("vol_select_bootstrap")
+                                ]
+                                hovered [
+                                    SetLocalVariable("icon", img_norm), 
+                                    SetLocalVariable("title", volume.get("title", "")), 
+                                    SetLocalVariable("subtitle", volume.get("subtitle", "")),
+                                    SetLocalVariable("author", volume.get("author", ""))
+                                ]
+                                unhovered [        
+                                    SetLocalVariable("icon", "gui/volumeselect_icon_blank.png"), 
+                                    SetLocalVariable("title", "Volume Select"), 
+                                    SetLocalVariable("subtitle", "Hover over an icon!"),
+                                    SetLocalVariable("author", "")
+                                ]
+                                alt volume.get("subtitle", "")
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 
         text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
@@ -402,7 +407,16 @@ screen dlc_achievements():
                         failsize=(64, 64),
                         failtext="assets/\n" + ach.get("img_unlocked")
                     )
-                    imagebutton idle _img_unlocked action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc")) unhovered Hide("ach_desc")
+                    imagebutton idle _img_unlocked: 
+                        action NullAction() 
+                        hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc"))
+                        unhovered Hide("ach_desc")
+                        # alt Hide("ach_desc")
+                        # ShowMenu(
+                        #     "confirm", "Are you sure you want to un-achieve this achievement?", 
+                        #     (Hide("confirm"), lambda: achievement.clear(ach.get("_id"))), 
+                        #     (Hide("confirm"))
+                        # )
                 else:
                     $ _img_locked = getImageOrPlaceholder(
                         target=ach.get("_img_locked"),
@@ -410,7 +424,10 @@ screen dlc_achievements():
                         failsize=(64, 64),
                         failtext="assets/\n" + ach.get("img_locked")
                     )
-                    imagebutton idle _img_locked action NullAction() hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) unhovered Hide("ach_desc")
+                    imagebutton idle _img_locked:
+                        action NullAction() 
+                        hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) 
+                        unhovered Hide("ach_desc")
 
 screen ach_desc(ach_name, ach_description):
 

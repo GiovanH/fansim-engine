@@ -50,6 +50,8 @@ init offset = 0
 init -1 python:
     import re
 
+    __p__quirk_debug = True
+
     QuirkStore = {
         "gamzee": [ # List of replacements:
             # Replace this regex      # With this
@@ -70,13 +72,14 @@ init -1 python:
             super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
             self.quirklist = quirklist
             self.kind = kind or renpy.store.adv
+            self.sayer = quirkSayer(super(type(self), self), self.quirklist)
             
             # print(self)
             # print(type(self))
             # print(super(type(self), self))
 
         def __call__(self, what, *args, **kwargs):
-            quirkSay(super(type(self.kind), self), self.quirklist, what, **kwargs)
+            self.sayer.__call__(what, *args, **kwargs)
 
 
     def quirkSayer(who, quirklist):
@@ -85,14 +88,23 @@ init -1 python:
             who (sayer)
             quirklist: Quirk name, or ordered list of quirk names, to apply. 
         """
+        if __p__quirk_debug:
+            print("quirksayer from who", who, "with quirklist", quirklist)
         def _sayer(what, *args, **kwargs):
             return quirkSay(who, quirklist, what, *args, **kwargs)
         return _sayer
 
     def quirkToTags(what, quirklist):
+        ret = what
+        # Automatically fix single-element strings
+        if type(quirklist) is type(""):
+            quirklist = [quirklist]
+
         for q in quirklist:
-            what = "{quirk=" + q + "}" + what + "{/quirk}"
-        return what
+            ret = "{quirk=" + q + "}" + ret + "{/quirk}"
+        if __p__quirk_debug:
+            print("quirktotags from what", what, "with quirklist", quirklist, "returns", ret)
+        return ret
 
     def quirkSay(who, quirklist, what, *args, **kwargs):
         """Say a line of dialogue, but postprocess it first.
@@ -105,6 +117,8 @@ init -1 python:
         kwargs:
             [pass through to say]
         """
+        if __p__quirk_debug:
+            print("who", who, "quirksaying", what, "with qlist", quirklist)
         return who.__call__(quirkToTags(what, quirklist), *args, **kwargs)
 
     def quirkSub(quirklist, what):
@@ -124,19 +138,58 @@ init -1 python:
         if persistent.fse_disablequirks:
             return what
 
+        ret = what
+
+        # Automatically fix single-element strings
         if type(quirklist) is type(""):
-            # Automatically fix single-element strings
             quirklist = [quirklist]
+
         for quirkname in quirklist:
             quirksubs = QuirkStore.get(quirkname.lower(), None)
             if not quirksubs:
                 if renpy.config.developer:
                     raise Exception("ERROR: No such quirk {}".format(quirkname))
-                return what
+                return ret
             for (pattern, repl) in quirksubs:
-                what = re.sub(pattern, repl, what)
-        return what
+                ret = re.sub(pattern, repl, ret)
+        if __p__quirk_debug:
+            print("quirksub from what", what, "with quirklist", quirklist, "returns", ret)
+        return ret
 
     def quirkSubManual(raw_text, quirked_text):
         return raw_text if persistent.fse_disablequirks else quirked_text
 
+    def texttag_quirk(tag, argument, contents):
+        quirklist = [argument]
+
+        rv = []
+        for kind, text in contents:
+            if kind == renpy.TEXT_TEXT:
+                # rv.append((kind, quirkSub(quirklist, text)))
+                # Tokenize tags that are part of the quirk itself
+                rv += renpy.text.textsupport.tokenize(quirkSub(quirklist, text))
+            else:
+                rv.append((kind, text))
+        if __p__quirk_debug:
+            print("quirk tag with arg", argument, "and contents", contents, "returns", rv)
+        return rv
+
+    config.custom_text_tags["quirk"] = texttag_quirk
+
+    def texttag_quirked(tag, argument, contents):
+
+        quirked_text = argument
+        has_done = False
+
+        rv = []
+        for kind, text in contents:
+            if kind == renpy.TEXT_TEXT:
+                if has_done:
+                    raise Exception("Tag {quirked} cannot contain multiple text segments!")
+                rv.append((kind, quirkSubManual(text, quirked_text)))
+                has_done = True
+            else:
+                rv.append((kind, text))
+        return rv
+
+    config.custom_text_tags["quirked"] = texttag_quirked
