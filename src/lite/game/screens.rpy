@@ -666,12 +666,8 @@ screen mouse_help():
         text _("Advances dialogue and activates the interface.")
 
     hbox:
-        label _("Middle Click")
-        text _("Hides the user interface.")
-
-    hbox:
         label _("Right Click")
-        text _("Accesses the game menu.")
+        text _("Hides the user interface.")
 
     hbox:
         label _("Mouse Wheel Up\nClick Rollback Side")
