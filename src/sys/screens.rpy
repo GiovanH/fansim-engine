@@ -232,13 +232,13 @@ label vol_select_bootstrap:
     $ quick_menu = True
     $ pick = "> "
 
-    call expression store.vol_select_label
+    jump expression store.vol_select_label
     return
 
 screen __p__sayer_room:
     tag menu
-    $ store.__p__sayer = "s"
-    $ store.__p__sayername = "s"
+    $ store.__p__sayer = "NotSet"
+    $ store.__p__sayername = "NotSet"
     use game_menu_volumes(_("Choose a Character")):
         # A grid of buttons.
         vpgrid:
@@ -439,9 +439,7 @@ screen dlc_achievements():
                         unhovered Hide("ach_desc")
 
 screen ach_desc(ach_name, ach_description):
-
     vbox:
-
         xpos 320 ypos 465
 
         text ach_name style "label_text" xsize 900

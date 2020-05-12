@@ -78,15 +78,16 @@ init -1 python:
         )
 
     def calcLineHeight(text, chars_per_line):
-        logical_lines = text.split("\n")
+        logical_lines = renpy.filter_text_tags(text, allow=[]).split("\n")
         overflows = 0
         for line in logical_lines:
             used_chars = 0
             for word in line.split(" "):
                 if used_chars + len(word) + 1 > chars_per_line:
-                    used_chars = 0
+                    used_chars = len(word)
                     overflows += 1
-                used_chars += len(word) + 1
+                else:
+                    used_chars += len(word) + 1
         # print(text)
         # print(len(logical_lines), "llines")
         # print(overflows, "overflows")

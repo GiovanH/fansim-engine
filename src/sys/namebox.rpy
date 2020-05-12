@@ -207,7 +207,7 @@ style openbound_namelabel is say_label:
 style openbound_dialogue is say_dialogue:
     size 26
     xpos 41
-    ypos 30
+    ypos 26
     xmaximum 720
 
 screen openbound_say:

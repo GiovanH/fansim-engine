@@ -50,7 +50,7 @@ init offset = 0
 init -1 python:
     import re
 
-    __p__quirk_debug = True
+    __p__quirk_debug = False
 
     QuirkStore = {
         "gamzee": [ # List of replacements:
@@ -117,9 +117,10 @@ init -1 python:
         kwargs:
             [pass through to say]
         """
+        tagged = quirkToTags(what, quirklist)
         if __p__quirk_debug:
-            print("who", who, "quirksaying", what, "with qlist", quirklist)
-        return who.__call__(quirkToTags(what, quirklist), *args, **kwargs)
+            print("who", who, "quirksaying", tagged)
+        return who.__call__(tagged, *args, **kwargs)
 
     def quirkSub(quirklist, what):
         """Returns the input as a quirk-formatted string.
