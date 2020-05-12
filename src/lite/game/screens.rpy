@@ -558,7 +558,8 @@ screen history():
                         if "color" in h.who_args:
                             text_color h.who_args["color"]
 
-                $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
+                # $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
+                $ what = h.what
                 text what
 
         if not _history_list:
@@ -567,7 +568,7 @@ screen history():
 
 ## This determines what tags are allowed to be displayed on the history screen.
 
-define gui.history_allow_tags = set()
+define gui.history_allow_tags = set() # set("b", "i", "quirk")
 
 
 
