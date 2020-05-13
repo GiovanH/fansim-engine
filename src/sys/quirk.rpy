@@ -68,8 +68,14 @@ init -1 python:
     NotSet = renpy.object.Sentinel("NotSet")
 
     class QuirkChar(ADVCharacter):
-        def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
-            super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
+        def __init__(self, name=NotSet, kind=renpy.store.adv, quirklist=[], *args, **kwargs):
+            # Override name to prevent double-assignment
+            # (although this bug was only noticed in NVL(?), needs research)
+            # Name must be in arg list to support posargs
+            if name is not NotSet:
+                kwargs["name"] = name
+
+            super(type(self), self).__init__(kind=kind, *args, **kwargs)
             self.quirklist = quirklist
             self.kind = kind or renpy.store.adv
             self.sayer = quirkSayer(super(type(self), self), self.quirklist)
@@ -81,6 +87,24 @@ init -1 python:
         def __call__(self, what, *args, **kwargs):
             self.sayer.__call__(what, *args, **kwargs)
 
+    class QuirkCharNVL(NVLCharacter):
+        def __init__(self, name=NotSet, kind=renpy.store.adv, quirklist=[], *args, **kwargs):
+            # Override name to prevent double-assignment 
+            # Name must be in arg list to support posargs
+            if name is not NotSet:
+                kwargs["name"] = name
+
+            super(type(self), self).__init__(kind=kind, *args, **kwargs)
+            self.quirklist = quirklist
+            self.kind = kind
+            self.sayer = quirkSayer(super(type(self), self), self.quirklist)
+            
+            # print(self)
+            # print(type(self))
+            # print(super(type(self), self))
+
+        def __call__(self, what, *args, **kwargs):
+            self.sayer.__call__(what, *args, **kwargs)
 
     def quirkSayer(who, quirklist):
         """Returns a sayer that wraps another sayer and applies quirks.

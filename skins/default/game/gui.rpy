@@ -406,7 +406,8 @@ define gui.nvl_button_xalign = 0.0
 ## for most languages. A list of available values can be found at https://
 ## www.renpy.org/doc/html/style_properties.html#style-property-language
 
-define gui.language = "unicode"
+# Break only at whitespace, not punctuation. Helpful for quirks.
+define gui.language = "western"
 
 
 ################################################################################
