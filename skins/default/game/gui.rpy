@@ -406,8 +406,7 @@ define gui.nvl_button_xalign = 0.0
 ## for most languages. A list of available values can be found at https://
 ## www.renpy.org/doc/html/style_properties.html#style-property-language
 
-# Break only at whitespace, not punctuation. Helpful for quirks.
-define gui.language = "western"
+define gui.language = "unicode"  # "western"
 
 
 ################################################################################
@@ -415,6 +414,9 @@ define gui.language = "western"
 ################################################################################
 
 init python:
+
+    # Don't break on these punctuation marks. Helpful for quirks.
+    renpy.language_tailor("+!@#$%^&*()_+-=[]{}|\\;':\"<>?,./", "AL")
 
     ## This increases the size of the quick buttons to make them easier to touch
     ## on tablets and phones.
