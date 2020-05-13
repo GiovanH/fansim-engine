@@ -172,15 +172,39 @@ screen preferences():
                 vbox:
                     style_prefix "radio"
                     label "Text colors"
-                    textbutton _("Enabled") action SetField(persistent, "fse_highcontrast", False)
-                    textbutton _("Disabled") action SetField(persistent, "fse_highcontrast", True)
+                    textbutton _("Enabled"):
+                        action [
+                            renpy.text.font.font_cache.clear,
+                            renpy.display.im.cache.clear, 
+                            renpy.display.screen.predict_cache.clear,
+                            SetField(persistent, "fse_highcontrast", False)
+                        ]
+                    textbutton _("Disabled"):
+                        action [
+                            renpy.text.font.font_cache.clear,
+                            renpy.display.im.cache.clear, 
+                            renpy.display.screen.predict_cache.clear,
+                            SetField(persistent, "fse_highcontrast", True)
+                        ]
 
                 # Todo: Quirks on/off
                 vbox:
                     style_prefix "radio"
                     label "Quirks"
-                    textbutton _("Enabled") action SetField(persistent, "fse_disablequirks", False)
-                    textbutton _("Disabled") action SetField(persistent, "fse_disablequirks", True)
+                    textbutton _("Enabled"):
+                        action [
+                            renpy.text.font.font_cache.clear,
+                            renpy.display.im.cache.clear, 
+                            renpy.display.screen.predict_cache.clear,
+                            SetField(persistent, "fse_disablequirks", False)
+                        ]
+                    textbutton _("Disabled"):
+                        action [
+                            renpy.text.font.font_cache.clear,
+                            renpy.display.im.cache.clear, 
+                            renpy.display.screen.predict_cache.clear,
+                            SetField(persistent, "fse_disablequirks", True)
+                        ]
                 
 
             null height (4 * gui.pref_spacing)
