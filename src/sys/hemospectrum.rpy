@@ -68,18 +68,21 @@ init python:
         HemospectrumStore, that color code is returned.
         """
 
+        def _hemospectrum(color):
+            if color[0] == "#":
+                return color
+            try:
+                return HemospectrumStore[color]
+            except KeyError:
+                return HemospectrumStore[hemoalias[color]]
+
         if persistent.fse_highcontrast:
-            if high_contrast:
-                return hemospectrum(high_contrast)
+            if high_contrast is not None:
+                return _hemospectrum(high_contrast)
             else:
                 return "#000"
-
-        if color[0] == "#":
-            return color
-        try:
-            return HemospectrumStore[color]
-        except KeyError:
-            return HemospectrumStore[hemoalias[color]]
+        else:
+            return _hemospectrum(color)
 
     def doTint(displayable, hex, cap=255):
         """Returns a tinted version of the displayable.
