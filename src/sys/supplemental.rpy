@@ -66,6 +66,10 @@ init -1 python:
             )
             return placeholder
 
+    def fseObsImData(obstr, namehelper):
+        import base64
+        return im.Data(base64.b64decode(obstr), namehelper)
+
     def hex_to_rgb(hex):
         """Returns a RGB tuple equivilant to the given hexadecimal color code."""
         hex = hex.lstrip('#')
@@ -117,7 +121,7 @@ init -1 python:
         if continuous:
             max_items_per = len(iterable) / numlists
             for i, e in enumerate(iterable):
-                if len(ret[index]) >= max_items_per and (index + 1) < numlists:
+                if len(ret[index]) > max_items_per and (index + 1) < numlists:
                     index = index + 1 
                 ret[index].append(e)
         else:
