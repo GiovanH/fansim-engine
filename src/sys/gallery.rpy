@@ -104,7 +104,7 @@ screen __p__panel_room:
                 hbox:
                     spacing 10
                     $ from math import ceil
-                    $ print(len(__p__gal_cat_buttons), int(ceil(len(__p__gal_cat_buttons) / 3.0)))
+                    # $ print("ceil", len(__p__gal_cat_buttons), int(ceil(len(__p__gal_cat_buttons) / 3.0)))
                     for l in splitIntoLists(sorted(__p__gal_cat_buttons.keys()), int(ceil(len(__p__gal_cat_buttons) / 3.0))):
                         vbox:
                             for cat_btn_name in l:

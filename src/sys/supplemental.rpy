@@ -116,12 +116,15 @@ init -1 python:
         ### [[0, 1, 2, 3], [4, 5, 6]]
         ### >>> splitIntoLists(range(8), 3, False)
         ### [[0, 3, 6], [1, 4, 7], [2, 5]]
+        from math import ceil
         ret = [[] for i in range(numlists)]
         index = 0
         if continuous:
-            max_items_per = len(iterable) / numlists
+            max_items_per = int(ceil(float(len(iterable)) / numlists))
+            # print("max per", len(iterable), max_items_per)
             for i, e in enumerate(iterable):
-                if len(ret[index]) > max_items_per and (index + 1) < numlists:
+                if len(ret[index]) >= max_items_per and (index + 1) < numlists:
+                    print(e, "goes to next index", ret[index])
                     index = index + 1 
                 ret[index].append(e)
         else:
