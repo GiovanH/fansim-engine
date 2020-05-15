@@ -208,6 +208,30 @@ init -1 python:
             else:
                 return True
 
+    class ConfirmActionAction(Action):
+        """Wraps a screen Action in a confirm dialog"""
+        def __init__(self, action, confirm_text):
+            self.sub_action = action
+            self.confirm_text = confirm_text
+
+            self.wrap_action = ShowMenu(
+                "confirm", self.confirm_text, 
+                (Hide("confirm"), self.sub_action.__call__), 
+                (Hide("confirm"))
+            )
+
+            self._get_selected = getattr(self.sub_action, "get_selected", (lambda: None))
+
+        def __call__(self, *args, **kwargs):
+            if self.get_selected():
+                return self.sub_action.__call__(*args, **kwargs)
+            else:
+                return self.wrap_action.__call__(*args, **kwargs)
+
+        def get_selected(self):
+            return self._get_selected()
+
+
     # Dialogue helpers
     import random
     class Fun(NoRollback):

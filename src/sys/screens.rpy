@@ -76,38 +76,48 @@ style mainmenu_devbox_button_text is confirm_prompt_text:
 style mainmenu_devbox_text is mainmenu_devbox_button_text
 
 screen mainmenu_devbox:
-    key "trickster" action ToggleDevModeMenu
+    key "trickster" action Hide("mainmenu_devbox")
     key "game_menu" action Hide("mainmenu_devbox")
     key "hide_windows" action Hide("mainmenu_devbox")
-
     modal True
-    add "gui/overlay/confirm.png"
+
     frame:
         anchor (0.0, 0.0)
         xpos mousex
         ypos mousey
         style_prefix "mainmenu_devbox"
         vbox:
-            # background Solid("#0A0")
-            textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
-            textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
-            textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
-            # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("credits")
-            # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
-            null height 12
-            textbutton "Clear achievements" action Hide("mainmenu_devbox"), ShowMenu(
-                "confirm", "Are you sure you want to clear all your achievements?", 
-                (Hide("confirm"), achievement.clear_all), 
-                (Hide("confirm"))
+            label "Tools"
+            textbutton "Clear achievements" action Hide("mainmenu_devbox"), ConfirmActionAction(
+                achievement.clear_all, 
+                "Are you sure you want to clear all your achievements?"
             )
-            textbutton "Clear seen music" action Hide("mainmenu_devbox"), ShowMenu(
-                "confirm", "Are you sure you want to clear your music history?", 
-                (Hide("confirm"), renpy.game.persistent._seen_audio.clear), 
-                (Hide("confirm"))
+            textbutton "Clear seen music" action Hide("mainmenu_devbox"), ConfirmActionAction(
+                renpy.game.persistent._seen_audio.clear, 
+                "Are you sure you want to clear your music history?"
             )
+
             if config.developer:
                 textbutton "Reload (Shift+R)" action _reload_game
             textbutton "Developer Tools" action ToggleDevModeMenu
+
+            null height 12
+            if persistent.devbox_unlocked_spoilers:
+                label "Gallery"
+                # background Solid("#0A0")
+                textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
+                textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
+                textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
+                # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("credits")
+                # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
+
+            label "Gallery"
+            vbox:
+                style_prefix "check"
+                textbutton _("Show spoilers") action ConfirmActionAction(
+                    ToggleField(persistent, "devbox_unlocked_spoilers"),
+                    "This unlocks features that spoil the game, including secrets and achievements.\nIt is recommended that you ONLY access these features after you have completed the game.\nDo you want to access these features now?"
+                )
 
 label __p__NewWatchAction:
     python:
@@ -391,11 +401,13 @@ screen dlc_warnings():
     use game_menu(_("Warnings"), scroll="viewport"):
         hbox:
             text fse_warnings_prefix
+        vbox:
+            spacing 2
 
-        for title, warning in sorted(fse_warning_data.items()):
-            use spoiler_box(title, warning)
-        for title, warning in sorted(fse_warning_data_extra.items()):
-            use spoiler_box(title, warning)
+            for title, warning in sorted(fse_warning_data.items()):
+                use spoiler_box(title, warning)
+            for title, warning in sorted(fse_warning_data_extra.items()):
+                use spoiler_box(title, warning)
 
 
 screen dlc_achievements():

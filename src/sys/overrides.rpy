@@ -100,6 +100,7 @@ screen navigation():
             ("Credits", "credits"),
             ("Warnings (PQ)", "content_warnings"),
             ("Warnings", "dlc_warnings"),
+            ("Help", "help"),
         ]:
             if renpy.has_screen(screen):
                 textbutton _(label) action ShowMenuFallback(screen)
