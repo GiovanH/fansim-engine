@@ -74,3 +74,20 @@ label ending(card="blackcover", win=True, fadetoblack=True):
     stop music fadeout 1.0
     scene black with config.enter_transition
     return
+
+label fseToastEnding(card="blackcover", achievement_id, win=True, fade=True):
+    $ renpy.pause(0.5)
+    $ quick_menu = False
+    if win:
+        play music "music/victory_jingle.mp3" fadeout 1.0 noloop
+    else:
+        play music "music/game_over.mp3" fadeout 1.0 noloop
+
+    $ transition = Fade(0.5, 0.5, 0.5) if fade else Dissolve(0.5)
+    scene expression card with transition
+    $ fse_achtoast(achievement_id)
+
+    $ renpy.pause()
+    stop music fadeout 1.0
+    scene black with config.enter_transition
+    return
