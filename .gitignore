@@ -4,6 +4,7 @@ release/
 dist/
 work/
 patch/
+projects/
 
 # Build stuff
 Mods.zip
