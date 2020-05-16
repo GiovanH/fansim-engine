@@ -180,6 +180,7 @@ screen preferences():
                             renpy.display.screen.predict_cache.clear,
                             SetField(persistent, "fse_highcontrast", False)
                         ]
+                        selected persistent.fse_highcontrast
                     textbutton _("Disabled"):
                         action [
                             renpy.text.font.font_cache.clear,
@@ -187,6 +188,7 @@ screen preferences():
                             renpy.display.screen.predict_cache.clear,
                             SetField(persistent, "fse_highcontrast", True)
                         ]
+                        selected not persistent.fse_highcontrast
 
                 # Todo: Quirks on/off
                 vbox:
@@ -199,6 +201,7 @@ screen preferences():
                             renpy.display.screen.predict_cache.clear,
                             SetField(persistent, "fse_disablequirks", False)
                         ]
+                        selected persistent.fse_disablequirks
                     textbutton _("Disabled"):
                         action [
                             renpy.text.font.font_cache.clear,
@@ -206,8 +209,10 @@ screen preferences():
                             renpy.display.screen.predict_cache.clear,
                             SetField(persistent, "fse_disablequirks", True)
                         ]
-                
+                        selected not persistent.fse_disablequirks
 
+                transclude
+                
             null height (4 * gui.pref_spacing)
             hbox:
                 style_prefix "slider"
