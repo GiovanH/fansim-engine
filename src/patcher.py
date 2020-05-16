@@ -202,7 +202,7 @@ def processPackages(only_volumes=[], verbose=False):
     return (all_packages, warn,)
 
 
-def patchCreditsData(all_packages, verbose=False):
+def patchCreditsData(all_packages):
     # Credits
     all_credits = {}
 
@@ -218,7 +218,7 @@ def patchCreditsData(all_packages, verbose=False):
         fp.write(json.dumps(all_credits, indent=4))
 
 
-def patchVolumeData(all_packages, verbose=False):
+def patchVolumeData(all_packages):
     # Volume select screen
 
     all_volumes = sum((p.volumes for p in all_packages), [])
@@ -229,7 +229,7 @@ def patchVolumeData(all_packages, verbose=False):
         fp.write(json.dumps(all_volumes, indent=4))
 
 
-def patchWarningData(all_packages, verbose=False):
+def patchWarningData(all_packages):
     # Volume select screen
 
     all_volumes = sum((p.volumes for p in all_packages), [])
@@ -241,7 +241,7 @@ def patchWarningData(all_packages, verbose=False):
         fp.write(json.dumps(all_warnings, indent=4))
 
 
-def patchMusicData(all_packages, verbose=False):
+def patchMusicData(all_packages):
     # Volume select screen
 
     all_music = {t["_file"]: t for t in sum((p.music for p in all_packages), [])} 
@@ -252,7 +252,7 @@ def patchMusicData(all_packages, verbose=False):
         fp.write(json.dumps(all_music, indent=4))
 
 
-def patchAchievementsData(all_packages, verbose=False):
+def patchAchievementsData(all_packages):
     # Volume select screen
 
     all_achievements = sum((p.achievements for p in all_packages), [])
@@ -263,13 +263,15 @@ def patchAchievementsData(all_packages, verbose=False):
         fp.write(json.dumps(all_achievements, indent=4))
 
 
-# def runGame():
-#     executable_path = os.path.join(gamedir_root, executable)
-#     logger.info(f"Starting {executable_path}")
-#     try:
-#         subprocess.run(executable_path)
-#     except FileNotFoundError:
-#         logger.error(f"Could not find game at '{executable_path}'")
+def writeBuildOpts(all_packages):
+    # Build options
+
+    with open(os.path.join(getCustomScriptsDir(), "fse_buildopts.rpy"), 'w', encoding="utf-8") as fp:
+        fp.write("init 1 python:\n")
+        for package in all_packages:
+            ar = f"ar_{package.id}"
+            fp.write(f"    build.archive(\"{ar}\")\n")
+            fp.write(f"    build.classify(\"game/custom_assets_{package.id}/**\", \"{ar}\") \n")
 
 
 def makeArgParser():
@@ -388,15 +390,17 @@ def main(argstr=None):
         (all_packages, warn,) = processPackages(only_volumes=args.packages, verbose=args.verbose)
 
         logger.info("Patching volume select data")
-        patchVolumeData(all_packages, verbose=args.verbose)
+        patchVolumeData(all_packages)
         logger.info("Patching credits data")
-        patchCreditsData(all_packages, verbose=args.verbose)
+        patchCreditsData(all_packages)
         logger.info("Patching warning data")
-        patchWarningData(all_packages, verbose=args.verbose)
+        patchWarningData(all_packages)
         logger.info("Patching achievements data")
-        patchAchievementsData(all_packages, verbose=args.verbose)
+        patchAchievementsData(all_packages)
         logger.info("Patching music data")
-        patchMusicData(all_packages, verbose=args.verbose)
+        patchMusicData(all_packages)
+        logger.info("Writing build options")
+        writeBuildOpts(all_packages)
 
         if warn:
             logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors/warnings occured! Please review the log above for [WARN] or [ERROR] messages.")

@@ -189,3 +189,4 @@ init python:
 ## by a slash.
 
 # define build.itch_project = "renpytom/test-project"
+define build.include_update = True
