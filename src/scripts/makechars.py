@@ -17,7 +17,8 @@ REPLACE_THRESHHOLD = 0.5 # 0.5  # How much more efficient the patch needs to be 
 
 use_threading = False
 LAZY_THREADS = []
-
+PREFIXED_WITH_NAME = True
+EXTRA_IM_PARAMS = ", yanchor=0.95"
 
 def distance(t1, t2):
     """Returns the distance between two points in n-dimensional space.
@@ -168,7 +169,7 @@ class Pose():
     def rpy_definition(self):
         if self.dirty:
             logger.warning(f"Generated rpy_definition for '{self.rpy_qualified_name}' while dirty!")
-        return f'image {self.rpy_qualified_name} = Image("{self.out_filepath_logical}")\n'
+        return f'image {self.rpy_qualified_name} = Image("{self.out_filepath_logical}"{EXTRA_IM_PARAMS})\n'
 
     def __repr__(self):
         return f"<{type(self).__name__} {self.char_name} {' '.join(self.expression_t)} v{self.imver}{'*' if self.dirty else ''} of {self.parent.rpy_qualified_name if self.parent else None}>"
@@ -298,7 +299,7 @@ class PatchPose(Pose):
 
         top = f"(0, 0), Crop((0, 0, {pw}, {self.y}), {rpy_parent_ref})"
         left = f"(0, {self.y}), Crop((0, {self.y}, {self.x}, {self.y + sh}), {rpy_parent_ref})"
-        center = f"({self.x}, {self.y}), {rpy_self_ref}"
+        center = f"({self.x}, {self.y}), Image({rpy_self_ref})"
         right = f"({self.x + sw}, {self.y}), Crop(({self.x + sw}, {self.y}, {pw}, {self.y + sh}), {rpy_parent_ref})"
         bottom = f"(0, {self.y + sh}), Crop((0, {self.y + sh}, {pw}, {ph}), {rpy_parent_ref})"
 
@@ -308,7 +309,7 @@ class PatchPose(Pose):
     {left},
     {center},
     {right},
-    {bottom}
+    {bottom}{EXTRA_IM_PARAMS}
 )\n"""
 
 # """
@@ -567,7 +568,10 @@ def poseFromFile(posefilepath):
     char_name = os.path.split(a)[1]
     file_plainname, file_ext = os.path.splitext(b)
     subposes = re.split(r"[ _-]", file_plainname)
-    return Pose(char_name, subposes).loadImage(posefilepath)
+    if PREFIXED_WITH_NAME:
+        return Pose(char_name, subposes[1:]).loadImage(posefilepath)
+    else:
+        return Pose(char_name, subposes).loadImage(posefilepath)
 
 
 def posesFromDir(sprite_dir):
