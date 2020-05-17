@@ -33,6 +33,10 @@ transform default:
     xalign 0.5
     ypos 0
 
+transform center:
+    xalign 0.5
+    yalign 0.5
+
 transform height(y):
     ypos y
 
