@@ -54,7 +54,7 @@ init -1 python:
     def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
         if not failtext:
             failtext = failbg
-        if renpy.exists(target):
+        if renpy.loadable(target):
             return target
         else:
             print("Missing image")
