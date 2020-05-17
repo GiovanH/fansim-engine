@@ -174,42 +174,21 @@ screen preferences():
                     style_prefix "radio"
                     label "Text colors"
                     textbutton _("Enabled"):
-                        action [
-                            renpy.text.font.font_cache.clear,
-                            renpy.display.im.cache.clear, 
-                            renpy.display.screen.predict_cache.clear,
-                            SetField(persistent, "fse_highcontrast", False)
-                        ]
-                        selected persistent.fse_highcontrast
+                        action SetField(persistent, "fse_highcontrast", False)
                     textbutton _("Disabled"):
-                        action [
-                            renpy.text.font.font_cache.clear,
-                            renpy.display.im.cache.clear, 
-                            renpy.display.screen.predict_cache.clear,
-                            SetField(persistent, "fse_highcontrast", True)
-                        ]
-                        selected not persistent.fse_highcontrast
+                        action SetField(persistent, "fse_highcontrast", True)
 
                 # Todo: Quirks on/off
                 vbox:
                     style_prefix "radio"
                     label "Quirks"
                     textbutton _("Enabled"):
-                        action [
-                            renpy.text.font.font_cache.clear,
-                            renpy.display.im.cache.clear, 
-                            renpy.display.screen.predict_cache.clear,
-                            SetField(persistent, "fse_disablequirks", False)
-                        ]
-                        selected persistent.fse_disablequirks
+                        action SetField(persistent, "fse_disablequirks", False)
+                            # renpy.text.font.font_cache.clear,
+                            # renpy.display.im.cache.clear, 
+                            # renpy.display.screen.predict_cache.clear,
                     textbutton _("Disabled"):
-                        action [
-                            renpy.text.font.font_cache.clear,
-                            renpy.display.im.cache.clear, 
-                            renpy.display.screen.predict_cache.clear,
-                            SetField(persistent, "fse_disablequirks", True)
-                        ]
-                        selected not persistent.fse_disablequirks
+                        action SetField(persistent, "fse_disablequirks", True)
 
                 transclude
                 

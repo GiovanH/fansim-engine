@@ -119,15 +119,15 @@ screen quick_menu():
 
     if quick_menu:
 
-        imagebutton auto "gui/quick_save_%s.png" action ShowMenu('save') pos (20, 566)
-        imagebutton auto "gui/quick_log_%s.png" action ShowMenu('history') pos (20, 640)
+        imagebutton auto "gui/quick_save_%s.png" action ShowMenuFallback('save') pos (20, 566)
+        imagebutton auto "gui/quick_log_%s.png" action ShowMenuFallback('history') pos (20, 640)
         imagebutton auto "gui/quick_skip_%s.png" action Skip() alternate Skip(fast=True, confirm=True) pos (94, 640)
 
         imagebutton auto "gui/quick_menu_%s.png" action MainMenu(confirm=True) pos (1122, 640)
-        imagebutton auto "gui/quick_options_%s.png" action ShowMenu('preferences') pos (1196, 640)
+        imagebutton auto "gui/quick_options_%s.png" action ShowMenuFallback('preferences') pos (1196, 640)
 
         if renpy.variant("pc"):
-            imagebutton auto "gui/quick_help_%s.png" action ShowMenu('help') pos (1196, 566)
+            imagebutton auto "gui/quick_help_%s.png" action ShowMenuFallback('help') pos (1196, 566)
 
 
 
