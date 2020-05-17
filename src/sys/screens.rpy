@@ -118,6 +118,7 @@ screen mainmenu_devbox:
                     ToggleField(persistent, "devbox_unlocked_spoilers"),
                     "This unlocks features that spoil the game, including secrets and achievements.\nIt is recommended that you ONLY access these features after you have completed the game.\nDo you want to access these features now?"
                 )
+            transclude
 
 label __p__NewWatchAction:
     python:
@@ -149,12 +150,13 @@ screen ingame_devbox:
             null height 12
             textbutton "Reload (Ctrl+R)" action _reload_game
             textbutton "Developer Tools" action ToggleDevModeMenu
+            transclude
             
 
 define fse_block_devbox = False
 screen ingame_devbox_loader:
     if config.developer and not fse_block_devbox:
-        key "trickster" action getMousePosition, ShowMenu('ingame_devbox')
+        key "trickster" action getMousePosition, ShowMenuFallback('ingame_devbox')
 
 
 # Extended choice screen allowing more choices if possible

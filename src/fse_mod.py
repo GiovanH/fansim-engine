@@ -62,8 +62,10 @@ class Package(object):
         self.correctMetadata()
 
     def correctMetadata(self):
+
         for volume in self.metadata["volumes"]:
             volume["package_id"] = self.id
+            volume["author"] = volume.get("author", "")
 
         self.metadata["achievements"] = self.metadata.get("achievements", [])
         for achievement in self.metadata["achievements"]:
