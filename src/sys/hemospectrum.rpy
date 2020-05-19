@@ -58,7 +58,8 @@ init python:
         "grey": "gray",  # i HATE
         "rust": "burgundy",
         "blue": "indigo",
-        "cobalt": "cerulean"
+        "cobalt": "cerulean",
+        "orange": "bronze"
     }
     
     def hemospectrum(color, high_contrast=None):

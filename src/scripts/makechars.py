@@ -7,18 +7,20 @@ import math
 import _logging
 import yaml
 import threading
-import shutil
+# import shutil
+
 
 logger = _logging.getLogger(__name__)
 
 SEP = "_"
-REPLACE_THRESHHOLD = 0.5 # 0.5  # How much more efficient the patch needs to be than just using the image outright.
+REPLACE_THRESHHOLD = 0.5  # 0.5  # How much more efficient the patch needs to be than just using the image outright.
 
 
 use_threading = False
 LAZY_THREADS = []
 PREFIXED_WITH_NAME = True
 EXTRA_IM_PARAMS = ", yanchor=0.95"
+
 
 def distance(t1, t2):
     """Returns the distance between two points in n-dimensional space.
@@ -299,7 +301,7 @@ class PatchPose(Pose):
 
         top = f"(0, 0), Crop((0, 0, {pw}, {self.y}), {rpy_parent_ref})"
         left = f"(0, {self.y}), Crop((0, {self.y}, {self.x}, {self.y + sh}), {rpy_parent_ref})"
-        center = f"({self.x}, {self.y}), Image({rpy_self_ref})"
+        center = f"({self.x}, {self.y}), {rpy_self_ref}"
         right = f"({self.x + sw}, {self.y}), Crop(({self.x + sw}, {self.y}, {pw}, {self.y + sh}), {rpy_parent_ref})"
         bottom = f"(0, {self.y + sh}), Crop((0, {self.y + sh}, {pw}, {ph}), {rpy_parent_ref})"
 
@@ -474,10 +476,10 @@ def processPoses(all_poses, trim, patch, rpy_outpath, make_demo=False):
                 pose.parent.children.append(pose)
 
     def getAllPosesFromTree(root=global_parent):
+        yield root
         for subpose in root.children:
             for p in getAllPosesFromTree(subpose):
                 yield p
-        yield root
 
     def printAllPosesFromTree(root=global_parent, level=0):
         logger.info(level * "  " + f" - {root}")
