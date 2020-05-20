@@ -146,6 +146,9 @@ init -1 python:
     def ShowMenuFallback(*screens):
         return ShowMenu(getMenuFallback(*screens))
 
+    def HideFallback(*screens):
+        return Hide(getMenuFallback(*screens))
+
     @renpy.pure
     class ShowMenuPlus(ShowMenu):
         """

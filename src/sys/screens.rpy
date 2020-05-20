@@ -76,9 +76,9 @@ style mainmenu_devbox_button_text is confirm_prompt_text:
 style mainmenu_devbox_text is mainmenu_devbox_button_text
 
 screen mainmenu_devbox:
-    key "trickster" action Hide("mainmenu_devbox")
-    key "game_menu" action Hide("mainmenu_devbox")
-    key "hide_windows" action Hide("mainmenu_devbox")
+    key "trickster" action HideFallback("mainmenu_devbox")
+    key "game_menu" action HideFallback("mainmenu_devbox")
+    key "hide_windows" action HideFallback("mainmenu_devbox")
     modal True
 
     frame:
@@ -88,11 +88,11 @@ screen mainmenu_devbox:
         style_prefix "mainmenu_devbox"
         vbox:
             label "Tools"
-            textbutton "Clear achievements" action Hide("mainmenu_devbox"), ConfirmActionAction(
+            textbutton "Clear achievements" action HideFallback("mainmenu_devbox"), ConfirmActionAction(
                 achievement.clear_all, 
                 "Are you sure you want to clear all your achievements?"
             )
-            textbutton "Clear seen music" action Hide("mainmenu_devbox"), ConfirmActionAction(
+            textbutton "Clear seen music" action HideFallback("mainmenu_devbox"), ConfirmActionAction(
                 renpy.game.persistent._seen_audio.clear, 
                 "Are you sure you want to clear your music history?"
             )
@@ -105,11 +105,11 @@ screen mainmenu_devbox:
             if persistent.devbox_unlocked_spoilers:
                 label "Gallery"
                 # background Solid("#0A0")
-                textbutton "Music Player" action Hide("mainmenu_devbox"), ShowMenu("__p__music_room")
-                textbutton "Displayables" action Hide("mainmenu_devbox"), ShowMenu("__p__panel_room")
-                textbutton "Characters" action Hide("mainmenu_devbox"), ShowMenu("__p__sayer_room")
-                # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenu("credits")
-                # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenu("dlc_warnings")
+                textbutton "Music Player" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__music_room")
+                textbutton "Displayables" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__panel_room")
+                textbutton "Characters" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__sayer_room")
+                # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenuFallback("credits")
+                # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenuFallback("dlc_warnings")
 
             label "Gallery"
             vbox:
