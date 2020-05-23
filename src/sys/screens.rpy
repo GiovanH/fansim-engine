@@ -111,7 +111,7 @@ screen mainmenu_devbox:
                 # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenuFallback("credits")
                 # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenuFallback("dlc_warnings")
 
-            label "Gallery"
+            label ""
             vbox:
                 style_prefix "check"
                 textbutton _("Show spoilers") action ConfirmActionAction(

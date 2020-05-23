@@ -25,15 +25,10 @@ init 900 python:
         print("ERROR: GALLERY: Can't find fse packagelist")
         fse_packagelist = []
 
-    gallery = Gallery()
-    gallery.transition = Dissolve(0.1)
-    gallery.navigation = True
-
     debug_image_sort = False
     dprint = print if debug_image_sort else (lambda *args: 0)
 
-    __p__gal_cat_buttons = {}
-    __p__gal_buttons = []
+    __p__galleries = {}
     # __p__images_in_gal = []
 
     all_sayer_tags = [sayer.image_tag for sayername, sayer in get_all_sayers() if sayername and sayer.image_tag]
@@ -41,6 +36,8 @@ init 900 python:
     for name, image in sorted(get_all_images()):
         # if image in __p__images_in_gal:
         #     continue
+
+        dprint(name, image)
 
         supercat = None
         subcat = None
@@ -67,20 +64,22 @@ init 900 python:
         if subcat is None:
             subcat = " ".join(name).replace(supercat + "_", "")
 
-        # print(supercat, subcat, name)
+        # dprint(supercat, subcat, name)
 
-        if (supercat == subcat and not __p__gal_cat_buttons.get(supercat)) or not subcat.strip():
+        if (supercat == subcat and not __p__galleries.get(supercat)) or not subcat.strip():
             subcat = supercat
             supercat = "unsorted"
 
-        __p__gal_cat_buttons[supercat] = __p__gal_cat_buttons.get(supercat, []) + [subcat]
+        supercat_gal = __p__galleries.get(supercat)
+        if not supercat_gal:
+            supercat_gal = Gallery()
+            supercat_gal.transition = Dissolve(0.1)
+            __p__galleries[supercat] = supercat_gal
+        # else:
+        #     supercat_gal.navigation = True
 
-        # print(supercat, subcat, name)
-
-        if subcat not in __p__gal_buttons:
-            __p__gal_buttons.append(subcat)
-            gallery.button(subcat)
-        gallery.image(image)
+        supercat_gal.button(subcat)
+        supercat_gal.image(image)
         # __p__images_in_gal.append(image)
 
 style __p__lazy_viewport is viewport:
@@ -105,7 +104,7 @@ screen __p__panel_room:
                     spacing 10
                     $ from math import ceil
                     # $ print("ceil", len(__p__gal_cat_buttons), int(ceil(len(__p__gal_cat_buttons) / 3.0)))
-                    for l in splitIntoLists(sorted(__p__gal_cat_buttons.keys()), int(ceil(len(__p__gal_cat_buttons) / 3.0))):
+                    for l in splitIntoLists(sorted(__p__galleries.keys()), int(ceil(len(__p__galleries) / 3.0))):
                         vbox:
                             for cat_btn_name in l:
                                 textbutton "[cat_btn_name]" action SetScreenVariable("active_category", cat_btn_name)
@@ -126,12 +125,12 @@ screen __p__panel_room:
                         yfill True
                         hbox:
                             spacing 4
-                            for l in splitIntoLists(sorted(__p__gal_cat_buttons[active_category]), 3, continuous=True):
+                            for l in splitIntoLists(sorted(__p__galleries[active_category].buttons.items()), 3, continuous=True):
                                 vbox:
-                                    for buttonname in l:
-                                        add gallery.make_button(
-                                            buttonname,
-                                            Text(buttonname, style="button_text"),
+                                    for kv in l:
+                                        add __p__galleries[active_category].make_button(
+                                            kv[0],
+                                            Text(kv[0], style="button_text"),
                                             align=(0.0, 0.0), xsize=300
                                         )
 
