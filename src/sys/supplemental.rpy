@@ -52,7 +52,7 @@ init -1 python:
         return im.FactorScale(image, width=factor, height=factor)
 
     def getImageOrPlaceholder(target, failbg, failsize, failtext=None):
-        if not failtext:
+        if failtext is None:
             failtext = failbg
         if renpy.loadable(target):
             return target

@@ -400,7 +400,7 @@ screen chan_say:
 
 # Grype UI for hiveswap
 
-image grype_alpha = "{{assets_common}}/grype_alpha.png"
+image !grype_alpha = "{{assets_common}}/grype_alpha.png"
 image !grype_avatar_alpha = "{{assets_common}}/grype_avatar_alpha.png"
 
 style grype_namelabel is hiveswap_namelabel:
@@ -418,7 +418,7 @@ init python:
         """Returns a displayable masked for grype.
         >>> image !vriska grype neutral = GrypeMasked("vriska neutral1")
         """
-        return AlphaMask(displayable, "grype_alpha")
+        return AlphaMask(displayable, "__p__grype_alpha")
 
     def GrypeFrame(blood, handle, avatar="__p__grype_avatar_alpha"):
         """Creates a dynamic grype frame for a character.
