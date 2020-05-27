@@ -117,8 +117,6 @@ default preferences.flash = True
 
 define config.window_icon = "gui/window_icon.png"
 
-define config.windows_icon = "icon.ico"
-
 
 ## Build configuration #########################################################
 ##

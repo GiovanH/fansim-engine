@@ -432,7 +432,7 @@ screen dlc_achievements():
                     )
                     imagebutton idle _img_unlocked: 
                         action NullAction() 
-                        hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("desc", "desc"))
+                        hovered Show("ach_desc", None, True, ach.get("name", "name"), ach.get("desc", "desc"))
                         unhovered Hide("ach_desc")
                         # alt Hide("ach_desc")
                         # ShowMenu(
@@ -449,12 +449,16 @@ screen dlc_achievements():
                     )
                     imagebutton idle _img_locked:
                         action NullAction() 
-                        hovered Show("ach_desc", None, ach.get("name", "name"), ach.get("hint", "hint")) 
+                        hovered Show("ach_desc", None, False, ach.get("name", "name"), ach.get("hint", "hint")) 
                         unhovered Hide("ach_desc")
 
-screen ach_desc(ach_name, ach_description):
+screen ach_desc(is_unlocked, ach_name, ach_description):
     vbox:
         xpos 320 ypos 465
 
         text ach_name style "label_text" xsize 900
         text ach_description xsize 900
+            
+        # if is_unlocked:
+        # else:
+
