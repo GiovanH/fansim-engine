@@ -13,7 +13,7 @@ label splashscreen:
 # Offset = 2 to override SYS overrides
 
 image titlesky = "gui/game_menu.png"
-define config.main_menu_music = "music/PQ_TITLE_LOOP.wav"
+define config.main_menu_music = "music/main_menu.wav"
 
 transform menumove:
     xpos 20
