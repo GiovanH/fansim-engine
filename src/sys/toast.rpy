@@ -14,6 +14,7 @@ init offset = 0
 transform toast_down(l=0.3):
     ### Push up, sticks until hidden.
     ypos 0.0
+    yanchor 0.0
     on show:
         yanchor 1.0
         linear l yanchor 0.0
@@ -23,6 +24,7 @@ transform toast_down(l=0.3):
 transform toast_up(l=0.3):
     ### Push up, sticks until hidden
     ypos 1.0
+    yanchor 1.0
     on show:
         yanchor 0.0
         linear l yanchor 1.0
@@ -32,6 +34,7 @@ transform toast_up(l=0.3):
 transform toast_right(l=0.3):
     ### Push right, sticks until hidden.
     xpos 0.0
+    xanchor 0.0
     on show:
         xanchor 1.0
         linear l xanchor 0.0
@@ -41,6 +44,7 @@ transform toast_right(l=0.3):
 transform toast_left(l=0.3):
     ### Push left, sticks until hidden
     xpos 1.0
+    xanchor 1.0
     on show:
         xanchor 0.0
         linear l xanchor 1.0
