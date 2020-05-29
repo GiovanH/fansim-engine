@@ -268,7 +268,7 @@ def writeBuildOpts(all_packages):
 
     with open(os.path.join(getCustomScriptsDir(), "fse_buildopts.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init 1 python:\n")
-        fp.write(f"    build.classify(\"game/fse_packagelist.json\", None) \n")
+        # fp.write(f"    build.classify(\"game/fse_packagelist.json\", None) \n")
         fp.write(f"    build.classify(\"fse_lite_meta.json\", None) \n")
         fp.write(f"    build.classify(\"game/custom_assets/**\", \"archive\") \n")
         for package in all_packages:
