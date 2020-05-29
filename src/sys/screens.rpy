@@ -383,7 +383,8 @@ screen credits():
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in sortCreditsDict(person_credits):
                     hbox:
-                        text angleBracketsToSquare(name) text_align 0.0 min_width 440
+                        if name:
+                            text angleBracketsToSquare(name) text_align 0.0 min_width 440
                         vbox:
                             spacing 12
                             for item in sortCreditsList(list_):

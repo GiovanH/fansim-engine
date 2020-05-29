@@ -5,4 +5,4 @@ DICT:
     (S2)Alienoid (AlienoidNovace):
       - "Additional contributions"
 POSTSCRIPT:
-  - "(S999)Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
+  - "(S999)[config.name] v[build.version]. Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
