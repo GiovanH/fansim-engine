@@ -330,7 +330,7 @@ screen vol_select_custom():
                                 alt volume.get("subtitle", "")
                 # these buttons will jump to selected volume, and make the volume number/title appear in the fixed area
 
-        text fse_vol_select_suffix xalign 0.5 text_align 0.5 ypos 540
+        text fse_vol_select_suffix xalign 0.5 yanchor 1.0 text_align 0.5 ypos 540
     transclude
 
 define fse_credits_data = {}  # Overwritten in custom_credits.rpy
