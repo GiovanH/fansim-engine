@@ -262,6 +262,8 @@ style __p__freshjamz_button_text:
     idle_color "#D0004F"
     selected_color "#FF1C87"
     hover_color "#FF1C87"
+    # size 20
+    # yalign 0.0
 
 
 style __p__freshjamz_scrollbar:
@@ -276,6 +278,9 @@ style __p__freshjamz_slider:
 style __p__freshjamz_vslider:
     base_bar Solid("#FF1C87")
     thumb Solid("#D0004F")
+
+style __p__freshjamz_prefix:
+    ypos 6 # i don't know why, no. button padding + ???
 
 
 screen __p__music_room:
@@ -324,7 +329,7 @@ screen __p__music_room:
                             # right_padding 16
                             for track in fse_musicroom_tracks:
                                 hbox:
-                                    text formatSongPrefix(track)
+                                    text formatSongPrefix(track) style "__p__freshjamz_prefix"
                                     textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
 
 
