@@ -239,7 +239,7 @@ label vol_select_bootstrap:
     $ quick_menu = False
     show image "gui/game_menu.png"
     window hide
-    stop music fadeout 0.5
+    stop music fadeout 1.0
     scene black with Dissolve(1.5)
     $ quick_menu = True
     $ pick = "> "

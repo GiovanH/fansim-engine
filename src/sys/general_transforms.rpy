@@ -17,8 +17,9 @@ init python:
                           0, 0, 0, 0, g,
                           0, 0, 0, 0, b,
                           0, 0, 0, a, 0,))
+
     def silhouette (filename, r,g,b, a = 1.0):
-        return im.MatrixColor (Image (filename), silhouette_matrix (r,g,b,a))
+        return im.MatrixColor(filename, silhouette_matrix (r,g,b,a))
 
 # Eye open/close
 
@@ -36,6 +37,15 @@ transform default:
 transform center:
     xalign 0.5
     yalign 0.5
+
+transform side_center:
+    xalign 0.5
+
+transform side_left:
+    xalign 0.3
+
+transform side_right:
+    xalign 0.7
 
 transform height(y):
     ypos y

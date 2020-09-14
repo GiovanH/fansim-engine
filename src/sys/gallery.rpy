@@ -64,7 +64,7 @@ init 900 python:
         if subcat is None:
             subcat = " ".join(name).replace(supercat + "_", "")
 
-        # dprint(supercat, subcat, name)
+        dprint(supercat, subcat, name)
 
         if (supercat == subcat and not __p__galleries.get(supercat)) or not subcat.strip():
             subcat = supercat
@@ -176,13 +176,15 @@ screen gallery_navigation:
             textbutton _("slideshow") action gallery.ToggleSlideshow()
             textbutton _("return") action gallery.Return()
 
+image !greenscreen = Solid("#0A0")
 
 label __p__sayer_bootstrap2:
     $ renpy.block_rollback()
     $ main_menu = False
-    scene whitecover with Dissolve(1.0)
+    scene __p__greenscreen with Dissolve(1.0)
     $ quick_menu = True
 
+    $ print("Sayer is", store.__p__sayername, "(", store.__p__sayer, ")")
     call debug_dump_character(store.__p__sayer, store.__p__sayername)
 
     # call screen __p__sayer_room

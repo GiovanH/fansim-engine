@@ -16,7 +16,7 @@ init -1 python:
 
     # RenPy store wrappers
     def get_all_sayers(store_=store):
-        """Return all the "sayers" in the global store."""
+        """Return all the "sayers" items (name, sayer) in the global store."""
         if not isinstance(store_, dict):
             store_ = store_.__dict__
         return filter(
@@ -57,7 +57,7 @@ init -1 python:
         if renpy.loadable(target):
             return target
         else:
-            print("Missing image")
+            print("Missing image:")
             print(target)
             placeholder = Composite(
                 failsize,
@@ -124,7 +124,7 @@ init -1 python:
             # print("max per", len(iterable), max_items_per)
             for i, e in enumerate(iterable):
                 if len(ret[index]) >= max_items_per and (index + 1) < numlists:
-                    print(e, "goes to next index", ret[index])
+                    # print(e, "goes to next index", ret[index])
                     index = index + 1 
                 ret[index].append(e)
         else:
@@ -270,6 +270,8 @@ label debug_dump_character(sayer, sayer_name):
     $ __p__dumpcollection = sorted(get_images_from_sayer(sayer.image_tag))
     $ __p__dumplen = len(__p__dumpcollection)
     $ __p__dumpi = 0
+
+    $ print("Collection for", sayer.image_tag, __p__dumpcollection)
 
     while __p__dumpi < __p__dumplen:
         $ (name, image) = __p__dumpcollection[__p__dumpi]
