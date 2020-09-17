@@ -11,6 +11,7 @@ python:
     """
 
 
+
 init offset = 0
 
 init python:
@@ -244,7 +245,11 @@ label vol_select_bootstrap:
     $ quick_menu = True
     $ pick = "> "
 
+    $ fse_callbacks.on("RouteStart", label=store.vol_select_label)
+
     jump expression store.vol_select_label
+
+    $ fse_callbacks.on("RouteFinish", label=store.vol_select_label)
     return
 
 screen __p__sayer_room:
