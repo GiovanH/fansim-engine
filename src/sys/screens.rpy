@@ -105,13 +105,9 @@ screen mainmenu_devbox:
             null height 12
             if persistent.devbox_unlocked_spoilers:
                 label "Gallery"
-                # background Solid("#0A0")
                 textbutton "Music Player" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__music_room")
                 textbutton "Displayables" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__panel_room")
                 textbutton "Characters" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__sayer_room")
-                # textbutton "Credits+" action Hide("mainmenu_devbox"), ShowMenuFallback("credits")
-                # textbutton "Warnings+" action Hide("mainmenu_devbox"), ShowMenuFallback("dlc_warnings")
-
             label ""
             vbox:
                 style_prefix "check"
