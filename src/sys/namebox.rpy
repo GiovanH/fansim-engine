@@ -301,6 +301,13 @@ init python:
         def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
             super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
             self.quirklist = quirklist
+            if not quirklist:
+                try:
+                    # if kind is not None and hasattr, but that's slower than just try/catch actually
+                    self.quirklist = kind.quirklist
+                except:
+                    pass
+
             self.sayer = quirkSayer(super(type(self), self), self.quirklist)
 
         def __call__(self, what, *args, **kwargs):

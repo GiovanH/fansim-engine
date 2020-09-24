@@ -68,6 +68,9 @@ init -1 python:
     NotSet = renpy.object.Sentinel("NotSet")
 
     class QuirkChar(ADVCharacter):
+        """A variation of ADVCharacter that takes a quirklist. 
+        This intercepts calls and redirects them to a quirkSayer.
+        """
         def __init__(self, name=NotSet, kind=renpy.store.adv, quirklist=[], *args, **kwargs):
             # Override name to prevent double-assignment
             # (although this bug was only noticed in NVL(?), needs research)
@@ -77,6 +80,12 @@ init -1 python:
 
             super(type(self), self).__init__(kind=kind, *args, **kwargs)
             self.quirklist = quirklist
+            if not quirklist:
+                try:
+                    # if kind is not None and hasattr, but that's slower than just try/catch actually
+                    self.quirklist = kind.quirklist
+                except:
+                    pass
             self.kind = kind or renpy.store.adv
             self.sayer = quirkSayer(super(type(self), self), self.quirklist)
             
@@ -88,6 +97,9 @@ init -1 python:
             self.sayer.__call__(what, *args, **kwargs)
 
     class QuirkCharNVL(NVLCharacter):
+        """A variation of NVLCharacter that takes a quirklist. 
+        This intercepts calls and redirects them to a quirkSayer.
+        """
         def __init__(self, name=NotSet, kind=renpy.store.adv, quirklist=[], *args, **kwargs):
             # Override name to prevent double-assignment 
             # Name must be in arg list to support posargs
@@ -119,6 +131,9 @@ init -1 python:
         return _sayer
 
     def quirkToTags(what, quirklist):
+        """Wraps a string in {quirk} tags.
+        Used internally; final quirk processing should be done by tags.
+        """
         ret = what
         # Automatically fix single-element strings
         if type(quirklist) is type(""):
@@ -131,7 +146,7 @@ init -1 python:
         return ret
 
     def quirkSay(who, quirklist, what, *args, **kwargs):
-        """Say a line of dialogue, but postprocess it first.
+        """Have an existing sayer say a line using a specified quirklist
 
         Args:
             who (sayer)
@@ -148,6 +163,8 @@ init -1 python:
 
     def quirkSub(quirklist, what):
         """Returns the input as a quirk-formatted string.
+        This should NOT be used in most cases! Use {quirk} tags or a processor like quirkSayer instead.
+        This is the function that ultimately does regex replacement
 
         Args:
             quirklist: Quirk name, or ordered list of quirk names, to apply.
@@ -181,10 +198,10 @@ init -1 python:
             print("quirksub from what", what, "with quirklist", quirklist, "returns", ret)
         return ret
 
-    def quirkSubManual(raw_text, quirked_text):
-        return raw_text if persistent.fse_disablequirks else quirked_text
-
     def texttag_quirk(tag, argument, contents):
+        """The text tag {quirk}. Handles most quirk behavior internally.
+        Takes a single quirk argument, so syntax is {quirk=id}text{/quirk}
+        Only applies one quirk, but can be wrapped recursively."""
         quirklist = [argument]
 
         rv = []
@@ -202,6 +219,9 @@ init -1 python:
     config.custom_text_tags["quirk"] = texttag_quirk
 
     def texttag_quirked(tag, argument, contents):
+        """The text tag {quirked}. 
+        Takes a single string argument, so syntax is {quirked=cre8}create{/quirked}
+        This is used to manually specify what 'quirked' text should look like, for accessibility and translation."""
 
         quirked_text = argument
         has_done = False
@@ -211,7 +231,7 @@ init -1 python:
             if kind == renpy.TEXT_TEXT:
                 if has_done:
                     raise Exception("Tag {quirked} cannot contain multiple text segments!")
-                rv.append((kind, quirkSubManual(text, quirked_text)))
+                rv.append((kind, (text if persistent.fse_disablequirks else quirked_text)))
                 has_done = True
             else:
                 rv.append((kind, text))
