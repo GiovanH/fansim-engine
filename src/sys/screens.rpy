@@ -95,7 +95,7 @@ screen mainmenu_devbox:
             )
             textbutton "Clear seen music" action HideFallback("mainmenu_devbox"), ConfirmActionAction(
                 renpy.game.persistent._seen_audio.clear, 
-                "Are you sure you want to clear your music history?"
+                "Are you sure you want to clear your music history? This will re-lock music player entries."
             )
 
             if config.developer:
