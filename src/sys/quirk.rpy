@@ -78,7 +78,7 @@ init -1 python:
             if name is not NotSet:
                 kwargs["name"] = name
 
-            super(type(self), self).__init__(kind=kind, *args, **kwargs)
+            super(QuirkChar, self).__init__(kind=kind, *args, **kwargs)
             self.quirklist = quirklist
             if not quirklist:
                 try:
@@ -86,15 +86,12 @@ init -1 python:
                     self.quirklist = kind.quirklist
                 except:
                     pass
-            self.kind = kind or renpy.store.adv
-            self.sayer = quirkSayer(super(type(self), self), self.quirklist)
-            
-            # print(self)
-            # print(type(self))
-            # print(super(type(self), self))
+            # self.kind = kind
+            # self.sayer = quirkSayer(super(QuirkChar, self), self.quirklist)
 
         def __call__(self, what, *args, **kwargs):
-            self.sayer.__call__(what, *args, **kwargs)
+            what = quirkToTags(what, self.quirklist)
+            super(QuirkChar, self).__call__(what, *args, **kwargs)
 
     class QuirkCharNVL(NVLCharacter):
         """A variation of NVLCharacter that takes a quirklist. 
@@ -106,17 +103,21 @@ init -1 python:
             if name is not NotSet:
                 kwargs["name"] = name
 
-            super(type(self), self).__init__(kind=kind, *args, **kwargs)
+            super(QuirkCharNVL, self).__init__(kind=kind, *args, **kwargs)
             self.quirklist = quirklist
-            self.kind = kind
-            self.sayer = quirkSayer(super(type(self), self), self.quirklist)
-            
-            # print(self)
-            # print(type(self))
-            # print(super(type(self), self))
-
+            if not quirklist:
+                try:
+                    # if kind is not None and hasattr, but that's slower than just try/catch actually
+                    self.quirklist = kind.quirklist
+                except:
+                    pass
+            # self.kind = kind
+            # self.kind = kind
+            # self.sayer = quirkSayer(super(QuirkCharNVL, self), self.quirklist)
+        
         def __call__(self, what, *args, **kwargs):
-            self.sayer.__call__(what, *args, **kwargs)
+            what = quirkToTags(what, self.quirklist)
+            super(QuirkCharNVL, self).__call__(what, *args, **kwargs)
 
     def quirkSayer(who, quirklist):
         """Returns a sayer that wraps another sayer and applies quirks.
@@ -129,21 +130,6 @@ init -1 python:
         def _sayer(what, *args, **kwargs):
             return quirkSay(who, quirklist, what, *args, **kwargs)
         return _sayer
-
-    def quirkToTags(what, quirklist):
-        """Wraps a string in {quirk} tags.
-        Used internally; final quirk processing should be done by tags.
-        """
-        ret = what
-        # Automatically fix single-element strings
-        if type(quirklist) is type(""):
-            quirklist = [quirklist]
-
-        for q in quirklist:
-            ret = "{quirk=" + q + "}" + ret + "{/quirk}"
-        if __p__quirk_debug:
-            print("quirktotags from what", what, "with quirklist", quirklist, "returns", ret)
-        return ret
 
     def quirkSay(who, quirklist, what, *args, **kwargs):
         """Have an existing sayer say a line using a specified quirklist
@@ -160,6 +146,21 @@ init -1 python:
         if __p__quirk_debug:
             print("who", who, "quirksaying", tagged)
         return who.__call__(tagged, *args, **kwargs)
+
+    def quirkToTags(what, quirklist):
+        """Wraps a string in {quirk} tags.
+        Used internally; final quirk processing should be done by tags.
+        """
+        ret = what
+        # Automatically fix single-element strings
+        if type(quirklist) is type(""):
+            quirklist = [quirklist]
+
+        for q in quirklist:
+            ret = "{quirk=" + q + "}" + ret + "{/quirk}"
+        if __p__quirk_debug:
+            print("quirktotags from what", what, "with quirklist", quirklist, "returns", ret)
+        return ret
 
     def quirkSub(quirklist, what):
         """Returns the input as a quirk-formatted string.
