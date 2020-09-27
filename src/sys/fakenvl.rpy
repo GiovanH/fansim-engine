@@ -1,7 +1,7 @@
 init offset = 0
 
 init python:
-    def __p__getNvlHistory(max_no=99):
+    def __p__getNvlHistory(max_no=20):
         collection = []
         for i, h in enumerate(reversed(_history_list)):
             show_args = h.__dict__['show_args']
@@ -11,7 +11,6 @@ init python:
                 break
 
             if i > max_no:
-                print(i, "overflow", max_no)
                 break
         return reversed(collection)
 
@@ -37,7 +36,7 @@ screen __p__fakenvl_screen(who, what, **kwargs):
     # entry_screen sets a custom say screen. It can take a special who_color argument.
 
     default nvlmode = kwargs.get("nvlmode", False)
-    default nvlc_max = kwargs.get("nvlc_max", 99)
+    default nvlc_max = kwargs.get("nvlc_max", 20)
     default nvlc_spacing = kwargs.get("nvlc_spacing", 16)
     default entry_screen = kwargs.get("entry_screen", "__p__fakenvl_say")
 
