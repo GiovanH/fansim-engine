@@ -18,7 +18,7 @@ REPLACE_THRESHHOLD = 0.5  # 0.5  # How much more efficient the patch needs to be
 
 use_threading = False
 LAZY_THREADS = []
-PREFIXED_WITH_NAME = True
+PREFIXED_WITH_NAME = False
 EXTRA_IM_PARAMS = ", yanchor=0.95"
 
 
