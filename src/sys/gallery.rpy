@@ -111,7 +111,7 @@ screen __p__panel_room:
 
 
             if active_category:
-                label "Displayables"
+                label _("Displayables")
                 frame:
                     padding (8, 8, 8, 8)
                     xfill True

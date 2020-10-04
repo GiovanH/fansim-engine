@@ -19,7 +19,7 @@ init python:
         config.developer = persistent.developer
 
     def ToggleDevModeMenu():
-        message = "Developer mode is currently [[{}].\n\nEnabling developer mode will enable the console and reload the game.\nToggle developer mode?".format(
+        message = _("Developer mode is currently [[{}].\n\nEnabling developer mode will enable the console and reload the game.\nToggle developer mode?").format(
             "ON" if config.developer else "OFF")
         return ShowMenu(
             "confirm", message, 
@@ -88,32 +88,32 @@ screen mainmenu_devbox:
         ypos mousey
         style_prefix "mainmenu_devbox"
         vbox:
-            label "Tools"
-            textbutton "Clear achievements" action HideFallback("mainmenu_devbox"), ConfirmActionAction(
+            label _("Tools")
+            textbutton _("Clear achievements") action HideFallback("mainmenu_devbox"), ConfirmActionAction(
                 achievement.clear_all, 
-                "Are you sure you want to clear all your achievements?"
+                _("Are you sure you want to clear all your achievements?")
             )
-            textbutton "Clear seen music" action HideFallback("mainmenu_devbox"), ConfirmActionAction(
+            textbutton _("Clear seen music") action HideFallback("mainmenu_devbox"), ConfirmActionAction(
                 renpy.game.persistent._seen_audio.clear, 
-                "Are you sure you want to clear your music history? This will re-lock music player entries."
+                _("Are you sure you want to clear your music history? This will re-lock music player entries.")
             )
 
             if config.developer:
-                textbutton "Reload (Shift+R)" action _reload_game
-            textbutton "Developer Tools" action ToggleDevModeMenu
+                textbutton _("Reload (Shift+R)") action _reload_game
+            textbutton _("Developer Tools") action ToggleDevModeMenu
 
             null height 12
             if persistent.devbox_unlocked_spoilers:
-                label "Gallery"
-                textbutton "Music Player" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__music_room")
-                textbutton "Displayables" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__panel_room")
-                textbutton "Characters" action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__sayer_room")
+                label _("Gallery")
+                textbutton _("Music Player") action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__music_room")
+                textbutton _("Displayables") action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__panel_room")
+                textbutton _("Characters") action HideFallback("mainmenu_devbox"), ShowMenuFallback("__p__sayer_room")
             label ""
             vbox:
                 style_prefix "check"
                 textbutton _("Show spoilers") action ConfirmActionAction(
                     ToggleField(persistent, "devbox_unlocked_spoilers"),
-                    "This unlocks features that spoil the game, including secrets and achievements.\nIt is recommended that you ONLY access these features after you have completed the game.\nDo you want to access these features now?"
+                    _("This unlocks features that spoil the game, including secrets and achievements.\nIt is recommended that you ONLY access these features after you have completed the game.\nDo you want to access these features now?")
                 )
             transclude
 
@@ -142,11 +142,11 @@ screen ingame_devbox:
         style_prefix "mainmenu_devbox"
         vbox:
             # background Solid("#0A0")
-            textbutton "Watcher" action Call("__p__NewWatchAction"), Return()
-            textbutton "Unwatch All" action (lambda: map(renpy.unwatch, _console.traced_expressions)), Return()
+            textbutton _("Watcher") action Call("__p__NewWatchAction"), Return()
+            textbutton _("Unwatch All") action (lambda: map(renpy.unwatch, _console.traced_expressions)), Return()
             null height 12
-            textbutton "Reload (Ctrl+R)" action _reload_game
-            textbutton "Developer Tools" action ToggleDevModeMenu
+            textbutton _("Reload (Ctrl+R)") action _reload_game
+            textbutton _("Developer Tools") action ToggleDevModeMenu
             transclude
             
 
@@ -263,7 +263,7 @@ screen __p__sayer_room:
 
             for sayername, sayer in sorted(get_all_sayers()):
                 if sayername and sayer.image_tag:
-                    textbutton ((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), SetVariable("store.__p__sayername", sayername), Start("__p__sayer_bootstrap2") xsize 300 ysize 60 yalign 0 xalign 0 text_style "button_text"
+                    textbutton _((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), SetVariable("store.__p__sayername", sayername), Start("__p__sayer_bootstrap2") xsize 300 ysize 60 yalign 0 xalign 0 text_style "button_text"
 
 
 define fse_volume_data = []  # Overwritten
@@ -273,9 +273,9 @@ screen vol_select_custom():
     use game_menu_volumes(_("Friend Select")):
 
         default icon = "gui/volumeselect_icon_blank.png"
-        default title = "Volume Select"
+        default title = _("Volume Select")
 
-        default subtitle = "Hover over an icon!"
+        default subtitle = _("Hover over an icon!")
         default author = ""
         
         $ num_cols = 8
@@ -287,9 +287,9 @@ screen vol_select_custom():
             xpos 10
             image "gui/volumeselect_background.png" xpos 30
             image icon xpos 50 ypos 15
-            text title xpos 526 ypos 32 style "fse_volume_select_title"
-            text subtitle xpos 526 ypos 90  style "fse_volume_select_subtitle"
-            text author xpos 860 ypos 160 style "fse_volume_select_author"
+            text _(title) xpos 526 ypos 32 style "fse_volume_select_title"
+            text _(subtitle) xpos 526 ypos 90  style "fse_volume_select_subtitle"
+            text _(author) xpos 860 ypos 160 style "fse_volume_select_author"
 
         viewport:
             mousewheel True
@@ -318,14 +318,14 @@ screen vol_select_custom():
                                 ]
                                 hovered [
                                     SetLocalVariable("icon", img_norm), 
-                                    SetLocalVariable("title", volume.get("title", "")), 
-                                    SetLocalVariable("subtitle", volume.get("subtitle", "")),
-                                    SetLocalVariable("author", volume.get("author", ""))
+                                    SetLocalVariable("title", _(volume.get("title", ""))), 
+                                    SetLocalVariable("subtitle", _(volume.get("subtitle", ""))),
+                                    SetLocalVariable("author", _(volume.get("author", "")))
                                 ]
                                 unhovered [        
                                     SetLocalVariable("icon", "gui/volumeselect_icon_blank.png"), 
-                                    SetLocalVariable("title", "Volume Select"), 
-                                    SetLocalVariable("subtitle", "Hover over an icon!"),
+                                    SetLocalVariable("title", _("Volume Select")), 
+                                    SetLocalVariable("subtitle", _("Hover over an icon!")),
                                     SetLocalVariable("author", "")
                                 ]
                                 alt volume.get("subtitle", "")
@@ -378,24 +378,24 @@ screen credits():
                 text role text_align 0.5 color gui.accent_color size 30
                 for name in sortCreditsList(list_):
                     hbox:
-                        text angleBracketsToSquare(name) text_align 0.0 min_width 440
+                        text _(angleBracketsToSquare(name)) text_align 0.0 min_width 440
 
             for role, person_credits in sortCreditsDict(fse_credits_data.get("DICT", {})):
                 text role text_align 0.5 color gui.accent_color size 30
                 for name, list_ in sortCreditsDict(person_credits):
                     hbox:
                         if name:
-                            text angleBracketsToSquare(name) text_align 0.0 min_width 440
+                            text _(angleBracketsToSquare(name)) text_align 0.0 min_width 440
                         vbox:
                             spacing 12
                             for item in sortCreditsList(list_):
-                                text angleBracketsToSquare(item) text_align 0.0
+                                text _(angleBracketsToSquare(item)) text_align 0.0
 
 
             text "\n\n" text_align 1.0
 
             for text_ in sortCreditsList(fse_credits_data.get("POSTSCRIPT", [])):
-                text angleBracketsToSquare(text_)
+                text _(angleBracketsToSquare(text_))
 
 
 define fse_warning_data = {}  # Overwritten in custom_warnings.rpy
@@ -458,8 +458,8 @@ screen ach_desc(is_unlocked, ach_name, ach_description):
     vbox:
         xpos 320 ypos 465
 
-        text ach_name style "label_text" xsize 900
-        text ach_description xsize 900
+        text _(ach_name) style "label_text" xsize 900
+        text _(ach_description) xsize 900
             
         # if is_unlocked:
         # else:
