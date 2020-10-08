@@ -75,10 +75,7 @@ init -1 python:
             # Override name to prevent double-assignment
             # (although this bug was only noticed in NVL(?), needs research)
             # Name must be in arg list to support posargs
-            if name is not NotSet:
-                kwargs["name"] = name
-
-            super(QuirkChar, self).__init__(kind=kind, *args, **kwargs)
+            super(QuirkChar, self).__init__(name=name, kind=kind, *args, **kwargs)
             self.quirklist = quirklist
             if not quirklist:
                 try:
@@ -90,8 +87,20 @@ init -1 python:
             # self.sayer = quirkSayer(super(QuirkChar, self), self.quirklist)
 
         def __call__(self, what, *args, **kwargs):
-            what = quirkToTags(what, self.quirklist)
+            # If call is given any kwargs, ren'py will
+            # fold those into a new character object, which creates
+            # a whole new call tree. 
+            #
+            # We do NOT quirkify text in that case
+            # or else it will be quirkified multiple times.
+            # See character.rpy:1041 (__call__)
+            safe_kwarg_keys = ["interact", "_mode", "_call_done", "multiple", "_with_none"]
+            if all(k in safe_kwarg_keys for k in kwargs.keys()):
+                what = quirkToTags(what, self.quirklist)
+
+            print(QuirkChar, self, what, args, kwargs)
             super(QuirkChar, self).__call__(what, *args, **kwargs)
+
 
     class QuirkCharNVL(NVLCharacter):
         """A variation of NVLCharacter that takes a quirklist. 

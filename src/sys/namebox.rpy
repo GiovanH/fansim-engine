@@ -295,42 +295,33 @@ screen openbound_say:
 
 init python:
     NotSet = renpy.object.Sentinel("NotSet")
-    class HtagChar(ADVCharacter):
+    class HtagChar(QuirkChar):
         need_click = False
         need_click_suffix = "" if need_click else "{p=0.1}{nw}"
-        def __init__(self, name=NotSet, kind=None, quirklist=[], *args, **kwargs):
-            super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
-            self.quirklist = quirklist
-            if not quirklist:
-                try:
-                    # if kind is not None and hasattr, but that's slower than just try/catch actually
-                    self.quirklist = kind.quirklist
-                except:
-                    pass
-
-            self.sayer = quirkSayer(super(type(self), self), self.quirklist)
+        # def __init__(self, name=NotSet, kind=renpy.store.adv, *args, **kwargs):
+        #     super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
 
         def __call__(self, what, *args, **kwargs):
-            clickytags = persistent.fse_clickytags
-            need_click_suffix = "" if clickytags else "{p=0.1}{nw}"
-
+            print(HtagChar, what, kwargs)
             hashtags = kwargs.get("show_hashtags")
             if hashtags:
+                # kwargs are the "real" kwargs. Quirkify the tags.
                 kwargs["show_hashtags"] = quirkToTags(hashtags, self.quirklist)
-                # if clickytags:
-                #     hashtags = hashtags.replace(" #", "{w} #")
-                # else:
-                #     hashtags = hashtags.replace("{w}", "")
 
+                # k2 is an intermediate version of kwargs that's the same but without hashtags.
                 k2 = kwargs.copy()
                 k2.pop("show_hashtags")
 
-                self.sayer.__call__(what + need_click_suffix, *args, **k2)
-                self.do_extend()
-                self.sayer.__call__(what + "{fast}", *args, **kwargs)
-                self.do_done(self.name, hashtags)
+                # Handle "click to advance" settings
+                need_click_suffix = "" if persistent.fse_clickytags else "{p=0.1}{nw}"
+
+                super(HtagChar, self).__call__(what + need_click_suffix, *args, **k2)
+                self.do_extend()  # This should just pop the history entry
+                print(2, HtagChar, what, hashtags)
+                super(HtagChar, self).__call__(what + "{fast}", *args, **kwargs)
+                self.do_done(self.name, hashtags)  # Adds hashtags to history
             else:
-                self.sayer.__call__(what, *args, **kwargs)
+                super(HtagChar, self).__call__(what, *args, **kwargs)
 
 define openbound = HtagChar(
     ### A character who speaks with an openbound-style textbox.
