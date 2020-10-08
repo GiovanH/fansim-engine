@@ -13,6 +13,49 @@ python:
 init offset = 0
 
 init -1 python:
+    def buildTranslations():
+        renpy.translation.update_translations = True
+        stl = renpy.game.script.translator.strings["template"]
+        # Volumes
+        for volume in fse_volume_data:
+            stl.translate(volume.get("title", ""))
+            stl.translate(volume.get("subtitle", ""))
+            stl.translate(volume.get("author", ""))
+
+        # Achievements
+        for ach in fse_achievements_data:
+            stl.translate(ach.get("name"))
+            stl.translate(ach.get("hint"))
+            stl.translate(ach.get("desc"))
+
+        # Warnings
+        for title, warning in fse_warning_data.items():
+           stl.translate(title)
+           stl.translate(warning)
+        for title, warning in fse_warning_data_extra.items():
+           stl.translate(title)
+           stl.translate(warning)
+
+        # Credits
+        for name, value in fse_credits_data.get("ALIAS", {}).items():
+            stl.translate(value)
+
+        for role, list_ in fse_credits_data.get("LIST", {}).items():
+            for name in list_:
+                stl.translate(name)
+
+        for role, person_credits in fse_credits_data.get("DICT", {}).items():
+            for name, list_ in person_credits.items():
+                if name:
+                    stl.translate(name)
+                for item in list_:
+                    stl.translate(item)
+
+        for text_ in fse_credits_data.get("POSTSCRIPT", []):
+            stl.translate(text_)
+            
+        stl.write_updated_strings("template")
+
 
     # RenPy store wrappers
     def get_all_sayers(store_=store):
