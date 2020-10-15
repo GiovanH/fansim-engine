@@ -98,7 +98,8 @@ init -1 python:
             if all(k in safe_kwarg_keys for k in kwargs.keys()):
                 what = quirkToTags(what, self.quirklist)
 
-            print(QuirkChar, self, what, args, kwargs)
+            if __p__quirk_debug:
+                print(QuirkChar, self, what, args, kwargs)
             super(QuirkChar, self).__call__(what, *args, **kwargs)
 
 
