@@ -221,4 +221,4 @@ screen preferences():
 
         null height (2 * gui.pref_spacing)
         # Accessibility button
-        text "Press Shift+A for additional accessibility options\nYou may need to restart the game for some changes to take effect" color "#646464"
+        text "Press Shift+A for additional accessibility options\nYou may need to restart the game for some changes to take effect"
