@@ -285,64 +285,71 @@ style __p__freshjamz_prefix:
 
 screen __p__music_room:
     tag menu
-    use game_menu(_(""), yinitial=-40):
-        frame:
-            style_prefix "__p__freshjamz"
-            ypos -100
-            background Image("{{assets}}/freshjamz/00830-286.png", xpos=-80)
-            vbox:
-                spacing 10
-                image "{{assets}}/freshjamz/00830-308.png" xalign 0.5 xoffset -30 # yanchor 0.5 
-                
-                hbox:
-                    xalign 0.5
-                    # yanchor 0.5
-                    spacing 18
-                    imagebutton auto "{{assets}}/freshjamz/play_%s.png" action (lambda: renpy.music.set_pause(False, channel='music')) 
-                    imagebutton auto "{{assets}}/freshjamz/pause_%s.png" action (lambda: renpy.music.set_pause(True, channel='music'))
-                    imagebutton auto "{{assets}}/freshjamz/prev_%s.png" action mr.Previous()
-                    imagebutton auto "{{assets}}/freshjamz/next_%s.png" action mr.Next()
-                    imagebutton auto "{{assets}}/freshjamz/single_%s.png" action mr.ToggleSingleTrack() selected mr.single_track
-                    imagebutton auto "{{assets}}/freshjamz/shuffle_%s.png" action mr.ToggleShuffle() selected mr.shuffle
-                    
-                    # bar adjustment ui.adjustment(
-                #     range=100,
-                #     value=1,
-                #     adjustable=True
-                # )
-                frame:
-                    xpos 80
-                    ypos 20
-                    background "{{assets}}/freshjamz/00830-289.png"
-                    # background Solid("#0A0")
-                    ysize 330
-                    xsize 600
-                    right_margin 0
-                    # vbox:
-                    viewport:
-                        xpos 30
-                        mousewheel True
-                        scrollbars "vertical"
-                        # The buttons that play each track.
-                        vbox:
-                            ymaximum 5
-                            # right_padding 16
-                            for track in fse_musicroom_tracks:
-                                hbox:
-                                    text formatSongPrefix(track) style "__p__freshjamz_prefix"
-                                    textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
+    # use game_menu(_(""), yinitial=-40):
+    style_prefix "__p__freshjamz"
 
+    add "gui/main_menu.png"
 
-            # Critical functionality
-            add "__p__green_gear" xpos -200 ypos -20
-
-            # Friends
-            add im.FactorScale("{{assets}}/freshjamz/00830-295.png", 2, 2, bilinear=False) xpos -200 ypos 500 at __p__fruitBounce(30)
-            add im.FactorScale("{{assets}}/freshjamz/00830-298.png", 2, 2, bilinear=False) xpos -260 ypos 540 at __p__fruitBounce(45)
-            add im.FactorScale("{{assets}}/freshjamz/00830-301.png", 2, 2, bilinear=False) xpos -220 ypos 560 at __p__fruitBounce(120)
-            add im.FactorScale("{{assets}}/freshjamz/00830-304.png", 2, 2, bilinear=False) xpos -280 ypos 560 at __p__fruitBounce(60)
     frame:
-        style_prefix "__p__freshjamz"
+        xpos 200
+        background Image("{{assets}}/freshjamz/00830-286.png", xpos=-80)
+        vbox:
+            spacing 10
+            image "{{assets}}/freshjamz/00830-308.png" xalign 0.5 xoffset -30 # yanchor 0.5 
+            
+            hbox:
+                xalign 0.5
+                # yanchor 0.5
+                spacing 18
+                imagebutton auto "{{assets}}/freshjamz/play_%s.png" action (lambda: renpy.music.set_pause(False, channel='music')) 
+                imagebutton auto "{{assets}}/freshjamz/pause_%s.png" action (lambda: renpy.music.set_pause(True, channel='music'))
+                imagebutton auto "{{assets}}/freshjamz/prev_%s.png" action mr.Previous()
+                imagebutton auto "{{assets}}/freshjamz/next_%s.png" action mr.Next()
+                imagebutton auto "{{assets}}/freshjamz/single_%s.png" action mr.ToggleSingleTrack() selected mr.single_track
+                imagebutton auto "{{assets}}/freshjamz/shuffle_%s.png" action mr.ToggleShuffle() selected mr.shuffle
+                
+                # bar adjustment ui.adjustment(
+            #     range=100,
+            #     value=1,
+            #     adjustable=True
+            # )
+            frame:
+                xpos 80
+                ypos 20
+                background Frame("{{assets}}/freshjamz/00830-289.png", 100, 100)
+                # background Solid("#0A0")
+                ysize 330
+                xsize 700
+                right_padding 100
+                top_padding 10
+                # vbox:
+                viewport id "vp":
+                    xpos 60
+                    mousewheel True
+                    # The buttons that play each track.
+                    vbox:
+                        ymaximum 5
+                        # right_padding 16
+                        for track in fse_musicroom_tracks:
+                            hbox:
+                                text formatSongPrefix(track) style "__p__freshjamz_prefix"
+                                textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
+
+                vbar value YScrollValue("vp") xpos 30
+
+    # Critical functionality
+    add "__p__green_gear" xpos -0 ypos -0
+
+    # Friends
+    fixed:
+        xpos 1200
+        ypos 500
+        add im.FactorScale("{{assets}}/freshjamz/00830-295.png", 2, 2, bilinear=False) xpos -0 ypos 0 at __p__fruitBounce(30)
+        add im.FactorScale("{{assets}}/freshjamz/00830-298.png", 2, 2, bilinear=False) xpos -60 ypos 40 at __p__fruitBounce(45)
+        add im.FactorScale("{{assets}}/freshjamz/00830-301.png", 2, 2, bilinear=False) xpos -20 ypos 60 at __p__fruitBounce(120)
+        add im.FactorScale("{{assets}}/freshjamz/00830-304.png", 2, 2, bilinear=False) xpos -80 ypos 60 at __p__fruitBounce(60)
+
+    frame:
         align (1.0, 1.0)
         xoffset -20
         padding (26, 24)
@@ -356,10 +363,13 @@ screen __p__music_room:
             xsize 220
             label _("Music Volume") text_color "#D0004F"
             bar value Preference("music volume")
+
     # Start the music playing on entry to the music room.
     on "replace" action renpy.music.stop
     # mr.Play()
 
     # Restore the main menu music upon leaving.
     on "replaced" action (lambda: renpy.music.set_pause(False, channel='music'))
+
+    key "game_menu" action Return()
 
