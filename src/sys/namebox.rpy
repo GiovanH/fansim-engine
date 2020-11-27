@@ -302,11 +302,10 @@ init python:
         #     super(type(self), self).__init__(name=name, kind=kind, *args, **kwargs)
 
         def __call__(self, what, *args, **kwargs):
-            print(HtagChar, what, kwargs)
             hashtags = kwargs.get("show_hashtags")
             if hashtags:
                 # kwargs are the "real" kwargs. Quirkify the tags.
-                kwargs["show_hashtags"] = quirkToTags(hashtags, self.quirklist)
+                hashtags = kwargs["show_hashtags"] = quirkToTags(hashtags, self.quirklist)
 
                 # k2 is an intermediate version of kwargs that's the same but without hashtags.
                 k2 = kwargs.copy()
@@ -317,7 +316,6 @@ init python:
 
                 super(HtagChar, self).__call__(what + need_click_suffix, *args, **k2)
                 self.do_extend()  # This should just pop the history entry
-                print(2, HtagChar, what, hashtags)
                 super(HtagChar, self).__call__(what + "{fast}", *args, **kwargs)
                 self.do_done(self.name, hashtags)  # Adds hashtags to history
             else:

@@ -124,8 +124,25 @@ init -1 python:
             for i in range(0, hlen, hlen/3)
         )
 
+    def filter_tags_to_plaintext(text):
+        displayable = renpy.text.text.Text("dummy")
+        tokens = renpy.text.textsupport.tokenize(text)
+        tokens = displayable.apply_custom_tags(tokens)
+        
+        segments = []
+        for kind, text in tokens:
+            if kind == renpy.text.text.TEXT:
+                segments.append(text)
+            elif kind == renpy.text.text.TAG:
+                print("WEIRD THING: ", kind, text)
+                segments.append("{" + text + "}")
+            else:
+                raise "Unhandled text kind '%s'" % kind
+        return "".join(segments)
+
+
     def calcLineHeight(text, chars_per_line):
-        logical_lines = renpy.filter_text_tags(text, allow=[]).split("\n")
+        logical_lines = filter_tags_to_plaintext(text).split("\n")
         overflows = 0
         for line in logical_lines:
             used_chars = 0
@@ -135,7 +152,7 @@ init -1 python:
                     overflows += 1
                 else:
                     used_chars += len(word) + 1
-        # print(text)
+        # print(text, logical_lines)
         # print(len(logical_lines), "llines")
         # print(overflows, "overflows")
         return len(logical_lines) + overflows
