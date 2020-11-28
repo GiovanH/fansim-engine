@@ -126,7 +126,7 @@ init python:
     if persistent.fse_disablequirks is None:
         persistent.fse_disablequirks = False
 
-screen preferences():
+screen preferences(concise=False):
     tag menu
     use game_menu(_("Options"), scroll="viewport"):
         vbox:
@@ -139,12 +139,13 @@ screen preferences():
                         textbutton _("Window") action Preference("display", "window")
                         textbutton _("Fullscreen") action Preference("display", "fullscreen")
 
-                vbox:
-                    style_prefix "radio"
-                    label _("Rollback Side")
-                    textbutton _("Disable") action Preference("rollback side", "disable")
-                    textbutton _("Left") action Preference("rollback side", "left")
-                    textbutton _("Right") action Preference("rollback side", "right")
+                if not concise:
+                    vbox:
+                        style_prefix "radio"
+                        label _("Rollback Side")
+                        textbutton _("Disable") action Preference("rollback side", "disable")
+                        textbutton _("Left") action Preference("rollback side", "left")
+                        textbutton _("Right") action Preference("rollback side", "right")
 
                 vbox:
                     style_prefix "check"
@@ -158,8 +159,6 @@ screen preferences():
                     label "Add'l text"
                     textbutton _("Click to advance") action ToggleField(persistent, "fse_clickytags")
     
-            hbox:
-                box_wrap True
                 ## Additional vboxes of type "radio_pref" or "check_pref" can be
                 ## added here, to add additional creator-defined preferences.vbox:
 
