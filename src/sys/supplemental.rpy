@@ -54,7 +54,7 @@ init -1 python:
         for text_ in fse_credits_data.get("POSTSCRIPT", []):
             stl.translate(text_)
             
-        stl.write_updated_strings("template")
+        stl.write_updated_strings("Template")
 
 
     # RenPy store wrappers
