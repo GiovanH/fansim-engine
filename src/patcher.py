@@ -254,8 +254,10 @@ def patchMusicData(all_packages):
 
 def patchAchievementsData(all_packages):
     # Volume select screen
+    sorted_packages = sorted(all_packages, key=lambda p: (p.metadata["package_id"]))
+    all_achievements = sum((p.achievements for p in sorted_packages), [])
 
-    all_achievements = sum((p.achievements for p in all_packages), [])
+    # TODO sort this properly! author/package/volume
 
     with open(os.path.join(getCustomScriptsDir(), "fse_achievement_data.rpy"), 'w', encoding="utf-8") as fp:
         fp.write("init offset = 1\n\n")
