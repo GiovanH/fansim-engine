@@ -125,14 +125,13 @@ screen __p__panel_room:
                         yfill True
                         hbox:
                             spacing 4
-                            for l in splitIntoLists(sorted(__p__galleries[active_category].buttons.items()), 3, continuous=True):
-                                vbox:
-                                    for kv in l:
-                                        add __p__galleries[active_category].make_button(
-                                            kv[0],
-                                            Text(kv[0], style="button_text"),
-                                            align=(0.0, 0.0), xsize=300
-                                        )
+                            box_wrap True
+                            for kv in __p__galleries[active_category].buttons.items():
+                                add __p__galleries[active_category].make_button(
+                                    kv[0],
+                                    Text(kv[0], style="button_text"),
+                                    align=(0.0, 0.0), xsize=300
+                                )
 
 
 # Override
