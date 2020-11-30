@@ -280,7 +280,7 @@ screen vol_select_custom():
         
         $ num_cols = 8
 
-        $ volumes_by_author = sorted(fse_volume_data, key=lambda v: v["author"])
+        $ volumes_by_author = sorted(fse_volume_data, key=lambda v: (v["author"], v["package_id"], v["volume_id"]))
                     
         # fixed area contains overlapping elements
         fixed:
@@ -402,14 +402,17 @@ define fse_warning_data = {}  # Overwritten in custom_warnings.rpy
 define fse_warning_data_extra = {}
 screen dlc_warnings():
     tag menu
+    $ volumes_by_author = sorted(fse_volume_data, key=lambda v: (v["author"], v["package_id"], v["volume_id"]))
+        
     use game_menu(_("Warnings"), scroll="viewport"):
         hbox:
             text fse_warnings_prefix
         vbox:
             spacing 2
 
-            for title, warning in sorted(fse_warning_data.items()):
-                use spoiler_box(title, warning)
+            for volume in volumes_by_author:
+                if volume.get('warnings') is not None:
+                    use spoiler_box(volume['title'], volume['warnings'])
             for title, warning in sorted(fse_warning_data_extra.items()):
                 use spoiler_box(title, warning)
 
