@@ -172,3 +172,6 @@ Alienoid for some documentation contributions, including the `extend` trick in `
 
 Gio for everything else here
 
+---
+
+(c) Gio
