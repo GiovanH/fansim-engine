@@ -133,11 +133,10 @@ init -1 python:
         for kind, text in tokens:
             if kind == renpy.text.text.TEXT:
                 segments.append(text)
-            elif kind == renpy.text.text.TAG:
-                print("WEIRD THING: ", kind, text)
-                segments.append("{" + text + "}")
             else:
-                raise "Unhandled text kind '%s'" % kind
+                print("WEIRD THING: ", kind, text)
+                if kind == renpy.text.text.TAG:
+                    segments.append("{" + text + "}")
         return "".join(segments)
 
 
