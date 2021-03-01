@@ -2,12 +2,6 @@
 
 ## Installation
 
-I have two (very outdated) video tutorials that walk you through step 3 up through installing and running mods:
-
-[Version 1: Using terminal commands](https://youtu.be/tMxyXuX_DIA)
-
-[Version 2: Using GUIS](https://youtu.be/qcYgbOkllpE) (if you're uncomfortable with terminals) (Recommended!)
-
 ### Installation with git, using the terminal:
 
 Using git is to keep your version of FSE up-to-date is recommended so you have access to all the latest features and development updates.
@@ -19,14 +13,14 @@ Using git is to keep your version of FSE up-to-date is recommended so you have a
 3. Download FSE
    1. Go to a new work folder, for instance `Documents`.
    2. [Open a terminal window](#opening-a-terminal) in that folder.
-   3. Run `git clone https://github.com/GiovanH/friendsim-engine`
-   4. Congratulations! FSE is installed at `Documents/friendsim-engine`
+   3. Run `git clone https://github.com/GiovanH/fansim-engine`
+   4. Congratulations! FSE is installed at `fansim-engine`
 4. Download and configure the Ren'py sdk
    1. Download the ren'py SDK from https://www.renpy.org/latest.html and extract it
    2. Open the SDK and under preferences, set your Projects Directory to `fansim-engine/projects` (whereever you cloned the fansim-engine project)
 
 
-On windows, if you get an error about `'git' is not recognized as an internal or external command, operable program or batch file.` it means git isn't in your PATH. You can reboot, or just run commands in the form of `"C:\Program Files\Git\bin\git" clone https://github.com/GiovanH/friendsim-engine` instead.
+On windows, if you get an error about `'git' is not recognized as an internal or external command, operable program or batch file.` it means git isn't in your PATH. You can reboot, or just run commands in the form of `"C:\Program Files\Git\bin\git" clone https://github.com/GiovanH/fansim-engine` instead.
 
 Included in FSE and FSE-extras are updater files. On windows, launch `update.bat`, or on osx, launch `update.sh`, and FSE will automatically update itself without deleting any mods or your other files. Developers can also use standard git commands (pull) to update the repository.
 
