@@ -27,6 +27,11 @@ init python:
 
 define config.autoreload = False
 
+python: 
+    for ach in fse_achievements_data:
+        achievement.register(ach.get("_id"))
+    achievement.sync()
+
 transform menustill:
     xpos 20
 

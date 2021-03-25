@@ -199,7 +199,7 @@ init -1 python:
 
         for quirkname in quirklist:
             quirksubs = QuirkStore.get(quirkname.lower(), None)
-            if not quirksubs:
+            if quirksubs is None:
                 if renpy.config.developer:
                     raise Exception("ERROR: No such quirk {}".format(quirkname))
                 return ret
