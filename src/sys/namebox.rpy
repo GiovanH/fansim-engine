@@ -218,6 +218,7 @@ screen openbound_say:
     default obstyle = "pixel"
     default chuckle = False
     default use_nameframe = False
+    default scrollable = False
     default frame_border_size = 21  # Parameter for the Frame object
 
     default hashtag_lines = -1
@@ -258,11 +259,34 @@ screen openbound_say:
             xfill True
             ysize say_dialogue_ysize
             background textbox_bg_frame
-            # padding (hashtag_line_height, hashtag_line_height)
-            if chuckle:
-                text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+
+            # Main text area
+            if scrollable:
+                hbox:
+                    # Copied from openbound_dialogue positioning
+                    xpos 41
+                    ypos 26
+                    xsize 720
+                    ysize 120
+                    viewport id "sayvp":
+                        yinitial 1.0
+                        # Text content
+                        if chuckle:
+                            text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+                        else:
+                            text what id "what" color hemospectrum(blood, "#000") 
+                    vbar:
+                        value YScrollValue("sayvp")
+                        base_bar None
+                        thumb Frame("{{assets_common}}/gui/bar_bottom_sleek.png", 5, 5)
             else:
-                text what id "what" color hemospectrum(blood, "#000")
+                # Text content
+                if chuckle:
+                    text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+                else:
+                    text what id "what" color hemospectrum(blood, "#000")
+
+            # Top namebox
             if who is not None:
                 window:
                     id "namebox"
@@ -272,6 +296,7 @@ screen openbound_say:
                         padding (frame_border_size, frame_border_size)
                     text who id "who" color who_color outlines who_outlines
 
+        # Hashtag box
         if hashtags:
             window:
                 id "tagbox"
@@ -283,10 +308,7 @@ screen openbound_say:
                  
                 background hashbox_bg_frame 
                 padding (frame_border_size + 16, frame_border_size)
-                text "[hashtags]": #tags:
-
-                    # padding (frame_border_size, frame_border_size)
-                    # pos (16, 0)
+                text "[hashtags]":
                     slow_cps True
                     yalign 0.5
                     color (purple if chuckle else "#000")  # hemospectrum(blood)
