@@ -264,6 +264,27 @@ def patchAchievementsData(all_packages):
         fp.write("define fse_achievements_data = ")
         fp.write(json.dumps(all_achievements, indent=4))
 
+    # with open(os.path.join(getCustomScriptsDir(), "ach_loc_english.vdf"), 'w', encoding="utf-8") as fp:
+#         fp.write(""""lang"
+# {
+#     "Language"  "english"
+#     "Tokens"
+#     {\n""")
+#         for i, ach in enumerate(all_achievements):
+#             fp.write(f'        "NEW_ACHIEVEMENT_1_{i}"  "{ach.get("_id")}"\n')
+#             fp.write(f'        "NEW_ACHIEVEMENT_1_{i}_NAME"  "{ach.get("name")}"\n')
+#             fp.write(f'        "NEW_ACHIEVEMENT_1_{i}_DESC"  "{ach.get("hint") or ach.get("desc")}"\n')
+
+#         fp.write("\n    }\n}")
+
+    with open(os.path.join(getCustomScriptsDir(), "ach_meta.txt"), 'w', encoding="utf-8") as fp:
+        for i, ach in enumerate(all_achievements):
+            fp.write(ach.get("_id") + "\n")
+            fp.write(ach.get("name") + "\n")
+            fp.write((ach.get("hint") or ach.get("desc")) + "\n")
+            fp.write(ach.get("_img_unlocked") + "\n")
+            fp.write(ach.get("_img_locked") + "\n")
+            fp.write("\n")
 
 def writeBuildOpts(all_packages):
     # Build options

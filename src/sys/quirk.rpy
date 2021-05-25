@@ -169,7 +169,8 @@ init -1 python:
         for q in quirklist:
             ret = "{quirk=" + q + "}" + ret + "{/quirk}"
         if __p__quirk_debug:
-            print("quirktotags from what", what, "with quirklist", quirklist, "returns", ret)
+            print("quirktotags from what", what, "\nwith quirklist", quirklist, "\nreturns", ret)
+            print()
         return ret
 
     def quirkSub(quirklist, what):
@@ -206,7 +207,8 @@ init -1 python:
             for (pattern, repl) in quirksubs:
                 ret = re.sub(pattern, repl, ret)
         if __p__quirk_debug:
-            print("quirksub from what", what, "with quirklist", quirklist, "returns", ret)
+            print("quirksub from what", what, "\nwith quirklist", quirklist, "\nreturns", ret)
+            print()
         return ret
 
     def texttag_quirk(tag, argument, contents):
@@ -216,6 +218,9 @@ init -1 python:
         quirklist = [argument]
 
         rv = []
+        if __p__quirk_debug:
+            print(contents)
+            print()
         for kind, text in contents:
             if kind == renpy.TEXT_TEXT:
                 # rv.append((kind, quirkSub(quirklist, text)))
@@ -224,7 +229,8 @@ init -1 python:
             else:
                 rv.append((kind, text))
         if __p__quirk_debug:
-            print("quirk tag with arg", argument, "and contents", contents, "returns", rv)
+            print("quirk tag with arg", argument, "and contents", contents, "\nreturns", rv)
+            print()
         return rv
 
     config.custom_text_tags["quirk"] = texttag_quirk
