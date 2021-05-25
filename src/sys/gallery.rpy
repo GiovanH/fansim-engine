@@ -205,7 +205,8 @@ screen __p__sayer_room:
 
             for sayername, sayer in sorted(get_all_sayers()):
                 if sayername and sayer.image_tag:
-                    textbutton ((sayer.image_tag + " (" + sayername + ")") if sayername != sayer.image_tag else sayername) action SetVariable("store.__p__sayer", sayer), SetVariable("store.__p__sayername", sayername), Start("__p__sayer_bootstrap2") xsize 300 ysize 60 yalign 0 xalign 0 text_style "button_text"
+                    $ label = (((sayer.name or sayername) + " (" + sayername.replace(sayer.image_tag, '') + ")") if sayername != sayer.image_tag else (sayer.name or sayername))
+                    textbutton label action SetVariable("store.__p__sayer", sayer), SetVariable("store.__p__sayername", sayername), Start("__p__sayer_bootstrap2") xsize 300 ysize 60 yalign 0 xalign 0 text_style "button_text"
 
 init 900 python:
 
