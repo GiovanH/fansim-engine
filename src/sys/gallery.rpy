@@ -210,14 +210,14 @@ screen __p__sayer_room:
 
 init 900 python:
 
-    mr = MusicRoom(fadeout=0.0)
+    def songSort(filepath):
+        # return filepath
+        track_meta = fse_music_data.get(filepath)
+        if track_meta:
+            return (track_meta.get("package_id"), track_meta.get("album"))
+        else:
+            return "zzzzzzzzzzlast", "unsorted"
 
-    fse_musicroom_tracks = filter(
-        lambda f: f.lower()[-4:] in [".mp3", ".wav", ".ogg", "flac"],
-        renpy.list_files(common=False))
-
-    for track in fse_musicroom_tracks:
-        mr.add(track)
 
     def formatSongName(filepath):
         # return filepath
@@ -239,6 +239,15 @@ init 900 python:
     def formatSongPrefix(filepath):
         # Stub, override
         return ""
+
+    mr = MusicRoom(fadeout=0.0)
+
+    fse_musicroom_tracks = filter(
+        lambda f: f.lower()[-4:] in [".mp3", ".wav", ".ogg", "flac"],
+        renpy.list_files(common=False))
+
+    for track in fse_musicroom_tracks:
+        mr.add(track)
 
 transform __p__fruitBounce(bpm=60):
     yanchor 0
@@ -330,7 +339,7 @@ screen __p__music_room:
                     vbox:
                         ymaximum 5
                         # right_padding 16
-                        for track in fse_musicroom_tracks:
+                        for track in sorted(fse_musicroom_tracks, key=songSort):
                             hbox:
                                 text formatSongPrefix(track) style "__p__freshjamz_prefix"
                                 textbutton formatSongName(track) action mr.Play(track) # text_style __p__songitem
