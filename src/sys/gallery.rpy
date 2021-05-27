@@ -210,13 +210,18 @@ screen __p__sayer_room:
 
 init 900 python:
 
+    # cheat code unlock all music
+    # for t in fse_musicroom_tracks: renpy.game.persistent._seen_audio[t] = True
+
     def songSort(filepath):
         # return filepath
         track_meta = fse_music_data.get(filepath)
         if track_meta:
-            return (track_meta.get("package_id"), track_meta.get("album"))
+            ret = (track_meta.get("package_id"), track_meta.get("artist"))
         else:
-            return "zzzzzzzzzzlast", "unsorted"
+            ret = ("zzzzzzzzzzlast", "unsorted")
+
+        return ret
 
 
     def formatSongName(filepath):
