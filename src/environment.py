@@ -92,10 +92,13 @@ def getPython3Path():
 
 def tellBestPy3Cmd():
     best_py3_cmd = getPython3Path()
-    a, b = os.path.split(best_py3_cmd)
-    if a in sys.path:
-        best_py3_cmd = os.path.splitext(b)[0]
-    logger.debug("Best python3 command: '%s'", best_py3_cmd)
+    if best_py3_cmd:
+        a, b = os.path.split(best_py3_cmd)
+        if a in sys.path:
+            best_py3_cmd = os.path.splitext(b)[0]
+        logger.debug("Best python3 command: '%s'", best_py3_cmd)
+    else:
+        logger.warning("Couldn't find any python launcher in current context?")
 
 
 tellBestPy3Cmd()
