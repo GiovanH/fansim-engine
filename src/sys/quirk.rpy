@@ -94,8 +94,7 @@ init -1 python:
             # We do NOT quirkify text in that case
             # or else it will be quirkified multiple times.
             # See character.rpy:1041 (__call__)
-            safe_kwarg_keys = ["interact", "_mode", "_call_done", "multiple", "_with_none"]
-            if all(k in safe_kwarg_keys for k in kwargs.keys()):
+            if self.has_character_arguments(**kwargs):
                 what = quirkToTags(what, self.quirklist)
 
             if __p__quirk_debug:
