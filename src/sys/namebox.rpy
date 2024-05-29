@@ -228,6 +228,7 @@ screen openbound_say:
     default hashtag_height_offset = -10  # Manual offset to adjust around borders
 
     default total_ysize = 225
+    default do_expand = False
 
     $ hashbar_ysize = frame_border_size*2 + (hashtag_line_height * hashtag_lines) + hashtag_height_offset if hashtags else 0
     $ say_dialogue_ysize = total_ysize - hashbar_ysize if sandwich else total_ysize
@@ -256,13 +257,25 @@ screen openbound_say:
             yalign 1.0
             yoffset say_dialogue_yoffset
             xfill True
-            ysize say_dialogue_ysize
-            background textbox_bg_frame
-            # padding (hashtag_line_height, hashtag_line_height)
-            if chuckle:
-                text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+
+            if do_expand:
+                yfill False
+                ysize None
             else:
-                text what id "what" color hemospectrum(blood, "#000")
+                ysize say_dialogue_ysize
+
+            background textbox_bg_frame
+            has fixed:
+                if do_expand:
+                    yfit True
+            # padding (hashtag_line_height, hashtag_line_height)
+            vbox:
+                yminimum say_dialogue_ysize
+                if chuckle:
+                    text what id "what" color purple font "{{assets_common}}/BONEAPA.TTF" size 48
+                else:
+                    text what id "what" color hemospectrum(blood, "#000")
+                null height 56
             if who is not None:
                 window:
                     id "namebox"
