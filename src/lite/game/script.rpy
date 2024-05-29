@@ -75,7 +75,7 @@ label ending(card="blackcover", win=True, fadetoblack=True):
     scene black with config.enter_transition
     return
 
-label fseToastEnding(card="blackcover", achievement_id, win=True, fade=True):
+label fseToastEnding(card, achievement_id, win=True, fade=True):
     $ renpy.pause(0.5)
     $ quick_menu = False
     if win:
