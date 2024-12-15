@@ -5,20 +5,22 @@ import yaml
 import _logging
 import re
 
+from typing import Iterable, Union
+
 logger = _logging.getLogger(__name__)
 
-with open("subtable.json", "r") as fp:
+with open("subtable.json", "r", encoding="utf-8") as fp:
     rpy_sub_table = json.load(fp)
 
 
 class Package(object):
 
-    def __init__(self, package_dir):
+    def __init__(self, package_dir: str):
         super().__init__()
-        self.root = package_dir
+        self.root: str = package_dir
 
-        self._scriptfiles = []
-        self._archivefiles = []
+        self._scriptfiles: list[str] = []
+        self._archivefiles: list[str] = []
 
         self.loadMetadata()
         self.loadCredits()
@@ -40,7 +42,7 @@ class Package(object):
         return self.metadata.get("public", False)
 
     @property
-    def private(self):
+    def private(self) -> bool:
         return not self.public
 
     @property
@@ -48,11 +50,11 @@ class Package(object):
         return self.metadata["volumes"]
 
     @property
-    def assets_dir(self):
+    def assets_dir(self) -> str:
         return os.path.join(self.root, "assets")
     
     @property
-    def assets_common_dir(self):
+    def assets_common_dir(self) -> str:
         return os.path.join(self.root, "assets_common")
 
     def loadMetadata(self):
@@ -61,7 +63,7 @@ class Package(object):
             self.metadata = json.load(fp)
         self.correctMetadata()
 
-    def correctMetadata(self):
+    def correctMetadata(self) -> None:
 
         for volume in self.metadata["volumes"]:
             volume["package_id"] = self.id
@@ -79,7 +81,7 @@ class Package(object):
             track["package_id"] = self.id
             track["_file"] = self.subtableReplace(track["file"])
 
-    def loadCredits(self):
+    def loadCredits(self) -> None:
         credits_filepath = os.path.join(self.root, "credits.yml")
         if os.path.isfile(credits_filepath):
             with open(credits_filepath, "r", encoding="utf-8") as fp:
@@ -87,13 +89,13 @@ class Package(object):
         else:
             self.credits = None
 
-    def getScriptFiles(self):
+    def getScriptFiles(self) -> Iterable[str]:
         if not self._scriptfiles:
             self._scriptfiles = glob.glob(os.path.join(self.root, "*.rpy"))
         for rpy in self._scriptfiles:
             yield rpy
 
-    def getArchiveFiles(self):
+    def getArchiveFiles(self) -> Iterable[str]:
         if not self._archivefiles:
             self._archivefiles = glob.glob(os.path.join(self.root, "*.rpa"))
         for rpa in self._archivefiles:
@@ -123,10 +125,10 @@ class DummyPackage(Package):
         self.credits = None
 
 
-dummy_package = DummyPackage(None)
+dummy_package = DummyPackage("fakeroot")
 
 
-def subtableReplace(textdata, fstrings=dummy_package.metadata, subtable=rpy_sub_table):
+def subtableReplace(textdata: str, fstrings=dummy_package.metadata, subtable=rpy_sub_table) -> str:
     for rtype, pattern, repl in subtable:
         if rtype == "R":
             textdata = re.sub(pattern, repl, textdata, flags=re.MULTILINE)
@@ -135,16 +137,16 @@ def subtableReplace(textdata, fstrings=dummy_package.metadata, subtable=rpy_sub_
                 if pattern in textdata:
                     textdata = textdata.replace(pattern, repl.format(**fstrings))
             except KeyError:
-                logger.error("Availible keys:", fstrings.keys(), exc_info=True)
+                logger.error(f"Availible keys: {fstrings.keys()}", exc_info=True)
                 raise
     return textdata
 
 
-def getAllPackages(fse_base, only_volumes=False):
-    all_packages = []
-    warn = False
+def getAllPackages(fse_base, only_volumes: list[str]) -> tuple[Iterable[Package], bool]:
+    all_packages: list[Package] = []
+    warn: bool = False
 
-    filtering_volumes = (only_volumes != [])
+    filtering_volumes: bool = (only_volumes != [])
     only_volumes.append("sys")
 
     # Detect misplaced mods
@@ -153,8 +155,8 @@ def getAllPackages(fse_base, only_volumes=False):
         mod_dir = os.path.dirname(meta_file)
         containing_dir = os.path.dirname(mod_dir)
         if os.path.split(containing_dir)[1].lower() != "custom_volumes":
-            logger.warn(f"Mod folder '{os.path.split(mod_dir)[1].lower()}' is in {containing_dir}, not 'custom_volumes'.")
-            logger.warn(f"In order to run this mod, move {mod_dir} directly to 'custom_volumes'.\n")
+            logger.warning(f"Mod folder '{os.path.split(mod_dir)[1].lower()}' is in {containing_dir}, not 'custom_volumes'.")
+            logger.warning(f"In order to run this mod, move {mod_dir} directly to 'custom_volumes'.\n")
             warn = True
 
     for archive in (
@@ -164,12 +166,12 @@ def getAllPackages(fse_base, only_volumes=False):
     ):
         archive_name = os.path.split(archive)[1]
         archive_name_plain = os.path.splitext(archive_name)[0]
-        logger.warn(f"Found unextracted archive '{archive_name}'.")
-        logger.warn(f"Extract archives such that 'meta.json' is in a mod folder that is in 'custom_volumes', i.e. 'custom_volumes/{archive_name_plain}/meta.json'.")
+        logger.warning(f"Found unextracted archive '{archive_name}'.")
+        logger.warning(f"Extract archives such that 'meta.json' is in a mod folder that is in 'custom_volumes', i.e. 'custom_volumes/{archive_name_plain}/meta.json'.")
         warn = True
 
-    SYSDIR = os.path.join(fse_base, "src", "sys/")
-    for subdir in [SYSDIR] + glob.glob(os.path.join(fse_base, "custom_volumes", "*/")):
+    SYSDIR: str = os.path.join(fse_base, "src", "sys/")
+    for subdir in [SYSDIR, *glob.glob(os.path.join(fse_base, "custom_volumes", "*/"))]:
         try:
             package = Package(subdir)
             logger.debug(f"Detected package {package.id} at {package.root}")
@@ -192,7 +194,7 @@ def getAllPackages(fse_base, only_volumes=False):
     if filtering_volumes:
         for package_id in only_volumes:
             if not any(p.id == package_id for p in all_packages):
-                logger.warn(f"[WARNING]\tIncluded package {package_id} not found!")
+                logger.warning(f"[WARNING]\tIncluded package {package_id} not found!")
                 warn = True
 
     return all_packages, warn

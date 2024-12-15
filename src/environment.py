@@ -6,7 +6,7 @@ import sys
 logger = _logging.getLogger(__name__)
 
 
-def sanitizePath(string):
+def sanitizePath(string: str) -> str:
     if not isinstance(string, str):
         logger.warning("'%s' is '%s', not str!", string, type(string))
         return string
@@ -20,8 +20,8 @@ def sanitizePath(string):
     return string2
 
 
-platform = os.name
-platform_long = os.environ.get("OS")
+platform: str = os.name
+platform_long: str = os.environ.get("OS")
 
 try:
     logger.debug("Running script %s", [sanitizePath(v) for v in sys.argv])
@@ -33,15 +33,15 @@ except:
     logger.error("Environment error!", exc_info=True)
 
 
-def isWindows():
+def isWindows() -> bool:
     return (platform == "nt")
 
 
-def isPosix():
+def isPosix() -> bool:
     return (platform == "posix")
 
 
-def getGamedirRoot():
+def getGamedirRoot() -> str:
     # Todo: find pesterquest in non-default locations
     if isWindows():
         gamedir_root = "C:/Program Files (x86)/Steam/steamapps/common/Homestuck Pesterquest"
@@ -54,7 +54,7 @@ def getGamedirRoot():
     return gamedir_root
 
 
-def getExecutablePostfix():
+def getExecutablePostfix() -> str:
     if isWindows():
         return ".exe"
     elif isPosix():
@@ -63,13 +63,13 @@ def getExecutablePostfix():
         raise Exception("Unknown platform " + platform)
 
 
-def getExecutableName():
+def getExecutableName() -> str:
     return "pesterquest" + getExecutablePostfix()
 
 
-def where(target, extradirs=[]):
-    
-    which = shutil.which(target)
+def where(target, extradirs=None) -> str:
+    extradirs: list = extradirs or []
+    which: str = shutil.which(target)
 
     if not which and extradirs:
         paths = ";".join(extradirs)
@@ -78,7 +78,7 @@ def where(target, extradirs=[]):
     return which
 
 
-def getGitPath():
+def getGitPath() -> str:
     gitpaths = []
     return where("git", gitpaths)
 
@@ -87,7 +87,8 @@ def getPython3Path():
     for name in ["py", "py3", "python3", "python"]:
         py = where(name)
         if py:
-            return py 
+            return py
+    return None
 
 
 def tellBestPy3Cmd():

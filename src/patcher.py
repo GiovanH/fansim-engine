@@ -2,15 +2,15 @@
 
 # This is the main script that patches custom resources into the main game.
 
-import subprocess
+# import subprocess
 import os
 import glob
 import json
 import shutil
-import collections
+# import collections
 import _logging
 import environment
-import zipfile
+# import zipfile
 import zlib
 import fse_mod
 from util import copyTreeLazy
@@ -85,9 +85,9 @@ def dict_merge(dct, merge_dct):
             dct[k] = merge_dct[k]
 
 
-def crcFile(fileName):
+def crcFile(file_name):
     prev = 0
-    for eachLine in open(fileName, "rb"):
+    for eachLine in open(file_name, "rb"):
         prev = zlib.crc32(eachLine, prev)
     return "%X" % (prev & 0xFFFFFFFF)
 
@@ -115,7 +115,8 @@ def crcFile(fileName):
 #             fp.write(real_crc)
 
 
-def copyLiteWithSkins(destdir, skins=[]):
+def copyLiteWithSkins(destdir, skins=None):
+    skins = skins or []
     logger.info("Copying PQ lite")
     lite_metadata_path = os.path.join(destdir, "fse_lite_meta.json")
 
@@ -135,7 +136,7 @@ def copyLiteWithSkins(destdir, skins=[]):
     copyTreeLazy(litedir, destdir)
 
     logger.info("Patching skins")
-    for skin in ["default"] + skins:
+    for skin in ["default", *skins]:
         skindir = os.path.join(skinbase, skin)
         if not os.path.isdir(skindir):
             logger.error("Skin not found: %s", skin)
@@ -143,7 +144,7 @@ def copyLiteWithSkins(destdir, skins=[]):
             raise FileNotFoundError(skindir)
         copyTreeLazy(skindir, destdir)
 
-    with open(lite_metadata_path, "w") as fp:
+    with open(lite_metadata_path, "w", encoding="utf-8") as fp:
         json.dump(expected_metadata, fp)
 
 
@@ -172,7 +173,8 @@ def copyAndSubRpy(src, dst, metadata, verbose=False):
         raise
 
 
-def processPackages(only_volumes=[], verbose=False):
+def processPackages(only_volumes=None, verbose=False):
+    only_volumes = only_volumes or []
     all_packages, warn = fse_mod.getAllPackages("..", only_volumes)
     for package in all_packages:
         logger.info(f"Patching {package.id}")
@@ -429,19 +431,19 @@ def main(argstr=None):
         writeBuildOpts(all_packages)
 
         if warn:
-            logger.warn("!!!!!!!!!!!!!!!!!!!!!!!!! Errors/warnings occured! Please review the log above for [WARN] or [ERROR] messages.")
-            logger.warn("A full logfile should be availible at 'latest_debug.log'")
+            logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!! Errors/warnings occured! Please review the log above for [WARN] or [ERROR] messages.")
+            logger.warning("A full logfile should be availible at 'latest_debug.log'")
 
         # if warn or args.pause:
-        #     logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+        #     logger.warning("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
         #     input()
 
         # if not args.nolaunch:
         #     runGame()
     except Exception:
         logger.error("Root exception", exc_info=True)
-        logger.warn("A full logfile should be availible at 'latest_debug.log'")
-        logger.warn("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
+        logger.warning("A full logfile should be availible at 'latest_debug.log'")
+        logger.warning("Please review this window and then press enter to launch the game OR press Ctrl+C to abort.")
         input()
         return
 
